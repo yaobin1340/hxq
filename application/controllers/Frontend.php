@@ -19,8 +19,7 @@ class Frontend extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('index_model');
-		$this->load->model('main_model');
+		$this->load->model('frontend_model');
 	}
 
 	//
@@ -43,6 +42,11 @@ class Frontend extends MY_Controller {
 		$this->session->set_userdata('yzm',$yzm);
 		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
 		echo $rs;
+	}
+
+	public function get_city($province_code){
+		$rs = $this->frontend_model->get_city($province_code);
+		echo json_encode($rs);
 	}
 
 }
