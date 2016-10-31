@@ -41,7 +41,7 @@ class Frontend extends MY_Controller {
 	}
 
 	public function save_register(){
-
+		$rs = $this->frontend_model->save_register();
 		if($rs == 1){
 			$this->show_message('注册成功');
 		}else{
