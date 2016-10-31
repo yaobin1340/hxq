@@ -34,6 +34,8 @@ class Frontend extends MY_Controller {
 				$this->show_message('验证码错误');
 			}
 			$this->session->set_userdata('mobile',$this->input->post('mobile'));
+			$provinces = $this->frontend_model->get_province();
+			$this->assign('provinces', $provinces);
 			$this->display('frontend/register2.html');
 		}else{
 			$this->display('frontend/register.html');

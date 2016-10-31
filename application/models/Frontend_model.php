@@ -32,6 +32,10 @@ class Frontend_model extends MY_Model
             return -1;
         }
     }
+
+    public function get_province(){
+        return $this->db->select()->from('province')->get()->result_array();
+    }
     
  
 }
