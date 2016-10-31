@@ -35,11 +35,32 @@
 
 </head>
 <body style="overflow-y:hidden;">
-<form method="post" action="/frontend/register">
-    <input type="text" name="mobile" placeholder="手机"><a href="javascript:get_yzm();">获取验证码</a><br/>
-    <input type="text" placeholder="验证码">
-    <button>提交</button>
-</form>
+
+<div class="header">
+    <hr>
+    <br>
+    <br>
+</div>
+<div class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+        <h3>注册</h3>
+        <hr>
+        <br>
+        <form method="post" class="am-form" action="/frontend/register">
+            <label>填写手机号:</label>
+            <input type="text" name="mobile"  value="">
+            <br>
+            <label>填写验证码:</label>
+            <input type="text" name="yzm"  value="" style="width: 160px;">
+            <a href="javascript:get_yzm();">
+               <div style="float:right;margin-top: -36px;margin-right: 20%; border: 1px solid #cccccc;height: 35px;width: 100px;text-align: center;line-height: 32px;">获取验证码</div>
+            </a>
+            <br>
+            <br>
+            <button type="submit" class="am-btn am-btn-default am-btn-block" style="width: 80%;margin:0 auto;">注册</button>
+        </form>
+    </div>
+</div>
 
 <script>
     function get_yzm(){

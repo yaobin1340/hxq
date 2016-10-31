@@ -22,19 +22,23 @@ class Frontend extends MY_Controller {
 		$this->load->model('frontend_model');
 	}
 
-	//
 	public function index()
 	{
 		$this->display('frontend/index.html');
 	}
-	
+    public function register1()
+    {
+        $this->display('frontend/register1.html');
+    }
+
 	public function register(){
 		if($this->input->post()){
+//            var_dump($this->session->userdata('yzm'));die;
 			if($this->input->post('yzm') != $this->session->userdata('yzm')){
 				$this->show_message('验证码错误');
 			}
 			$this->session->set_userdata('mobile',$this->input->post('mobile'));
-			$this->display('frontend/register2.html');
+			$this->display('frontend/register1.html');
 		}else{
 			$this->display('frontend/register.html');
 		}

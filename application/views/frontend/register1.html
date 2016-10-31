@@ -1,0 +1,108 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Amaze UI Admin index Examples</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="index">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed"
+          href="{{$base_url}}statics/amaze/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet"
+          href="{{$base_url}}statics/amaze/css/amazeui.min.css" />
+    <link rel="stylesheet" href="{{$base_url}}statics/amaze/css/admin.css">
+    <!--[if lt IE 9]>
+    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{$base_url}}assets/js/polyfill/rem.min.js"></script>
+    <script src="{{$base_url}}assets/js/polyfill/respond.min.js"></script>
+    <script src="{{$base_url}}assets/js/amazeui.legacy.js"></script>
+    <![endif]-->
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="{{$base_url}}statics/amaze/js/jquery.min.js"></script>
+    <script src="{{$base_url}}statics/amaze/js/amazeui.js"></script>
+    <!--<![endif]-->
+    <script src="{{$base_url}}statics/amaze/js/app.js"></script>
+
+    <script src="{{$base_url}}statics/js/common.js"></script>
+
+</head>
+<body style="overflow-y:hidden;">
+
+<div class="header">
+    <hr>
+    <br>
+</div>
+<div class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+        <h3>填写个人信息</h3>
+        <hr>
+        <div class="am-input-group">
+            <span class="am-input-group-label"><i class="am-icon-phone am-icon-fw"></i></span>
+            <input type="text" class="am-form-field" placeholder="请输入您的手机号">
+        </div>
+        <br>
+        <div class="am-input-group">
+            <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
+            <input type="text" class="am-form-field" placeholder="请输入您的密码">
+        </div>
+        <br>
+        <div class="am-input-group">
+            <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
+            <input type="text" class="am-form-field" placeholder="确认密码">
+        </div>
+        <br>
+        <div class="am-form-group">
+            <label for="doc-select-1" style="font-size: 14px;">provice：</label>
+            <select id="doc-select-1">
+                <option value="option1">江苏省</option>
+                <option value="option2">安徽省</option>
+                <option value="option3">浙江省</option>
+            </select>
+            &nbsp; &nbsp; &nbsp;
+            <label for="doc-select-1" style="font-size: 14px;">city：</label>
+            <select id="doc-select-2">
+                <option value="option1">昆山市</option>
+                <option value="option2">宿迁市</option>
+                <option value="option3">太仓市</option>
+            </select>
+        </div>
+
+        <div class="am-input-group">
+            <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
+            <input type="text" class="am-form-field" placeholder="请输入您的姓名">
+        </div>
+        <br>
+        <div class="am-input-group">
+            <span class="am-input-group-label"><i class="am-icon-file-o am-icon-fw"></i></span>
+            <input type="text" class="am-form-field" placeholder="请输入您的身份证号码">
+        </div>
+        <br>
+        <a href="/frontend/register1"><button type="button" class="am-btn am-btn-default am-btn-block" style="width: 80%;margin:0 auto;">提交</button></a>
+
+
+    </div>
+</div>
+
+        <script>
+    function get_yzm(){
+        $.get("{{site_url url='/frontend/get_yzm'}}/"+$("[name='mobile']").val(),function(data){
+            console.log(data)
+        });
+    }
+
+
+
+</script>
+
+</body>
+
+
+</html>
