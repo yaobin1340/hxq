@@ -16,7 +16,7 @@ class Frontend_model extends MY_Model
 
     public function save_register(){
         $data = array(
-            'mobile'=>$this->input->post('mobile'),
+            'mobile'=>$this->session->userdata('mobile'),
             'password'=>sha1($this->input->post('password')),
             's_password'=>sha1($this->input->post('s_password')),
             'province_code'=>$this->input->post('province_code'),
