@@ -30,9 +30,22 @@ class Frontend extends MY_Controller {
 	
 	public function register(){
 		if($this->input->post()){
-			var_dump($this->input->post('mobile'));
+			if($this->input->post('yzm') != $this->session->userdata('yzm')){
+				$this->show_message('验证码错误');
+			}
+			$this->session->set_userdata('mobile',$this->input->post('mobile'));
+			$this->display('frontend/register2.html');
 		}else{
 			$this->display('frontend/register.html');
+		}
+	}
+
+	public function save_register(){
+
+		if($rs == 1){
+			$this->show_message('注册成功');
+		}else{
+			$this->show_message('注册失败');
 		}
 	}
 
