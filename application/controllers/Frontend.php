@@ -25,6 +25,7 @@ class Frontend extends MY_Controller {
 	//
 	public function index()
 	{
+		die(BASEPATH);
 		$this->display('frontend/index.html');
 	}
 	
