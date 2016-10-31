@@ -17,10 +17,10 @@ class MY_Controller extends CI_Controller
 		parent::__construct();
 		ini_set('date.timezone','Asia/Shanghai');
 		$this->cismarty->assign('base_url',base_url());//url路径
-		if(! $this->session->userdata('user_info'))
-		{//未登陆
-			redirect(site_url('login/index'));
-		}
+//		if(! $this->session->userdata('user_info'))
+//		{//未登陆
+//			redirect(site_url('login/index'));
+//		}
 		$this->load->model('common_model');
 		$notice_count = $this->common_model->get_notice_count();
 		$this->cismarty->assign('notice_count',$notice_count);
