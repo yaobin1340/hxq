@@ -38,7 +38,7 @@ class Frontend extends MY_Controller {
 	}
 
 	public function get_yzm($mobile){
-		$yzm = round(100000,999999);
+		$yzm = rand(100000,999999);
 		$text = '您的短信验证码是:'.$yzm;
 		$this->session->set_userdata('yzm',$yzm);
 		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
