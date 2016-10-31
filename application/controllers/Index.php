@@ -22,7 +22,8 @@ class Index extends MY_Controller {
 		$this->load->model('index_model');
 		$this->load->model('main_model');
 	}
-	
+
+	//
 	public function index()
 	{
 		$this->display('layout/index.html');
