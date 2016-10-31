@@ -20,6 +20,12 @@ class Xz_notice extends MY_Controller {
 	public function add_notice(){
 		$this->show('executive/add_notice');
 	}
+
+    public function frontendindex(){
+        $this->show('frontend/index');
+    }
+
+
 	
 	public function show_notice($id){
 		$data = $this->executive_model->get_notice($id);
