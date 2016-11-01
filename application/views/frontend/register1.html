@@ -38,12 +38,15 @@
 
 <div class="header">
     <hr>
-    <br>
 </div>
 <div class="am-g">
     <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
-        <h3>填写个人信息</h3>
+        <h3 style="text-align: center;">填写个人信息</h3>
         <hr>
+        <br>
+        <br>
+        <br>
+        <br>
         <div class="am-input-group">
             <span class="am-input-group-label"><i class="am-icon-phone am-icon-fw"></i></span>
             <input type="text" class="am-form-field" placeholder="请输入您的手机号">
@@ -60,19 +63,20 @@
         </div>
         <br>
         <div class="am-form-group">
-            <label for="doc-select-1" style="font-size: 14px;">provice：</label>
-            <select id="doc-select-1">
-                <option value="option1">江苏省</option>
-                <option value="option2">安徽省</option>
-                <option value="option3">浙江省</option>
-            </select>
-            &nbsp; &nbsp; &nbsp;
-            <label for="doc-select-1" style="font-size: 14px;">city：</label>
-            <select id="doc-select-2">
-                <option value="option1">昆山市</option>
-                <option value="option2">宿迁市</option>
-                <option value="option3">太仓市</option>
-            </select>
+            <form class="am-form-inline" name="form1" method="post" action="">
+                省份：
+                    <select name="province" onchange="changeSelect(this)" style="width:100px; ">
+                        <option value="">-请选择省份-</option>
+                        {{foreach from=$provinces item=row}}
+                        <option value="{{$row.code}}">{{$row.name}}</option>
+                        {{/foreach}}
+                </select>
+                &nbsp;&nbsp;
+                城市：
+                <select name="city" style="width:100px; ">
+                    <option value="">-请选择城市-</option>
+                </select>
+            </form>
         </div>
 
         <div class="am-input-group">
@@ -85,24 +89,34 @@
             <input type="text" class="am-form-field" placeholder="请输入您的身份证号码">
         </div>
         <br>
-        <a href="/frontend/register1"><button type="button" class="am-btn am-btn-default am-btn-block" style="width: 80%;margin:0 auto;">提交</button></a>
-
-
+        <button type="button" class="am-btn am-btn-default am-btn-block" style=";margin:0 auto;">提交</button>
     </div>
 </div>
 
-        <script>
+<script>
     function get_yzm(){
         $.get("{{site_url url='/frontend/get_yzm'}}/"+$("[name='mobile']").val(),function(data){
             console.log(data)
         });
     }
-
-
-
 </script>
+<script type="text/javascript">
+    function changeSelect(obj)
+    {
+        province = $(obj).val();
+        html = '<option value="">-请选择城市-</option>'
+        if(province){
+            $.getJSON("{{site_url url='frontend/get_city'}}/"+province,function(data){
+                data.forEach(function(item){
+                    html += '<option value="'+ item.code +'">'+item.name+'</option>'
 
+                })
+                $("[name='city']").html(html)
+            });
+        }else{
+            $("[name='city']").html(html)
+        }
+    }
+</script>
 </body>
-
-
 </html>

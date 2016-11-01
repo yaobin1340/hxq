@@ -31,13 +31,13 @@ class Frontend extends MY_Controller {
 	
 	public function register(){
 		if($this->input->post()){
-			if($this->input->post('yzm') != $this->session->userdata('yzm')){
-				$this->show_message('验证码错误');
-			}
-			$this->session->set_userdata('mobile',$this->input->post('mobile'));
+//			if($this->input->post('yzm') != $this->session->userdata('yzm')){
+//				$this->show_message('验证码错误');
+//			}
+//			$this->session->set_userdata('mobile',$this->input->post('mobile'));
 			$provinces = $this->frontend_model->get_province();
 			$this->assign('provinces', $provinces);
-			$this->display('frontend/register2.html');
+			$this->display('frontend/register1.html');
 		}else{
 			$this->display('frontend/register.html');
 		}
