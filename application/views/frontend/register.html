@@ -3,12 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Amaze UI Admin index Examples</title>
+    <title>会员注册</title>
     <meta name="description" content="这是一个 index 页面">
     <meta name="renderer" content="webkit">
     <meta name="keywords" content="index">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="icon" type="image/png" href="assets/i/favicon.png">
@@ -34,40 +33,109 @@
     <script src="{{$base_url}}statics/js/common.js"></script>
 
 </head>
+<style>
+    *{
+        margin:0;
+        padding:0;
+    }
+
+    .am-topbar .am-text-ir {
+        display: block;
+        margin-right: 10px;
+        height: 50px;
+        width: 125px;
+        background: url(http://a.static.amazeui.org/assets/i/ui/logo.png) no-repeat left center;
+        -webkit-background-size: 125px 24px;
+        background-size: 125px 24px;
+    }
+</style>
 <body style="overflow-y:hidden;">
 
-<div class="header">
-    <hr>
-    <br>
-    <br>
-</div>
+<header class="am-topbar am-topbar-inverse am-topbar-fixed-top">
+    <div class="am-container">
+        <h1 class="am-topbar-brand">
+            <a href="#" class="am-text-ir">Amaze UI</a>
+        </h1>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only"
+                data-am-collapse="{target: '#doc-topbar-collapse-4'}"><span class="am-sr-only">导航切换</span> <span
+                class="am-icon-bars"></span></button>
+
+        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse-4">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li class="am-active"><a href="#">首页</a></li>
+                <li class=""><a href="#">登陆</a></li>
+                <li><a href="#">项目</a></li>
+                <li class="am-dropdown" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                        下拉 <span class="am-icon-caret-down"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li><a href="#">带我去月球</a></li>
+                        <li><a href="#">还是回地球</a></li>
+                        <li class="am-disabled"><a href="#">臣妾做不到</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<br>
+<br>
 <div class="am-g">
     <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
-        <h3>注册</h3>
-        <hr>
         <br>
-        <form method="post" class="am-form" action="/frontend/register">
-            <label>填写手机号:</label>
-            <input type="text" name="mobile"  value="">
+        <form method="post" class="am-form " action="/frontend/register" data-am-validator>
+            <div class="am-form-group am-form-icon">
+                <i class="am-icon-mobile-phone" style="font-size: 26px;"></i>
+                <input type="number" id="doc-vld-phone-2"  name="mobile" class="am-form-field js-pattern-number" placeholder="请输入你的手机号(11位)" style="height: 50px;" required />
+            </div>
+
+            <div style="width:100%">
+                <div class="am-form-group">
+                    <input type="number" name="yzm" id="doc-vld-yanzhengma-2" style="width: 60%; height: 50px; position:absolute;left:10px;right:100px" placeholder="请输入验证码" required/>
+                </div>
+                <a href="javascript:get_yzm();">
+                    <input class="am-btn-secondary" type="button" id="btn" value="获取验证码"  style="position:absolute;border: 1px solid #ffffff;height: 50px;color: #ffffff;width:100px;right:20px ">
+                </a>
+            </div>
             <br>
-            <label>填写验证码:</label>
-            <input type="text" name="yzm"  value="" style="width: 160px;">
-            <a href="javascript:get_yzm();">
-               <div style="float:right;margin-top: -36px;margin-right: 20%; border: 1px solid #cccccc;height: 35px;width: 100px;text-align: center;line-height: 32px;">获取验证码</div>
-            </a>
             <br>
             <br>
-            <button type="submit" class="am-btn am-btn-default am-btn-block" style="width: 80%;margin:0 auto;">注册</button>
+            <br>
+            <button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block" style=" height:50px;margin:0 auto;">下一步</button>
         </form>
     </div>
 </div>
-
+<div style="width: 100%;text-align: center;margin-top: 5px;">
+    <span style="font-size: 13px;">已经有账号了？&nbsp;&nbsp;&nbsp;<span style="color: royalblue;font-size: 15px;">登陆</span></span>
+</div>
 <script>
     function get_yzm(){
         $.get("{{site_url url='/frontend/get_yzm'}}/"+$("[name='mobile']").val(),function(data){
             console.log(data)
         });
     }
+</script>
+<script type="text/javascript">
+    var wait=60;
+    function time(o) {
+        if (wait == 0) {
+            o.removeAttribute("disabled");
+            o.value="获取验证码";
+            wait = 60;
+        } else {
+            o.setAttribute("disabled", true);
+            o.value="重新发送"+(wait);
+            wait--;
+            setTimeout(function() {
+                        time(o)
+                    },
+                    1000)
+        }
+    }
+    document.getElementById("btn").onclick=function(){time(this);}
 </script>
 </body>
 
