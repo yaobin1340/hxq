@@ -25,16 +25,15 @@ class Frontend extends MY_Controller {
 	//
 	public function index()
 	{
-		die(BASEPATH);
 		$this->display('frontend/index.html');
 	}
 	
 	public function register(){
 		if($this->input->post()){
-//			if($this->input->post('yzm') != $this->session->userdata('yzm')){
-//				$this->show_message('验证码错误');
-//			}
-//			$this->session->set_userdata('mobile',$this->input->post('mobile'));
+			if($this->input->post('yzm') != $this->session->userdata('yzm')){
+				$this->show_message('验证码错误');
+			}
+			$this->session->set_userdata('mobile',$this->input->post('mobile'));
 			$provinces = $this->frontend_model->get_province();
 			$this->assign('provinces', $provinces);
 			$this->display('frontend/register1.html');
@@ -44,7 +43,8 @@ class Frontend extends MY_Controller {
 	}
 
 	public function save_register(){
-		$rs = $this->frontend_model->save_register();
+		$img = $this->upload();
+		$rs = $this->frontend_model->save_register($img);
 		if($rs == 1){
 			$this->show_message('注册成功');
 		}else{
@@ -53,6 +53,9 @@ class Frontend extends MY_Controller {
 	}
 
 	public function get_yzm($mobile){
+		if($this->frontend_model->check_mobile($mobile)){
+			echo '{"error":-999,"msg":"手机号码已经被注册"}';
+		}
 		$yzm = rand(100000,999999);
 		$text = '您的短信验证码是:'.$yzm;
 		$this->session->set_userdata('yzm',$yzm);

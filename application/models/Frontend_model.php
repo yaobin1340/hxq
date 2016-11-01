@@ -14,7 +14,10 @@ class Frontend_model extends MY_Model
         return $this->db->select()->from('city')->where('provincecode',$province_code)->get()->result_array();
     }
 
-    public function save_register(){
+    public function save_register($img){
+        if(!$this->session->userdata('mobile')){
+            return -1;
+        }
         $data = array(
             'mobile'=>$this->session->userdata('mobile'),
             'password'=>sha1($this->input->post('password')),
@@ -23,7 +26,8 @@ class Frontend_model extends MY_Model
             'city_code'=>$this->input->post('city_code'),
             'rel_name'=>$this->input->post('rel_name'),
             'id_no'=>$this->input->post('id_no'),
-            'cdate'=>date('Y-m-d H:i:s',time())
+            'cdate'=>date('Y-m-d H:i:s',time()),
+            'face'=>$img
         );
 
         if($this->db->insert('users',$data)){
@@ -35,6 +39,11 @@ class Frontend_model extends MY_Model
 
     public function get_province(){
         return $this->db->select()->from('province')->get()->result_array();
+    }
+
+    public function check_mobile($mobile){
+        $rs = $this->db->select('id')->from('users')->where('mobile',$mobile)->get()->row();
+        return $rs;
     }
     
  

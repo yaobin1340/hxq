@@ -225,8 +225,7 @@ class MY_Controller extends CI_Controller
 		$base64 = $this->input->post('img_input');
 		if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64, $result)){
 			$name = date('Y/m/d', time());
-			$dir = BASEPATH . '/upload/faces/' . $name . '/';
-
+			$dir = FCPATH . '/upload/faces/' . $name . '/';
 			if(!is_dir($dir)){
 				mkdir($dir,0777,true);
 			}
