@@ -69,4 +69,12 @@ class Frontend extends MY_Controller {
 		echo json_encode($rs);
 	}
 
+	public function register_shop(){
+		$this->display('frontend/register_shop.html');
+	}
+
+	public function test_map(){
+		$this->display('frontend/test_map.html');
+	}
+
 }
