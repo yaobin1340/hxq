@@ -55,6 +55,7 @@ class Frontend extends MY_Controller {
 	public function get_yzm($mobile){
 		if($this->frontend_model->check_mobile($mobile)){
 			echo '{"error":-999,"msg":"手机号码已经被注册"}';
+			die;
 		}
 		$yzm = rand(100000,999999);
 		$text = '您的短信验证码是:'.$yzm;
