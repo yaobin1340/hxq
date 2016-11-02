@@ -76,7 +76,6 @@ class Frontend extends MY_Controller {
 	}
 
 	public function save_register_shop(){
-		var_dump($this->input->post());die;
 		$img = $this->upload('logo');
 		$license = $this->upload('license','license');
 		$rs = $this->frontend_model->save_register_shop($img,$license);
