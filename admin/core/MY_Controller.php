@@ -21,10 +21,7 @@ class MY_Controller extends CI_Controller
 		{//未登陆
 			redirect(site_url('login/index'));
 		}
-		$this->load->model('common_model');
-		$notice_count = $this->common_model->get_notice_count();
-		$this->cismarty->assign('notice_count',$notice_count);
-		
+
 		$user_info = $this->session->userdata('user_info');
 //		$this->cismarty->assign('menu',$this->session->userdata('menu'));
 		$this->cismarty->assign('user_info',$this->session->userdata('user_info'));

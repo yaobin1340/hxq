@@ -59,6 +59,23 @@
         </div>
         <br>
 
+        <div class="am-input-group">
+            <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
+            <input type="text" class="am-form-field" name="parent_uid" placeholder="请输入邀请码">
+        </div>
+        <br>
+
+        <div class="am-input-group">
+            <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
+            <select name="type">
+                <option>-请选择类别-</option>
+                {{foreach from=$shop_type item=row}}
+                <option value="{{$row.id}}">{{$row.name}}</option>
+                {{/foreach}}
+            </select>
+        </div>
+        <br>
+
         <div class="am-form-group">
                 <select name="province_code" onchange="changeSelect(this)" style="width:45%; ">
                     <option value="">-请选择省份-</option>

@@ -71,7 +71,9 @@ class Frontend extends MY_Controller {
 
 	public function register_shop(){
 		$provinces = $this->frontend_model->get_province();
+		$shop_type = $this->frontend_model->get_shop_type();
 		$this->assign('provinces', $provinces);
+		$this->assign('shop_type', $shop_type);
 		$this->display('frontend/register_shop.html');
 	}
 

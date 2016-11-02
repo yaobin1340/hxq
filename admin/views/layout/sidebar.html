@@ -1,20 +1,24 @@
-<div class="am-offcanvas-bar admin-offcanvas-bar"  id="menuDiv">
-  <ul class="am-list admin-sidebar-list am-panel">
-    <li><a href="/"><span class="am-icon-home"></span> 工作台</a></li>
-     <li class="admin-parent">
-      <a class="am-cf" data-am-collapse="{parent: '#menuDiv', target: '#collapse-nav'}">
-      	<span class="am-icon-file"></span> 行政管理 <span class="am-icon-angle-right am-fr am-margin-right"></span>
-      </a>
-      <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav">
-        <li><a href="javascript:open_content('/xz_notice/list_notice');" class="am-cf menu"><span class="am-icon-check"></span> 通知列表</a></li>
-      </ul>
-    </li>
+<div class="am-offcanvas-bar admin-offcanvas-bar" id="menuDiv">
+    <ul class="am-list admin-sidebar-list am-panel">
+        <li><a href="/"><span class="am-icon-home"></span> 工作台</a></li>
+        <li class="admin-parent">
+            <a class="am-cf" data-am-collapse="{parent: '#menuDiv', target: '#collapse-nav1'}">
+                <span class="am-icon-file"></span> 商家管理 <span class="am-icon-angle-right am-fr am-margin-right"></span>
+            </a>
+            <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav1">
+                <li><a href="javascript:open_content('/admin.php/shop/list_shop_type');" class="am-cf menu"><span class="am-icon-check"></span> 分类列表</a></li>
+                <li><a href="javascript:open_content('/admin.php/shop/list_shop_audit');" class="am-cf menu"><span class="am-icon-check"></span> 待审核列表 <span class="am-badge am-badge-danger am-margin-right am-fr">24</span></a></li>
+            </ul>
 
-  </ul>
+
+        </li>
+
+
+    </ul>
 </div>
 <script>
-$('.menu').click(function(){
-	$('.menu').css('background-color','#FFFFFF');
-	$(this).css('background-color','#E3E3E3');
-});
+    $('.menu').click(function () {
+        $('.menu').css('background-color', '#FFFFFF');
+        $(this).css('background-color', '#E3E3E3');
+    });
 </script>
