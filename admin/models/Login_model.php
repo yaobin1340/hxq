@@ -38,7 +38,7 @@ class Login_model extends MY_Model
         $username = $this->input->post('username');
         $passwd = $this->input->post('password');
         
-        $rs = $this->db->select()->from('users')
+        $rs = $this->db->select()->from('admin')
         		->where('username', $username)
         		->where('pwd', sha1($passwd))
         		->where('status', 1)
