@@ -96,8 +96,8 @@
                 <div class="am-form-group">
                     <input type="number" name="yzm" id="doc-vld-yanzhengma-2" style="width: 60%; height: 50px; position:absolute;left:10px;right:100px" placeholder="请输入验证码" required/>
                 </div>
-                <a href="javascript:get_yzm();">
-                    <input class="am-btn-secondary" type="button" id="btn" value="获取验证码"  style="position:absolute;border: 1px solid #ffffff;height: 50px;color: #ffffff;width:100px;right:20px ">
+                <a href="javascript:;" onclick="get_yzm(this)" id="get_yzm">
+                    <input class="am-btn-secondary" type="button" value="获取验证码"  style="position:absolute;border: 1px solid #ffffff;height: 50px;color: #ffffff;width:100px;right:20px ">
                 </a>
             </div>
             <br>
@@ -112,33 +112,43 @@
     <span style="font-size: 13px;">已经有账号了？&nbsp;&nbsp;&nbsp;<span style="color: royalblue;font-size: 15px;">登陆</span></span>
 </div>
 <script>
-    function get_yzm(){
-        $.get("{{site_url url='/frontend/get_yzm'}}/"+$("[name='mobile']").val(),function(data){
-            console.log(data)
+    window.wait = 90
+    function get_yzm(obj){
+        if(!$("#doc-vld-phone-2").val()){
+            alert('请输入手机号码');
+            return false;
+        }
+//        {{literal}}
+        if(!(/^1[34578]\d{9}$/.test($("#doc-vld-phone-2").val()))){
+            alert("手机号码有误，请重填");
+            return false;
+        }
+//        {{/literal}}
+        $.getJSON("{{site_url url='/frontend/get_yzm'}}/"+$("[name='mobile']").val(),function(data){
+            if(data.error != 0){
+                alert(data.msg);
+                return false;
+            }
+            time($("#get_yzm").find('input'))
         });
     }
-</script>
-<script type="text/javascript">
-    var wait=60;
+
     function time(o) {
-        if (wait == 0) {
-            o.removeAttribute("disabled");
-            o.value="获取验证码";
-            wait = 60;
+        if (window.wait == 0) {
+            o.attr('disabled',false);
+            o.val('获取验证码');
+            window.wait = 90;
         } else {
-            o.setAttribute("disabled", true);
-            o.value="重新发送"+(wait);
-            wait--;
+            o.attr('disabled',true);
+            o.val("重新发送"+(window.wait))
+            window.wait--;
             setTimeout(function() {
                         time(o)
                     },
                     1000)
         }
     }
-    document.getElementById("btn").onclick=function(){time(this);}
 </script>
 </body>
-
-
 </html>
 
