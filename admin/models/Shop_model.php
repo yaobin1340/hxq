@@ -74,9 +74,10 @@ class Shop_model extends MY_Model
 		$data['shop_name'] = $this->input->post('shop_name')?$this->input->post('shop_name'):null;
 
 		//获取详细列
-		$this->db->select('a.*,b.name province_name,c.name city_name')->from('shop a');
+		$this->db->select('a.*,b.name province_name,c.name city_name,d.name type_name')->from('shop a');
 		$this->db->join('province b','a.province_code=b.code','left');
 		$this->db->join('city c','a.city_code=c.code','left');
+		$this->db->join('shop_type d','a.type=d.id','left');
 		if($this->input->post('shop_name')){
 			$this->db->like('shop_name',$this->input->post('shop_name'));
 		}
