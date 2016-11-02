@@ -1,0 +1,82 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>会员注册</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed"
+          href="{{$base_url}}statics/amaze/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet"
+          href="{{$base_url}}statics/amaze/css/amazeui.min.css" />
+    <link rel="stylesheet" href="{{$base_url}}statics/amaze/css/admin.css">
+    <!--[if lt IE 9]>
+    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{$base_url}}assets/js/polyfill/rem.min.js"></script>
+    <script src="{{$base_url}}assets/js/polyfill/respond.min.js"></script>
+    <script src="{{$base_url}}assets/js/amazeui.legacy.js"></script>
+    <![endif]-->
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="{{$base_url}}statics/amaze/js/jquery.min.js"></script>
+    <script src="{{$base_url}}statics/amaze/js/amazeui.js"></script>
+    <!--<![endif]-->
+    <script src="{{$base_url}}statics/amaze/js/app.js"></script>
+
+    <script src="{{$base_url}}statics/js/common.js"></script>
+
+</head>
+<style>
+    *{
+        margin:0;
+        padding:0;
+    }
+
+    .am-topbar .am-text-ir {
+        display: block;
+        margin-right: 10px;
+        height: 50px;
+        width: 125px;
+        background: url(http://a.static.amazeui.org/assets/i/ui/logo.png) no-repeat left center;
+        -webkit-background-size: 125px 24px;
+        background-size: 125px 24px;
+    }
+</style>
+<body style="overflow-y:hidden;">
+
+<header class="am-topbar am-topbar-inverse am-topbar-fixed-top">
+    <div class="am-container">
+        <h1 class="am-topbar-brand">
+            <a href="#" class="am-text-ir">Amaze UI</a>
+        </h1>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only"
+                data-am-collapse="{target: '#doc-topbar-collapse-4'}"><span class="am-sr-only">导航切换</span> <span
+                class="am-icon-bars"></span></button>
+
+        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse-4">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li class="am-active"><a href="#">首页</a></li>
+                <li class=""><a href="#">登陆</a></li>
+                <li><a href="#">项目</a></li>
+                <li class="am-dropdown" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                        下拉 <span class="am-icon-caret-down"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li><a href="#">带我去月球</a></li>
+                        <li><a href="#">还是回地球</a></li>
+                        <li class="am-disabled"><a href="#">臣妾做不到</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
