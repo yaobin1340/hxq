@@ -38,10 +38,19 @@
         padding: 0;
         margin: 0;
     }
+    html{
+        height: 100%;
+    }
     body{
         padding: 0;
         margin: 0;
         overflow: auto;
+        height: 100%;
+        background-color: #f4f4f4;
+    }
+    .header{
+        position: relative;
+        z-index: 1;
     }
     .header_center{
         width: 100%;
@@ -50,26 +59,26 @@
         font-family: "宋体";
         position: relative;
     }
-    html{
-        height: 100%;
+    .header_center img{
+        width: 100%;
+        height:210px;
     }
 </style>
-<body style="height: 100%;background-color: #f4f4f4;" >
-<div style="position: relative;z-index: 1;">
+<body >
+<div class="header">
  <div class="header_center">
-    <img src="{{$base_url}}statics/images/1.jpg" style="width: 100%;height:210px;">
-    <!--<div style="width: 100%;height: 50px;text-align: center;line-height: 50px;font-size: 20px;color: #ffffff;">会员中心</div>-->
-    <!--<div class="header_center_1" style="">-->
-    <!--<span style="color: #ffffff;position: relative;">早上好，&nbsp;XXX(VIP1)</span>-->
-    <!--</div>-->
+    <img src="{{$base_url}}statics/images/1.jpg" style="">
+
     <div style="position:absolute; left: 0;top: 0px; width:100%;height:180px;z-indent:2;line-height: 50px;text-align: center;">
         <div style="width:75px;height: 75px;border:1px solid #ccc;border-radius: 75px;margin: 0 auto;margin-top: 20px; background-color: blue;">
             <img src="{{$base_url}}statics/images/user.jpg" style="width: 75px;height: 75px;border-radius: 75px;">
         </div>
-        <span style="color: #fff;">用户名</span>
+        <div style="margin-top: -10px;color: #fff;font-size: 14px;">用户头像</div>
     </div>
-    <div style=" position:absolute;bottom: 0; width:100%;height:80px; background-color:  #FfFfFF;text-align: center;opacity: .5">
-        <span></span>
+    <div style=" position:absolute;bottom: 0; width:100%;height:80px;text-align: center;background: rgba(0, 0, 0, 0.3);">
+       <span style="color: #ffffff;font-family: '宋体';font-size: 22px;">你好，小周</span><br>
+        <span style="color: #ffffff;font-family: '宋体';font-size:14px;">账户余额：1100元&nbsp;&nbsp;秀币余额：111222</span>
+
     </div>
 </div>
 
@@ -129,13 +138,6 @@
     <br>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
-
-
-    <br>
-
 
 </div>
 

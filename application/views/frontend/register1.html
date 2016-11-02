@@ -94,6 +94,7 @@
             -webkit-transform: translate3d(-50%,-50%,0);
             transform: translate3d(-50%,-50%,0);
             z-index: 2;
+            background: red;
         }
 
         #getFile{
@@ -122,7 +123,6 @@
         }
     </style>
 
-
 </head>
 <body>
 
@@ -131,8 +131,8 @@
 </div>
 <div class="am-g">
     <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
-        <form class="am-form-inline" method="post" action="{{site_url url='frontend/save_register'}}">
-        <h3 style="text-align: center;">填写个人信息</h3>
+        <form class="am-form-inline" method="post" action="{{site_url url='frontend/save_register'}}" data-am-validator>
+        <h3 style="text-align: center;color: #00CC00;">填写个人信息</h3>
         <hr>
 
         <div class="am-form-group am-form-file">
@@ -142,15 +142,20 @@
             <img id="previewResult"/>
             <input type="hidden" name="img_input">
         </div>
+            <br>
+            <br>
 
-        <div class="am-input-group">
-            <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
-            <input type="password" class="am-form-field" name="password" placeholder="请输入您的密码">
+        <div class="am-form-group am-form-icon">
+            <i class="am-icon-lock" style="font-size: 18px;"></i>
+            <input type="number" id="doc-vld-mima-1"  name="mobile" class="am-form-field js-pattern-number"　minlength="3" placeholder="请输入您的密码(至少6位字符)" style="height: 50px;" required />
+            <!--<span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>-->
+            <!--<input type="password" class="am-form-field" name="password" placeholder="请输入您的密码">-->
         </div>
-        <br>
-        <div class="am-input-group">
-            <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
-            <input type="password" class="am-form-field" name="repassword" placeholder="确认密码">
+        <div class="am-form-group am-form-icon">
+            <i class="am-icon-lock" style="font-size: 18px;"></i>
+            <input type="number" id="doc-vld-mima-2"  name="mobile" class="am-form-field js-pattern-number" placeholder="请确认您的密码" style="height: 50px;" required />
+            <!--<span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>-->
+            <!--<input type="password" class="am-form-field" name="repassword" placeholder="确认密码">-->
         </div>
         <br>
         <div class="am-form-group">
@@ -163,25 +168,32 @@
                 </select>
                 &nbsp;&nbsp;
                 城市：
-                <select name="city_code" style="width:100px; ">
+                <select name="city_code" style="width:100px; " onchange="changeSelectCity(this)">
                     <option value="">-请选择城市-</option>
                 </select>
-
+            区域：
+            <select name="area_code" style="width:100px; ">
+                <option value="">-请选择区域-</option>
+            </select>
         </div>
 
-        <div class="am-input-group">
-            <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
-            <input type="text" name="rel_name" class="am-form-field" placeholder="请输入您的姓名">
+        <div class="am-form-group am-form-icon">
+            <i class="am-icon-mobile-phone" style="font-size: 25px;"></i>
+            <input type="number" id="doc-vld-phone-2"  name="mobile" class="am-form-field js-pattern-number"  placeholder="请输入您的手机号(11位)" style="height: 50px;" required />
         </div>
-        <br>
-        <div class="am-input-group">
-            <span class="am-input-group-label"><i class="am-icon-file-o am-icon-fw"></i></span>
-            <input type="text" class="am-form-field" placeholder="请输入您的身份证号码" name="id_no">
+
+        <div class="am-form-group am-form-icon">
+            <i class="am-icon-credit-card" style="font-size:15px;"></i>
+            <input type="number" id="doc-vld-credit-2"  name="mobile" class="am-form-field js-pattern-number" placeholder="请输入您的身份证号(11位)" style="height: 50px;" required />
+            <!--<span class="am-input-group-label"><i class="am-icon-file-o am-icon-fw"></i></span>-->
+            <!--<input type="text" class="am-form-field" placeholder="请输入您的身份证号码" name="id_no">-->
         </div>
+
+            <button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block" style=" height:50px;margin:0 auto;">下一步</button>
+        <!--<button type="submit" class="am-btn am-btn-default am-btn-block" style="margin:0 auto;">注册并绑定</button>-->
+        </form>
         <br>
-        <button type="submit" class="am-btn am-btn-default am-btn-block" style="margin:0 auto;">提交</button>
-        </form><br>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
     </div>
 </div>
 
@@ -224,6 +236,23 @@
             });
         }else{
             $("[name='city_code']").html(html)
+        }
+    }
+
+    function changeSelectCity(obj)
+    {
+        city = $(obj).val();
+        html = '<option value="">-请选择区域-</option>'
+        if(city){
+            $.getJSON("{{site_url url='frontend/get_area'}}/"+city,function(data){
+                data.forEach(function(item){
+                    html += '<option value="'+ item.code +'">'+item.name+'</option>'
+
+                })
+                $("[name='area_code']").html(html)
+            });
+        }else{
+            $("[name='area_code']").html(html)
         }
     }
 </script>

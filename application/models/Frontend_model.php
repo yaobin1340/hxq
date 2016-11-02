@@ -41,6 +41,10 @@ class Frontend_model extends MY_Model
         return $this->db->select()->from('province')->get()->result_array();
     }
 
+    public function get_area($city_code){
+        return $this->db->select()->from('area')->where('citycode',$city_code)->get()->result_array();
+    }
+
     public function check_mobile($mobile){
         $rs = $this->db->select('id')->from('users')->where('mobile',$mobile)->get()->row();
         return $rs;

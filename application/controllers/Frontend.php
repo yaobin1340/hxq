@@ -27,20 +27,24 @@ class Frontend extends MY_Controller {
 	{
 		$this->display('frontend/index.html');
 	}
-	
-	public function register(){
-		if($this->input->post()){
-			if($this->input->post('yzm') != $this->session->userdata('yzm')){
-				$this->show_message('验证码错误');
-			}
-			$this->session->set_userdata('mobile',$this->input->post('mobile'));
-			$provinces = $this->frontend_model->get_province();
-			$this->assign('provinces', $provinces);
-			$this->display('frontend/register1.html');
-		}else{
-			$this->display('frontend/register.html');
-		}
-	}
+
+    public function register(){
+//        if($this->input->post()){
+//            if($this->input->post('yzm') != $this->session->userdata('yzm')){
+//                $this->show_message('验证码错误');
+//            }
+//            $this->session->set_userdata('mobile',$this->input->post('mobile'));
+//            $provinces = $this->frontend_model->get_province();
+//            $this->assign('provinces', $provinces);
+//            $this->display('frontend/register1.html');
+//        }else{
+//            $this->display('frontend/register.html');
+//        }
+
+        $provinces = $this->frontend_model->get_province();
+        $this->assign('provinces', $provinces);
+        $this->display('frontend/register1.html');
+    }
 
 	public function save_register(){
 		$img = $this->upload();
@@ -68,6 +72,10 @@ class Frontend extends MY_Controller {
 		$rs = $this->frontend_model->get_city($province_code);
 		echo json_encode($rs);
 	}
+    public function get_area($city_code){
+        $rs = $this->frontend_model->get_area($city_code);
+        echo json_encode($rs);
+    }
 
 	public function register_shop(){
 		$provinces = $this->frontend_model->get_province();
@@ -91,6 +99,7 @@ class Frontend extends MY_Controller {
     public function user_center(){
         $this->display('frontend/user_center.html');
     }
+
 
 
 }
