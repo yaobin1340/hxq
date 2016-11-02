@@ -86,5 +86,9 @@ class Frontend extends MY_Controller {
 		}
 	}
 
+    public function user_center(){
+        $this->display('frontend/user_center.html');
+    }
+
 
 }

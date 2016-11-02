@@ -3,12 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Amaze UI Admin index Examples</title>
+    <title>填写个人信息</title>
     <meta name="description" content="这是一个 index 页面">
     <meta name="renderer" content="webkit">
     <meta name="keywords" content="index">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="icon" type="image/png" href="assets/i/favicon.png">
@@ -96,9 +95,7 @@
             transform: translate3d(-50%,-50%,0);
             z-index: 2;
         }
-        body{
-            overflow: hidden;
-        }
+
         #getFile{
             color: #fef4e9;
             border: solid 1px #da7c0c;
@@ -121,7 +118,7 @@
             border-radius: 5px;
             margin: 10px 20px;
             position: relative;
-            overflow: visible;
+
         }
     </style>
 
@@ -238,9 +235,9 @@
 <script>
     var myCrop;
     require(["jquery",'hammer','tomPlugin',"tomLib",'hammer.fake','hammer.showtouch'],function($,hammer,plugin,T){
-        document.addEventListener("touchmove",function(e){
-            e.preventDefault();
-        })
+      document.addEventListener("touchmove",function(e){
+           e.preventDefault();
+        },false)
         //初始化图片大小300*300
         var opts={cropWidth:300,cropHeight:300},
                 $file=$("#file"),

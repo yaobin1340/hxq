@@ -1,0 +1,144 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>会员中心</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed"
+          href="{{$base_url}}statics/amaze/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet"
+          href="{{$base_url}}statics/amaze/css/amazeui.min.css" />
+    <link rel="stylesheet" href="{{$base_url}}statics/amaze/css/admin.css">
+    <!--[if lt IE 9]>
+    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{$base_url}}assets/js/polyfill/rem.min.js"></script>
+    <script src="{{$base_url}}assets/js/polyfill/respond.min.js"></script>
+    <script src="{{$base_url}}assets/js/amazeui.legacy.js"></script>
+    <![endif]-->
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="{{$base_url}}statics/amaze/js/jquery.min.js"></script>
+    <script src="{{$base_url}}statics/amaze/js/amazeui.js"></script>
+    <!--<![endif]-->
+    <script src="{{$base_url}}statics/amaze/js/app.js"></script>
+
+    <script src="{{$base_url}}statics/js/common.js"></script>
+
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    body{
+        padding: 0;
+        margin: 0;
+        overflow: auto;
+    }
+    .header_center{
+        width: 100%;
+        height: 210px;
+        background-color: #b2e2fa;
+        font-family: "宋体";
+        position: relative;
+    }
+    html{
+        height: 100%;
+    }
+</style>
+<body style="height: 100%;background-color: #f4f4f4;" >
+<div style="position: relative;z-index: 1;">
+ <div class="header_center">
+    <img src="{{$base_url}}statics/images/1.jpg" style="width: 100%;height:210px;">
+    <!--<div style="width: 100%;height: 50px;text-align: center;line-height: 50px;font-size: 20px;color: #ffffff;">会员中心</div>-->
+    <!--<div class="header_center_1" style="">-->
+    <!--<span style="color: #ffffff;position: relative;">早上好，&nbsp;XXX(VIP1)</span>-->
+    <!--</div>-->
+    <div style="position:absolute; left: 0;top: 0px; width:100%;height:180px;z-indent:2;line-height: 50px;text-align: center;">
+        <div style="width:75px;height: 75px;border:1px solid #ccc;border-radius: 75px;margin: 0 auto;margin-top: 20px; background-color: blue;">
+            <img src="{{$base_url}}statics/images/user.jpg" style="width: 75px;height: 75px;border-radius: 75px;">
+        </div>
+        <span style="color: #fff;">用户名</span>
+    </div>
+    <div style=" position:absolute;bottom: 0; width:100%;height:80px; background-color:  #FfFfFF;text-align: center;opacity: .5">
+        <span></span>
+    </div>
+</div>
+
+<div>
+    <div style="width: 100%;height: 60px;margin-top: 5px;background-color: #ffffff;">
+        <span class="am-icon-cogs" style="padding: 5px;line-height: 50px;margin-left: 10px;">&nbsp;&nbsp;账户管理</span>
+        <span style="line-height: 50px;float: right;margin-right: 20px;font-size: 20px;">></span>
+    </div>
+    <div style="width: 100%;height: 60px;margin-top: 5px;background-color: #ffffff;">
+        <span class="am-icon-cogs" style="padding: 5px;line-height: 50px;margin-left: 10px;">&nbsp;&nbsp;资金管理</span>
+        <span style="line-height: 50px;float: right;margin-right: 20px;font-size: 20px;">></span>
+    </div>
+
+    <div style="width: 100%;height: 60px;margin-top: 5px;background-color: #ffffff;margin-top: 30px;">
+        <span class="am-icon-cart-plus" style="padding: 5px;line-height: 50px;margin-left: 10px;">&nbsp;&nbsp;我的订单</span>
+        <span style="line-height: 50px;float: right;margin-right: 20px;font-size: 20px;">></span>
+    </div>
+
+    <div style="width: 100%;height: 60px;margin-top: 5px;background-color: #ffffff;">
+        <span class="am-icon-user" style="padding: 5px;line-height: 50px;margin-left: 10px;">&nbsp;&nbsp;我的团队</span>
+        <span style="line-height: 50px;float: right;margin-right: 20px;font-size: 20px;">></span>
+    </div>
+
+    <div style="width: 100%;height: 60px;margin-top: 5px;background-color: #ffffff;">
+        <span class="am-icon-credit-card" style="padding: 5px;line-height: 50px;margin-left: 10px;">&nbsp;&nbsp;我的优惠卡</span>
+        <span style="line-height: 50px;float: right;margin-right: 20px;font-size: 20px;">></span>
+    </div>
+
+</div>
+
+<div class="footer" style=" width: 100%;height: 60px; position:fixed; bottom:0;background-color: #F8F8FF;z-index: 55;border-top:1px solid #ccc; ">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="text-align: center;">
+       <tr>
+           <td>
+               <span class="am-icon-home" style="font-size: 18px;"></span><br>
+               <span style="font-size: 15px; font-family: '宋体'; ">主页</span>
+           </td>
+           <td>
+               <span class="am-icon-cart-plus" style="font-size: 18px;"></span><br>
+               <span style="font-size: 15px; font-family: '宋体'; ">我的订单</span>
+           </td>
+           <td>
+               <span class="am-icon-tags" style="font-size: 18px;"></span><br>
+               <span style="font-size: 15px; font-family: '宋体'; ">优惠买单</span>
+           </td>
+           <td>
+               <span class="am-icon-volume-up" style="font-size: 18px;"></span><br>
+               <span style="font-size: 15px; font-family: '宋体'; ">消息</span>
+           </td>
+           <td>
+               <span class="am-icon-user" style="font-size: 18px;"></span><br>
+               <span style="font-size: 15px; font-family: '宋体'; ">个人中心</span>
+           </td>
+       </tr>
+    </table>
+</div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+    <br>
+
+
+</div>
+
+
+
+</body>
