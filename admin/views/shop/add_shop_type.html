@@ -1,0 +1,34 @@
+
+<!-- content start -->
+  <div class="admin-content">
+    <div class="am-cf am-padding">
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">添加类别</strong> / <small>Add type</small></div>
+    </div>
+
+    <hr/>
+
+    <div class="am-g">
+
+      <div class="am-u-sm-12 am-u-md-4 am-u-md-push-8">
+
+      </div>
+      <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
+        <form class="am-form am-form-horizontal" method="post" action="{{site_url url='shop/save_shop_type'}}" >
+          <div class="am-form-group">
+            <label for="user-name" class="am-u-sm-2 am-form-label">类别</label>
+            <div class="am-u-sm-10">
+              <input type="text" name="name" placeholder="请输入类别">
+            </div>
+          </div>
+          
+
+          <div class="am-form-group">
+            <div class="am-u-sm-9 am-u-sm-push-3">
+              <input type="submit" class="am-btn am-btn-primary" value="确认">
+              <a class="am-btn am-btn-default" href="{{site_url url='shop/list_shop_type'}}">返回</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

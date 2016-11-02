@@ -55,6 +55,8 @@ class Frontend_model extends MY_Model
             'province_code'=>$this->input->post('province_code'),
             'city_code'=>$this->input->post('city_code'),
             'shop_name'=>$this->input->post('shop_name'),
+            'parent_uid'=>$this->input->post('parent_uid'),
+            'type'=>$this->input->post('type'),
             'address'=>$this->input->post('address'),
             'phone'=>$this->input->post('phone'),
             'person'=>$this->input->post('person'),
@@ -72,6 +74,10 @@ class Frontend_model extends MY_Model
         }else{
             return -1;
         }
+    }
+
+    public function get_shop_type(){
+        return $this->db->select()->from('shop_type')->where('status',1)->get()->result_array();
     }
     
  
