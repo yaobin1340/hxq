@@ -221,11 +221,11 @@ class MY_Controller extends CI_Controller
 		return $virtualPath;
 	}
 
-	public function upload() {
-		$base64 = $this->input->post('img_input');
+	public function upload($folder = 'face',$input_name = 'img_input') {
+		$base64 = $this->input->post($input_name);
 		if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64, $result)){
 			$name = date('Y/m/d', time());
-			$dir = FCPATH . '/upload/faces/' . $name . '/';
+			$dir = FCPATH . '/upload/'.$folder.'/' . $name . '/';
 			if(!is_dir($dir)){
 				mkdir($dir,0777,true);
 			}

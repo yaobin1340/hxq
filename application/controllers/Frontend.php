@@ -70,11 +70,22 @@ class Frontend extends MY_Controller {
 	}
 
 	public function register_shop(){
+		$provinces = $this->frontend_model->get_province();
+		$this->assign('provinces', $provinces);
 		$this->display('frontend/register_shop.html');
 	}
 
-	public function test_map(){
-		$this->display('frontend/test_map.html');
+	public function save_register_shop(){
+		var_dump($this->input->post());die;
+		$img = $this->upload('logo');
+		$license = $this->upload('license','license');
+		$rs = $this->frontend_model->save_register_shop($img,$license);
+		if($rs == 1){
+			$this->show_message('申请成功');
+		}else{
+			$this->show_message('申请失败');
+		}
 	}
+
 
 }

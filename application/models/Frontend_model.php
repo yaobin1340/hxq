@@ -45,6 +45,34 @@ class Frontend_model extends MY_Model
         $rs = $this->db->select('id')->from('users')->where('mobile',$mobile)->get()->row();
         return $rs;
     }
+
+    public function save_register_shop($img,$license){
+        if(!$this->session->userdata('uid')){
+            return -1;
+        }
+        $data = array(
+            'uid'=>$this->session->userdata('uid'),
+            'province_code'=>$this->input->post('province_code'),
+            'city_code'=>$this->input->post('city_code'),
+            'shop_name'=>$this->input->post('shop_name'),
+            'address'=>$this->input->post('address'),
+            'phone'=>$this->input->post('phone'),
+            'person'=>$this->input->post('person'),
+            'lat'=>$this->input->post('lat'),
+            'lng'=>$this->input->post('lng'),
+            'desc'=>$this->input->post('desc'),
+            'business_time'=>$this->input->post('business_time'),
+            'license'=>$license,
+            'cdate'=>date('Y-m-d H:i:s',time()),
+            'logo'=>$img
+        );
+
+        if($this->db->insert('shop',$data)){
+            return 1;
+        }else{
+            return -1;
+        }
+    }
     
  
 }
