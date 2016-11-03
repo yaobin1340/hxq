@@ -40,9 +40,20 @@ class Frontend extends MY_Controller {
         }else{
             $this->display('frontend/register.html');
         }
-
-
     }
+
+    public function forget_page(){
+        if($this->input->post()){
+            if($this->input->post('yzm') != $this->session->userdata('yzm')){
+                $this->show_message('验证码错误');
+            }
+            $this->session->set_userdata('yzm',$this->input->post('yzm'));
+            $this->display('frontend/rewrite_pwd.html');
+        }else{
+            $this->display('frontend/forget_pwd.html');
+        }
+    }
+
 
 	public function save_register(){
 		$img = $this->upload();
@@ -65,6 +76,20 @@ class Frontend extends MY_Controller {
 		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
 		echo $rs;
 	}
+
+    public function get_yzm_forget($mobile){
+        if(!$this->frontend_model->check_mobile($mobile)){
+            echo '{"error":-999,"msg":"不存在该手机号码"}';
+            die;
+        }
+        $yzm = rand(100000,999999);
+        $text = '您的短信验证码是:'.$yzm;
+        $this->session->set_userdata('yzm',$yzm);
+        $rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
+        echo $rs;
+    }
+
+
 
 	public function get_city($province_code){
 		$rs = $this->frontend_model->get_city($province_code);
@@ -102,6 +127,11 @@ class Frontend extends MY_Controller {
         $this->display('frontend/login.html');
     }
 
+    public function forget_pwd(){
+        $this->display('frontend/forget_pwd.html');
+    }
 
-
+    public function rewrite_pwd(){
+        $this->display('frontend/rewrite_pwd.html');
+    }
 }
