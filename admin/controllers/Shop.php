@@ -63,6 +63,26 @@ class Shop extends MY_Controller {
 			$this->show_message('审核失败');
 		}
 	}
+
+	public function list_shop($page=1){
+		$data = $this->shop_model->list_shop($page);
+		$base_url = "/admin.php/shop/list_shop";
+		$pager = $this->pagination->getPageLink($base_url, $data['total'], $data['limit']);
+		$this->assign('pager', $pager);
+		$this->assign('data', $data);
+		$this->show('shop/list_shop');
+	}
+
+	public function shop_detail($id){
+		$data = $this->shop_model->get_shop_detail($id);
+		$this->assign('data', $data);
+		$this->show('shop/shop_detail');
+	}
+
+	public function non_use_shop($id,$status){
+		$rs = $this->shop_model->non_use_shop($id,$status);
+		echo $rs;
+	}
 	
 
 }

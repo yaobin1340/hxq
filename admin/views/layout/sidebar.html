@@ -7,7 +7,8 @@
             </a>
             <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav1">
                 <li><a href="javascript:open_content('/admin.php/shop/list_shop_type');" class="am-cf menu"><span class="am-icon-check"></span> 分类列表</a></li>
-                <li><a href="javascript:open_content('/admin.php/shop/list_shop_audit');" class="am-cf menu"><span class="am-icon-check"></span> 待审核列表 <span class="am-badge am-badge-danger am-margin-right am-fr">24</span></a></li>
+                <li><a href="javascript:open_content('/admin.php/shop/list_shop_audit');" class="am-cf menu"><span class="am-icon-check"></span> 待审核列表 <span class="am-badge am-badge-danger am-margin-right am-fr">{{$count_info['audit_shop_count']}}</span></a></li>
+                <li><a href="javascript:open_content('/admin.php/shop/list_shop');" class="am-cf menu"><span class="am-icon-check"></span> 全部商家列表 <span class="am-badge am-badge-danger am-margin-right am-fr">{{$count_info['shop_count']}}</span></a></li>
             </ul>
 
 

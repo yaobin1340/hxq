@@ -20,27 +20,17 @@ class Index extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('index_model');
-		$this->load->model('main_model');
 	}
 
-	//
 	public function index()
 	{
+		$count_info = $this->index_model->get_index_count();
+		$this->assign('count_info', $count_info);
 		$this->display('layout/index.html');
 	}
 	
 	public function main(){
-		
-//		$bulletins = $this->main_model->display_bulletin();
-//		foreach ($bulletins as &$b) {
-//			$year = date('Y', strtotime($b['cdate']));
-//			$b['bulletin_num'] = $year . '-' . str_pad($b['num'], 3, '0', STR_PAD_LEFT);
-//		}
-//		$this->assign('bulletins', $bulletins);
-		
-//		$bulletin_checks = $this->main_model->display_bulletin_check();
-//		$this->assign('bulletin_checks', $bulletin_checks);
-		
+
 		$this->show('index');
 	}
 

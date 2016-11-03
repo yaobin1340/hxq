@@ -3,7 +3,7 @@
 <!-- content start -->
 <div class="admin-content">
     <div class="am-cf am-padding">
-        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">审核商家</strong> /
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">商家详情</strong> /
             <small>Add notice</small>
         </div>
     </div>
@@ -97,30 +97,35 @@
                 </div>
 
                 <div class="am-form-group">
-                    <label class="am-u-sm-2 am-form-label">审核</label>
+                    <label class="am-u-sm-2 am-form-label">审核备注</label>
                     <div class="am-u-sm-10">
-                        <select name="status">
-                            <option value="2">通过</option>
-                            <option value="-1">拒绝</option>
-                        </select>
+                        {{$data.remark}}
                     </div>
                 </div>
 
                 <div class="am-form-group">
-                    <label class="am-u-sm-2 am-form-label">审核备注</label>
+                    <label class="am-u-sm-2 am-form-label">状态</label>
                     <div class="am-u-sm-10">
-                        <input type="text" name="remark" >
+                        {{if $data.status == -2}}
+                        <font color="red">停用</font>
+                        {{else}}
+                        <font color="green">正常</font>
+                        {{/if}}
                     </div>
                 </div>
 
             </form>
 
-                <div class="am-form-group">
-                    <div class="am-u-sm-9 am-u-sm-push-3">
-                        <button class="am-btn am-btn-primary" id="doc-confirm-toggle">确定</button>
-                        <a class="am-btn am-btn-default" href="{{site_url url='shop/list_shop_audit'}}">返回</a>
-                    </div>
+            <div class="am-form-group">
+                <div class="am-u-sm-9 am-u-sm-push-3">
+                    {{if $data.status == 2}}
+                    <button class="am-btn am-btn-danger" id="doc-confirm-toggle">停用</button>
+                    {{else}}
+                    <button class="am-btn am-btn-success" id="doc-confirm-toggle1">启用</button>
+                    {{/if}}
+                    <a class="am-btn am-btn-default" href="{{site_url url='shop/list_shop'}}">返回</a>
                 </div>
+            </div>
 
         </div>
     </div>
@@ -134,7 +139,31 @@
             $('#my-confirm').modal({
                 relatedTarget: this,
                 onConfirm: function(options) {
-                    $('form').submit()
+                    $.get("{{site_url url='shop/non_use_shop'}}/{{$data.id}}/-2",function(rs){
+                        if(rs == 1){
+                            alert('停用成功');
+                            window.location.reload();
+                        }
+                    });
+                },
+                // closeOnConfirm: false,
+                onCancel: function() {
+
+                }
+            });
+        });
+
+        $('#doc-modal-list1').find('.am-icon-close').add('#doc-confirm-toggle1').
+        on('click', function() {
+            $('#my-confirm1').modal({
+                relatedTarget: this,
+                onConfirm: function(options) {
+                    $.get("{{site_url url='shop/non_use_shop'}}/{{$data.id}}/2",function(rs){
+                        if(rs == 1){
+                            alert('启用成功');
+                            window.location.reload();
+                        }
+                    });
                 },
                 // closeOnConfirm: false,
                 onCancel: function() {
@@ -160,7 +189,20 @@
     <div class="am-modal-dialog">
         <div class="am-modal-hd">提示</div>
         <div class="am-modal-bd">
-            你，确定要审核这条记录吗？
+            你，确定要停用该商家吗？
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+        </div>
+    </div>
+</div>
+
+<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm1">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">提示</div>
+        <div class="am-modal-bd">
+            你，确定要启用该商家吗？
         </div>
         <div class="am-modal-footer">
             <span class="am-modal-btn" data-am-modal-cancel>取消</span>

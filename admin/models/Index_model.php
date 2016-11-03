@@ -13,6 +13,16 @@ class Index_model extends MY_Model
     public function index(){
     	return $this->db->select()->from('admin')->get()->row_array();
     }
-    
+
+    public function get_index_count(){
+        $audit_shop = $this->db->select('count(1) num')->from('shop')->where('status',1)->get()->row();
+        $shop = $this->db->select('count(1) num')->from('shop')->where_in('status',array(2,-2))->get()->row();
+
+        $data = array(
+            'audit_shop_count'=>$audit_shop->num,
+            'shop_count'=>$shop->num,
+        );
+        return $data;
+    }
  
 }
