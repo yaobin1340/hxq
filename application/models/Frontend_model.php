@@ -104,6 +104,15 @@ class Frontend_model extends MY_Model
             return -1;
         }
     }
+
+    public function change_pwd(){
+        $this->db->where('mobile',$this->session->userdata('mobile'));
+        $rs = $this->db->update('users',array('password' => sha1($this->input->post('password'))));
+        if($rs)
+            return 1;
+        else
+            return -1;
+    }
     
  
 }
