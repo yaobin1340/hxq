@@ -123,14 +123,14 @@
 
     <div class="header_photo">
         <div class="header_photo_user">
-            <img src="{{$base_url}}statics/images/user.jpg">
+            <img src="{{$base_url}}upload/face/{{$user_info.face}}">
         </div>
-        <div class="header_photo_user_name">用户头像</div>
+        <div class="header_photo_user_name">普通用户</div>
     </div>
 
     <div class="header_font">
-       <span class="header_font_1">你好，小周</span><br>
-        <span class="header_font_2">账户余额：1100元&nbsp;&nbsp;秀币余额：111222</span>
+       <span class="header_font_1">你好，{{$user_info.rel_name}}</span><br>
+        <span class="header_font_2">金币：{{$user_info.integral}}&nbsp;&nbsp;向日葵总计：xx</span>
     </div>
 </div>
 

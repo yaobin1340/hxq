@@ -48,9 +48,9 @@ class Frontend extends MY_Controller {
 		$img = $this->upload();
 		$rs = $this->frontend_model->save_register($img);
 		if($rs == 1){
-			$this->show_message('注册成功');
+			$this->show_message('注册成功',site_url('user/index'));
 		}else{
-			$this->show_message('注册失败');
+			$this->show_message('注册失败',site_url('frontend/register'));
 		}
 	}
 

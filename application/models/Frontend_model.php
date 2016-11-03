@@ -18,6 +18,10 @@ class Frontend_model extends MY_Model
         if(!$this->session->userdata('mobile')){
             return -1;
         }
+        $rs = $this->db->select('count(1) num')->from('users')->where('mobile',$this->session->userdata('mobile'))->get()->row();
+        if($rs->num > 0){
+            return -1;
+        }
         $data = array(
             'mobile'=>$this->session->userdata('mobile'),
             'password'=>sha1($this->input->post('password')),
