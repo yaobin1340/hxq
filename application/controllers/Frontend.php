@@ -68,7 +68,7 @@ class Frontend extends MY_Controller {
         $img = $this->upload();
         $rs = $this->frontend_model->change_pwd($img);
         if($rs == 1){
-            $this->show_message('修改成功',site_url('login/index'));
+            $this->show_message('修改成功',site_url('frontend/login'));
         }else{
             $this->show_message('修改失败',site_url('frontend/forget_pwd'));
         }
