@@ -120,7 +120,5 @@ class Frontend extends MY_Controller {
         $this->display('frontend/forget_pwd.html');
     }
 
-    public function rewrite_pwd(){
-        $this->display('frontend/rewrite_pwd.html');
-    }
+
 }
