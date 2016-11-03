@@ -58,6 +58,7 @@ class Frontend_model extends MY_Model
             'uid'=>$this->session->userdata('uid'),
             'province_code'=>$this->input->post('province_code'),
             'city_code'=>$this->input->post('city_code'),
+            'area_code'=>$this->input->post('area_code'),
             'shop_name'=>$this->input->post('shop_name'),
             'parent_uid'=>$this->input->post('parent_uid'),
             'type'=>$this->input->post('type'),
