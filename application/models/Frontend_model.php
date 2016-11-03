@@ -18,6 +18,10 @@ class Frontend_model extends MY_Model
         if(!$this->session->userdata('mobile')){
             return -1;
         }
+        $rs = $this->db->select('count(1) num')->from('users')->where('mobile',$this->session->userdata('mobile'))->get()->row();
+        if($rs->num > 0){
+            return -1;
+        }
         $data = array(
             'mobile'=>$this->session->userdata('mobile'),
             'password'=>sha1($this->input->post('password')),
@@ -86,6 +90,19 @@ class Frontend_model extends MY_Model
 
     public function get_shop_type(){
         return $this->db->select()->from('shop_type')->where('status',1)->get()->result_array();
+    }
+
+    public function check_login(){
+        $rs = $this->db->select('id')->from('users')
+            ->where('mobile',$this->input->post('mobile'))
+            ->where('password',sha1($this->input->post('password')))
+            ->get()->row();
+        if($rs){
+            $this->session->set_userdata('uid',$rs->id);
+            return 1;
+        }else{
+            return -1;
+        }
     }
     
  

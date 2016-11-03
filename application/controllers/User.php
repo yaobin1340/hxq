@@ -19,10 +19,12 @@ class User extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-//		if(!$this->session->userdata('uid')){
-//			$this->show_message('请先登陆~',site_url('/'));
-//		}
+		if(!$this->session->userdata('uid')){
+			$this->show_message('请先登陆~',site_url('/frontend/login'));
+		}
 		$this->load->model('user_model');
+		$user_info = $this->user_model->get_user_info();
+		$this->assign('user_info', $user_info);
 	}
 
 	public function index()
