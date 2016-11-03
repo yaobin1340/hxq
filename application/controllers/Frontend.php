@@ -102,6 +102,20 @@ class Frontend extends MY_Controller {
         $this->display('frontend/login.html');
     }
 
+	public function logout(){
+		$this->session->sess_destroy();
+		redirect(site_url('frontend/login'));
+	}
+
+	public function check_login(){
+		$rs = $this->frontend_model->check_login();
+		if($rs == 1){
+			$this->show_message('登陆成功',site_url('user/index'));
+		}else{
+			$this->show_message('用户名或者密码错误');
+		}
+	}
+
 
 
 }
