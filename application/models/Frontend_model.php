@@ -24,6 +24,7 @@ class Frontend_model extends MY_Model
             's_password'=>sha1($this->input->post('s_password')),
             'province_code'=>$this->input->post('province_code'),
             'city_code'=>$this->input->post('city_code'),
+            'area_code'=>$this->input->post('area_code'),
             'rel_name'=>$this->input->post('rel_name'),
             'id_no'=>$this->input->post('id_no'),
             'cdate'=>date('Y-m-d H:i:s',time()),
@@ -31,6 +32,8 @@ class Frontend_model extends MY_Model
         );
 
         if($this->db->insert('users',$data)){
+            $uid = $this->db->insert_id();
+            $this->session->set_userdata('uid',$uid);
             return 1;
         }else{
             return -1;
