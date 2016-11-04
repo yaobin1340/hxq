@@ -155,7 +155,4 @@ class Frontend extends MY_Controller {
         $this->display('frontend/rewrite_pwd.html');
     }
 
-
-
-
 }
