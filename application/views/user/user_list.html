@@ -102,7 +102,7 @@
 </div>
 
 <div class="xuanfu_plus">
-    <a href="##" class="am-icon-btn am-icon-plus xuanfu_icon_plus"></a>
+    <a href="##" class="am-icon-btn am-icon-plus xuanfu_icon_plus" data-am-modal="{target: '#my-popup'}"></a>
     <a href="##" class="am-icon-btn am-icon-search xuanfu_icon_search" data-am-modal="{target: '#my-actions-search'}"></a>
 </div>
 
@@ -124,6 +124,37 @@
     <div class="am-modal-actions-group div_search_btn">
         <button class="am-btn am-btn-warning am-btn-block" data-am-modal-close>搜索</button>
         <button class="am-btn am-btn-secondary am-btn-block" data-am-modal-close>取消</button>
+    </div>
+</div>
+
+<div class="am-popup" id="my-popup">
+    <div class="am-popup-inner">
+        <div class="am-popup-hd">
+            <h4 class="am-popup-title" style="color: #3ab5f3;font-family: '宋体'">用户添加</h4>
+            <span data-am-modal-close class="am-close">&times;</span>
+        </div>
+        <div class="am-popup-bd" style="width: 100%; background: #ffffff;">
+            <form method="post" class="am-form " action="/frontend/register" data-am-validator style="margin-top: 80px;">
+                <div class="am-form-group am-form-icon">
+                    <i class="am-icon-mobile-phone" style="font-size: 26px;"></i>
+                    <input type="number" id="doc-vld-phone-1"  name="mobile" class="am-form-field js-pattern-number" placeholder="请输入手机号/id" style=" width: 60%; height: 50px;" required />
+                </div>
+                <div class="am-form-group">
+                    <label style="float: right;margin-top: -60px; margin-right: 15%;">用户姓名</label>
+                </div>
+                <div class="am-form-group am-form-icon">
+                    <i class="am-icon-rmb" style="font-size: 18px;"></i>
+                    <input type="number" id="doc-vld-phone-2"  name="mobile" class="am-form-field js-pattern-number" placeholder="请输入金额" style=" width: 60%; height: 50px;" required />
+                </div>
+
+                <!--<button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block" style=" height:50px; width: 40%;">下一步</button>-->
+                <!--<button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block" style=" height:50px; width: 40%; float: right;">下一步</button>-->
+                <div class="list_all_button" style="margin-top: 50px;">
+                    <button type="button" class="am-btn am-btn-secondary" style="width: 48%; height: 50px; margin-left: 2%;background: ">删除</button>
+                    <button type="button" class="am-btn am-btn-secondary" style="width: 48%; height: 50px;">修改</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
