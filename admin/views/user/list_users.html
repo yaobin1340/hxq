@@ -1,0 +1,67 @@
+<!-- content start -->
+<div class="admin-content">
+
+    <div class="am-cf am-padding">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">普通会员</strong></div>
+    </div>
+
+    <div class="am-g">
+
+        <form method="post" action="{{site_url url='user/list_users'}}" class="search_form">
+
+            <div class="am-u-sm-12 am-u-md-3">
+                <div class="am-input-group am-input-group-sm">
+                    <input type="text" class="am-form-field" name="keyword" value="{{$data.keyword}}" placeholder="请输入会员名称或手机号码">
+          <span class="am-input-group-btn">
+            <input type="submit" class="am-btn am-btn-default" value="搜索"/>
+          </span>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="am-g">
+        <div class="am-u-sm-12">
+            <table class="am-table am-table-striped am-table-hover table-main">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>姓名</th>
+                    <th>手机</th>
+                    <th>金币</th>
+                    <th>总计消费</th>
+                    <th>注册时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{foreach from=$data.items key=key item=item}}
+                <tr>
+                    <td>{{$item.id}}</td>
+                    <td><a>{{$item.rel_name}}</a></td>
+                    <td><a>{{$item.mobile}}</a></td>
+                    <td><a>{{$item.integral}}</a></td>
+                    <td><a>{{($item.total6 + $item.total12 + $item.total24)/100}}</a></td>
+                    <td><a>{{$item.cdate}}</a></td>
+                    <td><a>{{if $item.status == 1}}<font color="green">正常</font>{{else}}<font color="red">已停用</font>{{/if}}</a></td>
+                    <td>
+                        <div class="am-btn-toolbar">
+                            <div class="am-btn-group am-btn-group-xs">
+                                <a type="button" class="am-btn am-btn-danger" href="{{site_url url='user/user_detail'}}/{{$item.id}}/2">
+                                    <span class="am-icon-pencil-square-o"></span> 详情
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {{/foreach}}
+                </tbody>
+            </table>
+            <div class="am-cf">{{$pager}}</div>
+        </div>
+
+    </div>
+</div>
+<!-- content end -->
+
