@@ -121,6 +121,15 @@
             position: relative;
 
         }
+        .user_informatio{
+            margin-top: 40px;width: 100%;
+        }
+       .information_name{
+           height: 40px;line-height: 40px;padding-left:80px;
+       }
+        .information_tel{
+            height: 40px;line-height: 40px;padding-left:80px;
+        }
     </style>
 
 </head>
@@ -131,7 +140,7 @@
 </div>
 <div class="am-g">
     <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
-        <form class="am-form-inline" method="post" action="{{site_url url='frontend/save_register'}}" data-am-validator>
+        <form class="am-form-inline" method="post" action="" data-am-validator>
             <h3 style="text-align: center;color: #00CC00;">账户管理页面</h3><hr>
 
             <div class="am-form-group am-form-file" style="width: 100%;text-align: center;margin-top: -10px;">
@@ -147,8 +156,12 @@
                 <input type="hidden" name="img_input" id="img_input">
             </div>
 
+            <div class="user_informatio">
+                <div class="information_name">您的姓名：<span>zhou.</span></div>
+                <div class="information_tel">您的号码：<span>1563656602</span></div>
+            </div>
 
-            <div class="am-form-group" style="margin-top:50px;">
+            <div class="am-form-group" style="margin-top:20px;">
                 <select name="province_code" onchange="changeSelect(this)" style="width:30%; ">
                     <option value="">-省份-</option>
                     {{foreach from=$provinces item=row}}
@@ -164,20 +177,8 @@
                 </select>
             </div>
 
-            <div class="am-form-group am-form-icon">
-                <i class="am-icon-mobile-phone" style="font-size: 25px;"></i>
-                <input type="text" id="doc-vld-phone-2"  name="rel_name" class="am-form-field"  placeholder="请输入真实姓名" style="height: 50px;" required />
-            </div>
 
-            <div class="am-form-group am-form-icon">
-                <i class="am-icon-credit-card" style="font-size:15px;"></i>
-                <input type="number" id="doc-vld-credit-2"  name="id_no" class="am-form-field js-pattern-number" placeholder="请输入您的身份证号(18位)" style="height: 50px;" required />
-                <!--<span class="am-input-group-label"><i class="am-icon-file-o am-icon-fw"></i></span>-->
-                <!--<input type="text" class="am-form-field" placeholder="请输入您的身份证号码" name="id_no">-->
-            </div>
-
-            <button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block" style=" height:50px;margin:0 auto;">注册</button>
-            <!--<button type="submit" class="am-btn am-btn-default am-btn-block" style="margin:0 auto;">注册并绑定</button>-->
+            <button class="am-btn am-btn-secondary am-btn-block" style="margin-top: 50px;">修改</button>
         </form>
         <br>
 

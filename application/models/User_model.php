@@ -18,6 +18,7 @@ class User_model extends MY_Model
         $this->db->where('a.id',$this->session->userdata('uid'));
         return $this->db->get()->row_array();
     }
-    
- 
+
+
+
 }

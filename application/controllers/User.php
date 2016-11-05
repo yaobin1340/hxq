@@ -42,6 +42,9 @@ class User extends MY_Controller {
 
     public function information_revise()
     {
+        $this->load->model('frontend_model');
+        $provinces = $this->frontend_model->get_province();
+        $this->assign('provinces', $provinces);
         $this->display('user/information_revise.html');
     }
 }
