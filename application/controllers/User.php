@@ -47,4 +47,17 @@ class User extends MY_Controller {
         $this->assign('provinces', $provinces);
         $this->display('user/information_revise.html');
     }
+
+	public function save_information_revise(){
+		$img = null;
+		if($this->input->post('img_input')){
+			$img = $this->upload();
+		}
+		$rs = $this->user_model->save_information_revise($img);
+		if($rs == 1){
+			$this->show_message('修改成功',site_url('user'));
+		}else{
+			$this->show_message('操作失败');
+		}
+	}
 }
