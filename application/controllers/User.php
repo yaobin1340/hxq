@@ -35,9 +35,13 @@ class User extends MY_Controller {
     {
         $this->display('user/test.html');
     }
-
     public function user_list()
     {
         $this->display('user/user_list.html');
+    }
+
+    public function information_revise()
+    {
+        $this->display('user/information_revise.html');
     }
 }
