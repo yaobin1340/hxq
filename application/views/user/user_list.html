@@ -18,10 +18,10 @@
         float: right;line-height: 40px;color: #569cf1;
     }
     .list_all_money{
-        float: right; margin-right: 30px;line-height: 50px;
+        float: right; margin-right: 25px;line-height: 50px;
     }
     .list_all_rmb{
-        float: right; margin-right: 10px;line-height: 50px;color:#e47b75;
+        float: right; margin-right: 15px;line-height: 50px;color:#e47b75;
     }
     .list_all_information{
         border-bottom: 1px solid #eeeeee;margin-top: 10px;padding-bottom: 10px;
@@ -36,13 +36,13 @@
         color: #9cbb80;
     }
     .list_all_button{
-        width: 100%;height: 50px;margin-top: -10px;
+        width: 100%;height: 30px;margin-top: -10px;color: #3ab5f3;
     }
     .list_all_button_delete{
-        height: 50px;float: right;
+       float: right;background: #ffffff;margin-top: -18px;color: #3ab5f3;
     }
     .list_all_button_update{
-        height: 50px;float: right;margin-right: 1px;
+        height: 30px;float: right;margin-right: 1px;background: #ffffff;margin-top: -18px;
     }
     .xuanfu_plus{
         z-index: 55;
@@ -75,7 +75,7 @@
     <div class="am-panel-group" id="accordion">
 
         <div class="am-panel am-panel-default">
-            <div class="am-panel-hd" style="width: 100%;background:rgba(255, 255, 255, 0.5);">
+            <div id="list_btn" class="am-panel-hd" style="width: 100%;background:rgba(255, 255, 255, 0.5);">
                 <div class="am-panel-title list_all_btn" data-am-collapse="{parent: '#accordion', target: '#do-not-say-1'}">
                     <span class="am-front-icon am-icon-user list_all_user_img"></span>
                     <span class="list_all_user_id">&nbsp;id:123</span>
@@ -86,36 +86,13 @@
             </div>
             <div id="do-not-say-1" class="am-panel-collapse am-collapse am-in">
                 <div class="am-panel-bd">
-                    <p class="list_all_information">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="am-icon-mobile-phone list_all_information_mobile"></span>&nbsp;手机：15850293624</p>
-                    <p class="list_all_information">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="am-icon-user list_all_information_name"></span>&nbsp;姓名：小周</p>
-                    <p class="list_all_information">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="am-icon-clock-o list_all_information_time"></span>&nbsp;时间：2016.11.04</p>
+                    <p class="list_all_information">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="am-icon-phone list_all_information_mobile"></span>&nbsp;&nbsp;手机：15850293624</p>
+                    <p class="list_all_information">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="am-icon-user list_all_information_name"></span>&nbsp;&nbsp;姓名：小周</p>
+                    <p class="list_all_information">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;时间：2016.11.04</p>
                 </div>
                 <div class="list_all_button">
-                    <button type="button" class="am-btn am-btn-secondary list_all_button_delete">删除</button>
-                    <button type="button" class="am-btn am-btn-secondary list_all_button_update">修改</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="am-panel am-panel-default">
-            <div class="am-panel-hd" style=" width: 100%;background:  rgba(255, 255, 255, 0.5);">
-                <div class="am-panel-title list_all_btn" data-am-collapse="{parent: '#accordion', target: '#do-not-say-2'}">
-                    <span class="am-front-icon am-icon-user list_all_user_img"></span>
-                    <span class="list_all_user_id">&nbsp;id:123</span>
-                    <span class="am-icon-sort-desc list_all_sort_img"></span>
-                    <span class="list_all_money">2000元</span>
-                    <span class="am-front-icon am-icon-rmb list_all_rmb"></span>
-                </div>
-            </div>
-            <div id="do-not-say-2" class="am-panel-collapse am-collapse am-in">
-                <div class="am-panel-bd">
-                    <p class="list_all_information">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="am-icon-mobile-phone list_all_information_mobile"></span>&nbsp;手机：15850293624</p>
-                    <p class="list_all_information">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="am-icon-user list_all_information_name"></span>&nbsp;姓名：小周</p>
-                    <p class="list_all_information">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="am-icon-clock-o list_all_information_time"></span>&nbsp;时间：2016.11.04</p>
-                </div>
-                <div class="list_all_button">
-                    <button type="button" class="am-btn am-btn-secondary list_all_button_delete">删除</button>
-                    <button type="button" class="am-btn am-btn-secondary list_all_button_update">修改</button>
+                    <button type="button" class="am-btn list_all_button_delete">删除</button>
+                    <button type="button" class="am-btn list_all_button_update">修改</button>
                 </div>
             </div>
         </div>
@@ -124,7 +101,7 @@
     </div>
 </div>
 
-<div class="xuanfu_plus" style="">
+<div class="xuanfu_plus">
     <a href="##" class="am-icon-btn am-icon-plus xuanfu_icon_plus"></a>
     <a href="##" class="am-icon-btn am-icon-search xuanfu_icon_search" data-am-modal="{target: '#my-actions-search'}"></a>
 </div>
