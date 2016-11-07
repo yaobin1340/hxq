@@ -4,7 +4,9 @@ if (! defined('BASEPATH'))
 
 class User_model extends MY_Model
 {
-    
+    protected $_tbName = 'users';
+    protected $primaryKey = 'id';
+
     public function __construct ()
     {
     	parent::__construct();
@@ -17,6 +19,36 @@ class User_model extends MY_Model
         $this->db->join('area d','a.area_code = d.code','left');
         $this->db->where('a.id',$this->session->userdata('uid'));
         return $this->db->get()->row_array();
+    }
+
+    public function get_user($user_flag){
+        return $result = $this->db->select('*')->from('users')->where("id = $user_flag or mobile = $user_flag")->get()->row_array();
+    }
+
+    function queryByKey($id, $selectFields = '*') {
+        $condtionFields [$this->primaryKey] = $id;
+
+        return $this->queryContent($condtionFields, $selectFields);
+    }
+
+    function queryContent($condtionFields = array(), $selectFields = '*', $inField = '', $inArr = array()) {
+        $this->db->select($selectFields)->from($this->_tbName);
+        if($condtionFields || $inField){
+            if($condtionFields) $this->db->where($condtionFields);
+            if($inField) $this->db->where_in($inField,$inArr);
+            return $this->db->get()->result_array();
+        }else{
+            return false;
+        }
+    }
+
+    function updateById($id,$arrFields){
+        $condtionFields[$this->primaryKey] = $id;
+        $this->db->where($condtionFields)->update($this->_tbName,$arrFields);
+    }
+
+    function add($arrFields){
+        return $this->db->insert($this->_tbName,$arrFields);
     }
 
     public function save_information_revise($img){
@@ -36,7 +68,5 @@ class User_model extends MY_Model
             return -1;
         }
     }
-
-
 
 }
