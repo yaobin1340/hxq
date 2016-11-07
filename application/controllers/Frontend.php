@@ -22,7 +22,6 @@ class Frontend extends MY_Controller {
 		$this->load->model('frontend_model');
 	}
 
-	//
 	public function index()
 	{
 		$this->display('frontend/index.html');
