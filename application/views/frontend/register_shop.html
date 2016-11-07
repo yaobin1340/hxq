@@ -105,9 +105,12 @@
                     <option value="{{$row.code}}">{{$row.name}}</option>
                     {{/foreach}}
                 </select>
-                <select name="city_code" style="width: 100%; height: 50px; ">
+                <select name="city_code" style="width: 100%; height: 50px;" onchange="changeSelectCity(this)">
                     <option value="">-请选择城市-</option>
                 </select>
+            <select name="area_code" style="width: 100%; height: 50px; ">
+                <option value="">-请选择区域-</option>
+            </select>
         </div>
 
 
@@ -219,7 +222,27 @@
             $("[name='city_code']").html(html)
         }
     }
+
+    function changeSelectCity(obj)
+    {
+        city = $(obj).val();
+        html = '<option value="">-请选择区域-</option>'
+        if(city){
+            $.getJSON("{{site_url url='frontend/get_area'}}/"+city,function(data){
+                data.forEach(function(item){
+                    html += '<option value="'+ item.code +'">'+item.name+'</option>'
+
+                })
+                $("[name='area_code']").html(html)
+            });
+        }else{
+            $("[name='area_code']").html(html)
+        }
+    }
 </script>
+</script>
+
+
 
 
 
