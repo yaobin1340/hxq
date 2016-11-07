@@ -1,0 +1,256 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>填写个人信息</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed"
+          href="{{$base_url}}statics/amaze/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet"
+          href="{{$base_url}}statics/amaze/css/amazeui.min.css" />
+    <link rel="stylesheet" href="{{$base_url}}statics/amaze/css/admin.css">
+    <!--[if lt IE 9]>
+    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{$base_url}}assets/js/polyfill/rem.min.js"></script>
+    <script src="{{$base_url}}assets/js/polyfill/respond.min.js"></script>
+    <script src="{{$base_url}}assets/js/amazeui.legacy.js"></script>
+    <![endif]-->
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="{{$base_url}}statics/amaze/js/jquery.min.js"></script>
+    <script src="{{$base_url}}statics/amaze/js/amazeui.js"></script>
+    <!--<![endif]-->
+    <script src="{{$base_url}}statics/amaze/js/app.js"></script>
+
+    <script src="{{$base_url}}statics/js/common.js"></script>
+
+
+
+    <style>
+        .app{
+            height: 100%;
+            position: absolute;
+            display: none;
+            top:0;
+            left:0;
+            right:0;
+            bottom: 0;
+        }
+        .bar{
+            height: 50px;
+            padding: 10px;
+            line-height: 30px;
+            position: relative;
+            z-index: 999;
+        }
+        .main{
+            position: absolute;
+            top:30px;
+            bottom: 0;
+            left:0;
+            right: 0;
+        }
+        .upload-mask{
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            z-index: 3;
+        }
+        .bar{
+            color: white;
+            background: darkslategrey;
+        }
+        .photo-canvas{
+            position: absolute;
+            top:50%;
+            left:50%;
+            border: 1px solid black;
+            -webkit-transform: translate3d(-50%,-50%,0);
+            transform: translate3d(-50%,-50%,0);
+            z-index: 4;
+            /*background:white;*/
+        }
+        #preview{
+            display: block;
+            z-index: 2;
+        }
+        #previewResult{
+            background: #f2eeeb;
+            width: 100px;
+            height: 100px;
+            border-radius: 100px;
+        }
+        .preview-box{
+            position: absolute;
+            top:50%;
+            left:50%;
+            -webkit-transform: translate3d(-50%,-50%,0);
+            transform: translate3d(-50%,-50%,0);
+            z-index: 2;
+        }
+
+        #getFile{
+            color: #fef4e9;
+            border: solid 1px #da7c0c;
+            background: #f78d1d;
+            vertical-align: middle;
+            padding: 6px 5px;
+            line-height: 1;
+            background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+            background: -moz-linear-gradient(top, #faa51a, #f47a20);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+        }
+
+        #uploadPage button{
+            width: 140px;
+            line-height: 38px;
+            text-align: center;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 1px #333;
+            border-radius: 5px;
+            margin: 10px 20px;
+            position: relative;
+
+        }
+        .user_informatio{
+            margin-top: 40px;width: 100%;
+        }
+       .information_name{
+           height: 40px;line-height: 40px;padding-left:80px;
+       }
+        .information_tel{
+            height: 40px;line-height: 40px;padding-left:80px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="header">
+    <hr>
+</div>
+<div class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+        <form class="am-form-inline am-form" method="post" action="{{site_url url='user/save_information_revise'}}" data-am-validator>
+            <h3 style="text-align: center;color: #00CC00;">账户管理页面</h3><hr>
+
+            <div class="am-form-group am-form-file" style="width: 100%;text-align: center;margin-top: -10px;">
+                <input id="file" type="file" accept="image/*" capture=camera"/>
+                <div style="position: relative;">
+                    <div style="">
+                        <img id="previewResult" style="z-index: 11;" src="{{$base_url}}upload/face/{{$user_info.face}}"/>
+                    </div>
+                    <button type="button" class="am-btn am-btn-danger am-btn-sm" style="margin-top: 10px;">
+                        <i class="am-icon-cloud-upload"></i> 修改头像</button>
+                </div>
+                <input type="hidden" name="img_input" id="img_input">
+            </div>
+
+            <div class="user_informatio">
+                <div class="information_name">您的姓名：<span>{{$user_info.rel_name}}</span></div>
+                <div class="information_tel">您的号码：<span>{{$user_info.mobile}}</span></div>
+            </div>
+
+            <div class="am-form-group am-form-select" style="margin-top:20px;width: 100%;">
+                <select name="province_code" onchange="changeSelect(this)" style="width: 100%;height: 50px; ">
+                    <option value="">-省份-</option>
+                    {{foreach from=$provinces item=row}}
+                    <option value="{{$row.code}}">{{$row.name}}</option>
+                    {{/foreach}}
+                </select>
+                <select name="city_code" style="width:100%; height: 50px;margin-top: 5px;" onchange="changeSelectCity(this)">
+                    <option value="">-城市-</option>
+                </select>
+                <select name="area_code" style="width:100%;height: 50px;margin-top: 5px;">
+                    <option value="">-区域-</option>
+                </select>
+            </div>
+
+            <input class="am-btn am-btn-secondary am-btn-block" style="margin-top: 30px;" type="submit" value="确认">
+            <a class="am-btn am-btn-default am-btn-block" style="margin-top: 5px;" href="{{site_url url='user'}}">返回</a>
+        </form>
+        <br>
+
+    </div>
+</div>
+
+
+<script src="{{$base_url}}statics/js/localResizeIMG.js"></script>
+<script src="{{$base_url}}statics/js/mobileBUGFix.mini.js"></script>
+<script>
+    function get_yzm(){
+        $.get("{{site_url url='/frontend/get_yzm'}}/"+$("[name='mobile']").val(),function(data){
+            console.log(data)
+        });
+    }
+
+    $('#file').localResizeIMG({
+        width: 300,
+        height: 300,
+        quality: 1,
+        success: function (result) {
+            $("#img_input").val(result.base64);
+            $("#previewResult").attr('src',result.base64)
+        }
+    });
+</script>
+<script type="text/javascript">
+    $().ready(function(){
+        $('[name="province_code"]').val("{{$user_info.province_code}}");
+        $('[name="province_code"]').trigger('change');
+        setTimeout(function(){
+            $('[name="city_code"]').val("{{$user_info.city_code}}");
+            $('[name="city_code"]').trigger('change');
+            setTimeout(function(){
+                $('[name="area_code"]').val("{{$user_info.area_code}}");
+            },300);
+        },300);
+    });
+    function changeSelect(obj)
+    {
+        province = $(obj).val();
+        html = '<option value="">-城市-</option>'
+        if(province){
+            $.getJSON("{{site_url url='frontend/get_city'}}/"+province,function(data){
+                data.forEach(function(item){
+                    html += '<option value="'+ item.code +'">'+item.name+'</option>'
+
+                })
+                $("[name='city_code']").html(html)
+            });
+        }else{
+            $("[name='city_code']").html(html)
+        }
+    }
+
+    function changeSelectCity(obj)
+    {
+        city = $(obj).val();
+        html = '<option value="">-区域-</option>'
+        if(city){
+            $.getJSON("{{site_url url='frontend/get_area'}}/"+city,function(data){
+                data.forEach(function(item){
+                    html += '<option value="'+ item.code +'">'+item.name+'</option>'
+
+                })
+                $("[name='area_code']").html(html)
+            });
+        }else{
+            $("[name='area_code']").html(html)
+        }
+    }
+</script>
+
+
+
+</body>
+</html>

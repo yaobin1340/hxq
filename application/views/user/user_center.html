@@ -72,7 +72,9 @@
         z-indent:2;
         line-height: 50px;
         text-align: center;
+
     }
+
     .header_photo_user{
         width:75px;height: 75px;border-radius: 75px;margin: 0 auto;margin-top: 20px; background-color:#d8d8d8;
     }
@@ -122,6 +124,7 @@
     <img src="{{$base_url}}statics/images/2.jpg">
 
     <div class="header_photo">
+        <a href="{{site_url url='frontend/register_shop'}}" class="header_shop am-icon-th-large" style="float: right;margin-right: 5px;font-size: 13px;margin-top: -10px;color: blue;">商家入驻</a>
         <div class="header_photo_user">
             <img src="{{$base_url}}upload/face/{{$user_info.face}}">
         </div>
@@ -135,10 +138,13 @@
 </div>
 
 <div class="list">
-    <div class="list_back">
-        &nbsp;<span class="am-icon-cogs list_bac_name">&nbsp;&nbsp;账户管理</span>
-        <span class="list_bac_jiantou" >></span>
-    </div>
+    <a style="color: #696969" href="{{site_url url='user/information_revise'}}">
+        <div class="list_back">
+                <span class="am-icon-cogs list_bac_name">&nbsp;&nbsp;账户管理</span>
+                <span class="list_bac_jiantou" >></span>
+        </div>
+    </a>
+
     <div class="list_back" >
         &nbsp;<span class="am-icon-cogs list_bac_name">&nbsp;&nbsp;资金管理</span>
         <span class="list_bac_jiantou" >></span>
@@ -164,31 +170,65 @@
 <div class="footer">
     <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0">
        <tr>
-           <td>
+           <td id="home" style="color: #3ab5f3;" onclick="home()">
                <span class="am-icon-home footer_span_1"></span><br>
                <span class="footer_span_2" >主页</span>
            </td>
-           <td>
+           <td id="myorder" onclick="myorder()">
                <span class="am-icon-cart-plus footer_span_1"></span><br>
                <span class="footer_span_2" >我的订单</span>
            </td>
-           <td>
+           <td id="cheaporder" onclick="cheaporder()">
                <span class="am-icon-tags footer_span_1"></span><br>
                <span class="footer_span_2" >优惠买单</span>
            </td>
-           <td>
+           <td id="message" onclick="message()">
                <span class="am-icon-volume-up footer_span_1"></span><br>
                <span class="footer_span_2">消息</span>
            </td>
-           <td>
+           <td id="someone_center" onclick="someone_center()">
                <span class="am-icon-user footer_span_1"></span><br>
                <span class="footer_span_2" >个人中心</span>
            </td>
        </tr>
     </table>
 </div>
-    <br>
-    <br>
-    <br>
 </div>
+<script>
+      function home() {
+          $("#home").css("color","#3ab5f3");
+          $("#myorder").css("color","#7c7c7c");
+          $("#cheaporder").css("color","#7c7c7c");
+          $("#message").css("color","#7c7c7c");
+          $("#someone_center").css("color","#7c7c7c");
+      }
+      function myorder() {
+          $("#home").css("color","#7c7c7c");
+          $("#myorder").css("color","#3ab5f3");
+          $("#cheaporder").css("color","#7c7c7c");
+          $("#message").css("color","#7c7c7c");
+          $("#someone_center").css("color","#7c7c7c");
+      }
+      function cheaporder() {
+          $("#home").css("color","#7c7c7c");
+          $("#myorder").css("color","#7c7c7c");
+          $("#cheaporder").css("color","#3ab5f3");
+          $("#message").css("color","#7c7c7c");
+          $("#someone_center").css("color","#7c7c7c");
+      }
+      function message() {
+          $("#home").css("color","#7c7c7c");
+          $("#myorder").css("color","#7c7c7c");
+          $("#cheaporder").css("color","#7c7c7c");
+          $("#message").css("color","#3ab5f3");
+          $("#someone_center").css("color","#7c7c7c");
+      }
+      function someone_center() {
+          $("#home").css("color","#7c7c7c");
+          $("#myorder").css("color","#7c7c7c");
+          $("#cheaporder").css("color","#7c7c7c");
+          $("#message").css("color","#7c7c7c");
+          $("#someone_center").css("color","#3ab5f3");
+      }
+</script>
 </body>

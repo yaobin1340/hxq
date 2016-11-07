@@ -94,6 +94,7 @@ class Frontend_model extends MY_Model
 
     public function check_login(){
         $rs = $this->db->select('id')->from('users')
+            ->where('status',1)
             ->where('mobile',$this->input->post('mobile'))
             ->where('password',sha1($this->input->post('password')))
             ->get()->row();

@@ -51,4 +51,22 @@ class User_model extends MY_Model
         return $this->db->insert($this->_tbName,$arrFields);
     }
 
+    public function save_information_revise($img){
+        $data = array(
+            'province_code'=>$this->input->post('province_code'),
+            'city_code'=>$this->input->post('city_code'),
+            'area_code'=>$this->input->post('area_code')
+        );
+        if($img){
+            $data['face'] = $img;
+        }
+        $this->db->where('id',$this->session->userdata('uid'));
+        $rs = $this->db->update('users',$data);
+        if($rs){
+            return 1;
+        }else{
+            return -1;
+        }
+    }
+
 }

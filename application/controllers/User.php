@@ -35,7 +35,6 @@ class User extends MY_Controller {
     {
         $this->display('user/test.html');
     }
-
     public function user_list()
     {
         $this->display('user/user_list.html');
@@ -81,5 +80,26 @@ class User extends MY_Controller {
 
         $this->show_message('添加成功！',site_url('/user/user_list'));
     }
+
+    public function information_revise()
+    {
+        $this->load->model('frontend_model');
+        $provinces = $this->frontend_model->get_province();
+        $this->assign('provinces', $provinces);
+        $this->display('user/information_revise.html');
+    }
+
+	public function save_information_revise(){
+		$img = null;
+		if($this->input->post('img_input')){
+			$img = $this->upload();
+		}
+		$rs = $this->user_model->save_information_revise($img);
+		if($rs == 1){
+			$this->show_message('修改成功',site_url('user'));
+		}else{
+			$this->show_message('操作失败');
+		}
+	}
 
 }
