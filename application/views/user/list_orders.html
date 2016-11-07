@@ -24,7 +24,7 @@
         float: right; margin-right: 15px;line-height: 50px;color:#e47b75;
     }
     .list_all_information{
-        border-bottom: 1px solid #eeeeee;margin-top: 10px;padding-bottom: 10px;
+        border-bottom: 1px solid #eeeeee;margin-top: 10px;padding-bottom: 10px;margin-left: 30px;
     }
     .list_all_information_mobile{
         color: #4f9ce0;
@@ -92,6 +92,9 @@
     .user_add_button_equit{
         width: 48%; height: 50px;
     }
+    #is_end{
+        display: none;text-align: center; height: 20px; margin-top: -10px;font-size: 14px;
+    }
 </style>
 
 <!--<script src="{{$base_url}}statics/js/user_list.js"></script>-->
@@ -113,9 +116,9 @@
             </div>
             <div id="do-not-say-{{$row.id}}" class="am-panel-collapse am-collapse">
                 <div class="am-panel-bd">
-                    <p class="list_all_information">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="am-icon-phone list_all_information_mobile"></span>&nbsp;&nbsp;手机：{{$row.mobile}}</p>
-                    <p class="list_all_information">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="am-icon-user list_all_information_name"></span>&nbsp;&nbsp;姓名：{{$row.rel_name}}</p>
-                    <p class="list_all_information">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;时间：{{$row.cdate}}</p>
+                    <p class="list_all_information"><span class="am-icon-phone list_all_information_mobile"></span>&nbsp;&nbsp;手机：{{$row.mobile}}</p>
+                    <p class="list_all_information"><span class="am-icon-user list_all_information_name"></span>&nbsp;&nbsp;姓名：{{$row.rel_name}}</p>
+                    <p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;时间：{{$row.cdate}}</p>
                 </div>
                 <div class="list_all_button">
                     <button type="button" class="am-btn list_all_button_delete" target="{{$row.id}}">删除</button>
@@ -123,10 +126,9 @@
             </div>
         </div>
 
-
         {{/foreach}}
     </div>
-    <p id="is_end" style="display: none">已到最后一页</p>
+    <p id="is_end">已到最后一页</p>
 </div>
 
 <div class="xuanfu_plus">
