@@ -232,7 +232,7 @@ class MY_Controller extends CI_Controller
 		return $str;
 	}
 
-    function json($code, $msg, $data = null) {
+    protected function json($code, $msg, $data = null) {
         $res = array();
         $res['code'] = $code;
         $res['msg'] = $msg;
