@@ -40,13 +40,13 @@ class User extends MY_Controller {
         $this->display('user/user_list.html');
     }
 
-    public function create_order_list(){
+    public function save_order(){
         $this->load->model('order_model');
         $this->load->model('order_list_model');
         //验证
-        $user_flag = $_GET['user_flag'];
+        $user_flag = $this->input->post('user_flag');
         $user = $this->user_model->get_user($user_flag);
-        if(!$user) $this->show_message('用户不存在~',site_url('/user/user_list'));
+        if(!$user) $this->show_message('用户不存在~');
 
         $conditionFields = array();
         $conditionFields['status'] = 1;
@@ -56,14 +56,14 @@ class User extends MY_Controller {
             $dbOrder = $dbOrder[0];
             $arrFields = array();
             $arrFields['num'] = $dbOrder['num'] + 1;
-            $arrFields['total'] = $dbOrder['total'] + $_GET['price'];
+            $arrFields['total'] = $dbOrder['total'] + $this->input->post('price');
             $arrFields['status'] = 1;
             $this->order_model->updateById($dbOrder['id'],$arrFields);
             $oid = $dbOrder['id'];
         }else{
             $arrFields = array();
             $arrFields['num'] = 1;
-            $arrFields['total'] = $_GET['price'];
+            $arrFields['total'] = $this->input->post('price');
             $arrFields['status'] = 1;
             $arrFields['cdate'] = date('Y-m-d H:i:s');
             $oid = $this->order_model->add($arrFields);
@@ -72,13 +72,13 @@ class User extends MY_Controller {
         $arrFields = array();
         $arrFields['uid'] = $user['id'];
         $arrFields['mobile'] = $user['mobile'];
-        $arrFields['price'] = $_GET['price'];
+        $arrFields['price'] = $this->input->post('price');
         $arrFields['cdate'] = date('Y-m-d H:i:s');
-        $arrFields['status'] = 3;
+        $arrFields['status'] = 1;
         $arrFields['oid'] = $oid;
         $this->order_list_model->add($arrFields);
 
-        $this->show_message('添加成功！',site_url('/user/user_list'));
+        $this->show_message('添加成功！',site_url('/user/list_orders'));
     }
 
     public function information_revise()
@@ -101,5 +101,26 @@ class User extends MY_Controller {
 			$this->show_message('操作失败');
 		}
 	}
+
+	public function list_orders($page = 1){
+        $data = $this->user_model->list_orders($page);
+        $this->assign('data', $data);
+		$this->display('user/list_orders.html');
+	}
+
+    public function list_orders_loaddata($page = 1){
+        $data = $this->user_model->list_orders($page);
+        $this->assign('data', $data);
+        $this->assign('page', $page);
+        $this->display('user/list_orders_loaddata.html');
+    }
+
+    public function get_name_by_keywords($keywords){
+        echo $this->user_model->get_name_by_keywords($keywords);
+    }
+
+    public function del_order($id){
+        echo $this->user_model->del_order($id);
+    }
 
 }
