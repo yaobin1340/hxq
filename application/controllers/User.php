@@ -123,4 +123,17 @@ class User extends MY_Controller {
         echo $this->user_model->del_order($id);
     }
 
+    public function list_order_audit(){
+        $this->assign('s_date', $this->input->post('s_date'));
+        $this->assign('e_date', $this->input->post('e_date'));
+        $this->display('user/list_order_audit.html');
+    }
+
+    public function list_order_audit_loaddata($page = 1){
+        $data = $this->user_model->list_order_audit($page);
+        $this->assign('data', $data);
+        $this->assign('page', $page);
+        $this->display('user/list_order_audit_loaddata.html');
+    }
+
 }

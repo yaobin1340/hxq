@@ -117,6 +117,44 @@ class User_model extends MY_Model
         return $data;
     }
 
+    public function list_order_audit($page){
+        $data['limit'] = $this->limit;
+        //获取总记录数
+        $this->db->select('count(1) num')->from('order');
+
+        if($this->input->post('s_date')){
+            $this->db->where("cdate >=",$this->input->post('s_date'));
+        }
+
+        if($this->input->post('e_date')){
+            $this->db->where("cdate <=",$this->input->post('e_date')." 23:59:59");
+        }
+//        $this->db->where('shop_id',1); //TODO
+        $num = $this->db->get()->row();
+        $data['total'] = $num->num;
+
+        //搜索条件
+        $data['e_date'] = $this->input->post('e_date')?$this->input->post('e_date'):null;
+        $data['s_date'] = $this->input->post('s_date')?$this->input->post('s_date'):null;
+
+        //获取详细列
+        $this->db->select()->from('order');
+
+        if($this->input->post('s_date')){
+            $this->db->where("cdate >=",$this->input->post('s_date'));
+        }
+
+        if($this->input->post('e_date')){
+            $this->db->where("cdate <=",$this->input->post('e_date')." 23:59:59");
+        }
+//        $this->db->where('shop_id',1); //TODO
+        $this->db->order_by('cdate','desc');
+        $this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
+        $data['items'] = $this->db->get()->result_array();
+
+        return $data;
+    }
+
     public function get_name_by_keywords($keywords){
         $rs = $this->db->select('rel_name')->from('users')
             ->where('id',$keywords)

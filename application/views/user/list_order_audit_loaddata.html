@@ -1,0 +1,22 @@
+{{foreach from=$data.items item=row}}
+<div class="am-panel am-panel-default">
+    <div id="list_btn" class="am-panel-hd" style="width: 100%;background:rgba(255, 255, 255, 0.5);">
+        <div class="am-panel-title list_all_btn" data-am-collapse="{parent: '#accordion', target: '#do-not-say-{{$row.id}}'}">
+            <span class="am-front-icon am-icon-rmb list_all_user_img"></span>
+            <span class="list_all_user_id">{{$row.total/100}}</span>
+            <span class="am-icon-sort-desc list_all_sort_img"></span>
+            <span class="list_all_money">{{$row.cdate}}元</span>
+        </div>
+    </div>
+    <div id="do-not-say-{{$row.id}}" class="am-panel-collapse am-collapse">
+        <div class="am-panel-bd">
+            <p class="list_all_information">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="am-icon-phone list_all_information_mobile"></span>&nbsp;&nbsp;订单数：{{$row.num}}</p>
+            <p class="list_all_information">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="am-icon-user list_all_information_name"></span>&nbsp;&nbsp;状态：{{$row.status}}</p>
+            <p class="list_all_information">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;时间：{{$row.cdate}}</p>
+        </div>
+        <div class="list_all_button">
+            <button type="button" class="am-btn list_all_button_delete">详情</button>
+        </div>
+    </div>
+</div>
+{{/foreach}}
