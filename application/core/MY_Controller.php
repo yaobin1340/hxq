@@ -231,8 +231,15 @@ class MY_Controller extends CI_Controller
 
 		return $str;
 	}
-	
-	
+
+    protected function json($code, $msg, $data = null) {
+        $res = array();
+        $res['code'] = $code;
+        $res['msg'] = $msg;
+        $res['data'] = $data;
+        exit(json_encode($res));
+    }
+
 }
 
 /* End of file MY_Controller.php */
