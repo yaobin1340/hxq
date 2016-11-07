@@ -44,7 +44,7 @@ class User extends MY_Controller {
         $this->load->model('order_model');
         $this->load->model('order_list_model');
         //验证
-        $user_flag = $_GET['user_flag'];
+        $user_flag = $_POST['user_flag'];
         $user = $this->user_model->get_user($user_flag);
         if(!$user) $this->show_message('用户不存在~',site_url('/user/user_list'));
 
@@ -56,14 +56,14 @@ class User extends MY_Controller {
             $dbOrder = $dbOrder[0];
             $arrFields = array();
             $arrFields['num'] = $dbOrder['num'] + 1;
-            $arrFields['total'] = $dbOrder['total'] + $_GET['price'];
+            $arrFields['total'] = $dbOrder['total'] + $_POST['price'];
             $arrFields['status'] = 1;
             $this->order_model->updateById($dbOrder['id'],$arrFields);
             $oid = $dbOrder['id'];
         }else{
             $arrFields = array();
             $arrFields['num'] = 1;
-            $arrFields['total'] = $_GET['price'];
+            $arrFields['total'] = $_POST['price'];
             $arrFields['status'] = 1;
             $arrFields['cdate'] = date('Y-m-d H:i:s');
             $oid = $this->order_model->add($arrFields);
@@ -72,13 +72,13 @@ class User extends MY_Controller {
         $arrFields = array();
         $arrFields['uid'] = $user['id'];
         $arrFields['mobile'] = $user['mobile'];
-        $arrFields['price'] = $_GET['price'];
+        $arrFields['price'] = $_POST['price'];
         $arrFields['cdate'] = date('Y-m-d H:i:s');
         $arrFields['status'] = 3;
         $arrFields['oid'] = $oid;
         $this->order_list_model->add($arrFields);
 
-        $this->show_message('添加成功！',site_url('/user/user_list'));
+        $this->json(1,'添加成功');
     }
 
     public function information_revise()
