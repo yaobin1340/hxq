@@ -189,6 +189,13 @@
         </div>
 
            {{if $shop}}
+           <div class="am-form-group am-form-icon" style="height: 50px;">
+               <i class="am-icon-tag"></i>
+               <input type="text" name="" value="审核状态： {{if $shop.status eq 1}}待审核{{elseif $shop.status eq 2}}审核通过{{elseif $shop.status eq -1}}审核未通过{{/if}}" class="am-form-field" placeholder="" style="height: 50px;" required disabled/>
+           </div>
+           {{/if}}
+
+           {{if $shop}}
            {{if $shop.status eq -1}}
            <div class="am-form-group am-form-icon" style="height: 50px;">
                <i class="am-icon-tag"></i>
@@ -197,8 +204,15 @@
            {{/if}}
            {{/if}}
 
-           <button type="submit" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;" {{if $shop}}{{if $shop.status eq 2}}disabled{{/if}}{{/if}}>提交</button>
-         <button type="submit" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;margin-top: 5px;">取消</button>
+           {{if $shop}}
+                {{if $shop.status eq -1}}
+           <button type="submit" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;">提交</button>
+           <button type="submit" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;margin-top: 5px;">取消</button>
+                {{/if}}
+           {{else}}
+           <button type="submit" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;">提交</button>
+           <button type="submit" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;margin-top: 5px;">取消</button>
+           {{/if}}
        </form>
 
 
