@@ -40,46 +40,7 @@ class User extends MY_Controller {
         $this->display('user/user_list.html');
     }
 
-    public function save_order(){
-        $this->load->model('order_model');
-        $this->load->model('order_list_model');
-        //验证
-        $user_flag = $this->input->post('user_flag');
-        $user = $this->user_model->get_user($user_flag);
-        if(!$user) $this->show_message('用户不存在~');
 
-        $conditionFields = array();
-        $conditionFields['status'] = 1;
-        $dbOrder = $this->order_model->queryContent($conditionFields);
-
-        if($dbOrder){
-            $dbOrder = $dbOrder[0];
-            $arrFields = array();
-            $arrFields['num'] = $dbOrder['num'] + 1;
-            $arrFields['total'] = $dbOrder['total'] + $this->input->post('price');
-            $arrFields['status'] = 1;
-            $this->order_model->updateById($dbOrder['id'],$arrFields);
-            $oid = $dbOrder['id'];
-        }else{
-            $arrFields = array();
-            $arrFields['num'] = 1;
-            $arrFields['total'] = $this->input->post('price');
-            $arrFields['status'] = 1;
-            $arrFields['cdate'] = date('Y-m-d H:i:s');
-            $oid = $this->order_model->add($arrFields);
-        }
-
-        $arrFields = array();
-        $arrFields['uid'] = $user['id'];
-        $arrFields['mobile'] = $user['mobile'];
-        $arrFields['price'] = $this->input->post('price');
-        $arrFields['cdate'] = date('Y-m-d H:i:s');
-        $arrFields['status'] = 1;
-        $arrFields['oid'] = $oid;
-        $this->order_list_model->add($arrFields);
-
-        $this->show_message('添加成功！',site_url('/user/list_orders'));
-    }
 
     public function information_revise()
     {
