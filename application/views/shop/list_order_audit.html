@@ -24,7 +24,7 @@
         float: right; margin-right: 15px;line-height: 50px;color:#e47b75;
     }
     .list_all_information{
-        border-bottom: 1px solid #eeeeee;margin-top: 10px;padding-bottom: 10px;margin-left: 30px;
+        border-bottom: 1px solid #eeeeee;margin-top: 10px;padding-bottom: 10px;
     }
     .list_all_information_mobile{
         color: #4f9ce0;
@@ -92,43 +92,16 @@
     .user_add_button_equit{
         width: 48%; height: 50px;
     }
-    #is_end{
-        display: none;text-align: center; height: 20px; margin-top: -10px;font-size: 14px;
-    }
 </style>
 
 <!--<script src="{{$base_url}}statics/js/user_list.js"></script>-->
-<input type="hidden" id="keywords" value="{{$data.keywords}}">
-<input type="hidden" id="s_date" value="{{$data.s_date}}">
-<input type="hidden" id="e_date" value="{{$data.e_date}}">
+<input type="hidden" id="s_date" value="{{$s_date}}">
+<input type="hidden" id="e_date" value="{{$e_date}}">
 <div class="list_all">
     <div class="am-panel-group" id="accordion">
-        {{foreach from=$data.items item=row}}
-        <div class="am-panel am-panel-default">
-            <div id="list_btn" class="am-panel-hd" style="width: 100%;background:rgba(255, 255, 255, 0.5);">
-                <div class="am-panel-title list_all_btn" data-am-collapse="{parent: '#accordion', target: '#do-not-say-{{$row.id}}'}">
-                    <span class="am-front-icon am-icon-user list_all_user_img"></span>
-                    <span class="list_all_user_id">&nbsp;ID:{{$row.uid}}</span>
-                    <span class="am-icon-sort-desc list_all_sort_img"></span>
-                    <span class="list_all_money">{{$row.price/100}}元</span>
-                    <span class="am-front-icon am-icon-rmb list_all_rmb"></span>
-                </div>
-            </div>
-            <div id="do-not-say-{{$row.id}}" class="am-panel-collapse am-collapse">
-                <div class="am-panel-bd">
-                    <p class="list_all_information"><span class="am-icon-phone list_all_information_mobile"></span>&nbsp;&nbsp;手机：{{$row.mobile}}</p>
-                    <p class="list_all_information"><span class="am-icon-user list_all_information_name"></span>&nbsp;&nbsp;姓名：{{$row.rel_name}}</p>
-                    <p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;时间：{{$row.cdate}}</p>
-                </div>
-                <div class="list_all_button">
-                    <button type="button" class="am-btn list_all_button_delete" target="{{$row.id}}">删除</button>
-                </div>
-            </div>
-        </div>
 
-        {{/foreach}}
     </div>
-    <p id="is_end">已到最后一页</p>
+    <p id="is_end" style="display: none">已到最后一页</p>
 </div>
 
 <div class="xuanfu_plus">
@@ -141,12 +114,11 @@
     <div class="am-modal-actions-group">
         <ul class="am-list">
             <div class="am-form-group input_start_time">
-                <input type="datetime" class="am-form-field" data-am-datepicker readonly name="s_date" value="{{$data.s_date}}" placeholder="开始时间">
+                <input type="datetime" class="am-form-field" data-am-datepicker readonly name="s_date" value="{{$s_date}}" placeholder="开始时间">
             </div>
             <div class="am-form-group input_end_time">
-                <input type="datetime" class="am-form-field" data-am-datepicker readonly name="e_date" value="{{$data.e_date}}" placeholder="结束时间">
+                <input type="datetime" class="am-form-field" data-am-datepicker readonly name="e_date" value="{{$e_date}}" placeholder="结束时间">
             </div>
-            <input type="text" id="doc-ipt-3-1" class="am-form-field input_search_user" name="keywords" placeholder="客户（姓名,电话）模糊搜索" value="{{$data.keywords}}">
         </ul>
     </div>
     <div class="am-modal-actions-group div_search_btn">
@@ -212,7 +184,7 @@
 
 <script>
     window.is_end = false
-    window.page = 2
+    window.page = 1
     $(window).scroll(function () {
         var scrollTop = $(this).scrollTop();
         var scrollHeight = $(document).height();
@@ -222,72 +194,57 @@
                 $("#is_end").show()
             }else{
                 $("#my-actions-search").show()
-                s_date = $('#s_date').val()
-                e_date = $('#e_date').val()
-                keywords = $('#keywords').val()
                 $('#my-modal-loading').modal()
-
-                $.post("{{site_url url='user/list_orders_loaddata'}}/"+window.page,{s_date:s_date,e_date:e_date,keywords:keywords},function(data){
-                    if(data){
-                        $("#accordion").append(data)
-                        $('#accordion').find('.flag-'+window.page).add('#doc-confirm-toggle').
-                        on('click', function() {
-                            $('#my-confirm').modal({
-                                relatedTarget: this,
-                                onConfirm: function(options) {
-                                    id = $(this.relatedTarget).attr('target')
-                                    $.get("{{site_url url='user/del_order'}}/"+id,function(data){
-                                        if(data == 1){
-                                            location.href = "{{site_url url='user/list_orders'}}";
-                                        }else{
-                                            console.log(data)
-                                        }
-                                    })
-                                },
-                                onCancel: function() {
-
-                                }
-                            });
-                        });
-                        window.page += 1
-                        $('#my-modal-loading').modal('close');
-                    }else{
-                        $('#my-modal-loading').modal('close');
-                        $("#is_end").show()
-                        window.is_end = true
-                    }
-
-                });
+                get_data()
             }
         }
     });
 
     function get_name_by_keywords(obj){
-        $.get("{{site_url url='user/get_name_by_keywords'}}/"+$(obj).val(),function(data){
+        $.get("{{site_url url='shop/get_name_by_keywords'}}/"+$(obj).val(),function(data){
             $("#rel_name").val(data)
         })
     }
 
-    $(function() {
-        $('#accordion').find('.list_all_button_delete').add('#doc-confirm-toggle').
-        on('click', function() {
-            $('#my-confirm').modal({
-                relatedTarget: this,
-                onConfirm: function(options) {
-                    id = $(this.relatedTarget).attr('target')
-                    $.get("{{site_url url='user/del_order'}}/"+id,function(data){
-                        if(data == 1){
-                            location.href = "{{site_url url='user/list_orders'}}";
-                        }else{
-                            console.log(data)
-                        }
-                    })
-                },
-                onCancel: function() {
+    function get_data(){
+        s_date = $('#s_date').val()
+        e_date = $('#e_date').val()
+        $.post("{{site_url url='shop/list_order_audit_loaddata'}}/"+window.page,{s_date:s_date,e_date:e_date},function(data){
+            if(data){
+                $("#accordion").append(data)
+                $('#accordion').find('.flag-'+window.page).add('#doc-confirm-toggle').
+                on('click', function() {
+                    $('#my-confirm').modal({
+                        relatedTarget: this,
+                        onConfirm: function(options) {
+                            id = $(this.relatedTarget).attr('target')
+                            $.get("{{site_url url='shop/del_order'}}/"+id,function(data){
+                                if(data == 1){
+                                    location.href = "{{site_url url='shop/list_orders'}}";
+                                }else{
+                                    console.log(data)
+                                }
+                            })
+                        },
+                        onCancel: function() {
 
-                }
-            });
+                        }
+                    });
+                });
+                window.page += 1
+                $('#my-modal-loading').modal('close');
+            }else{
+                $('#my-modal-loading').modal('close');
+                $("#is_end").show()
+                window.is_end = true
+            }
+
         });
+    }
+
+    $(function() {
+        get_data()
     });
+
 </script>
 
