@@ -17,6 +17,7 @@
     <link rel="stylesheet"
           href="{{$base_url}}statics/amaze/css/amazeui.min.css" />
     <link rel="stylesheet" href="{{$base_url}}statics/amaze/css/admin.css">
+    <link rel="stylesheet" href="{{$base_url}}statics/css/shopcss.css">
     <!--[if lt IE 9]>
     <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
     <script src="{{$base_url}}assets/js/polyfill/rem.min.js"></script>
@@ -36,9 +37,6 @@
         margin:0;
         padding:0;
     }
-    body{
-        /*background: #f0efed;*/
-    }
     .am-topbar .am-text-ir {
         display: block;
         margin-right: 10px;
@@ -50,17 +48,14 @@
     }
 </style>
 <body style="overflow-y:hid">
-
 <header class="am-topbar am-topbar-inverse am-topbar-fixed-top">
     <div class="am-container">
         <h1 class="am-topbar-brand">
             <a href="#" class="am-text-ir">Amaze UI</a>
         </h1>
-
         <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only"
                 data-am-collapse="{target: '#doc-topbar-collapse-4'}"><span class="am-sr-only">导航切换</span> <span
                 class="am-icon-bars"></span></button>
-
         <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse-4">
             <ul class="am-nav am-nav-pills am-topbar-nav">
                 <li class="am-active"><a href="#">首页</a></li>

@@ -1,27 +1,24 @@
 {{include file="./header.html"}}
-<div style="width: 100%;">
-    <div style="width:85px;height: 85px;border-radius: 85px;margin: 0 auto;margin-top: 30px; background-color: blue;">
-        <img src="{{$base_url}}statics/images/user.jpg" style=" width: 85px;height: 85px;border-radius: 85px;">
-    </div>
+<div class="login_all">
+    <div><img src="{{$base_url}}statics/images/user.jpg"></div>
 </div>
 <form method="post" class="am-form " action="{{site_url url='frontend/check_login'}}" data-am-validator>
-  <div style="width: 100%;margin-top: 30px; ">
-     <div class="am-form-group am-form-icon" style="width: 90%;margin: 0 auto;">
-           <i class="am-icon-mobile-phone" style="font-size: 20px;"></i>
-           <input type="number" id="doc-vld-mima-1"  name="mobile" class="am-form-field js-pattern-mobile" placeholder="请输入您的手机号" style="height: 50px;" required />
+  <div class="login_all_form">
+     <div class="am-form-group am-form-icon login_form_mobile">
+           <i class="am-icon-mobile-phone"></i>
+           <input type="number" id="doc-vld-mima-1"  name="mobile" class="am-form-field js-pattern-mobile" placeholder="请输入您的手机号" required />
      </div>
-      <div class="am-form-group am-form-icon" style="width: 90%;margin: 0 auto;margin-top: 5px;">
-          <i class="am-icon-lock" style="font-size: 18px;"></i>
-          <input type="password" id="doc-vld-mima-2"  name="password" class="am-form-field js-pattern-number" placeholder="请输入您的密码" style="height: 50px;" required />
+      <div class="am-form-group am-form-icon login_form_password">
+          <i class="am-icon-lock"></i>
+          <input type="password" id="doc-vld-mima-2"  name="password" class="am-form-field js-pattern-number" placeholder="请输入您的密码" required />
       </div>
   </div>
-    <button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block" style="width: 90%; height:50px;margin:0 auto;margin-top: 40px">登陆</button>
+    <button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block login_form_btn">登陆</button>
 </form>
-<div style="font-size: 14px;color: #f6c70a;margin-top: 10px;">
-    <a href="{{site_url url='frontend/forget_pwd'}}"><span style="margin-left: 8%;">忘记密码？</span></a>
-    <a href="{{site_url url='frontend/register'}}"><span style="float: right;margin-right: 8%;">新用户注册</span></a>
+<div class="login_others">
+    <a href="{{site_url url='frontend/forget_pwd'}}"><span class="login_others_forget_pwd">忘记密码？</span></a>
+    <a href="{{site_url url='frontend/register'}}"><span class="login_others_news_user">新用户注册</span></a>
 </div>
-
 <script>
     if ($.AMUI && $.AMUI.validator) {
         $.AMUI.validator.patterns.mobile = /^\s*1\d{10}\s*$/;
