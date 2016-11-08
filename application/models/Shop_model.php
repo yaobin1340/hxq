@@ -166,6 +166,58 @@ class Shop_model extends MY_Model
             return 1;
         }
     }
+
+    public function save_order(){
+        $user_flag = $this->input->post('user_flag');
+        $price = $this->input->post('price')*100;
+
+        $user_info = $this->db->select('id,mobile')->from('users')
+            ->where('id',$user_flag)
+            ->or_where('mobile',$user_flag)->get()->row();
+
+        if(!$user_info)
+            return -2;//用户不存在
+
+        $rs = $this->db->select('id')->from('order')
+            ->where('shop_id',$this->session->userdata('shop_id'))
+            ->where('status',1)
+            ->get()->row();
+
+        $this->db->trans_start();//--------开始事务
+        if($rs){
+            $this->db->where('id',$rs->id);
+            $this->db->set('num', 'num+1', FALSE);
+            $this->db->set('total', 'total+'.$price, FALSE);
+            $this->db->update('order');
+            $oid = $rs->id;
+        }else{
+            $this->db->insert('order',array(
+                'num'=>1,
+                'total'=>$price,
+                'status'=>1,
+                'cdate'=>date('Y-m-d H:i:s',time()),
+                'shop_id'=>$this->session->userdata('shop_id')
+            ));
+            $oid = $this->db->insert_id();
+        }
+
+        $this->db->insert('order_list',array(
+            'uid'=>$user_info->id,
+            'mobile'=>$user_info->mobile,
+            'price'=>$price,
+            'shop_id'=>$this->session->userdata('shop_id'),
+            'status'=>1,
+            'oid'=>$oid,
+            'cdate'=>date('Y-m-d H:i:s',time())
+        ));
+
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
     
  
 }

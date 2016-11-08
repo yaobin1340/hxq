@@ -81,6 +81,8 @@ class Frontend_model extends MY_Model
             'status'=>1,//待審核
             'percent'=>$this->input->post('percent'),
         );
+        if(!$img)unset($data['logo']);
+        if(!$license)unset($data['license']);
 
         $shop = $this->db->select()->from('shop')->where("uid = $uid")->get()->row_array();
         if($shop){

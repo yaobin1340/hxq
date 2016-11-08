@@ -27,6 +27,7 @@ class Shop extends MY_Controller {
 		if(!$shop_info){
 			$this->show_message('您还不是商家,请先申请入驻',site_url('/frontend/register_shop'));
 		}
+		$this->session->set_userdata('shop_id',$shop_info['id']);
 		$this->assign('user_info', $shop_info);
 	}
 
@@ -36,8 +37,13 @@ class Shop extends MY_Controller {
 	}
 
 	public function list_orders($page = 1){
-		$data = $this->shop_model->list_orders($page);
-		$this->assign('data', $data);
+//		$data = $this->shop_model->list_orders($page);
+//		$this->assign('data', $data);
+//		$this->display('shop/list_orders.html');
+		//		$data = $this->shop_model->list_orders($page);
+		$this->assign('s_date', $this->input->post('s_date'));
+		$this->assign('e_date', $this->input->post('e_date'));
+		$this->assign('keywords', $this->input->post('keywords'));
 		$this->display('shop/list_orders.html');
 	}
 
@@ -67,6 +73,18 @@ class Shop extends MY_Controller {
 		$this->assign('data', $data);
 		$this->assign('page', $page);
 		$this->display('shop/list_order_audit_loaddata.html');
+	}
+
+	public function save_order(){
+		$rs = $this->shop_model->save_order();
+		if($rs == 1){
+			$this->show_message('添加成功！',site_url('shop/list_orders'));
+		}else if($rs == -2){
+			$this->show_message('用户不存在！');
+		}else{
+			$this->show_message('操作失败！');
+		}
+
 	}
 
 }
