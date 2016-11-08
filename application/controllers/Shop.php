@@ -87,4 +87,36 @@ class Shop extends MY_Controller {
 
 	}
 
+	public function order_detail($order_id){
+		$data = $this->shop_model->order_detail($order_id);
+		if($data == -1){
+			$this->show_message('订单不存在！');
+		}else if($data == -2){
+			$this->show_message('不能看别人的订单！');
+		}else{
+			$data['items'] = $this->shop_model->order_byoid($order_id);
+			$this->assign('data', $data);
+			$this->display('shop/order_detail.html');
+		}
+
+	}
+
+	public function tijiao_order($order_id){
+		$order_Pic = $this->upload('order_pic','pic');
+		$rs = $this->shop_model->tijiao_order($order_id,$order_Pic);
+		if($rs == 1){
+			$this->show_message('提交成功！',site_url('shop/list_order_audit'));
+		}else if($rs == -1){
+			$this->show_message('订单不存在！');
+		}else if($rs == -2){
+			$this->show_message('不能操作别人的订单！');
+		}else if($rs == -3){
+			$this->show_message('未登陆！');
+		}else if($rs == -4){
+			$this->show_message('提交失败！');
+		}else{
+			$this->show_message('操作失败！');
+		}
+	}
+
 }

@@ -52,18 +52,22 @@ class Shop_model extends MY_Model
     {
         $data['limit'] = $this->limit;
         //获取总记录数
-        $this->db->select('count(1) num')->from('order_list');
+        $this->db->select('count(1) num')->from('order_list a');
+        $this->db->join('users e','a.uid=e.id','left');
         if($this->input->post('keywords')){
-            $this->db->where('uid',$this->input->post('keywords'));
-            $this->db->or_where('mobile',$this->input->post('keywords'));
+            $this->db->like('e.rel_name',$this->input->post('keywords'));
+            $this->db->or_like('a.mobile',$this->input->post('keywords'));
         }
-
+        $this->db->join('order b','b.id = a.oid','left');
+        $this->db->join('shop c','c.id = b.shop_id','left');
+        $this->db->join('users d','d.id = c.uid','left');
+        $this->db->where('d.id =',$this->session->userdata('uid'));
         if($this->input->post('s_date')){
-            $this->db->where("cdate >=",$this->input->post('s_date'));
+            $this->db->where("a.cdate >=",$this->input->post('s_date'));
         }
 
         if($this->input->post('e_date')){
-            $this->db->where("cdate <=",$this->input->post('e_date')." 23:59:59");
+            $this->db->where("a.cdate <=",$this->input->post('e_date')." 23:59:59");
         }
 //        $this->db->where('shop_id',1); //TODO
         $num = $this->db->get()->row();
@@ -75,11 +79,15 @@ class Shop_model extends MY_Model
         $data['s_date'] = $this->input->post('s_date')?$this->input->post('s_date'):null;
 
         //获取详细列
-        $this->db->select('a.*,rel_name')->from('order_list a');
-        $this->db->join('users b','a.uid=b.id','left');
+        $this->db->select('a.*,e.rel_name')->from('order_list a');
+        $this->db->join('users e','a.uid=e.id','left');
+        $this->db->join('order b','b.id = a.oid','left');
+        $this->db->join('shop c','c.id = b.shop_id','left');
+        $this->db->join('users d','d.id = c.uid','left');
+        $this->db->where('d.id =',$this->session->userdata('uid'));
         if($this->input->post('keywords')){
-            $this->db->where('a.uid',$this->input->post('keywords'));
-            $this->db->or_where('a.mobile',$this->input->post('keywords'));
+            $this->db->like('e.rel_name',$this->input->post('keywords'));
+            $this->db->or_like('a.mobile',$this->input->post('keywords'));
         }
         if($this->input->post('s_date')){
             $this->db->where("a.cdate >=",$this->input->post('s_date'));
@@ -89,7 +97,7 @@ class Shop_model extends MY_Model
             $this->db->where("a.cdate <=",$this->input->post('e_date')." 23:59:59");
         }
 //        $this->db->where('shop_id',1); //TODO
-        $this->db->order_by('cdate','acs');
+        $this->db->order_by('a.cdate','acs');
         $this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
         $data['items'] = $this->db->get()->result_array();
 
@@ -99,14 +107,16 @@ class Shop_model extends MY_Model
     public function list_order_audit($page){
         $data['limit'] = $this->limit;
         //获取总记录数
-        $this->db->select('count(1) num')->from('order');
-
+        $this->db->select('count(1) num')->from('order b');
+        $this->db->join('shop c','c.id = b.shop_id','left');
+        $this->db->join('users d','d.id = c.uid','left');
+        $this->db->where('d.id =',$this->session->userdata('uid'));
         if($this->input->post('s_date')){
-            $this->db->where("cdate >=",$this->input->post('s_date'));
+            $this->db->where("b.cdate >=",$this->input->post('s_date'));
         }
 
         if($this->input->post('e_date')){
-            $this->db->where("cdate <=",$this->input->post('e_date')." 23:59:59");
+            $this->db->where("b.cdate <=",$this->input->post('e_date')." 23:59:59");
         }
 //        $this->db->where('shop_id',1); //TODO
         $num = $this->db->get()->row();
@@ -117,17 +127,19 @@ class Shop_model extends MY_Model
         $data['s_date'] = $this->input->post('s_date')?$this->input->post('s_date'):null;
 
         //获取详细列
-        $this->db->select()->from('order');
-
+        $this->db->select('b.*')->from('order b');
+        $this->db->join('shop c','c.id = b.shop_id','left');
+        $this->db->join('users d','d.id = c.uid','left');
+        $this->db->where('d.id =',$this->session->userdata('uid'));
         if($this->input->post('s_date')){
-            $this->db->where("cdate >=",$this->input->post('s_date'));
+            $this->db->where("b.cdate >=",$this->input->post('s_date'));
         }
 
         if($this->input->post('e_date')){
-            $this->db->where("cdate <=",$this->input->post('e_date')." 23:59:59");
+            $this->db->where("b.cdate <=",$this->input->post('e_date')." 23:59:59");
         }
 //        $this->db->where('shop_id',1); //TODO
-        $this->db->order_by('cdate','desc');
+        $this->db->order_by('b.cdate','desc');
         $this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
         $data['items'] = $this->db->get()->result_array();
 
@@ -218,6 +230,63 @@ class Shop_model extends MY_Model
             return 1;
         }
     }
-    
- 
+
+    public function order_detail($order_id){
+        $row = $this->db->select()->from('order')->where('id',$order_id)->get()->row_array();
+        if(!$row){
+            return -1;
+        }
+        $check = $this->db->select()->from('shop')->where(array(
+            'id'=>$row['shop_id'],
+            'uid'=>$this->session->userdata('uid'),
+        ))->get()->row_array();
+        if(!$check){
+            return -2;
+        }
+        $row['percent']=$check['percent'];
+        //$data['data'] = $row;
+        return $row;
+    }
+
+    public function tijiao_order($order_id,$order_pic){
+        if(!($uid = $this->session->userdata('uid'))){
+            return -3;
+        }
+        $row = $this->db->select()->from('order')->where('id',$order_id)->get()->row_array();
+        if(!$row){
+            return -1;
+        }
+        $check = $this->db->select()->from('shop')->where(array(
+            'id'=>$row['shop_id'],
+            'uid'=>$this->session->userdata('uid'),
+        ))->get()->row();
+        if(!$check){
+            return -2;
+        }
+        if($row['status']!=1){
+            return -4;
+        }
+        $data = array(
+            'pic'=>$order_pic,
+            'remark'=>$this->input->post('remark'),
+            'status'=>2,//待審核
+        );
+        $this->db->trans_start();//--------开始事务
+        $this->db->where('id',$order_id)->update('order',$data);
+        $this->db->where('oid',$order_id)->update('order_list',array(
+            'status'=>2
+        ));
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -5;
+        } else {
+            return 1;
+        }
+    }
+    public function order_byoid($order_id){
+        $this->db->select('a.*,e.rel_name')->from('order_list a');
+        $this->db->join('users e','a.uid=e.id','left');
+        $this->db->join('order b','b.id = a.oid','left');
+        return $this->db->where('b.id',$order_id)->get()->result_array();
+    }
 }

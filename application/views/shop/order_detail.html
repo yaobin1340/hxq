@@ -1,0 +1,259 @@
+{{include file="./header.html"}}
+
+<style>
+    .list_all{
+        color: #696969;font-size: 18px;z-index: 11;
+    }
+
+    .list_all_btn{
+        width: 100%;height: 50px;
+    }
+    .list_all_user_img{
+        margin-left: 20px;line-height: 50px;color: #3ab5f3;
+    }
+    .list_all_user_id{
+        line-height: 50px;
+    }
+    .list_all_sort_img{
+        float: right;line-height: 40px;color: #569cf1;
+    }
+    .list_all_money{
+        float: right; margin-right: 25px;line-height: 50px;
+    }
+    .list_all_rmb{
+        float: right; margin-right: 15px;line-height: 50px;color:#e47b75;
+    }
+    .list_all_information{
+        border-bottom: 1px solid #eeeeee;margin-top: 10px;padding-bottom: 10px;
+    }
+    .list_all_information_mobile{
+        color: #4f9ce0;
+    }
+    .list_all_information_name{
+        color: #9381b3;
+    }
+    .list_all_information_time{
+        color: #9cbb80;
+    }
+    .list_all_button{
+        width: 100%;height: 30px;margin-top: -10px;color: #3ab5f3;
+    }
+    .list_all_button_delete{
+       float: right;background: #ffffff;margin-top: -18px;color: #3ab5f3;
+    }
+    .list_all_button_update{
+        height: 30px;float: right;margin-right: 1px;background: #ffffff;margin-top: -18px;
+    }
+    .xuanfu_plus{
+        z-index: 55;
+    }
+    .xuanfu_icon_plus{
+        position: fixed;bottom: 150px;right: 20px;
+    }
+    .xuanfu_icon_search{
+        position: fixed;bottom: 80px;right: 20px;
+    }
+    #my-actions-search{
+        background: rgba(0, 0, 0, 0.8);
+    }
+    .input_start_time{
+        width: 50%; float: left;
+    }
+    .input_end_time{
+        width: 50%;float: right;
+    }
+    .input_search_user{
+        height: 50px;
+    }
+    .div_search_btn{
+        margin-top: 30px;
+    }
+    .user_add_title{
+        color: #3ab5f3;font-family: '宋体'
+    }
+    .user_add_bak{
+        width: 100%; background: #ffffff;
+    }
+    .user_add_phone{
+        width: 60%; height: 50px;
+    }
+    .user_add_user_name{
+        float: right;margin-top: -60px; margin-right: 15%;
+    }
+    .user_add_money{
+        width: 60%; height: 50px;
+    }
+    .user_add_button{
+        margin-top: 50px;
+    }
+   .user_add_button_add{
+       width: 48%; height: 50px; margin-left: 2%;
+   }
+    .user_add_button_equit{
+        width: 48%; height: 50px;
+    }
+</style>
+
+<!--<script src="{{$base_url}}statics/js/user_list.js"></script>-->
+
+
+<div class="xuanfu_plus">
+    <a href="#" class="am-icon-btn am-icon-plus xuanfu_icon_plus" data-am-modal="{target: '#my-popup'}"></a>
+    <a href="#" class="am-icon-btn am-icon-search xuanfu_icon_search" data-am-modal="{target: '#my-actions-search'}"></a>
+</div>
+<div data-am-widget="list_news" class="am-list-news am-list-news-default" >
+    <!--列表标题-->
+    <div class="am-list-news-hd am-cf">
+        <!--带更多链接-->
+        <a href="##" class="">
+            <h2>订单详情</h2>
+            <span class="am-list-news-more am-fr"></span>
+        </a>
+    </div>
+    <form class="am-form" data-am-validator action="/shop/tijiao_order/{{$data.id}}" method="post">
+        <div class="am-list-news-bd">
+            <ul class="am-list">
+
+                <li class="am-g am-list-item-dated">
+                    <a href="#" class="am-list-item-hd ">总金额:{{$data.total/100}}元</a>
+
+                    <span class="am-list-date"></span>
+
+
+                </li>
+                <li class="am-g am-list-item-dated">
+                    <a href="#" class="am-list-item-hd ">应交款:{{round($data.total * $data.percent/10000, 2)}}元</a>
+
+                    <span class="am-list-date"></span>
+
+
+                </li>
+                <li class="am-g am-list-item-dated">
+                    <a href="##" class="am-list-item-hd ">订单数:{{$data.num}}</a>
+
+                    <span class="am-list-date"><button type="button" class="am-btn am-btn-default" data-am-modal="{target: '#my-popup'}">查看</button></span>
+
+
+                </li>
+                <li class="am-g am-list-item-dated">
+                    <a href="##" class="am-list-item-hd ">状态:
+                        {{if $data.status==1}}待提交{{/if}}
+                        {{if $data.status==2}}待审核{{/if}}
+                        {{if $data.status==3}}已完成{{/if}}
+                        {{if $data.status==-1}}审核失败{{/if}}
+                    </a>
+
+                    <span class="am-list-date"></span>
+
+
+                </li>
+                <li class="am-g am-list-item-dated">
+                    <a href="##" class="am-list-item-hd ">上传时间:{{$data.cdate}}</a>
+                    <span class="am-list-date"></span>
+                </li>
+                <li class="am-g am-list-item-dated">
+                    <div class="am-form-group am-form-file upload_img_all">
+                        <input id="license" type="file" accept="image/*" capture=camera"/>
+                        <div class="upload_img_div1">
+                            <div class="upload_img_div2">
+                                <img id="license_previewResult" {{if $data.pic}}src="{{$base_url}}upload/order_pic/{{$data.pic}}"{{/if}}/>
+                            </div>
+                            {{if $data.status==1}}  <button type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
+                            <i class="am-icon-cloud-upload"></i> 上传凭证</button>{{/if}}
+
+                            <input type="hidden" name="pic" id="license_img_input">
+                        </div>
+                    </div>
+                </li>
+                <li class="am-g am-list-item-dated">
+                    <div class="am-form-group">
+                        <label for="doc-ta-1">备注</label>
+                        <textarea name="remark" class="" rows="5" id="doc-ta-1">{{$data.remark}}</textarea>
+                    </div>
+                </li>
+                <li class="am-g am-list-item-dated">
+                    {{if $data.status ==1}}
+                    <button type="submit" class="am-btn am-btn-default">提交</button>
+                    {{/if}}
+                    <a href="{{site_url url='shop/list_order_audit'}}" class="am-list-item-hd ">返回</a>
+
+
+                </li>
+            </ul>
+        </div>
+    </form>
+
+
+</div>
+
+
+
+<div class="am-popup" id="my-popup">
+    <div class="am-popup-inner">
+        <div class="am-popup-hd">
+            <h4 class="am-popup-title user_add_title">订单查看</h4>
+            <span data-am-modal-close class="am-close">&times;</span>
+        </div>
+        <div class="am-popup-bd user_add_bak">
+            <div class="list_all">
+                {{foreach from=$data.items item=row}}
+                <div class="am-panel am-panel-default" >
+                    <div id="list_btn" class="am-panel-hd" >
+                        <div class="am-panel-title list_all_btn" data-am-collapse="{parent: '#accordion', target: '#do-not-say-{{$row.id}}'}">
+                            <span class="am-front-icon am-icon-user list_all_user_img"></span>
+                            <span class="list_all_user_id">&nbsp;ID:{{$row.uid}}</span>
+                            <span class="am-icon-sort-desc list_all_sort_img"></span>
+                            <span class="list_all_money">{{$row.price/100}}元</span>
+                            <span class="am-front-icon am-icon-rmb list_all_rmb"></span>
+                        </div>
+                    </div>
+                    <div id="do-not-say-{{$row.id}}" class="am-panel-collapse am-collapse">
+                        <div class="am-panel-bd">
+                            <p class="list_all_information"><span class="am-icon-phone list_all_information_mobile"></span>&nbsp;&nbsp;手机：{{$row.mobile}}</p>
+                            <p class="list_all_information"><span class="am-icon-user list_all_information_name"></span>&nbsp;&nbsp;姓名：{{$row.rel_name}}</p>
+                            <p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;时间：{{$row.cdate}}</p>
+                        </div>
+
+                    </div>
+                </div>
+                {{/foreach}}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">提示</div>
+        <div class="am-modal-bd">
+            你，确定要删除这条记录吗？
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+        </div>
+    </div>
+</div>
+
+
+<script src="{{$base_url}}statics/js/localResizeIMG.js"></script>
+<script src="{{$base_url}}statics/js/mobileBUGFix.mini.js"></script>
+<script>
+
+    $('#license').localResizeIMG({
+        width: 400,
+//        height: 300,
+        quality: 1,
+        success: function (result) {
+            $("#license_img_input").val(result.base64);
+            $("#license_previewResult").attr('src',result.base64)
+        }
+    });
+
+
+
+
+</script>
+
