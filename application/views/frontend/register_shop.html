@@ -92,7 +92,7 @@
             <select name="type" class="am-form-select" style="width: 100%;margin: 0 auto;height: 50px;">
                 <option>-请选择类别-</option>
                 {{foreach from=$shop_type item=row}}
-                <option value="{{$row.id}}" {{if $shop}}{{if $shop.shop_type = $row.id}} selected="selected" {{/if}}{{/if}}>{{$row.name}}</option>
+                <option value="{{$row.id}}" {{if $shop && $shop.type eq $row.id}} selected="selected" {{/if}}>{{$row.name}}</option>
                 {{/foreach}}
             </select>
         </div>
