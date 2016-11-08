@@ -132,6 +132,8 @@ class Frontend extends MY_Controller {
                 }else if($userShop['status'] == -1){//拒绝
 
                 }
+            }else{
+                $this->assign('shop',array());
             }
             $this->display('frontend/register_shop.html');
         }else{

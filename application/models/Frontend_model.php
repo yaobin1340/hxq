@@ -57,7 +57,7 @@ class Frontend_model extends MY_Model
     }
 
     public function save_register_shop($img,$license){
-        if(!$this->session->userdata('uid')){
+        if(!($uid = $this->session->userdata('uid'))){
             return -1;
         }
         $data = array(
@@ -77,13 +77,24 @@ class Frontend_model extends MY_Model
             'business_time'=>$this->input->post('business_time'),
             'license'=>$license,
             'cdate'=>date('Y-m-d H:i:s',time()),
-            'logo'=>$img
+            'logo'=>$img,
+            'status'=>1,//待審核
+            'percent'=>$this->input->post('percent'),
         );
 
-        if($this->db->insert('shop',$data)){
-            return 1;
+        $shop = $this->db->select()->from('shop')->where("uid = $uid")->get()->row_array();
+        if($shop){
+            if($this->db->where(array('id'=>$shop['id']))->update('shop',$data)){
+                return 1;
+            }else{
+                return -1;
+            }
         }else{
-            return -1;
+            if($this->db->insert('shop',$data)){
+                return 1;
+            }else{
+                return -1;
+            }
         }
     }
 
