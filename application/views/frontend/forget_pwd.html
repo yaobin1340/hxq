@@ -1,27 +1,22 @@
 {{include file="./header.html"}}
-<div class="am-g" style="margin-top: 70px;">
-    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
-        <br>
+<div class="am-g">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered"><br>
         <form method="post" class="am-form " action="/frontend/forget_page" data-am-validator>
             <div class="am-form-group am-form-icon">
-                <i class="am-icon-mobile-phone" style="font-size: 26px;"></i>
-                <input type="number" id="doc-vld-phone-2"  name="mobile" class="am-form-field js-pattern-number" placeholder="请输入你的手机号(11位)" style="height: 50px;" required />
+                <i class="am-icon-mobile-phone"></i>
+                <input type="number" id="doc-vld-phone-2"  name="mobile" class="am-form-field js-pattern-number am-form-mobile" placeholder="请输入你的手机号(11位)" style="height: 50px;" required />
             </div>
-
-            <div style="width:100%">
+            <div class="get_yzm_all">
                 <div class="am-form-group">
                     <input type="number" name="yzm" id="doc-vld-yanzhengma-2" style="width: 60%; height: 50px; position:absolute;left:12px;right:100px" placeholder="请输入验证码" required/>
                 </div>
                 <a href="javascript:;" onclick="get_yzm(this)" id="get_yzm">
-                    <input class="am-btn-secondary" type="button" value="获取验证码"  style="position:absolute;border: 1px solid #ffffff;height: 50px;color: #ffffff;width:100px;right:20px ">
+                    <input class="am-btn-secondary get_btn_yzm" type="button" value="获取验证码">
                 </a>
             </div>
-            <button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block" style=" height:50px;margin:0 auto;margin-top: 90px">下一步</button>
+            <button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block am-btn-next">下一步</button>
         </form>
     </div>
-</div>
-<div style="width: 100%;text-align: center;margin-top: 5px;">
-    <!--<span style="font-size: 13px;">已经有账号了？&nbsp;&nbsp;&nbsp;<span style="color: royalblue;font-size: 15px;">登陆</span></span>-->
 </div>
 <script>
     window.wait = 90

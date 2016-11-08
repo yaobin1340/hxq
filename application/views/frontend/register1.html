@@ -1,139 +1,7 @@
-<!doctype html>
-<html class="no-js">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>填写个人信息</title>
-    <meta name="description" content="这是一个 index 页面">
-    <meta name="renderer" content="webkit">
-    <meta name="keywords" content="index">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed"
-          href="{{$base_url}}statics/amaze/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet"
-          href="{{$base_url}}statics/amaze/css/amazeui.min.css" />
-    <link rel="stylesheet" href="{{$base_url}}statics/amaze/css/admin.css">
-    <!--[if lt IE 9]>
-    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-    <script src="{{$base_url}}assets/js/polyfill/rem.min.js"></script>
-    <script src="{{$base_url}}assets/js/polyfill/respond.min.js"></script>
-    <script src="{{$base_url}}assets/js/amazeui.legacy.js"></script>
-    <![endif]-->
-
-    <!--[if (gte IE 9)|!(IE)]><!-->
-    <script src="{{$base_url}}statics/amaze/js/jquery.min.js"></script>
-    <script src="{{$base_url}}statics/amaze/js/amazeui.js"></script>
-    <!--<![endif]-->
-    <script src="{{$base_url}}statics/amaze/js/app.js"></script>
-
-    <script src="{{$base_url}}statics/js/common.js"></script>
-
-
-
-    <style>
-        .app{
-            height: 100%;
-            position: absolute;
-            display: none;
-            top:0;
-            left:0;
-            right:0;
-            bottom: 0;
-        }
-        .bar{
-            height: 50px;
-            padding: 10px;
-            line-height: 30px;
-            position: relative;
-            z-index: 999;
-        }
-        .main{
-            position: absolute;
-            top:30px;
-            bottom: 0;
-            left:0;
-            right: 0;
-        }
-        .upload-mask{
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            z-index: 3;
-        }
-        .bar{
-            color: white;
-            background: darkslategrey;
-        }
-        .photo-canvas{
-            position: absolute;
-            top:50%;
-            left:50%;
-            border: 1px solid black;
-            -webkit-transform: translate3d(-50%,-50%,0);
-            transform: translate3d(-50%,-50%,0);
-            z-index: 4;
-            /*background:white;*/
-        }
-        #preview{
-            display: block;
-            z-index: 2;
-        }
-        #previewResult{
-            background: #f2eeeb;
-            width: 100px;
-            height: 100px;
-            border-radius: 100px;
-        }
-        .preview-box{
-            position: absolute;
-            top:50%;
-            left:50%;
-            -webkit-transform: translate3d(-50%,-50%,0);
-            transform: translate3d(-50%,-50%,0);
-            z-index: 2;
-        }
-
-        #getFile{
-            color: #fef4e9;
-            border: solid 1px #da7c0c;
-            background: #f78d1d;
-            vertical-align: middle;
-            padding: 6px 5px;
-            line-height: 1;
-            background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
-            background: -moz-linear-gradient(top, #faa51a, #f47a20);
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
-        }
-
-        #uploadPage button{
-            width: 140px;
-            line-height: 38px;
-            text-align: center;
-            font-weight: bold;
-            color: #fff;
-            text-shadow: 1px 1px 1px #333;
-            border-radius: 5px;
-            margin: 10px 20px;
-            position: relative;
-
-        }
-    </style>
-
-</head>
-<body>
-
-<div class="header">
-    <hr>
-</div>
+{{include file="./header.html"}}
 <div class="am-g">
     <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
         <form class="am-form-inline" method="post" action="{{site_url url='frontend/save_register'}}" data-am-validator>
-        <h3 style="text-align: center;color: #00CC00;">填写个人信息</h3><hr>
-
         <div class="am-form-group am-form-file" style="width: 100%;text-align: center;margin-top: -10px;">
             <input id="file" type="file" accept="image/*" capture=camera"/>
             <div style="position: relative;">
@@ -143,21 +11,15 @@
                     <button type="button" class="am-btn am-btn-danger am-btn-sm" style="margin-top: 10px;">
                     <i class="am-icon-cloud-upload"></i> 上传头像</button>
             </div>
-
             <input type="hidden" name="img_input" id="img_input">
         </div>
-
         <div class="am-form-group am-form-icon">
             <i class="am-icon-lock" style="font-size: 18px;"></i>
             <input type="password" id="doc-vld-pwd-1"  name="password" class="am-form-field" minlength="6" placeholder="请输入您的密码(至少6位字符)" style="height: 50px;" required />
-            <!--<span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>-->
-            <!--<input type="password" class="am-form-field" name="password" placeholder="请输入您的密码">-->
         </div>
         <div class="am-form-group am-form-icon">
             <i class="am-icon-lock" style="font-size: 18px;"></i>
             <input type="password" id="doc-vld-pwd-2" data-equal-to="#doc-vld-pwd-1"  name="repassword" class="am-form-field" placeholder="请确认您的密码" style="height: 50px;" required />
-            <!--<span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>-->
-            <!--<input type="password" class="am-form-field" name="repassword" placeholder="确认密码">-->
         </div>
         <div class="am-form-group">
                 <select name="province_code" onchange="changeSelect(this)" style="width:30%; ">
@@ -174,44 +36,30 @@
                 <option value="">-区域-</option>
             </select>
         </div>
-
         <div class="am-form-group am-form-icon">
             <i class="am-icon-mobile-phone" style="font-size: 25px;"></i>
             <input type="text" id="doc-vld-phone-2"  name="rel_name" class="am-form-field"  placeholder="请输入真实姓名" style="height: 50px;" required />
         </div>
-
         <div class="am-form-group am-form-icon">
             <i class="am-icon-credit-card" style="font-size:15px;"></i>
             <input type="number" id="doc-vld-credit-2"  name="id_no" class="am-form-field js-pattern-number" placeholder="请输入您的身份证号(18位)" style="height: 50px;" required />
-            <!--<span class="am-input-group-label"><i class="am-icon-file-o am-icon-fw"></i></span>-->
-            <!--<input type="text" class="am-form-field" placeholder="请输入您的身份证号码" name="id_no">-->
         </div>
-
             <button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block" style=" height:50px;margin:0 auto;">注册</button>
-        <!--<button type="submit" class="am-btn am-btn-default am-btn-block" style="margin:0 auto;">注册并绑定</button>-->
-        </form>
-        <br>
-
+        </form><br>
     </div>
 </div>
-
-
 <div class="app" id="uploadPage">
     <div class="bar"><a class="back pull-left" id="closeCrop"><i class="fa fa-reply"></i></a><a id="getFile" class="pull-right">使用</a></div>
     <div class="main">
         <canvas class="upload-mask">
-
         </canvas>
         <div class="preview-box">
             <img id="preview"/>
         </div>
         <canvas class="photo-canvas">
-
         </canvas>
-
     </div>
 </div>
-
 <script src="{{$base_url}}statics/js/localResizeIMG.js"></script>
 <script src="{{$base_url}}statics/js/mobileBUGFix.mini.js"></script>
 <script>

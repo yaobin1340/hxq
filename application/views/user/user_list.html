@@ -1,104 +1,7 @@
 {{include file="./header.html"}}
-
-<style>
-    .list_all{
-        color: #696969;font-size: 18px;z-index: 11;
-    }
-
-    .list_all_btn{
-        width: 100%;height: 50px;
-    }
-    .list_all_user_img{
-        margin-left: 20px;line-height: 50px;color: #3ab5f3;
-    }
-    .list_all_user_id{
-        line-height: 50px;
-    }
-    .list_all_sort_img{
-        float: right;line-height: 40px;color: #569cf1;
-    }
-    .list_all_money{
-        float: right; margin-right: 25px;line-height: 50px;
-    }
-    .list_all_rmb{
-        float: right; margin-right: 15px;line-height: 50px;color:#e47b75;
-    }
-    .list_all_information{
-        border-bottom: 1px solid #eeeeee;margin-top: 10px;padding-bottom: 10px;
-    }
-    .list_all_information_mobile{
-        color: #4f9ce0;margin-left: 30px;
-    }
-    .list_all_information_name{
-        color: #9381b3;margin-left: 30px;
-    }
-    .list_all_information_time{
-        color: #9cbb80;margin-left: 30px;
-    }
-    .list_all_button{
-        width: 100%;height: 30px;margin-top: -10px;color: #3ab5f3;
-    }
-    .list_all_button_delete{
-       float: right;background: #ffffff;margin-top: -18px;color: #3ab5f3;
-    }
-    .list_all_button_update{
-        height: 30px;float: right;margin-right: 1px;background: #ffffff;margin-top: -18px;
-    }
-    .xuanfu_plus{
-        z-index: 55;
-    }
-    .xuanfu_icon_plus{
-        position: fixed;bottom: 150px;right: 20px;
-    }
-    .xuanfu_icon_search{
-        position: fixed;bottom: 80px;right: 20px;
-    }
-    #my-actions-search{
-        background: rgba(0, 0, 0, 0.8);
-    }
-    .input_start_time{
-        width: 50%; float: left;
-    }
-    .input_end_time{
-        width: 50%;float: right;
-    }
-    .input_search_user{
-        height: 50px;
-    }
-    .div_search_btn{
-        margin-top: 30px;
-    }
-    .user_add_title{
-        color: #3ab5f3;font-family: '宋体'
-    }
-    .user_add_bak{
-        width: 100%; background: #ffffff;
-    }
-    .user_add_phone{
-        width: 60%; height: 50px;
-    }
-    .user_add_user_name{
-        float: right;margin-top: -60px; margin-right: 15%;
-    }
-    .user_add_money{
-        width: 60%; height: 50px;
-    }
-    .user_add_button{
-        margin-top: 50px;
-    }
-   .user_add_button_add{
-       width: 48%; height: 50px; margin-left: 2%;
-   }
-    .user_add_button_equit{
-        width: 48%; height: 50px;
-    }
-</style>
-
 <script src="{{$base_url}}statics/js/user_list.js"></script>
-
 <div class="list_all">
     <div class="am-panel-group" id="accordion">
-
         <div class="am-panel am-panel-default">
             <div id="list_btn" class="am-panel-hd" style="width: 100%;background:rgba(255, 255, 255, 0.5);">
                 <div class="am-panel-title list_all_btn" data-am-collapse="{parent: '#accordion', target: '#do-not-say-1'}">
@@ -123,12 +26,10 @@
         </div>
     </div>
 </div>
-
 <div class="xuanfu_plus">
     <a href="##" class="am-icon-btn am-icon-plus xuanfu_icon_plus" data-am-modal="{target: '#my-popup'}"></a>
     <a href="##" class="am-icon-btn am-icon-search xuanfu_icon_search" data-am-modal="{target: '#my-actions-search'}"></a>
 </div>
-
 <div class="am-modal-actions" id="my-actions-search">
     <div class="am-modal-actions-group">
         <ul class="am-list">
@@ -148,7 +49,6 @@
         <button class="am-btn am-btn-secondary am-btn-block" data-am-modal-close>取消</button>
     </div>
 </div>
-
 <div class="am-popup" id="my-popup">
     <div class="am-popup-inner">
         <div class="am-popup-hd">
@@ -168,9 +68,6 @@
                     <i class="am-icon-rmb" style="font-size: 18px;"></i>
                     <input type="number" id="doc-vld-phone-2"  name="mobile" class="am-form-field js-pattern-number user_add_money" placeholder="请输入金额"  required />
                 </div>
-
-                <!--<button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block" style=" height:50px; width: 40%;">下一步</button>-->
-                <!--<button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block" style=" height:50px; width: 40%; float: right;">下一步</button>-->
                 <div class="list_all_button user_add_button">
                     <button type="button" class="am-btn am-btn-secondary user_add_button_add" id="order_add">添加</button>
                     <button type="button" class="am-btn am-btn-secondary user_add_button_equit" id="cancel_order_add">取消</button>

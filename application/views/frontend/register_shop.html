@@ -1,60 +1,4 @@
        {{include file="./header.html"}}
-       <style>
-           .top {height: 30px;}
-           .top input{
-               height: 30px; line-height: 30px;
-           }
-           .top #r-result{
-               float: left;
-           }
-           .top .right{
-               float: right;
-           }
-           .top .right .points{
-               width: 110px;
-               float: left;
-               margin-right: 10px;
-           }
-           .top .right .points input{
-               width:75px;
-               display: inline-block;
-           }
-           .top .right .queren{
-               width: 80px;
-               height: 30px;
-               line-height: 30px;
-               text-align: center;
-               background: red;
-               color: #fff;
-               float: right;
-               margin-left: 10px;
-               cursor: pointer;
-           }
-           .tangram-suggestion-main{
-               z-index:10000
-           }
-           img{
-               width:100%
-           }
-           .upload_img_all{
-               width: 100%;text-align: center;margin-top: 20px;
-           }
-           .upload_img_div1{
-               position: relative;
-           }
-           .upload_img_div2{
-               width: 100px;height: 100px;margin: 0 auto;
-           }
-           #previewResult{
-               width: 100px;height: 100px;z-index: 11;
-           }
-           #license_previewResult{
-               width: 100px;height: 100px;z-index: 11;
-           }
-           .upload_img_btn{
-               margin-top: 10px;
-           }
-       </style>
        <form class="am-form" data-am-validator action="/frontend/save_register_shop" method="post">
         <div class="am-form-group am-form-file upload_img_all">
             <input id="file" type="file" accept="image/*" capture=camera"/>
@@ -69,20 +13,11 @@
             </div>
         </div>
 
-        <!--<div class="am-input-group">-->
-            <!--<span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>-->
-            <!--<input type="text" class="am-form-field" name="shop_name" placeholder="请输入商家名称">-->
-        <!--</div>-->
-
        <div class="am-form-group am-form-icon" style="height: 50px;">
            <i class="am-icon-user"></i>
            <input type="text" name="shop_name" {{if $shop}}value="{{$shop.shop_name}}"{{/if}} class="am-form-field user_add_phone disabled" placeholder="请输入商家名称" style="height: 50px;" required  />
        </div>
 
-        <!--<div class="am-input-group">-->
-            <!--<span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>-->
-            <!--<input type="text" class="am-form-field" name="parent_uid" placeholder="请输入邀请码">-->
-        <!--</div>-->
        <div class="am-form-group am-form-icon" style="height: 50px;">
            <i class="am-icon-tag"></i>
            <input type="text" name="parent_uid" class="am-form-field user_add_phone" placeholder="请输入邀请码" style="height: 50px;" required/>
@@ -92,7 +27,7 @@
             <select name="type" class="am-form-select" style="width: 100%;margin: 0 auto;height: 50px;">
                 <option>-请选择类别-</option>
                 {{foreach from=$shop_type item=row}}
-                <option value="{{$row.id}}" {{if $shop}}{{if $shop.shop_type = $row.id}} selected="selected" {{/if}}{{/if}}>{{$row.name}}</option>
+                <option value="{{$row.id}}" {{if $shop && $shop.type eq $row.id}} selected="selected" {{/if}}>{{$row.name}}</option>
                 {{/foreach}}
             </select>
         </div>
@@ -119,38 +54,20 @@
             </select>
         </div>
 
-
-        <!--<div class="am-input-group">-->
-            <!--<span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>-->
-            <!--<input type="text" class="am-form-field" name="address" placeholder="请输入详细地址">-->
-        <!--</div>-->
            <div class="am-form-group am-form-icon" style="height: 50px;">
                <i class="am-icon-map-marker"></i>
                <input type="text" name="address" {{if $shop}}value="{{$shop.address}}"{{/if}} class="am-form-field user_add_phone" placeholder="请输入详细地址" style="height: 50px;" required />
            </div>
 
-        <!--<div class="am-input-group">-->
-            <!--<span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>-->
-            <!--<input type="text" name="person" class="am-form-field" placeholder="请输入联系人">-->
-        <!--</div>-->
            <div class="am-form-group am-form-icon" style="height: 50px;">
                <i class="am-icon-user"></i>
                <input type="text" name="person" {{if $shop}}value="{{$shop.person}}"{{/if}} class="am-form-field user_add_phone" placeholder="请输入联系人" style="height: 50px;"  required/>
            </div>
-
-        <!--<div class="am-input-group">-->
-            <!--<span class="am-input-group-label"><i class="am-icon-file-o am-icon-fw"></i></span>-->
-            <!--<input type="text" class="am-form-field" placeholder="请输入联系电话" name="phone">-->
-        <!--</div>-->
            <div class="am-form-group am-form-icon" style="height: 50px;">
                <i class="am-icon-phone"></i>
                <input type="text" name="phone" {{if $shop}}value="{{$shop.phone}}"{{/if}} class="am-form-field  user_add_phone" placeholder="请输入联系电话" style="height: 50px;" required />
            </div>
 
-        <!--<div class="am-input-group">-->
-            <!--<span class="am-input-group-label"><i class="am-icon-file-o am-icon-fw"></i></span>-->
-            <!--<input type="text" class="am-form-field" placeholder="请输入营业时间(8:00~21:00)" name="business_time">-->
-        <!--</div>-->
            <div class="am-form-group am-form-icon" style="height: 50px;">
                <i class="am-icon-clock-o"></i>
                <input type="text" name="business_time" {{if $shop}}value="{{$shop.business_time}}"{{/if}} class="am-form-field user_add_phone" placeholder="请输入营业时间(8:00~21:00)" style="height: 50px;" required />
@@ -214,7 +131,6 @@
            <button type="submit" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;margin-top: 5px;">取消</button>
            {{/if}}
        </form>
-
 
 <script src="{{$base_url}}statics/js/localResizeIMG.js"></script>
 <script src="{{$base_url}}statics/js/mobileBUGFix.mini.js"></script>
