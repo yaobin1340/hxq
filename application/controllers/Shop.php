@@ -25,23 +25,48 @@ class Shop extends MY_Controller {
 		$this->load->model('shop_model');
 		$shop_info = $this->shop_model->get_shop_info();
 		if(!$shop_info){
-//			$this->show_message('您还不是商家,请先申请入驻',site_url('/frontend/register_shop'));
+			$this->show_message('您还不是商家,请先申请入驻',site_url('/frontend/register_shop'));
 		}
 		$this->assign('user_info', $shop_info);
 	}
 
 	public function index()
 	{
-//		die('ggg');
-		$this->display('user/user_center.html');
+		$this->display('shop/shop_center.html');
 	}
 
-	public function list_order_load(){
-
+	public function list_orders($page = 1){
+		$data = $this->shop_model->list_orders($page);
+		$this->assign('data', $data);
+		$this->display('shop/list_orders.html');
 	}
-//
-	public function shop_center(){
-        $this->display('shop/shop_center.html');
-    }
+
+	public function list_orders_loaddata($page = 1){
+		$data = $this->shop_model->list_orders($page);
+		$this->assign('data', $data);
+		$this->assign('page', $page);
+		$this->display('shop/list_orders_loaddata.html');
+	}
+
+	public function get_name_by_keywords($keywords){
+		echo $this->shop_model->get_name_by_keywords($keywords);
+	}
+
+	public function del_order($id){
+		echo $this->shop_model->del_order($id);
+	}
+
+	public function list_order_audit(){
+		$this->assign('s_date', $this->input->post('s_date'));
+		$this->assign('e_date', $this->input->post('e_date'));
+		$this->display('shop/list_order_audit.html');
+	}
+
+	public function list_order_audit_loaddata($page = 1){
+		$data = $this->shop_model->list_order_audit($page);
+		$this->assign('data', $data);
+		$this->assign('page', $page);
+		$this->display('shop/list_order_audit_loaddata.html');
+	}
 
 }

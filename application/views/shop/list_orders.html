@@ -137,7 +137,7 @@
 </div>
 
 <div class="am-modal-actions" id="my-actions-search">
-    <form class="am-form-inline" role="form" action="{{site_url url='user/list_orders'}}" method="post">
+    <form class="am-form-inline" role="form" action="{{site_url url='shop/list_orders'}}" method="post">
     <div class="am-modal-actions-group">
         <ul class="am-list">
             <div class="am-form-group input_start_time">
@@ -163,7 +163,7 @@
             <span data-am-modal-close class="am-close">&times;</span>
         </div>
         <div class="am-popup-bd user_add_bak">
-            <form method="post" class="am-form " action="{{site_url url='user/save_order'}}" data-am-validator style="margin-top: 80px;">
+            <form method="post" class="am-form " action="{{site_url url='shop/save_order'}}" data-am-validator style="margin-top: 80px;">
                 <div class="am-form-group am-form-icon">
                     <i class="am-icon-mobile-phone" style="font-size: 26px;"></i>
                     <input type="number" id="doc-vld-phone-1"  name="user_flag" class="am-form-field js-pattern-number user_add_phone" placeholder="请输入手机号/id" onblur="get_name_by_keywords(this)" required />
@@ -227,7 +227,7 @@
                 keywords = $('#keywords').val()
                 $('#my-modal-loading').modal()
 
-                $.post("{{site_url url='user/list_orders_loaddata'}}/"+window.page,{s_date:s_date,e_date:e_date,keywords:keywords},function(data){
+                $.post("{{site_url url='shop/list_orders_loaddata'}}/"+window.page,{s_date:s_date,e_date:e_date,keywords:keywords},function(data){
                     if(data){
                         $("#accordion").append(data)
                         $('#accordion').find('.flag-'+window.page).add('#doc-confirm-toggle').
@@ -236,9 +236,9 @@
                                 relatedTarget: this,
                                 onConfirm: function(options) {
                                     id = $(this.relatedTarget).attr('target')
-                                    $.get("{{site_url url='user/del_order'}}/"+id,function(data){
+                                    $.get("{{site_url url='shop/del_order'}}/"+id,function(data){
                                         if(data == 1){
-                                            location.href = "{{site_url url='user/list_orders'}}";
+                                            location.href = "{{site_url url='shop/list_orders'}}";
                                         }else{
                                             console.log(data)
                                         }
@@ -263,7 +263,7 @@
     });
 
     function get_name_by_keywords(obj){
-        $.get("{{site_url url='user/get_name_by_keywords'}}/"+$(obj).val(),function(data){
+        $.get("{{site_url url='shop/get_name_by_keywords'}}/"+$(obj).val(),function(data){
             $("#rel_name").val(data)
         })
     }
@@ -275,9 +275,9 @@
                 relatedTarget: this,
                 onConfirm: function(options) {
                     id = $(this.relatedTarget).attr('target')
-                    $.get("{{site_url url='user/del_order'}}/"+id,function(data){
+                    $.get("{{site_url url='shop/del_order'}}/"+id,function(data){
                         if(data == 1){
-                            location.href = "{{site_url url='user/list_orders'}}";
+                            location.href = "{{site_url url='shop/list_orders'}}";
                         }else{
                             console.log(data)
                         }

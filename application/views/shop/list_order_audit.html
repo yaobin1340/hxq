@@ -201,7 +201,7 @@
     });
 
     function get_name_by_keywords(obj){
-        $.get("{{site_url url='user/get_name_by_keywords'}}/"+$(obj).val(),function(data){
+        $.get("{{site_url url='shop/get_name_by_keywords'}}/"+$(obj).val(),function(data){
             $("#rel_name").val(data)
         })
     }
@@ -209,7 +209,7 @@
     function get_data(){
         s_date = $('#s_date').val()
         e_date = $('#e_date').val()
-        $.post("{{site_url url='user/list_order_audit_loaddata'}}/"+window.page,{s_date:s_date,e_date:e_date},function(data){
+        $.post("{{site_url url='shop/list_order_audit_loaddata'}}/"+window.page,{s_date:s_date,e_date:e_date},function(data){
             if(data){
                 $("#accordion").append(data)
                 $('#accordion').find('.flag-'+window.page).add('#doc-confirm-toggle').
@@ -218,9 +218,9 @@
                         relatedTarget: this,
                         onConfirm: function(options) {
                             id = $(this.relatedTarget).attr('target')
-                            $.get("{{site_url url='user/del_order'}}/"+id,function(data){
+                            $.get("{{site_url url='shop/del_order'}}/"+id,function(data){
                                 if(data == 1){
-                                    location.href = "{{site_url url='user/list_orders'}}";
+                                    location.href = "{{site_url url='shop/list_orders'}}";
                                 }else{
                                     console.log(data)
                                 }
