@@ -6,6 +6,7 @@ class Login extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		ini_set('date.timezone','Asia/Shanghai');
+
 		$this->load->model('login_model');
 	}
 	

@@ -108,11 +108,36 @@ class Frontend extends MY_Controller {
     }
 
 	public function register_shop(){
-		$provinces = $this->frontend_model->get_province();
-		$shop_type = $this->frontend_model->get_shop_type();
-		$this->assign('provinces', $provinces);
-		$this->assign('shop_type', $shop_type);
-		$this->display('frontend/register_shop.html');
+        $this->load->model('city_model');
+        $this->load->model('area_model');
+        $provinces = $this->frontend_model->get_province();
+        $city = $this->city_model->queryContent();
+        $area = $this->area_model->queryContent();
+        $shop_type = $this->frontend_model->get_shop_type();
+        $this->assign('provinces', $provinces);
+        $this->assign('city', $city);
+        $this->assign('area', $area);
+        $this->assign('shop_type', $shop_type);
+	    if($uid = $this->session->userdata('uid')){
+            $this->load->model('shop_model');
+            $conditionFields = array();
+            $conditionFields['uid'] = $uid;
+            $userShop = $this->shop_model->queryContent($conditionFields);
+            if($userShop){
+                $userShop = $userShop[0];
+                $this->assign('shop', $userShop);
+                if($userShop['status'] == 1){//待审核
+
+                }else if($userShop['status'] == 2){//已审核
+
+                }else if($userShop['status'] == -1){//拒绝
+
+                }
+            }
+            $this->display('frontend/register_shop.html');
+        }else{
+            $this->show_message('请先登陆~',site_url('/frontend/login'));
+        }
 	}
 
 	public function save_register_shop(){
