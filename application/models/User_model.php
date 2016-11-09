@@ -190,6 +190,11 @@ class User_model extends MY_Model
 
     public function withdraw(){
         $data['user_info'] = $this->db->select()->from('users')->where('id',$this->session->userdata('uid'))->get()->row_array();
+        $data['withdraw_info'] = $this->db->select()
+            ->from('withdraw')
+            ->where('uid',$this->session->userdata('uid'))
+            ->order_by('id','desc')
+            ->get()->row_array();
         return $data;
     }
 
@@ -213,11 +218,18 @@ class User_model extends MY_Model
         );
         $this->db->trans_start();//--------开始事务
         $this->db->insert('withdraw',$data);
-        $this->db->insert('withdraw',$data);
         $this->db->where('id',$this->session->userdata('uid'));
         $this->db->set('integral',"integral - {$data['money']}*100",false);
         $this->db->update('users');
+            $this->db->insert('money_log',array(
+                'uid'=>$this->session->userdata('uid'),
+                'cdate' => date('Y-m-d H:i:s'),
+                'type'=>1,
+                'remark'=>'用户提现',
+                'money'=>$this->input->post('money')
+            ));
         $this->db->trans_complete();//------结束事务
+
         if ($this->db->trans_status() === FALSE) {
             return -5;
         } else {
@@ -239,6 +251,42 @@ class User_model extends MY_Model
         //获取详细列
         $this->db->select('a.*')->from('withdraw a');
         $this->db->where('a.uid',$this->session->userdata('uid'));
+        $this->db->limit($data['limit'], $offset = ($page - 1) * $data['limit']);
+        $this->db->order_by('a.id','desc');
+        $data['items'] = $this->db->get()->result_array();
+
+        return $data;
+    }
+
+    public function money_log_list_loaddata($page = 1){
+        $data['limit'] = $this->limit;
+        //获取总记录数
+        $this->db->select('count(1) num')->from('money_log a');
+        $this->db->where('a.uid',$this->session->userdata('uid'));
+        if($this->input->post('s_date')){
+            $this->db->where("a.cdate >=",$this->input->post('s_date'));
+        }
+
+        if($this->input->post('e_date')){
+            $this->db->where("a.cdate <=",$this->input->post('e_date')." 23:59:59");
+        }
+//        $this->db->where('shop_id',1); //TODO
+        $num = $this->db->get()->row();
+        $data['total'] = $num->num;
+
+        //搜索条件
+        $data['e_date'] = $this->input->post('e_date')?$this->input->post('e_date'):null;
+        $data['s_date'] = $this->input->post('s_date')?$this->input->post('s_date'):null;
+        //获取详细列
+        $this->db->select('a.*')->from('money_log a');
+        $this->db->where('a.uid',$this->session->userdata('uid'));
+        if($this->input->post('s_date')){
+            $this->db->where("a.cdate >=",$this->input->post('s_date'));
+        }
+
+        if($this->input->post('e_date')){
+            $this->db->where("a.cdate <=",$this->input->post('e_date')." 23:59:59");
+        }
         $this->db->limit($data['limit'], $offset = ($page - 1) * $data['limit']);
         $this->db->order_by('a.id','desc');
         $data['items'] = $this->db->get()->result_array();

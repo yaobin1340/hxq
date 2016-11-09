@@ -1,0 +1,181 @@
+{{include file="./header.html"}}
+<input type="hidden" id="s_date" value="{{$s_date}}">
+<input type="hidden" id="e_date" value="{{$e_date}}">
+<body>
+<link rel="stylesheet" href="/static/default/wap/css/housekeeping.css"/>  
+	<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet" />
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href=""><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<h2>资金日志</h2>
+		</div>
+	</header>
+
+
+<style>
+ul { padding-left: 0px;}
+.layui-layer-molv .layui-layer-title {background-color: #F8F8F8;border-bottom: 1px solid #eee;color: #333;}
+</style>
+<!-- 筛选TAB -->
+<ul class="am-tabs-nav am-nav am-nav-tabs">
+	<!--<li style="width:25%;"><a href="<{:U('money/index')}>">商家资金</a></li>-->
+	<li style="width:33.3%;" class="am-active"><a href="{{site_url url='user/money_log_list'}}">资金日志</a></li>
+	<li style="width:33.3%;"><a href="{{site_url url='user/withdraw_list'}}">提现日志</a></li>
+	<li style="width:33.3%;" ><a href="{{site_url url='user/withdraw'}}">申请提现</a></li>
+
+</ul>
+<div class="am-modal-actions" style="height: 20em" id="my-actions-search">
+	<form class="am-form-inline" role="form" action="{{site_url url='user/money_log_list'}}" method="post">
+		<div class="am-modal-actions-group">
+			<ul class="am-list">
+				<div class="am-form-group input_start_time">
+					<input type="datetime" class="am-form-field" data-am-datepicker readonly name="s_date" value="{{$s_date}}" placeholder="开始时间">
+				</div>
+				<div class="am-form-group input_end_time">
+					<input type="datetime" class="am-form-field" data-am-datepicker readonly name="e_date" value="{{$e_date}}" placeholder="结束时间">
+				</div>
+			</ul>
+		</div>
+		<div class="am-modal-actions-group div_search_btn">
+			<button class="am-btn am-btn-warning am-btn-block">搜索</button>
+			<button class="am-btn am-btn-secondary am-btn-block" data-am-modal-close>取消</button>
+		</div>
+	</form>
+</div>
+
+	<div class="list_all">
+		<div class="am-panel-group" id="accordion">
+
+		</div>
+		<p id="is_end">已到最后一页</p>
+	</div>
+<div class="xuanfu_plus">
+	<a href="#" class="am-icon-btn am-icon-search xuanfu_icon_search" data-am-modal="{target: '#my-actions-search'}"></a>
+</div>
+
+<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+	<div class="am-modal-dialog">
+		<div class="am-modal-hd">正在加载...</div>
+		<div class="am-modal-bd">
+			<span class="am-icon-spinner am-icon-spin"></span>
+		</div>
+	</div>
+</div>
+
+<div class="footer">
+	<table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td id="home" style="color: #3ab5f3;" onclick="home()">
+				<span class="am-icon-home footer_span_1"></span><br>
+				<span class="footer_span_2" >主页</span>
+			</td>
+			<td id="myorder" onclick="myorder()">
+				<span class="am-icon-cart-plus footer_span_1"></span><br>
+				<span class="footer_span_2" >我的订单</span>
+			</td>
+			<td id="cheaporder" onclick="cheaporder()">
+				<span class="am-icon-tags footer_span_1"></span><br>
+				<span class="footer_span_2" >优惠买单</span>
+			</td>
+			<td id="message" onclick="message()">
+				<span class="am-icon-volume-up footer_span_1"></span><br>
+				<span class="footer_span_2">消息</span>
+			</td>
+			<td id="someone_center" onclick="someone_center()">
+				<span class="am-icon-user footer_span_1"></span><br>
+				<span class="footer_span_2" >个人中心</span>
+			</td>
+		</tr>
+	</table>
+</div>
+<script>
+	function home() {
+		$("#home").css("color","#3ab5f3");
+		$("#myorder").css("color","#7c7c7c");
+		$("#cheaporder").css("color","#7c7c7c");
+		$("#message").css("color","#7c7c7c");
+		$("#someone_center").css("color","#7c7c7c");
+	}
+	function myorder() {
+		$("#home").css("color","#7c7c7c");
+		$("#myorder").css("color","#3ab5f3");
+		$("#cheaporder").css("color","#7c7c7c");
+		$("#message").css("color","#7c7c7c");
+		$("#someone_center").css("color","#7c7c7c");
+	}
+	function cheaporder() {
+		$("#home").css("color","#7c7c7c");
+		$("#myorder").css("color","#7c7c7c");
+		$("#cheaporder").css("color","#3ab5f3");
+		$("#message").css("color","#7c7c7c");
+		$("#someone_center").css("color","#7c7c7c");
+	}
+	function message() {
+		$("#home").css("color","#7c7c7c");
+		$("#myorder").css("color","#7c7c7c");
+		$("#cheaporder").css("color","#7c7c7c");
+		$("#message").css("color","#3ab5f3");
+		$("#someone_center").css("color","#7c7c7c");
+	}
+	function someone_center() {
+		$("#home").css("color","#7c7c7c");
+		$("#myorder").css("color","#7c7c7c");
+		$("#cheaporder").css("color","#7c7c7c");
+		$("#message").css("color","#7c7c7c");
+		$("#someone_center").css("color","#3ab5f3");
+	}
+</script>
+<script>
+	window.is_end = false
+	window.page = 1
+	$(window).scroll(function () {
+		var scrollTop = $(this).scrollTop();
+		var scrollHeight = $(document).height();
+		var windowHeight = $(this).height();
+		if (scrollTop + windowHeight == scrollHeight) {
+			if(window.is_end){
+				$("#is_end").show()
+			}else{
+				$("#my-actions-search").show()
+				$('#my-modal-loading').modal()
+				get_data()
+			}
+		}
+	});
+
+	function get_data(){
+		s_date = $('#s_date').val()
+		e_date = $('#e_date').val()
+		$.post("{{site_url url='user/money_log_list_loaddata'}}/"+window.page,{s_date:s_date,e_date:e_date},function(data){
+			if(data){
+				$("#accordion").append(data)
+				$('#accordion').find('.flag-'+window.page).add('#doc-confirm-toggle').
+				on('click', function() {
+					$('#my-confirm').modal({
+						relatedTarget: this,
+						onConfirm: function(options) {
+
+						},
+						onCancel: function() {
+
+						}
+					});
+				});
+				window.page += 1
+				$('#my-modal-loading').modal('close');
+			}else{
+				$('#my-modal-loading').modal('close');
+				$("#is_end").show()
+				window.is_end = true
+			}
+
+		});
+	}
+
+	$(function() {
+		get_data()
+	});
+
+</script>
