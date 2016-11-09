@@ -1,0 +1,299 @@
+{{include file="./header.html"}}
+<body>
+<link rel="stylesheet" href="/static/default/wap/css/housekeeping.css"/>  
+	<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet" />
+	<script src="/static/default/wap/other/jquery-ui.js"></script> 
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href=""><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<h2>提现申请</h2>
+		</div>
+	</header>
+
+
+<style>
+	.list_all{
+		color: #696969;font-size: 18px;z-index: 11;
+	}
+
+	.list_all_btn{
+		width: 100%;height: 50px;
+	}
+	.list_all_user_img{
+		margin-left: 20px;line-height: 50px;color: #3ab5f3;
+	}
+	.list_all_user_id{
+		line-height: 50px;
+	}
+	.list_all_sort_img{
+		float: right;line-height: 40px;color: #569cf1;
+	}
+	.list_all_money{
+		float: right; margin-right: 25px;line-height: 50px;
+	}
+	.list_all_rmb{
+		float: right; margin-right: 15px;line-height: 50px;color:#e47b75;
+	}
+	.list_all_information{
+		border-bottom: 1px solid #eeeeee;margin-top: 10px;padding-bottom: 10px;
+	}
+	.list_all_information_mobile{
+		color: #4f9ce0;
+	}
+	.list_all_information_name{
+		color: #9381b3;
+	}
+	.list_all_information_time{
+		color: #9cbb80;
+	}
+	.list_all_button{
+		width: 100%;height: 30px;margin-top: -10px;color: #3ab5f3;
+	}
+	.list_all_button_delete{
+		float: right;background: #ffffff;margin-top: -18px;color: #3ab5f3;
+	}
+	.list_all_button_update{
+		height: 30px;float: right;margin-right: 1px;background: #ffffff;margin-top: -18px;
+	}
+	.xuanfu_plus{
+		z-index: 55;
+	}
+	.xuanfu_icon_plus{
+		position: fixed;bottom: 150px;right: 20px;
+	}
+	.xuanfu_icon_search{
+		position: fixed;bottom: 80px;right: 20px;
+	}
+	#my-actions-search{
+		background: rgba(0, 0, 0, 0.8);
+	}
+	.input_start_time{
+		width: 50%; float: left;
+	}
+	.input_end_time{
+		width: 50%;float: right;
+	}
+	.input_search_user{
+		height: 50px;
+	}
+	.div_search_btn{
+		margin-top: 30px;
+	}
+	.user_add_title{
+		color: #3ab5f3;font-family: '宋体'
+	}
+	.user_add_bak{
+		width: 100%; background: #ffffff;
+	}
+	.user_add_phone{
+		width: 60%; height: 50px;
+	}
+	.user_add_user_name{
+		float: right;margin-top: -60px; margin-right: 15%;
+	}
+	.user_add_money{
+		width: 60%; height: 50px;
+	}
+	.user_add_button{
+		margin-top: 50px;
+	}
+	.user_add_button_add{
+		width: 48%; height: 50px; margin-left: 2%;
+	}
+	.user_add_button_equit{
+		width: 48%; height: 50px;
+	}
+</style>
+<style>
+ul { padding-left: 0px;}
+.layui-layer-molv .layui-layer-title {background-color: #F8F8F8;border-bottom: 1px solid #eee;color: #333;}
+</style>
+<!-- 筛选TAB -->
+<ul class="am-tabs-nav am-nav am-nav-tabs">
+	<!--<li style="width:25%;"><a href="<{:U('money/index')}>">商家资金</a></li>-->
+	<li style="width:33.3%;"><a href="">资金日志</a></li>
+	<li style="width:33.3%;"><a href="{{site_url url='user/withdraw_list'}}">提现日志</a></li>
+	<li style="width:33.3%;" class="am-active"><a href="{{site_url url='user/withdraw'}}">申请提现</a></li>
+
+</ul>
+<form class="am-form" data-am-validator action="/user/save_withdraw" method="post">
+
+	<div class="am-list-news-bd">
+		<ul class="am-list">
+
+			<li class="am-g am-list-item-dated" style="margin: 0">
+
+					<span class="x12 text-gray">你好：{{$data.user_info.rel_name}}</span>
+					<span class="x12 text-gray">可提现余额：{{$data.user_info.integral/100}}元，</span>
+
+			</li>
+			<li class="am-g am-list-item-dated" style="margin: 0">
+
+			<div class="blank-10 bg"></div>
+			<div class="line padding border-bottom" >
+				<span class="x12 text-gray">提现金额：<input type="text" name="money" id="money" class="text-input" ></span>
+				<span class="am-list-date">单笔最少100元</span>
+			</div>
+		</li>
+			<li class="am-g am-list-item-dated" style="margin: 0">
+
+				<div class="blank-10 bg"></div>
+				<div class="line padding border-bottom" >
+					<span class="x12 text-gray">开户银行：<input type="text" name="bank" id="bank" class="text-input"  value=""  placeholder="请输入开户银行" ></span>
+				</div>
+			</li>
+			<li class="am-g am-list-item-dated" style="margin: 0">
+
+				<div class="blank-10 bg"></div>
+				<div class="line padding border-bottom" >
+					<span class="x12 text-gray">银行账号：<input type="text" name="bank_no" id="bank_no" class="text-input"  value=""  placeholder="请输入银行账户" ></span>
+				</div>
+			</li>
+			<li class="am-g am-list-item-dated" style="margin: 0">
+
+				<div class="blank-10 bg"></div>
+				<div class="line padding border-bottom" >
+					<span class="x12 text-gray">具体支行：<input type="text" name="bank_branch" id="bank_branch" class="text-input"  value=""  placeholder="请输入具体支行名字" ></span>
+				</div>
+			</li>
+			<li class="am-g am-list-item-dated" style="margin: 0">
+
+				<div class="blank-10 bg"></div>
+				<div class="line padding border-bottom" >
+					<span class="x12 text-gray">开户名：<input type="text" name="rel_name" id="rel_name" class="text-input"  value=""  placeholder="请输入具体支行名字" ></span>
+				</div>
+			</li>
+			<li class="am-g am-list-item-dated" style="margin: 0">
+				<div class="line padding border-bottom">
+					<span class="x3 text-gray">输入手机</span>
+		<span class="x5">
+        <input type="text" name="mobile" id="mobile" class="text-input" value="{{$data.user_info.mobile}}" disabled="disabled">
+        </span>
+					<span class="x4"><a class="button button-small bg-dot" id="jq_send" href="javascript:void(0);">获取验证码</a></span>
+				</div>
+				<div class="line padding border-bottom">
+					<span class="x3 text-gray">验证码</span>
+					<span class="x5"><input type="text" name="yzm" id="yzm" class="text-input" placeholder="验证码"></span>
+					<span class="x4"><em class="text-small text-gray">手机收到的验证码<em></span>
+				</div>
+			</li>
+
+			<li class="am-g am-list-item-dated" style="margin: 0">
+<span class="x8 text-gray">小提示: 请您认真填写!</span><br/>
+				{{if $data.user_info.integral <=10000}}
+				<button class="am-btn am-btn-default">您的余额不足</button>
+				{{else}}
+				<button class="am-btn">确认申请</button>
+				{{/if}}
+			</li>
+			<li class="am-g am-list-item-dated" style="margin: 0">
+				<div class="container">
+					<div class="blank-30"></div>
+					<p><span class="text-dot"></p>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+</form>
+
+
+
+<script type="text/javascript">
+	var mobile_timeout;
+	var mobile_count = 100;
+	var mobile_lock = 0;
+	$(function () {
+		$("#jq_send").click(function () {
+			if (mobile_lock == 0) {
+				$.ajax({
+					url: "{{site_url url='user/sendsms'}}",
+					data: 'mobile=' + $("#mobile").val(),
+					type: 'post'
+				});
+				mobile_count = 100;
+				BtnCount();
+				mobile_lock = 1;
+			}
+
+		});
+	});
+	BtnCount = function () {
+		if (mobile_count == 0) {
+			$('#jq_send').html("重新发送");
+			mobile_lock = 0;
+			clearTimeout(mobile_timeout);
+		}
+		else {
+			mobile_count--;
+			$('#jq_send').html("重新发送(" + mobile_count.toString() + ")秒");
+			mobile_timeout = setTimeout(BtnCount, 1000);
+		}
+	};
+</script>
+
+<div class="footer">
+	<table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td id="home" style="color: #3ab5f3;" onclick="home()">
+				<span class="am-icon-home footer_span_1"></span><br>
+				<span class="footer_span_2" >主页</span>
+			</td>
+			<td id="myorder" onclick="myorder()">
+				<span class="am-icon-cart-plus footer_span_1"></span><br>
+				<span class="footer_span_2" >我的订单</span>
+			</td>
+			<td id="cheaporder" onclick="cheaporder()">
+				<span class="am-icon-tags footer_span_1"></span><br>
+				<span class="footer_span_2" >优惠买单</span>
+			</td>
+			<td id="message" onclick="message()">
+				<span class="am-icon-volume-up footer_span_1"></span><br>
+				<span class="footer_span_2">消息</span>
+			</td>
+			<td id="someone_center" onclick="someone_center()">
+				<span class="am-icon-user footer_span_1"></span><br>
+				<span class="footer_span_2" >个人中心</span>
+			</td>
+		</tr>
+	</table>
+</div>
+<script>
+	function home() {
+		$("#home").css("color","#3ab5f3");
+		$("#myorder").css("color","#7c7c7c");
+		$("#cheaporder").css("color","#7c7c7c");
+		$("#message").css("color","#7c7c7c");
+		$("#someone_center").css("color","#7c7c7c");
+	}
+	function myorder() {
+		$("#home").css("color","#7c7c7c");
+		$("#myorder").css("color","#3ab5f3");
+		$("#cheaporder").css("color","#7c7c7c");
+		$("#message").css("color","#7c7c7c");
+		$("#someone_center").css("color","#7c7c7c");
+	}
+	function cheaporder() {
+		$("#home").css("color","#7c7c7c");
+		$("#myorder").css("color","#7c7c7c");
+		$("#cheaporder").css("color","#3ab5f3");
+		$("#message").css("color","#7c7c7c");
+		$("#someone_center").css("color","#7c7c7c");
+	}
+	function message() {
+		$("#home").css("color","#7c7c7c");
+		$("#myorder").css("color","#7c7c7c");
+		$("#cheaporder").css("color","#7c7c7c");
+		$("#message").css("color","#3ab5f3");
+		$("#someone_center").css("color","#7c7c7c");
+	}
+	function someone_center() {
+		$("#home").css("color","#7c7c7c");
+		$("#myorder").css("color","#7c7c7c");
+		$("#cheaporder").css("color","#7c7c7c");
+		$("#message").css("color","#7c7c7c");
+		$("#someone_center").css("color","#3ab5f3");
+	}
+</script>

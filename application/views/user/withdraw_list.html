@@ -1,0 +1,269 @@
+{{include file="./header.html"}}
+<body>
+<link rel="stylesheet" href="/static/default/wap/css/housekeeping.css"/>  
+	<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet" />
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href=""><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<h2>提现日志</h2>
+		</div>
+	</header>
+
+
+<style>
+	.list_all{
+		color: #696969;font-size: 18px;z-index: 11;
+	}
+
+	.list_all_btn{
+		width: 100%;height: 50px;
+	}
+	.list_all_user_img{
+		margin-left: 20px;line-height: 50px;color: #3ab5f3;
+	}
+	.list_all_user_id{
+		line-height: 50px;
+	}
+	.list_all_sort_img{
+		float: right;line-height: 40px;color: #569cf1;
+	}
+	.list_all_money{
+		float: right; margin-right: 25px;line-height: 50px;
+	}
+	.list_all_rmb{
+		float: right; margin-right: 15px;line-height: 50px;color:#e47b75;
+	}
+	.list_all_information{
+		border-bottom: 1px solid #eeeeee;margin-top: 10px;padding-bottom: 10px;
+	}
+	.list_all_information_mobile{
+		color: #4f9ce0;
+	}
+	.list_all_information_name{
+		color: #9381b3;
+	}
+	.list_all_information_time{
+		color: #9cbb80;
+	}
+	.list_all_button{
+		width: 100%;height: 30px;margin-top: -10px;color: #3ab5f3;
+	}
+	.list_all_button_delete{
+		float: right;background: #ffffff;margin-top: -18px;color: #3ab5f3;
+	}
+	.list_all_button_update{
+		height: 30px;float: right;margin-right: 1px;background: #ffffff;margin-top: -18px;
+	}
+	.xuanfu_plus{
+		z-index: 55;
+	}
+	.xuanfu_icon_plus{
+		position: fixed;bottom: 150px;right: 20px;
+	}
+	.xuanfu_icon_search{
+		position: fixed;bottom: 80px;right: 20px;
+	}
+	#my-actions-search{
+		background: rgba(0, 0, 0, 0.8);
+	}
+	.input_start_time{
+		width: 50%; float: left;
+	}
+	.input_end_time{
+		width: 50%;float: right;
+	}
+	.input_search_user{
+		height: 50px;
+	}
+	.div_search_btn{
+		margin-top: 30px;
+	}
+	.user_add_title{
+		color: #3ab5f3;font-family: '宋体'
+	}
+	.user_add_bak{
+		width: 100%; background: #ffffff;
+	}
+	.user_add_phone{
+		width: 60%; height: 50px;
+	}
+	.user_add_user_name{
+		float: right;margin-top: -60px; margin-right: 15%;
+	}
+	.user_add_money{
+		width: 60%; height: 50px;
+	}
+	.user_add_button{
+		margin-top: 50px;
+	}
+	.user_add_button_add{
+		width: 48%; height: 50px; margin-left: 2%;
+	}
+	.user_add_button_equit{
+		width: 48%; height: 50px;
+	}
+</style>
+<style>
+ul { padding-left: 0px;}
+.layui-layer-molv .layui-layer-title {background-color: #F8F8F8;border-bottom: 1px solid #eee;color: #333;}
+</style>
+<!-- 筛选TAB -->
+<ul class="am-tabs-nav am-nav am-nav-tabs">
+	<!--<li style="width:25%;"><a href="<{:U('money/index')}>">商家资金</a></li>-->
+	<li style="width:33.3%;"><a href="">资金日志</a></li>
+	<li style="width:33.3%;" class="am-active"><a href="{{site_url url='user/withdraw_list'}}">提现日志</a></li>
+	<li style="width:33.3%;" ><a href="{{site_url url='user/withdraw'}}">申请提现</a></li>
+
+</ul>
+<form class="am-form" data-am-validator action="" method="post">
+	<table class="am-table list_all">
+		<thead>
+		<tr>
+			<th>ID</th>
+			<th>金额</th>
+			<th>时间</th>
+			<th>状态</th>
+		</tr>
+		</thead>
+
+		<tbody id="accordion">
+
+		</tbody>
+
+	</table>
+	<p id="is_end" style="display: none;margin-bottom: 5em">已到最后一页</p>
+
+</form>
+<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+	<div class="am-modal-dialog">
+		<div class="am-modal-hd">正在加载...</div>
+		<div class="am-modal-bd">
+			<span class="am-icon-spinner am-icon-spin"></span>
+		</div>
+	</div>
+</div>
+
+<div class="footer">
+	<table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td id="home" style="color: #3ab5f3;" onclick="home()">
+				<span class="am-icon-home footer_span_1"></span><br>
+				<span class="footer_span_2" >主页</span>
+			</td>
+			<td id="myorder" onclick="myorder()">
+				<span class="am-icon-cart-plus footer_span_1"></span><br>
+				<span class="footer_span_2" >我的订单</span>
+			</td>
+			<td id="cheaporder" onclick="cheaporder()">
+				<span class="am-icon-tags footer_span_1"></span><br>
+				<span class="footer_span_2" >优惠买单</span>
+			</td>
+			<td id="message" onclick="message()">
+				<span class="am-icon-volume-up footer_span_1"></span><br>
+				<span class="footer_span_2">消息</span>
+			</td>
+			<td id="someone_center" onclick="someone_center()">
+				<span class="am-icon-user footer_span_1"></span><br>
+				<span class="footer_span_2" >个人中心</span>
+			</td>
+		</tr>
+	</table>
+</div>
+<script>
+	function home() {
+		$("#home").css("color","#3ab5f3");
+		$("#myorder").css("color","#7c7c7c");
+		$("#cheaporder").css("color","#7c7c7c");
+		$("#message").css("color","#7c7c7c");
+		$("#someone_center").css("color","#7c7c7c");
+	}
+	function myorder() {
+		$("#home").css("color","#7c7c7c");
+		$("#myorder").css("color","#3ab5f3");
+		$("#cheaporder").css("color","#7c7c7c");
+		$("#message").css("color","#7c7c7c");
+		$("#someone_center").css("color","#7c7c7c");
+	}
+	function cheaporder() {
+		$("#home").css("color","#7c7c7c");
+		$("#myorder").css("color","#7c7c7c");
+		$("#cheaporder").css("color","#3ab5f3");
+		$("#message").css("color","#7c7c7c");
+		$("#someone_center").css("color","#7c7c7c");
+	}
+	function message() {
+		$("#home").css("color","#7c7c7c");
+		$("#myorder").css("color","#7c7c7c");
+		$("#cheaporder").css("color","#7c7c7c");
+		$("#message").css("color","#3ab5f3");
+		$("#someone_center").css("color","#7c7c7c");
+	}
+	function someone_center() {
+		$("#home").css("color","#7c7c7c");
+		$("#myorder").css("color","#7c7c7c");
+		$("#cheaporder").css("color","#7c7c7c");
+		$("#message").css("color","#7c7c7c");
+		$("#someone_center").css("color","#3ab5f3");
+	}
+</script>
+<script>
+	window.is_end = false
+	window.page = 1
+	$(window).scroll(function () {
+		var scrollTop = $(this).scrollTop();
+		var scrollHeight = $(document).height();
+		var windowHeight = $(this).height();
+		if (scrollTop + windowHeight == scrollHeight) {
+			if(window.is_end){
+				$("#is_end").show()
+			}else{
+				$("#my-actions-search").show()
+				$('#my-modal-loading').modal()
+				get_data()
+			}
+		}
+	});
+
+	function get_data(){
+		s_date = $('#s_date').val()
+		e_date = $('#e_date').val()
+		$.post("{{site_url url='user/list_withdraw_loaddata'}}/"+window.page,{s_date:s_date,e_date:e_date},function(data){
+			if(data){
+				$("#accordion").append(data)
+				$('#accordion').find('.flag-'+window.page).add('#doc-confirm-toggle').
+				on('click', function() {
+					$('#my-confirm').modal({
+						relatedTarget: this,
+						onConfirm: function(options) {
+							id = $(this.relatedTarget).attr('target')
+							$.get("{{site_url url='shop/del_order'}}/"+id,function(data){
+								if(data == 1){
+									location.href = "{{site_url url='shop/list_orders'}}";
+								}else{
+									console.log(data)
+								}
+							})
+						},
+						onCancel: function() {
+
+						}
+					});
+				});
+				window.page += 1
+				$('#my-modal-loading').modal('close');
+			}else{
+				$('#my-modal-loading').modal('close');
+				$("#is_end").show()
+				window.is_end = true
+			}
+
+		});
+	}
+
+	$(function() {
+		get_data()
+	});
+
+</script>

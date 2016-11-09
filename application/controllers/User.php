@@ -94,5 +94,63 @@ class User extends MY_Controller {
         $this->assign('page', $page);
         $this->display('user/list_order_audit_loaddata.html');
     }
+	public function withdraw(){
+		$data = $this->user_model->withdraw();
+		$this->assign('data',$data);
+		$this->display('user/withdraw.html');
+	}
+
+	public function save_withdraw(){
+		if($this->session->userdata('mobile_code') != $this->input->post('yzm')){
+
+		}
+		if((int)$this->input->post('money') < 100){
+			$this->show_message('提现金额不能小于要求最小值！');
+		}
+		if(!trim($this->input->post('bank'))){
+			$this->show_message('开户银行不能为空！');
+		}
+		if(!trim($this->input->post('bank_no'))){
+			$this->show_message('银行账号不能为空！');
+		}
+		if(!trim($this->input->post('bank_branch'))){
+			$this->show_message('具体支行不能为空！');
+		}
+		if(!trim($this->input->post('rel_name'))){
+			$this->show_message('开户名不能为空！');
+		}
+		$rs = $this->user_model->save_withdraw();
+		if($rs == 1){
+			$this->show_message('提交成功！',site_url('user/withdraw_list'));
+		}else if($rs == -1){
+			$this->show_message('未登陆！');
+		}else if($rs == -2){
+			$this->show_message('积分不足！');
+		}else{
+			$this->show_message('操作失败！');
+		}
+	}
+
+	public function sendsms()
+	{
+		$mobile = $this->input->post('mobile');
+		$yzm = rand(100000,999999);
+		//$yzm = 123456;
+		$text = '您的短信验证码是:'.$yzm;
+		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
+		$this->session->set_userdata('mobile_code', $yzm);
+
+	}
+
+	public function withdraw_list(){
+		//$data = $this->user_model->withdraw_list();
+		$this->display('user/withdraw_list.html');
+	}
+	public function list_withdraw_loaddata($page = 1){
+		$data = $this->user_model->list_withdraw_loaddata($page);
+		$this->assign('data', $data);
+		$this->assign('page', $page);
+		$this->display('user/withdraw_list_loaddata.html');
+	}
 
 }
