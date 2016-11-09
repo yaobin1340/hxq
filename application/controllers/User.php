@@ -102,7 +102,7 @@ class User extends MY_Controller {
 
 	public function save_withdraw(){
 		if($this->session->userdata('mobile_code') != $this->input->post('yzm')){
-
+			$this->show_message('验证码错误！');
 		}
 		if((int)$this->input->post('money') < 100){
 			$this->show_message('提现金额不能小于要求最小值！');
@@ -121,6 +121,7 @@ class User extends MY_Controller {
 		}
 		$rs = $this->user_model->save_withdraw();
 		if($rs == 1){
+			$this->session->unset_userdata('mobile_code');
 			$this->show_message('提交成功！',site_url('user/withdraw_list'));
 		}else if($rs == -1){
 			$this->show_message('未登陆！');
@@ -146,6 +147,7 @@ class User extends MY_Controller {
 		//$data = $this->user_model->withdraw_list();
 		$this->display('user/withdraw_list.html');
 	}
+
 	public function list_withdraw_loaddata($page = 1){
 		$data = $this->user_model->list_withdraw_loaddata($page);
 		$this->assign('data', $data);
@@ -153,4 +155,17 @@ class User extends MY_Controller {
 		$this->display('user/withdraw_list_loaddata.html');
 	}
 
+	public function money_log_list(){
+		//$data = $this->user_model->withdraw_list();
+		$this->assign('s_date', $this->input->post('s_date'));
+		$this->assign('e_date', $this->input->post('e_date'));
+		$this->display('user/money_log_list.html');
+	}
+
+	public function money_log_list_loaddata($page = 1){
+		$data = $this->user_model->money_log_list_loaddata($page);
+		$this->assign('data', $data);
+		$this->assign('page', $page);
+		$this->display('user/money_log_list_loaddata.html');
+	}
 }
