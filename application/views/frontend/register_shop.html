@@ -20,7 +20,12 @@
 
        <div class="am-form-group am-form-icon" style="height: 50px;">
            <i class="am-icon-tag"></i>
-           <input type="text" name="parent_uid" class="am-form-field user_add_phone" placeholder="请输入邀请码" style="height: 50px;" required/>
+           <input type="text" name="parent_flag" class="am-form-field user_add_phone" placeholder="请输入邀请人电话/id" style="height: 50px;" onblur="get_name_by_keywords(this)"/>
+       </div>
+
+       <div class="am-form-group am-form-icon" id="inviter-block" hidden>
+           <i class="am-icon-user" style="font-size: 18px;"></i>
+           <input type="text" class="am-form-field js-pattern-number user_add_phone" placeholder="邀请人" id="inviter" disabled/>
        </div>
 
         <div class="am-input-group " style="width: 100%;">
@@ -161,6 +166,26 @@
     }
 </script>
 <script type="text/javascript">
+    function get_name_by_keywords(obj){
+        var invite_flag = $(obj).val();
+        if(invite_flag != "{{$sessionUser.id}}" && invite_flag != "{{$sessionUser.mobile}}"){
+            if(invite_flag){
+                $.get("{{site_url url='frontend/get_name_by_keywords'}}/"+invite_flag,function(data){
+                    if(data){
+                        var str = '邀请人：'+data;
+                        $("#inviter").val(str)
+                        $('#inviter-block').show()
+                    }else{
+                        $('#inviter-block').hide()
+                        alert('邀请人手机号错误')
+                    }
+                })
+            }
+        }else{
+            alert('邀请人不能是本人')
+            $('input[name=parent_flag]').val('')
+        }
+    }
     function changeSelect(obj)
     {
         province = $(obj).val();

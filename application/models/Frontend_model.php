@@ -78,11 +78,24 @@ class Frontend_model extends MY_Model
             'license'=>$license,
             'cdate'=>date('Y-m-d H:i:s',time()),
             'logo'=>$img,
-            'status'=>1,//待審核
+            'status'=>1,//待审核
             'percent'=>$this->input->post('percent'),
         );
         if(!$img)unset($data['logo']);
         if(!$license)unset($data['license']);
+
+        //邀请人
+        $parent_flag = $this->input->post('parent_flag');
+        if($parent_flag){
+            $parent_user = $this->db->select('id,mobile')->from('users')
+                ->where('id',$parent_flag)
+                ->or_where('mobile',$parent_flag)
+                ->get()->row();
+            if($parent_user){
+                $data['parent_uid'] = $parent_user->id;
+                $data['parent_mobile'] = $parent_user->mobile;
+            }
+        }
 
         $shop = $this->db->select()->from('shop')->where("uid = $uid")->get()->row_array();
         if($shop){
@@ -126,6 +139,21 @@ class Frontend_model extends MY_Model
         else
             return -1;
     }
-    
+
+    public function getSessionUser($uid){
+        $user = $this->tableQueryContent('users',array('id'=>$uid),array('id','mobile'));
+        return $user[0];
+    }
+
+    public function get_name_by_keywords($keywords){
+        $rs = $this->db->select('rel_name')->from('users')
+            ->where('id',$keywords)
+            ->or_where('mobile',$keywords)
+            ->get()->row();
+        if($rs)
+            return $rs->rel_name;
+        else
+            return null;
+    }
  
 }

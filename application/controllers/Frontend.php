@@ -118,6 +118,8 @@ class Frontend extends MY_Controller {
         $this->assign('area', $area);
         $this->assign('shop_type', $shop_type);
 	    if($uid = $this->session->userdata('uid')){
+	        $sessionUser = $this->frontend_model->getSessionUser($uid);
+            $this->assign('sessionUser', $sessionUser);
             $this->load->model('shop_model');
             $conditionFields = array();
             $conditionFields['uid'] = $uid;
@@ -125,13 +127,6 @@ class Frontend extends MY_Controller {
             if($userShop){
                 $userShop = $userShop[0];
                 $this->assign('shop', $userShop);
-                if($userShop['status'] == 1){//待审核
-
-                }else if($userShop['status'] == 2){//已审核
-
-                }else if($userShop['status'] == -1){//拒绝
-
-                }
             }else{
                 $this->assign('shop',array());
             }
@@ -179,6 +174,10 @@ class Frontend extends MY_Controller {
     }
     public function rewrite_pwd(){
         $this->display('frontend/rewrite_pwd.html');
+    }
+
+    public function get_name_by_keywords($keywords){
+        echo $this->frontend_model->get_name_by_keywords($keywords);
     }
 
 }
