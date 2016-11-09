@@ -1,0 +1,57 @@
+<!-- content start -->
+<div class="admin-content">
+
+    <div class="am-cf am-padding">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">订单审核</strong></div>
+    </div>
+
+    <div class="am-g">
+
+
+    </div>
+    <div class="am-g">
+        <div class="am-u-sm-12">
+            <table class="am-table am-table-striped am-table-hover table-main">
+                <thead>
+                <tr>
+                    <th>商家名称</th>
+                    <th>总金额</th>
+                    <th>需支付</th>
+                    <th>订单数</th>
+                    <th>起始时间</th>
+                    <th>申请时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{foreach from=$data.items key=key item=item}}
+                <tr>
+                    <td><a>{{$item.shop_name}}</a></td>
+                    <td><a>{{$item.total/100}}</a></td>
+                    <td><a>{{$item.total*$item.percent/10000}}</a></td>
+                    <td><a>{{$item.num}}</a></td>
+                    <td><a>{{$item.cdate}}</a></td>
+                    <td><a>{{$item.sdate}}</a></td>
+                    <td><a>{{if $item.status == 3}}<font color="green">已完成</font>{{else if $item.status == 2}}<font color="red">待审核</font>{{else}}<font color="red">已拒绝</font>{{/if}}</a></td>
+
+                    <td>
+                        <div class="am-btn-toolbar">
+                            <div class="am-btn-group am-btn-group-xs">
+                                <a type="button" class="am-btn am-btn-danger" href="{{site_url url='order/order_detail'}}/{{$item.id}}/2">
+                                    <span class="am-icon-pencil-square-o"></span> 详情
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {{/foreach}}
+                </tbody>
+            </table>
+            <div class="am-cf">{{$pager}}</div>
+        </div>
+
+    </div>
+</div>
+<!-- content end -->
+

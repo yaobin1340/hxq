@@ -1,115 +1,72 @@
 <?php
 if (! defined('BASEPATH'))
-    exit('No direct script access allowed');
+	exit('No direct script access allowed');
 
-class Shop_model extends MY_Model
+class Order_model extends MY_Model
 {
-    
-    public function __construct ()
-    {
-    	parent::__construct();
-    }
-    
-    public function list_shop_type($page)
-    {
-    	$data['limit'] = $this->limit;
-    	//获取总记录数
-    	$this->db->select('count(1) num')->from('shop_type');
 
-    	$num = $this->db->get()->row();
-    	$data['total'] = $num->num;
+	public function __construct ()
+	{
+		parent::__construct();
+	}
 
-    	//获取详细列
-    	$this->db->select()->from('shop_type');
-
-    	$this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
-    	$data['items'] = $this->db->get()->result_array();
-    
-    	return $data;
-    }
-    
-    public function save_shop_type(){
-    	$data = array(
-			'name'=>$this->input->post('name'),
-			'status'=>1,
-    	);
-    	 
-    	$this->db->trans_start();//--------开始事务
-    	$this->db->insert('shop_type',$data);
-    	$this->db->trans_complete();//------结束事务
-    	if ($this->db->trans_status() === FALSE) {
-    		return -1;
-    	} else {
-    		return 1;
-    	}
-    }
-
-	//$status 1启用,2停用
-    public function change_status($id,$status){
-		$this->db->trans_start();//--------开始事务
-		$this->db->where('id',$id);
-		$this->db->update('shop_type',array('status'=>$status));
-		$this->db->trans_complete();//------结束事务
-		if ($this->db->trans_status() === FALSE) {
-			return -1;
-		} else {
-			return 1;
-		}
-    }
-
-
-	public function list_shop_audit($page)
+	public function list_orders($page)
 	{
 		$data['limit'] = $this->limit;
 		//获取总记录数
-		$this->db->select('count(1) num')->from('shop');
-		if($this->input->post('shop_name')){
-			$this->db->like('shop_name',$this->input->post('shop_name'));
-		}
-		$this->db->where('status',1);
+		$this->db->select('count(1) num')->from('order');
+		$this->db->where_in('status',array(2,3,-1));
 		$num = $this->db->get()->row();
 		$data['total'] = $num->num;
 
-		//搜索条件
-		$data['shop_name'] = $this->input->post('shop_name')?$this->input->post('shop_name'):null;
-
 		//获取详细列
-		$this->db->select('a.*,b.name province_name,c.name city_name,d.name type_name,e.name area_name')->from('shop a');
-		$this->db->join('province b','a.province_code=b.code','left');
-		$this->db->join('city c','a.city_code=c.code','left');
-		$this->db->join('shop_type d','a.type=d.id','left');
-		$this->db->join('area e','a.area_code=e.code','left');
-		if($this->input->post('shop_name')){
-			$this->db->like('shop_name',$this->input->post('shop_name'));
-		}
-		$this->db->where('a.status',1);
+		$this->db->select('a.*,shop_name,percent')->from('order a');
+		$this->db->join('shop b','a.shop_id=b.id','left');
+		$this->db->where_in('a.status',array(2,3,-1));
 		$this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
 		$data['items'] = $this->db->get()->result_array();
 
 		return $data;
 	}
 
-	public function get_audit_shop($id){
-		$this->db->select('a.*,b.name province_name,c.name city_name,d.name type_name,e.rel_name rel_name,f.name area_name')->from('shop a');
-		$this->db->join('province b','a.province_code=b.code','left');
-		$this->db->join('city c','a.city_code=c.code','left');
-		$this->db->join('shop_type d','a.type=d.id','left');
-		$this->db->join('users e','a.parent_uid=e.id','left');
-		$this->db->join('area f','a.area_code=f.code','left');
-		$this->db->where('a.id',$id);
-		return $this->db->get()->row_array();
-	}
+	public function save_order(){
+		$id = $this->input->post('id');
+		$shop_id = $this->input->post('shop_id');
+		$order_list = $this->db->select()->from('order_list')->where('oid',$id)->get()->result_array();
+		$shop_info = $this->db->select()->from('shop')->where('id',$shop_id)->get()->row_array();
+		$total_field = 'total'.$shop_info['percent'];
+		$ax_field = 'ax'.$shop_info['percent'];
 
-	public function save_audit_shop(){
-		$data = array(
-			'status'=>$this->input->post('status'),
-			'remark'=>$this->input->post('remark'),
-			'adate'=>date('Y-m-d H:i:s',time()),
-		);
+
+
+
+
 
 		$this->db->trans_start();//--------开始事务
-		$this->db->where('id',$this->input->post('id'));
-		$this->db->update('shop',$data);
+
+
+		if($this->input->post('status') == 3){
+			//会员累加金额,结算爱心
+			foreach($order_list as $k=>$v){
+				$user_info = $this->db->select()->from('users')->where('id',$v['uid'])->get()->row_array();
+				$user_change = array(
+					$total_field => $user_info[$total_field] + $v['price'],
+					$ax_field => floor(($user_info[$total_field] + $v['price'])/50000)
+				);
+				$this->db->where('id',$v['uid']);
+				$this->db->update('users',$user_change);
+			}
+
+			$shop_change = array(
+				'total'=>$shop_info['total'] + $this->input->post('total'),
+				'ax'=>floor(($shop_info['total'] + $this->input->post('total'))/50000)
+			);
+
+			$this->db->where('id',$shop_id);
+			$this->db->update('shop',$shop_change);
+		}
+
+
 		$this->db->trans_complete();//------结束事务
 		if ($this->db->trans_status() === FALSE) {
 			return -1;
@@ -118,59 +75,21 @@ class Shop_model extends MY_Model
 		}
 	}
 
-	public function list_shop($page){
-		$data['limit'] = $this->limit;
-		//获取总记录数
-		$this->db->select('count(1) num')->from('shop');
-		if($this->input->post('shop_name')){
-			$this->db->like('shop_name',$this->input->post('shop_name'));
-		}
-		$this->db->where_in('status',array(2,-2));
-		$num = $this->db->get()->row();
-		$data['total'] = $num->num;
+	public function get_order_detail($id){
+		$data['head'] = $this->db->select('a.*,shop_name,percent')->from('order a')
+			->join('shop b','a.shop_id=b.id','left')
+			->where('a.id',$id)
+			->get()->row_array();
 
-		//搜索条件
-		$data['shop_name'] = $this->input->post('shop_name')?$this->input->post('shop_name'):null;
-
-		//获取详细列
-		$this->db->select('a.*,b.name province_name,c.name city_name,d.name type_name,e.name area_name')->from('shop a');
-		$this->db->join('province b','a.province_code=b.code','left');
-		$this->db->join('city c','a.city_code=c.code','left');
-		$this->db->join('shop_type d','a.type=d.id','left');
-		$this->db->join('area e','a.area_code=e.code','left');
-		if($this->input->post('shop_name')){
-			$this->db->like('shop_name',$this->input->post('shop_name'));
-		}
-		$this->db->where_in('a.status',array(2,-2));
-		$this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
-		$data['items'] = $this->db->get()->result_array();
+		$data['list'] = $this->db->select('a.*,rel_name')->from('order_list a')
+			->join('users b','a.uid=b.id','left')
+			->where('a.oid',$id)
+			->get()->result_array();
 
 		return $data;
 	}
 
-	public function get_shop_detail($id){
-		$this->db->select('a.*,b.name province_name,c.name city_name,d.name type_name,e.rel_name rel_name,f.name area_name')->from('shop a');
-		$this->db->join('province b','a.province_code=b.code','left');
-		$this->db->join('city c','a.city_code=c.code','left');
-		$this->db->join('shop_type d','a.type=d.id','left');
-		$this->db->join('users e','a.parent_uid=e.id','left');
-		$this->db->join('area f','a.area_code=f.code','left');
-		$this->db->where('a.id',$id);
-		return $this->db->get()->row_array();
-	}
 
-	//$status 2启用,-2停用
-	public function non_use_shop($id,$status){
-		$this->db->trans_start();//--------开始事务
-		$this->db->where('id',$id);
-		$this->db->update('shop',array('status'=>$status));
-		$this->db->trans_complete();//------结束事务
-		if ($this->db->trans_status() === FALSE) {
-			return -1;
-		} else {
-			return 1;
-		}
-	}
 
 
 }
