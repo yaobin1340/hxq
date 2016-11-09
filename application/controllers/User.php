@@ -40,8 +40,6 @@ class User extends MY_Controller {
         $this->display('user/user_list.html');
     }
 
-
-
     public function information_revise()
     {
         $this->load->model('frontend_model');
