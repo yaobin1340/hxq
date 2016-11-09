@@ -89,17 +89,10 @@
                         <textarea name="remark" class="" rows="5" id="doc-ta-1">{{$data.remark}}</textarea>
                     </div>
                 </li>
-                <li class="am-g am-list-item-dated">
                     {{if $data.status ==1}}
-                    <button type="submit" class="am-btn am-btn-secondary" style="width: 100%;height: 50px;">提交</button>
+                    <button type="submit" class="am-btn am-btn-secondary am-btn-block">提交</button>
                     {{/if}}
-                    <button type="submit" class="am-btn am-btn-default" style="width: 100%;height: 50px;margin-top: 10px;">返回</button>
-                    <!--<div style="width: 100%;height: 50px;border: 1px solid #ccc;background: red;">-->
-                    <!--<a href="{{site_url url='shop/list_order_audit'}}" class="am-list-item-hd " style=" width: 100%; line-height: 50px;text-align: center;">返回</a>-->
-                    <!--</div>-->
-
-
-                </li>
+                    <a class="am-btn am-btn-default am-btn-block" href="{{site_url url='shop/list_order_audit'}}">返回</a>
             </ul>
         </div>
     </form>
