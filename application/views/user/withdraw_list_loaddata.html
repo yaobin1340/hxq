@@ -1,0 +1,11 @@
+{{foreach from=$data.items item=row}}
+<tr>
+	<td>{{$row.id}}</td>
+	<td>{{$row.money}}</td>
+	<td>{{$row.cdate}}</td>
+	<td>{{if $row.status==1}}待审核{{/if}}
+		{{if $row.status==2}}审核通过{{/if}}
+		{{if $row.status==11}}拒绝{{/if}}
+		</td>
+</tr>
+{{/foreach}}
