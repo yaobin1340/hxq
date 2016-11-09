@@ -1,11 +1,27 @@
 {{foreach from=$data.items item=row}}
-<tr>
-	<td>{{$row.id}}</td>
-	<td>{{$row.money}}</td>
-	<td>{{$row.cdate}}</td>
-	<td>{{if $row.status==1}}待审核{{/if}}
+<div class="am-panel am-panel-default">
+	<div id="list_btn" class="am-panel-hd" >
+		<div class="am-panel-title list_all_btn" data-am-collapse="{parent: '#accordion', target: '#do-not-say-{{$row.id}}'}">
+			<span class="am-front-icon am-icon-user list_all_user_img"></span>
+			<span class="list_all_user_id">&nbsp;ID:{{$row.id}}</span>
+			<span class="am-icon-sort-desc list_all_sort_img"></span>
+			<span class="list_all_money">{{$row.money}}元</span>
+			<span class="am-front-icon am-icon-rmb list_all_rmb"></span>
+			<span class="list_all_money">
+				{{if $row.status==1}}待审核{{/if}}
 		{{if $row.status==2}}审核通过{{/if}}
 		{{if $row.status==11}}拒绝{{/if}}
-		</td>
-</tr>
+			</span>
+		</div>
+	</div>
+	<div id="do-not-say-{{$row.id}}" class="am-panel-collapse am-collapse">
+		<div class="am-panel-bd">
+			<p class="list_all_information"><span class="am-icon-phone list_all_information_mobile"></span>&nbsp;&nbsp;开户银行：{{$row.bank}}</p>
+			<p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;银行账号：{{$row.bank_no}}</p>
+			<p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;具体支行：{{$row.bank_branch}}</p>
+			<p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;开户名：{{$row.rel_name}}</p>
+		</div>
+	</div>
+</div>
+
 {{/foreach}}

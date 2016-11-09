@@ -113,7 +113,7 @@ ul { padding-left: 0px;}
 <!-- 筛选TAB -->
 <ul class="am-tabs-nav am-nav am-nav-tabs">
 	<!--<li style="width:25%;"><a href="<{:U('money/index')}>">商家资金</a></li>-->
-	<li style="width:33.3%;"><a href="">资金日志</a></li>
+	<li style="width:33.3%;"><a href="{{site_url url='user/money_log_list'}}">资金日志</a></li>
 	<li style="width:33.3%;"><a href="{{site_url url='user/withdraw_list'}}">提现日志</a></li>
 	<li style="width:33.3%;" class="am-active"><a href="{{site_url url='user/withdraw'}}">申请提现</a></li>
 
@@ -141,28 +141,28 @@ ul { padding-left: 0px;}
 
 				<div class="blank-10 bg"></div>
 				<div class="line padding border-bottom" >
-					<span class="x12 text-gray">开户银行：<input type="text" name="bank" id="bank" class="text-input"  value=""  placeholder="请输入开户银行" ></span>
+					<span class="x12 text-gray">开户银行：<input type="text" name="bank" id="bank" class="text-input"  value="{{$data.withdraw_info.bank|default:''}}"  placeholder="请输入开户银行" ></span>
 				</div>
 			</li>
 			<li class="am-g am-list-item-dated" style="margin: 0">
 
 				<div class="blank-10 bg"></div>
 				<div class="line padding border-bottom" >
-					<span class="x12 text-gray">银行账号：<input type="text" name="bank_no" id="bank_no" class="text-input"  value=""  placeholder="请输入银行账户" ></span>
+					<span class="x12 text-gray">银行账号：<input type="text" name="bank_no" id="bank_no" class="text-input"  value="{{$data.withdraw_info.bank_no|default:''}}"  placeholder="请输入银行账户" ></span>
 				</div>
 			</li>
 			<li class="am-g am-list-item-dated" style="margin: 0">
 
 				<div class="blank-10 bg"></div>
 				<div class="line padding border-bottom" >
-					<span class="x12 text-gray">具体支行：<input type="text" name="bank_branch" id="bank_branch" class="text-input"  value=""  placeholder="请输入具体支行名字" ></span>
+					<span class="x12 text-gray">具体支行：<input type="text" name="bank_branch" id="bank_branch" class="text-input"  value="{{$data.withdraw_info.bank_branch|default:''}}"  placeholder="请输入具体支行名字" ></span>
 				</div>
 			</li>
 			<li class="am-g am-list-item-dated" style="margin: 0">
 
 				<div class="blank-10 bg"></div>
 				<div class="line padding border-bottom" >
-					<span class="x12 text-gray">开户名：<input type="text" name="rel_name" id="rel_name" class="text-input"  value=""  placeholder="请输入具体支行名字" ></span>
+					<span class="x12 text-gray">开户名：<input type="text" name="rel_name" id="rel_name" class="text-input"  value="{{$data.withdraw_info.rel_name|default:''}}"  placeholder="请输入具体支行名字" ></span>
 				</div>
 			</li>
 			<li class="am-g am-list-item-dated" style="margin: 0">

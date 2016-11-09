@@ -112,28 +112,18 @@ ul { padding-left: 0px;}
 <!-- 筛选TAB -->
 <ul class="am-tabs-nav am-nav am-nav-tabs">
 	<!--<li style="width:25%;"><a href="<{:U('money/index')}>">商家资金</a></li>-->
-	<li style="width:33.3%;"><a href="">资金日志</a></li>
+	<li style="width:33.3%;"><a href="{{site_url url='user/money_log_list'}}">资金日志</a></li>
 	<li style="width:33.3%;" class="am-active"><a href="{{site_url url='user/withdraw_list'}}">提现日志</a></li>
 	<li style="width:33.3%;" ><a href="{{site_url url='user/withdraw'}}">申请提现</a></li>
 
 </ul>
 <form class="am-form" data-am-validator action="" method="post">
-	<table class="am-table list_all">
-		<thead>
-		<tr>
-			<th>ID</th>
-			<th>金额</th>
-			<th>时间</th>
-			<th>状态</th>
-		</tr>
-		</thead>
+	<div class="list_all">
+		<div class="am-panel-group" id="accordion">
 
-		<tbody id="accordion">
-
-		</tbody>
-
-	</table>
-	<p id="is_end" style="display: none;margin-bottom: 5em">已到最后一页</p>
+		</div>
+		<p id="is_end" style="margin-bottom: 3em">已到最后一页</p>
+	</div>
 
 </form>
 <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
