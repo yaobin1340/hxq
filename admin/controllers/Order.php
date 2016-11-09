@@ -26,5 +26,11 @@ class Order extends MY_Controller {
 		}
 	}
 
+	public function order_detail($id){
+		$data = $this->order_model->get_order_detail($id);
+		$this->assign('data', $data);
+		$this->show('order/order_detail');
+	}
+
 
 }
