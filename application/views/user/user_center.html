@@ -61,7 +61,17 @@
     <div class="list_back" >
         &nbsp;<span class="am-icon-cogs list_bac_name">&nbsp;&nbsp;资金管理</span>
         <span class="list_bac_jiantou" >></span>
-    </div><br>
+    </div>
+    <br>
+
+    {{if $user_info.shop_id > 0}}
+    <a style="color: #696969" href="{{site_url url='shop'}}">
+        <div class="list_back" >
+            &nbsp;<span class="am-icon-cart-plus list_bac_name">&nbsp;&nbsp;我的商家</span>
+            <span class="list_bac_jiantou" >></span>
+        </div>
+    </a>
+    {{/if}}
     <div class="list_back" >
         &nbsp;<span class="am-icon-cart-plus list_bac_name">&nbsp;&nbsp;我的订单</span>
         <span class="list_bac_jiantou" >></span>
