@@ -179,3 +179,21 @@ body{
     font-size: 15px; font-family: '宋体';
 }
 /*商家会员中心*/
+
+/*订单详情*/
+.order_detail_body{
+    background:#ffffff;
+}
+.order_detail_lists{
+    width: 100%;border-bottom: 1px solid #eeeeee;height: 50px;
+}
+.order_detail_lists span{
+    font-size: 16px;margin-left: 30px;line-height: 50px;padding-top: 5px;
+}
+.oeder_detail_upload{
+    width: 100%;margin-top: 20px; text-align: center;
+}
+.oeder_detail_upload img{
+    width: 100px;height: 100px;
+}
+/*订单详情*/
