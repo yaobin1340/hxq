@@ -1,2 +1,398 @@
-<a href="/frontend/register">注册</a><br>
-<a href="/frontend/login" style="font-size: 30px;">登陆</a>
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>会员注册</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed"
+          href="{{$base_url}}statics/amaze/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet"
+          href="{{$base_url}}statics/amaze/css/amazeui.min.css" />
+    <link rel="stylesheet" href="{{$base_url}}statics/amaze/css/admin.css">
+    <link rel="stylesheet" href="{{$base_url}}statics/css/shopcss.css">
+    <!--[if lt IE 9]>
+    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{$base_url}}assets/js/polyfill/rem.min.js"></script>
+    <script src="{{$base_url}}assets/js/polyfill/respond.min.js"></script>
+    <script src="{{$base_url}}assets/js/amazeui.legacy.js"></script>
+    <![endif]-->
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="{{$base_url}}statics/amaze/js/jquery.min.js"></script>
+    <script src="{{$base_url}}statics/amaze/js/amazeui.js"></script>
+    <!--<![endif]-->
+    <script src="{{$base_url}}statics/amaze/js/app.js"></script>
+    <script src="{{$base_url}}statics/js/common.js"></script>
+</head>
+<style>
+
+    .line_02{
+        height: 1px;
+        border-top: 1px solid #ddd;
+        text-align: center;
+        margin-top: 50px;
+    }
+    .line_02 span{
+        position: relative;
+        top: -12px;
+        background: #fff;
+        padding: 0 20px;
+    }
+</style>
+<body style="background-color: #ffffff;">
+<div style="overflow: auto;">
+<header class="am-topbar am-topbar-inverse" style="height: 60px;">
+    <form class="am-topbar-form am-topbar-left am-form-inline" role="search" style="width: 100%;margin-top: 10px;">
+        <div class="am-form-group">
+            <input type="text" class="am-form-field am-input-sm" placeholder="搜索" style="width: 70%;height: 40px;margin-left: 10px;border-radius: 5px;">
+        </div>
+    </form>
+        <div class="am-nav am-nav-pills am-topbar-nav" style="float: right;margin-top: -45px;">
+            <div class="am-form-group" >
+                <select id="doc-select-1" style="height: 40px;color: black;border-style: none;margin-right: 10px;">
+                    <option value="option1">上海</option>
+                    <option value="option2">苏州</option>
+                    <option value="option3">太仓</option>
+                </select>
+                <span class="am-form-caret"></span>
+            </div>
+        </div>
+</header>
+<div style="width: 100%; height: 30px;margin-top: -20px;">
+    <span style="float: right;margin-right: -30px;line-height: 30px;"><a href="/frontend/register">注册</a></span>&nbsp;
+    <span style="float: right;margin-right: 10px;line-height: 30px;"> <a href="/frontend/login">登录</a></span>
+</div>
+<div style="">
+    <div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0" style="">
+        <ul class="am-slides">
+            <li>
+                <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0" style="">
+                        <tr style="height: 100px;">
+                        <td>
+                            <span class="am-icon-glass footer_span_1"></span><br>
+                            <span class="footer_span_2" >美食</span>
+                        </td>
+                        <td>
+                            <span class="am-icon-building footer_span_1"></span><br>
+                            <span class="footer_span_2" >酒店</span>
+                        </td>
+                        <td>
+                            <span class="am-icon-train footer_span_1"></span><br>
+                            <span class="footer_span_2" >生活旅行</span>
+                        </td>
+                        <td>
+                            <span class="am-icon-cart-plus footer_span_1"></span><br>
+                            <span class="footer_span_2">超市</span>
+                        </td>
+                    </tr>
+                        <tr style="height: 100px;">
+                            <td>
+                                <span class="am-icon-car footer_span_1"></span><br>
+                                <span class="footer_span_2" >汽车</span>
+                            </td>
+                            <td>
+                                <span class="am-icon-camera footer_span_1"></span><br>
+                                <span class="footer_span_2" >手机数码</span>
+                            </td>
+                            <td>
+                                <span class="am-icon-music footer_span_1"></span><br>
+                                <span class="footer_span_2" >休闲娱乐</span>
+                            </td>
+                            <td>
+                                <span class="am-icon-leanpub footer_span_1"></span><br>
+                                <span class="footer_span_2">生活服务</span>
+                            </td>
+                        </tr>
+                    </table>
+
+            </li>
+            <li>
+                <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0" style="">
+                    <tr style="height: 100px;">
+                        <td>
+                            <span class="am-icon-desktop footer_span_1"></span><br>
+                            <span class="footer_span_2" >电脑办公</span>
+                        </td>
+                        <td>
+                            <span class="am-icon-fax footer_span_1"></span><br>
+                            <span class="footer_span_2" >家用电器</span>
+                        </td>
+                        <td>
+                            <span class="am-icon-child footer_span_1"></span><br>
+                            <span class="footer_span_2" >母婴童装</span>
+                        </td>
+                        <td>
+                            <span class="am-icon-eye footer_span_1"></span><br>
+                            <span class="footer_span_2">个护化妆</span>
+                        </td>
+                    </tr>
+                    <tr style="height: 100px;">
+                        <td>
+                            <span class="am-icon-archive footer_span_1"></span><br>
+                            <span class="footer_span_2" >鞋靴箱包</span>
+                        </td>
+                        <td>
+                            <span class="am-icon-fire footer_span_1"></span><br>
+                            <span class="footer_span_2" >潮流服装</span>
+                        </td>
+                        <td>
+                            <span class="am-icon-diamond footer_span_1"></span><br>
+                            <span class="footer_span_2" >奢侈礼品</span>
+                        </td>
+                        <td>
+                            <span class="am-icon-sun-o footer_span_1"></span><br>
+                            <span class="footer_span_2">钟表珠宝</span>
+                        </td>
+                    </tr>
+                </table>
+            </li>
+            <li>
+                <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0" style="">
+                    <tr style="height: 100px;">
+                        <td>
+                            <span class="am-icon-gamepad footer_span_1"></span><br>
+                            <span class="footer_span_2" >玩具乐器</span>
+                        </td>
+                        <td>
+                            <span class="am-icon-leaf footer_span_1"></span><br>
+                            <span class="footer_span_2" >内衣配饰</span>
+                        </td>
+                        <td>
+                            <span class="am-icon-umbrella footer_span_1"></span><br>
+                            <span class="footer_span_2" >家居家纺</span>
+                        </td>
+                        <td>
+                            <span class="am-icon-medkit footer_span_1"></span><br>
+                            <span class="footer_span_2">滋补养生</span>
+                        </td>
+                    </tr>
+                    <tr style="height: 100px;">
+                        <td>
+                            <span class="am-icon-home footer_span_1"></span><br>
+                            <span class="footer_span_2" >汽车</span>
+                        </td>
+                        <td>
+                            <span class="am-icon-cart-plus footer_span_1"></span><br>
+                            <span class="footer_span_2" >手机数码</span>
+                        </td>
+                        <td>
+                            <span class="am-icon-tags footer_span_1"></span><br>
+                            <span class="footer_span_2" >休闲娱乐</span>
+                        </td>
+                        <td>
+                            <span class="am-icon-volume-up footer_span_1"></span><br>
+                            <span class="footer_span_2">生活服务</span>
+                        </td>
+                    </tr>
+                </table>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="line_02"><span>附近店铺</span></div>
+
+<div data-am-widget="list_news" class="am-list-news am-list-news-default" >
+    <!--列表标题-->
+    <div class="am-list-news-hd am-cf">
+        <!--带更多链接-->
+        <a href="###" class="">
+            <span class="am-list-news-more am-fr">更多 &raquo;</span>
+        </a>
+    </div>
+
+    <div class="am-list-news-bd">
+        <ul class="am-list">
+
+            <!--缩略图在标题左边-->
+            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                <div class="am-u-sm-4 am-list-thumb">
+                    <a href="http://www.douban.com/online/11614662/" class="">
+                        <img src="http://img5.douban.com/lpic/o636459.jpg" alt=""/>
+                    </a>
+                </div>
+
+                <div class=" am-u-sm-8 am-list-main">
+                    <h3 class="am-list-item-hd"><a href="http://www.douban.com/online/11614662/" class="">BEAUTY&nbsp;HOME</a></h3>
+
+                    <div class="am-list-item-text">纯手工打造，小温馨气质</div>
+                    <div class="am-list-item-text">2000元</div>
+
+                </div>
+            </li>
+            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                <div class="am-u-sm-4 am-list-thumb">
+                    <a href="http://www.douban.com/online/11624755/" class="">
+                        <img src="http://img3.douban.com/lpic/o637240.jpg" alt="我最喜欢的一张画"/>
+                    </a>
+                </div>
+
+                <div class=" am-u-sm-8 am-list-main">
+                    <h3 class="am-list-item-hd"><a href="http://www.douban.com/online/11624755/" class="">BEAUTY&nbsp;HOME</a></h3>
+
+                    <div class="am-list-item-text">纯手工打造，小温馨气质</div>
+                    <div class="am-list-item-text">2000元</div>
+                </div>
+            </li>
+            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                <div class="am-u-sm-4 am-list-thumb">
+                    <a href="http://www.douban.com/online/11624755/" class="">
+                        <img src="http://img3.douban.com/lpic/o637240.jpg" alt="我最喜欢的一张画"/>
+                    </a>
+                </div>
+
+                <div class=" am-u-sm-8 am-list-main">
+                    <h3 class="am-list-item-hd"><a href="http://www.douban.com/online/11624755/" class="">BEAUTY&nbsp;HOME</a></h3>
+
+                    <div class="am-list-item-text">纯手工打造，小温馨气质</div>
+                    <div class="am-list-item-text">2000元</div>
+                </div>
+            </li>
+
+
+            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+                <div class="am-u-sm-4 am-list-thumb">
+                    <a href="http://www.douban.com/online/11624755/" class="">
+                        <img src="http://img3.douban.com/lpic/o637240.jpg" alt="我最喜欢的一张画"/>
+                    </a>
+                </div>
+
+                <div class=" am-u-sm-8 am-list-main">
+                    <h3 class="am-list-item-hd"><a href="http://www.douban.com/online/11624755/" class="">BEAUTY&nbsp;HOME</a></h3>
+
+                    <div class="am-list-item-text">纯手工打造，小温馨气质</div>
+                    <div class="am-list-item-text">2000元</div>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+</div>
+<br><br>
+
+    <div class="footer">
+    <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td id="home" style="color: #3ab5f3;" onclick="home()">
+                <span class="am-icon-home footer_span_1"></span><br>
+                <span class="footer_span_2" >主页</span>
+            </td>
+            <td id="myorder" onclick="myorder()">
+                <span class="am-icon-cart-plus footer_span_1"></span><br>
+                <span class="footer_span_2" >我的订单</span>
+            </td>
+            <td id="cheaporder" onclick="cheaporder()">
+                <span class="am-icon-tags footer_span_1"></span><br>
+                <span class="footer_span_2" >优惠买单</span>
+            </td>
+            <td id="message" onclick="message()">
+                <span class="am-icon-volume-up footer_span_1"></span><br>
+                <span class="footer_span_2">消息</span>
+            </td>
+            <td id="someone_center" onclick="someone_center()">
+                <span class="am-icon-user footer_span_1"></span><br>
+                <span class="footer_span_2" >个人中心</span>
+            </td>
+        </tr>
+    </table>
+</div>
+    </div>
+
+    <script>
+        $(function() {
+            var $slider = $('#demo-slider-0');
+            var counter = 0;
+            var getSlide = function() {
+                counter++;
+                return '<li><img src="http://s.amazeui.org/media/i/demos/bing-' +
+                        (Math.floor(Math.random() * 4) + 1) + '.jpg" />' +
+                        '<div class="am-slider-desc">动态插入的 slide ' + counter + '</div></li>';
+            };
+
+            $('.js-demo-slider-btn').on('click', function() {
+                var action = this.getAttribute('data-action');
+                if (action === 'add') {
+                    $slider.flexslider('addSlide', getSlide());
+                } else {
+                    var count = $slider.flexslider('count');
+                    count > 1 && $slider.flexslider('removeSlide', $slider.flexslider('count') - 1);
+                }
+            });
+
+        });
+    </script>
+<script>
+    function home() {
+        $("#home").css("color","#3ab5f3");
+        $("#myorder").css("color","#7c7c7c");
+        $("#cheaporder").css("color","#7c7c7c");
+        $("#message").css("color","#7c7c7c");
+        $("#someone_center").css("color","#7c7c7c");
+    }
+    function myorder() {
+        $("#home").css("color","#7c7c7c");
+        $("#myorder").css("color","#3ab5f3");
+        $("#cheaporder").css("color","#7c7c7c");
+        $("#message").css("color","#7c7c7c");
+        $("#someone_center").css("color","#7c7c7c");
+    }
+    function cheaporder() {
+        $("#home").css("color","#7c7c7c");
+        $("#myorder").css("color","#7c7c7c");
+        $("#cheaporder").css("color","#3ab5f3");
+        $("#message").css("color","#7c7c7c");
+        $("#someone_center").css("color","#7c7c7c");
+    }
+    function message() {
+        $("#home").css("color","#7c7c7c");
+        $("#myorder").css("color","#7c7c7c");
+        $("#cheaporder").css("color","#7c7c7c");
+        $("#message").css("color","#3ab5f3");
+        $("#someone_center").css("color","#7c7c7c");
+    }
+    function someone_center() {
+        $("#home").css("color","#7c7c7c");
+        $("#myorder").css("color","#7c7c7c");
+        $("#cheaporder").css("color","#7c7c7c");
+        $("#message").css("color","#7c7c7c");
+        $("#someone_center").css("color","#3ab5f3");
+    }
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
