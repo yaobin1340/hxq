@@ -13,12 +13,13 @@ class User extends MY_Controller {
 		echo $rs;
 	}
 	
-	public function list_users($page=1){
-		$data = $this->user_model->list_users($page);
-		$base_url = "/admin.php/user/list_users";
+	public function list_users($type=1,$page=1){
+		$data = $this->user_model->list_users($page,$type);
+		$base_url = "/admin.php/user/list_users/".$type;
 		$pager = $this->pagination->getPageLink($base_url, $data['total'], $data['limit']);
 		$this->assign('pager', $pager);
 		$this->assign('data', $data);
+		$this->assign('type', $type);
 		$this->show('user/list_users');
 	}
 

@@ -24,7 +24,7 @@ class User_model extends MY_Model
     }
 
 
-	public function list_users($page)
+	public function list_users($page,$type)
 	{
 		$data['limit'] = $this->limit;
 		//获取总记录数
@@ -33,6 +33,7 @@ class User_model extends MY_Model
 			$this->db->like('rel_name',$this->input->post('keyword'));
 			$this->db->or_like('mobile',$this->input->post('keyword'));
 		}
+		$this->db->where('is_dl',$type);
 		$num = $this->db->get()->row();
 		$data['total'] = $num->num;
 
@@ -45,6 +46,7 @@ class User_model extends MY_Model
 			$this->db->like('rel_name',$this->input->post('keyword'));
 			$this->db->or_like('mobile',$this->input->post('keyword'));
 		}
+		$this->db->where('is_dl',$type);
 		$this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
 		$data['items'] = $this->db->get()->result_array();
 

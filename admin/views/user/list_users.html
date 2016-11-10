@@ -2,7 +2,10 @@
 <div class="admin-content">
 
     <div class="am-cf am-padding">
-        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">普通会员</strong></div>
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">
+            {{if $type == 1}}普通会员{{/if}}
+            {{if $type == 2}}服务商{{/if}}
+            {{if $type == 3}}联合服务商{{/if}}</strong></div>
     </div>
 
     <div class="am-g">
