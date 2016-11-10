@@ -1,27 +1,29 @@
 {{foreach from=$data.items item=row}}
-<div class="am-panel am-panel-default">
-	<div id="list_btn" class="am-panel-hd" >
-		<div class="am-panel-title list_all_btn" data-am-collapse="{parent: '#accordion', target: '#do-not-say-{{$row.id}}'}">
-			<span class="am-front-icon am-icon-user list_all_user_img"></span>
-			<span class="list_all_user_id">&nbsp;ID:{{$row.id}}</span>
-			<span class="am-icon-sort-desc list_all_sort_img"></span>
-			<span class="list_all_money">{{$row.money/100}}元</span>
-			<span class="am-front-icon am-icon-rmb list_all_rmb"></span>
-			<span class="list_all_money">
-				{{if $row.status==1}}待审核{{/if}}
-		{{if $row.status==2}}审核通过{{/if}}
-		{{if $row.status==11}}拒绝{{/if}}
-			</span>
-		</div>
-	</div>
-	<div id="do-not-say-{{$row.id}}" class="am-panel-collapse am-collapse">
-		<div class="am-panel-bd">
-			<p class="list_all_information"><span class="am-icon-phone list_all_information_mobile"></span>&nbsp;&nbsp;开户银行：{{$row.bank}}</p>
-			<p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;银行账号：{{$row.bank_no}}</p>
-			<p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;具体支行：{{$row.bank_branch}}</p>
-			<p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;开户名：{{$row.rel_name}}</p>
-		</div>
-	</div>
-</div>
-
+<style>
+	.table{
+		width: 100%; height: 50px; border-collapse:collapse;color: #bfbfbf;
+	}
+	.table tr{
+		font-size: 14px; height: 50px; text-align: center;color: #999999;
+	}
+	.td{
+		border-bottom:1px solid #e5e5e5;
+	}
+</style>
+<table class="table" border="0">
+	<tr style="color: #343434;font-weight: bold;">
+		<td class="td">ID</td>
+		<td class="td">金额</td>
+		<td class="td">日期</td>
+		<td class="td">状态</td>
+	</tr>
+	<tr style="color: #343434;">
+		<td class="td">{{$row.id}}</td>
+		<td class="td">{{$row.money}}元</td>
+		<td class="td">{{$row.cdate}}</td>
+		<td class="td">{{if $row.status==1}}<span style="color: red;">待审核</span>{{/if}}
+			{{if $row.status==2}}<span style="color: #00a0e9;">审核通过</span>{{/if}}
+			{{if $row.status==11}}<span style="color: red;">拒绝</span>{{/if}}</td>
+	</tr>
+</table>
 {{/foreach}}
