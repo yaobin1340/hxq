@@ -208,7 +208,7 @@ class User_model extends MY_Model
         }
         $data = array(
             'uid'=>$this->session->userdata('uid'),
-            'money' => (int)$this->input->post('money'),
+            'money' => (int)$this->input->post('money')*100,
             'bank' => trim($this->input->post('bank')),
             'bank_no' => trim($this->input->post('bank_no')),
             'bank_branch' => trim($this->input->post('bank_branch')),
@@ -219,14 +219,14 @@ class User_model extends MY_Model
         $this->db->trans_start();//--------开始事务
         $this->db->insert('withdraw',$data);
         $this->db->where('id',$this->session->userdata('uid'));
-        $this->db->set('integral',"integral - {$data['money']}*100",false);
+        $this->db->set('integral',"integral - {$data['money']}",false);
         $this->db->update('users');
             $this->db->insert('money_log',array(
                 'uid'=>$this->session->userdata('uid'),
                 'cdate' => date('Y-m-d H:i:s'),
                 'type'=>1,
                 'remark'=>'用户提现',
-                'money'=>'-'.(string)$this->input->post('money')
+                'money'=>'-'.(string)$data['money']
             ));
         $this->db->trans_complete();//------结束事务
 

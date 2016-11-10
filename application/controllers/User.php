@@ -164,6 +164,7 @@ class User extends MY_Controller {
 
 		$res = curl_exec( $ch );
 		curl_close( $ch );
+		echo $res;
 	}
 
 	public function withdraw_list(){
