@@ -108,8 +108,11 @@ class Shop_model extends MY_Model
 		);
 
 		$this->db->trans_start();//--------开始事务
+
 		$this->db->where('id',$this->input->post('id'));
 		$this->db->update('shop',$data);
+		$row = $this->db->select()->from('shop')->where('id',$this->input->post('id'))->get()->row_array();
+		$this->db->where('ids',$row['uid'])->update('users',array('shop_id'=>$this->input->post('id')));
 		$this->db->trans_complete();//------结束事务
 		if ($this->db->trans_status() === FALSE) {
 			return -1;

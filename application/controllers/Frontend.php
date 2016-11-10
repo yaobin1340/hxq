@@ -99,7 +99,11 @@ class Frontend extends MY_Controller {
 		$text = '您的短信验证码是:'.$yzm;
 		$this->session->set_userdata('yzm',$yzm);
 		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
-		echo $rs;
+        $obj=json_decode($rs);
+        if($obj->error !=0){
+            $rs = $this->sendsms_curl($mobile,$text);
+        }
+        echo $rs;
 	}
 
     public function get_yzm_forget($mobile){
@@ -111,6 +115,10 @@ class Frontend extends MY_Controller {
         $text = '您的短信验证码是:'.$yzm;
         $this->session->set_userdata('yzm',$yzm);
         $rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
+        $obj=json_decode($rs);
+        if($obj->error !=0){
+            $rs = $this->sendsms_curl($mobile,$text);
+        }
         echo $rs;
     }
 
