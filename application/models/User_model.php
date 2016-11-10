@@ -74,10 +74,7 @@ class User_model extends MY_Model
         $data['limit'] = $this->limit;
         //获取总记录数
         $this->db->select('count(1) num')->from('order_list');
-        if($this->input->post('keywords')){
-            $this->db->where('uid',$this->input->post('keywords'));
-            $this->db->or_where('mobile',$this->input->post('keywords'));
-        }
+        $this->db->where('uid',$this->session->userdata('uid'));
 
         if($this->input->post('s_date')){
             $this->db->where("cdate >=",$this->input->post('s_date'));
@@ -86,22 +83,21 @@ class User_model extends MY_Model
         if($this->input->post('e_date')){
             $this->db->where("cdate <=",$this->input->post('e_date')." 23:59:59");
         }
-//        $this->db->where('shop_id',1); //TODO
+
         $num = $this->db->get()->row();
         $data['total'] = $num->num;
 
         //搜索条件
-        $data['keywords'] = $this->input->post('keywords')?$this->input->post('keywords'):null;
         $data['e_date'] = $this->input->post('e_date')?$this->input->post('e_date'):null;
         $data['s_date'] = $this->input->post('s_date')?$this->input->post('s_date'):null;
 
         //获取详细列
-        $this->db->select('a.*,rel_name')->from('order_list a');
+        $this->db->select('a.*,shop_name,address')->from('order_list a');
         $this->db->join('users b','a.uid=b.id','left');
-        if($this->input->post('keywords')){
-            $this->db->where('a.uid',$this->input->post('keywords'));
-            $this->db->or_where('a.mobile',$this->input->post('keywords'));
-        }
+        $this->db->join('shop c','a.shop_id=c.id','left');
+
+        $this->db->where('a.uid',$this->session->userdata('uid'));
+
         if($this->input->post('s_date')){
             $this->db->where("a.cdate >=",$this->input->post('s_date'));
         }

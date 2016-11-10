@@ -20,7 +20,7 @@ class Order extends MY_Controller {
 	public function save_order(){
 		$rs = $this->order_model->save_order();
 		if($rs == 1){
-			$this->show_message('保存成功',site_url('shop/list_orders'));
+			$this->show_message('保存成功',site_url('order/list_orders'));
 		}else{
 			$this->show_message('保存失败');
 		}
