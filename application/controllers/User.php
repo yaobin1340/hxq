@@ -62,8 +62,8 @@ class User extends MY_Controller {
 	}
 
 	public function list_orders($page = 1){
-        $data = $this->user_model->list_orders($page);
-        $this->assign('data', $data);
+		$this->assign('s_date', $this->input->post('s_date'));
+		$this->assign('e_date', $this->input->post('e_date'));
 		$this->display('user/list_orders.html');
 	}
 
