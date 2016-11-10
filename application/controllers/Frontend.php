@@ -24,8 +24,19 @@ class Frontend extends MY_Controller {
 
 	public function index()
 	{
+
+        //$city_list = $this->frontend_model->get_city();
+        $shop_type = $this->frontend_model->get_shop_type();
+        $this->assign('shop_type', $shop_type);
 		$this->display('frontend/index.html');
 	}
+
+    public function index_loaddata($page=1){
+        $data = $this->frontend_model->index_loaddata($page);
+        $this->assign('data', $data);
+        $this->assign('page', $page);
+        $this->display('frontend/index_loaddata.html');
+    }
 
     public function register(){
         if($this->input->post()){
