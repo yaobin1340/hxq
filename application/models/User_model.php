@@ -226,7 +226,7 @@ class User_model extends MY_Model
                 'cdate' => date('Y-m-d H:i:s'),
                 'type'=>1,
                 'remark'=>'用户提现',
-                'money'=>$this->input->post('money')
+                'money'=>'-'.(string)$this->input->post('money')
             ));
         $this->db->trans_complete();//------结束事务
 

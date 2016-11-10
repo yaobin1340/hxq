@@ -139,8 +139,31 @@ class User extends MY_Controller {
 		//$yzm = 123456;
 		$text = '您的短信验证码是:'.$yzm;
 		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
+		$obj=json_decode($rs);
+		if($obj->error !=0){
+			$this->sendsms_curl($mobile,$text);
+		}
 		$this->session->set_userdata('mobile_code', $yzm);
 
+	}
+
+	public function sendsms_curl($moblie,$text){
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, "http://sms-api.luosimao.com/v1/send.json");
+
+		curl_setopt($ch, CURLOPT_HTTP_VERSION  , CURL_HTTP_VERSION_1_0 );
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 8);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_HEADER, FALSE);
+
+		curl_setopt($ch, CURLOPT_HTTPAUTH , CURLAUTH_BASIC);
+		curl_setopt($ch, CURLOPT_USERPWD  , 'api:key-e3829a670f2c515ab8befa5096dd135c');
+
+		curl_setopt($ch, CURLOPT_POST, TRUE);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, array('mobile' => $moblie,'message' => "{$text}【拉拉秀】"));
+
+		$res = curl_exec( $ch );
+		curl_close( $ch );
 	}
 
 	public function withdraw_list(){
