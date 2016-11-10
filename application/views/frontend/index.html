@@ -48,6 +48,12 @@
     }
 </style>
 <body style="background-color: #ffffff;">
+<input type="hidden" id="city_code" value="{{$city_code}}">
+<input type="hidden" id="area_code" value="{{$area_code}}">
+<input type="hidden" id="province_code" value="{{$province_code}}">
+<input type="hidden" id="type" value="{{$type}}">
+<input type="hidden" id="lat" value="{{$lat}}">
+<input type="hidden" id="lng" value="{{$lng}}">
 <div style="overflow: auto;">
 <header class="am-topbar am-topbar-inverse" style="height: 60px;">
     <form class="am-topbar-form am-topbar-left am-form-inline" role="search" style="width: 100%;margin-top: 10px;">
@@ -250,32 +256,7 @@
 </div>
 <br><br>
 
-    <div class="footer">
-    <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-            <td id="home" style="color: #3ab5f3;" onclick="home()">
-                <span class="am-icon-home footer_span_1"></span><br>
-                <span class="footer_span_2" >主页</span>
-            </td>
-            <td id="myorder" onclick="myorder()">
-                <span class="am-icon-cart-plus footer_span_1"></span><br>
-                <span class="footer_span_2" >我的订单</span>
-            </td>
-            <td id="cheaporder" onclick="cheaporder()">
-                <span class="am-icon-tags footer_span_1"></span><br>
-                <span class="footer_span_2" >优惠买单</span>
-            </td>
-            <td id="message" onclick="message()">
-                <span class="am-icon-volume-up footer_span_1"></span><br>
-                <span class="footer_span_2">消息</span>
-            </td>
-            <td id="someone_center" onclick="someone_center()">
-                <span class="am-icon-user footer_span_1"></span><br>
-                <span class="footer_span_2" >个人中心</span>
-            </td>
-        </tr>
-    </table>
-</div>
+    {{include file="../public/footer.html"}}
     </div>
 
     <script>
@@ -301,43 +282,7 @@
 
         });
     </script>
-<script>
-    function home() {
-        $("#home").css("color","#3ab5f3");
-        $("#myorder").css("color","#7c7c7c");
-        $("#cheaporder").css("color","#7c7c7c");
-        $("#message").css("color","#7c7c7c");
-        $("#someone_center").css("color","#7c7c7c");
-    }
-    function myorder() {
-        $("#home").css("color","#7c7c7c");
-        $("#myorder").css("color","#3ab5f3");
-        $("#cheaporder").css("color","#7c7c7c");
-        $("#message").css("color","#7c7c7c");
-        $("#someone_center").css("color","#7c7c7c");
-    }
-    function cheaporder() {
-        $("#home").css("color","#7c7c7c");
-        $("#myorder").css("color","#7c7c7c");
-        $("#cheaporder").css("color","#3ab5f3");
-        $("#message").css("color","#7c7c7c");
-        $("#someone_center").css("color","#7c7c7c");
-    }
-    function message() {
-        $("#home").css("color","#7c7c7c");
-        $("#myorder").css("color","#7c7c7c");
-        $("#cheaporder").css("color","#7c7c7c");
-        $("#message").css("color","#3ab5f3");
-        $("#someone_center").css("color","#7c7c7c");
-    }
-    function someone_center() {
-        $("#home").css("color","#7c7c7c");
-        $("#myorder").css("color","#7c7c7c");
-        $("#cheaporder").css("color","#7c7c7c");
-        $("#message").css("color","#7c7c7c");
-        $("#someone_center").css("color","#3ab5f3");
-    }
-</script>
+
 
 </body>
 </html>
@@ -365,8 +310,11 @@
         area_code = $('#area_code').val()
         province_code = $('#province_code').val()
         type = $('#type').val()
-        lat = 31.39055
-        lng = 120.949
+        lat = 31.39055 //纬度
+        lng = 120.949   //经度
+        //经纬度值通过微信端 获取,
+        //这里在进入页面时需要判断是否已存在经纬度值
+        //如果存在则使用,不存在则使用微信获取
         $.post("{{site_url url='Frontend/index_loaddata'}}/"+window.page,{city_code:city_code,area_code:area_code,province_code:province_code,type:type,lng:lng,lat:lat},function(data){
             if(data){
                 $("#accordion").append(data)

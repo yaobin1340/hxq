@@ -135,69 +135,7 @@ ul { padding-left: 0px;}
 	</div>
 </div>
 
-<div class="footer">
-	<table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0">
-		<tr>
-			<td id="home" style="color: #3ab5f3;" onclick="home()">
-				<span class="am-icon-home footer_span_1"></span><br>
-				<span class="footer_span_2" >主页</span>
-			</td>
-			<td id="myorder" onclick="myorder()">
-				<span class="am-icon-cart-plus footer_span_1"></span><br>
-				<span class="footer_span_2" >我的订单</span>
-			</td>
-			<td id="cheaporder" onclick="cheaporder()">
-				<span class="am-icon-tags footer_span_1"></span><br>
-				<span class="footer_span_2" >优惠买单</span>
-			</td>
-			<td id="message" onclick="message()">
-				<span class="am-icon-volume-up footer_span_1"></span><br>
-				<span class="footer_span_2">消息</span>
-			</td>
-			<td id="someone_center" onclick="someone_center()">
-				<span class="am-icon-user footer_span_1"></span><br>
-				<span class="footer_span_2" >个人中心</span>
-			</td>
-		</tr>
-	</table>
-</div>
-<script>
-	function home() {
-		$("#home").css("color","#3ab5f3");
-		$("#myorder").css("color","#7c7c7c");
-		$("#cheaporder").css("color","#7c7c7c");
-		$("#message").css("color","#7c7c7c");
-		$("#someone_center").css("color","#7c7c7c");
-	}
-	function myorder() {
-		$("#home").css("color","#7c7c7c");
-		$("#myorder").css("color","#3ab5f3");
-		$("#cheaporder").css("color","#7c7c7c");
-		$("#message").css("color","#7c7c7c");
-		$("#someone_center").css("color","#7c7c7c");
-	}
-	function cheaporder() {
-		$("#home").css("color","#7c7c7c");
-		$("#myorder").css("color","#7c7c7c");
-		$("#cheaporder").css("color","#3ab5f3");
-		$("#message").css("color","#7c7c7c");
-		$("#someone_center").css("color","#7c7c7c");
-	}
-	function message() {
-		$("#home").css("color","#7c7c7c");
-		$("#myorder").css("color","#7c7c7c");
-		$("#cheaporder").css("color","#7c7c7c");
-		$("#message").css("color","#3ab5f3");
-		$("#someone_center").css("color","#7c7c7c");
-	}
-	function someone_center() {
-		$("#home").css("color","#7c7c7c");
-		$("#myorder").css("color","#7c7c7c");
-		$("#cheaporder").css("color","#7c7c7c");
-		$("#message").css("color","#7c7c7c");
-		$("#someone_center").css("color","#3ab5f3");
-	}
-</script>
+{{include file="../public/footer.html"}}
 <script>
 	window.is_end = false
 	window.page = 1
