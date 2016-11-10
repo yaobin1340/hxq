@@ -1,19 +1,29 @@
-{{foreach from=$data.items item=row}}
-<div class="am-panel am-panel-default">
-    <div id="list_btn" class="am-panel-hd" >
-        <div class="am-panel-title list_all_btn" data-am-collapse="{parent: '#accordion', target: '#do-not-say-{{$row.id}}'}">
-            <span class="am-front-icon am-icon-user list_all_user_img"></span>
-            <span class="list_all_user_id">&nbsp;ID:{{$row.id}}</span>
-            <span class="am-icon-sort-desc list_all_sort_img"></span>
-            <span class="list_all_money">{{(int)$row.money/100}}元</span>
-            <span class="am-front-icon am-icon-rmb list_all_rmb"></span>
-        </div>
-    </div>
-    <div id="do-not-say-{{$row.id}}" class="am-panel-collapse am-collapse">
-        <div class="am-panel-bd">
-            <p class="list_all_information"><span class="am-icon-phone list_all_information_mobile"></span>&nbsp;&nbsp;说明：{{$row.remark}}</p>
-            <p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;时间：{{$row.cdate}}</p>
-        </div>
-    </div>
-</div>
-{{/foreach}}
+<style>
+    .table{
+        width: 100%; height: 50px; border-collapse:collapse;color: #bfbfbf;
+    }
+    .table tr{
+        font-size: 14px; height: 50px; text-align: center;color: #999999;
+    }
+    .td{
+        border-bottom:1px solid #e5e5e5;
+    }
+</style>
+<table class="table" border="0">
+    <tr style="color: #343434;font-weight: bold;">
+        <td class="td">ID</td>
+        <td class="td">金额变化</td>
+        <td class="td">日期</td>
+        <!--<td class="td">说明</td>-->
+    </tr>
+    {{foreach from=$data.items item=row}}
+    <tr style="color: #343434;">
+        <td class="td">{{$row.id}}</td>
+        <td class="td">{{if $row.type==1}}-{{else}}+{{/if}}{{$row.money}}元</td>
+        <td class="td">{{$row.cdate}}</td>
+        <!--<td class="td">{{$row.remark}}</td>-->
+    </tr>
+    {{/foreach}}
+
+</table>
+
