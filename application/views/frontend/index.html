@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -73,13 +73,41 @@
 <div style="">
     <div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0" style="">
         <ul class="am-slides">
+            {{if $shop_type}}
             <li>
                 <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0" style="color: #777777;">
+                    <tr style="height: 100px;">
+            {{foreach from=$shop_type key=k item=row}}
+            {{if $k is div by 8}}
+            {{if $k !=0}}
+               </tr> </table></li>
+            <li>
+                <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0" style="color: #777777;">
+                    <tr style="height: 100px;">
+            {{/if}}
+            {{/if}}
+            {{if ($k-4) is div by 8}}
+                    {{if $k !=0}}
+                    </tr><tr style="height: 100px;">
+                    {{/if}}
+            {{/if}}
+            <td>
+                <span class="am-icon-{{$row.icon|default:'cart-plus'}} footer_span_1" style="color:{{$row.color|default:'#7891e4'}};"></span><br>
+                <span class="footer_span_2" >{{$row.name}}</span>
+            </td>
+            {{/foreach}}
+                    </tr>
+                </table>
+            </li>
+            {{/if}}
+
+          <!--  <li>
+                <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0" style="color: #777777;">
                         <tr style="height: 100px;">
-                        <td>
-                            <span class="am-icon-glass footer_span_1" style="color:#eb6d4e;"></span><br>
-                            <span class="footer_span_2" >美食</span>
-                        </td>
+                            <td>
+                                <span class="am-icon-building footer_span_1" style="color:#7891e4;"></span><br>
+                                <span class="footer_span_2" >酒店</span>
+                            </td>
                         <td>
                             <span class="am-icon-building footer_span_1" style="color:#7891e4;"></span><br>
                             <span class="footer_span_2" >酒店</span>
@@ -193,7 +221,7 @@
                         </td>
                     </tr>
                 </table>
-            </li>
+            </li>-->
         </ul>
     </div>
 </div>
@@ -203,68 +231,20 @@
     <!--列表标题-->
     <div class="am-list-news-hd am-cf">
         <!--带更多链接-->
-        <a href="###" class="">
-            <span class="am-list-news-more am-fr">更多 &raquo;</span>
-        </a>
+    </div>
+    <div class="am-list-news-bd">
+        <ul class="am-list" id="accordion">
+        </ul>
+        <p id="is_end" style="margin-bottom: 3em">已到最后一页</p>
     </div>
 
-    <div class="am-list-news-bd">
-        <ul class="am-list">
-
-            <!--缩略图在标题左边-->
-            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
-                <div class="am-u-sm-4 am-list-thumb">
-                        <img src="http://img5.douban.com/lpic/o636459.jpg" alt=""/>
-                </div>
-
-                <div class=" am-u-sm-8 am-list-main">
-                    <h3 class="am-list-item-hd"><a href="http://www.douban.com/online/11614662/" class="">BEAUTY&nbsp;HOME</a></h3>
-
-                    <div class="am-list-item-text">纯手工打造，小温馨气质</div>
-                    <div class="am-list-item-text">2000元</div>
-
-                </div>
-            </li>
-            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
-                <div class="am-u-sm-4 am-list-thumb">
-                        <img src="http://img3.douban.com/lpic/o637240.jpg" alt="我最喜欢的一张画"/>
-                </div>
-
-                <div class=" am-u-sm-8 am-list-main">
-                    <h3 class="am-list-item-hd"><a href="http://www.douban.com/online/11624755/" class="">BEAUTY&nbsp;HOME</a></h3>
-
-                    <div class="am-list-item-text">纯手工打造，小温馨气质</div>
-                    <div class="am-list-item-text">2000元</div>
-                </div>
-            </li>
-            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
-                <div class="am-u-sm-4 am-list-thumb">
-                        <img src="http://img3.douban.com/lpic/o637240.jpg" alt="我最喜欢的一张画"/>
-                </div>
-
-                <div class=" am-u-sm-8 am-list-main">
-                    <h3 class="am-list-item-hd"><a href="http://www.douban.com/online/11624755/" class="">BEAUTY&nbsp;HOME</a></h3>
-
-                    <div class="am-list-item-text">纯手工打造，小温馨气质</div>
-                    <div class="am-list-item-text">2000元</div>
-                </div>
-            </li>
-
-
-            <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
-                <div class="am-u-sm-4 am-list-thumb">>
-                        <img src="http://img3.douban.com/lpic/o637240.jpg" alt="我最喜欢的一张画"/>
-                </div>
-
-                <div class=" am-u-sm-8 am-list-main">
-                    <h3 class="am-list-item-hd"><a href="http://www.douban.com/online/11624755/" class="">BEAUTY&nbsp;HOME</a></h3>
-
-                    <div class="am-list-item-text">纯手工打造，小温馨气质</div>
-                    <div class="am-list-item-text">2000元</div>
-                </div>
-            </li>
-
-        </ul>
+    <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">正在加载...</div>
+            <div class="am-modal-bd">
+                <span class="am-icon-spinner am-icon-spin"></span>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -362,7 +342,62 @@
 </body>
 </html>
 
+<script>
+    window.is_end = false
+    window.page = 1
+    $(window).scroll(function () {
+        var scrollTop = $(this).scrollTop();
+        var scrollHeight = $(document).height();
+        var windowHeight = $(this).height();
+        if (scrollTop + windowHeight == scrollHeight) {
+            if(window.is_end){
+                $("#is_end").show()
+            }else{
+                $("#my-actions-search").show()
+                $('#my-modal-loading').modal()
+                get_data()
+            }
+        }
+    });
 
+    function get_data(){
+        city_code = $('#city_code').val()
+        area_code = $('#area_code').val()
+        province_code = $('#province_code').val()
+        type = $('#type').val()
+        lat = 31.39055
+        lng = 120.949
+        $.post("{{site_url url='Frontend/index_loaddata'}}/"+window.page,{city_code:city_code,area_code:area_code,province_code:province_code,type:type,lng:lng,lat:lat},function(data){
+            if(data){
+                $("#accordion").append(data)
+                $('#accordion').find('.flag-'+window.page).add('#doc-confirm-toggle').
+                on('click', function() {
+                    $('#my-confirm').modal({
+                        relatedTarget: this,
+                        onConfirm: function(options) {
+
+                        },
+                        onCancel: function() {
+
+                        }
+                    });
+                });
+                window.page += 1
+                $('#my-modal-loading').modal('close');
+            }else{
+                $('#my-modal-loading').modal('close');
+                $("#is_end").show()
+                window.is_end = true
+            }
+
+        });
+    }
+
+    $(function() {
+        get_data()
+    });
+
+</script>
 
 
 

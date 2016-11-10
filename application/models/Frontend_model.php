@@ -155,5 +155,60 @@ class Frontend_model extends MY_Model
         else
             return null;
     }
+
+    public function index_loaddata($page=1){
+        $data['limit'] = $this->limit;
+        //获取总记录数
+        $this->db->select('count(1) num')->from('shop');
+
+        if($this->input->post('type')){
+            $this->db->where("type",$this->input->post('type'));
+        }
+        if($this->input->post('province_code')){
+            $this->db->where("province_code",$this->input->post('province_code'));
+        }
+        if($this->input->post('city_code')){
+            $this->db->where("city_code",$this->input->post('city_code'));
+        }
+        if($this->input->post('area_code')){
+            $this->db->where("area_code",$this->input->post('area_code'));
+        }
+//        $this->db->where('shop_id',1); //TODO
+        $num = $this->db->get()->row();
+        $data['total'] = $num->num;
+
+        //搜索条件
+        $data['province_code'] = $this->input->post('province_code')?$this->input->post('province_code'):null;
+        $data['city_code'] = $this->input->post('city_code')?$this->input->post('city_code'):null;
+        $data['area_code'] = $this->input->post('area_code')?$this->input->post('area_code'):null;
+        $data['type'] = $this->input->post('type')?$this->input->post('type'):null;
+        $data['lat'] = $this->input->post('lat')?$this->input->post('lat'):0;
+        $data['lng'] = $this->input->post('lng')?$this->input->post('lng'):0;
+        //获取详细列
+        $this->db->select("*,
+        ROUND(lat_lng_distance({$data['lat']}, {$data['lng']}, lat, lng), 2) AS juli,
+        ",false)->from('shop');
+        $this->db->where('lat <>','');
+        $this->db->where('lng <>','');
+        //$this->db->where('lng is not null');
+        if($this->input->post('type')){
+            $this->db->where("type",$this->input->post('type'));
+        }
+        if($this->input->post('province_code')){
+            $this->db->where("province_code",$this->input->post('province_code'));
+        }
+        if($this->input->post('city_code')){
+            $this->db->where("city_code",$this->input->post('city_code'));
+        }
+        if($this->input->post('area_code')){
+            $this->db->where("area_code",$this->input->post('area_code'));
+        }
+//        $this->db->where('shop_id',1); //TODO
+        $this->db->order_by('juli','asc');
+        $this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
+        $data['items'] = $this->db->get()->result_array();
+       // echo $this->db->last_query();
+        return $data;
+    }
  
 }
