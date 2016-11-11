@@ -26,8 +26,11 @@ class Frontend extends MY_Controller {
 	{
 
         $province_list = $this->frontend_model->get_province();
+        $area_name = $this->frontend_model->get_area_name();
+        $this->assign('area_name',$area_name?$area_name['name']:null);
         $this->assign('province_list', $province_list);
         $this->assign('city_code', $this->input->post('city_code'));
+        $this->assign('shop_name', $this->input->post('t_shop_name'));
         $this->assign('area_code', $this->input->post('area_code'));
         $this->assign('province_code', $this->input->post('province_code'));
         $this->assign('lat', $this->input->post('lat'));

@@ -173,6 +173,9 @@ class Frontend_model extends MY_Model
         if($this->input->post('area_code')){
             $this->db->where("area_code",$this->input->post('area_code'));
         }
+        if($this->input->post('shop_name')){
+            $this->db->like("shop_name",$this->input->post('shop_name'));
+        }
 //        $this->db->where('shop_id',1); //TODO
         $num = $this->db->get()->row();
         $data['total'] = $num->num;
@@ -184,6 +187,7 @@ class Frontend_model extends MY_Model
         $data['type'] = $this->input->post('type')?$this->input->post('type'):null;
         $data['lat'] = $this->input->post('lat')?$this->input->post('lat'):0;
         $data['lng'] = $this->input->post('lng')?$this->input->post('lng'):0;
+        $data['shop_name'] = $this->input->post('shop_name')?$this->input->post('shop_name'):null;
         //获取详细列
         $this->db->select("*,
         ROUND(lat_lng_distance({$data['lat']}, {$data['lng']}, lat, lng), 2) AS juli,
@@ -203,6 +207,9 @@ class Frontend_model extends MY_Model
         if($this->input->post('area_code')){
             $this->db->where("area_code",$this->input->post('area_code'));
         }
+        if($this->input->post('shop_name')){
+            $this->db->like("shop_name",$this->input->post('shop_name'));
+        }
 //        $this->db->where('shop_id',1); //TODO
         $this->db->order_by('juli','asc');
         $this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
@@ -219,6 +226,10 @@ class Frontend_model extends MY_Model
         $this->db->where('a.id',$id);
         $row = $this->db->get()->row_array();
         return $row;
+    }
+
+    public function get_area_name(){
+        return $this->db->select('name')->from('area')->where('code',$this->input->post('area_code'))->get()->row_array();
     }
  
 }
