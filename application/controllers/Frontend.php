@@ -206,7 +206,9 @@ class Frontend extends MY_Controller {
         echo $this->frontend_model->get_name_by_keywords($keywords);
     }
 
-    public function shop_details(){
+    public function shop_details($id){
+        $data = $this->frontend_model->shop_details($id);
+        $this->assign('data', $data);
         $this->display('frontend/shop_details.html');
     }
 
