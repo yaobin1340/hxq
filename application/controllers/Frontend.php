@@ -210,4 +210,7 @@ class Frontend extends MY_Controller {
         $this->display('frontend/shop_details.html');
     }
 
+    public function shop_list(){
+        $this->display('frontend/shop_list.html');
+    }
 }
