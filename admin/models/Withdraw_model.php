@@ -57,7 +57,11 @@ class Withdraw_model extends MY_Model
 		}
 		$this->db->where('a.status',$status);
 		$this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
-		$this->db->order_by('a.id','desc');
+		if($status == 1){
+			$this->db->order_by('a.id','desc');
+		}else{
+			$this->db->order_by('a.adate','desc');
+		}
 		$data['items'] = $this->db->get()->result_array();
 
 		return $data;
