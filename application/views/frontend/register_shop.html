@@ -20,7 +20,7 @@
 
        <div class="am-form-group am-form-icon" style="height: 50px;">
            <i class="am-icon-tag"></i>
-           <input type="text" name="parent_flag" class="am-form-field user_add_phone" placeholder="请输入邀请人电话/id" style="height: 50px;" onblur="get_name_by_keywords(this)"/>
+           <input type="text" name="parent_flag" {{if $shop && $shop.parent_mobile}}value="{{$shop.parent_mobile}}"{{/if}} class="am-form-field user_add_phone" placeholder="请输入邀请人电话/id" style="height: 50px;" onblur="get_name_by_keywords(this)"/>
        </div>
 
        <div class="am-form-group am-form-icon" id="inviter-block" hidden>
