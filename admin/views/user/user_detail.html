@@ -40,6 +40,19 @@
                 </div>
 
                 <div class="am-form-group">
+                    <label class="am-u-sm-2 am-form-label">等级</label>
+                    <div class="am-u-sm-10">
+                        {{if $data.is_dl eq 1}}
+                        普通会员
+                        {{elseif $data.is_dl eq 2}}
+                        服务商
+                        {{elseif $data.is_dl eq 3}}
+                        联合服务商
+                        {{/if}}
+                    </div>
+                </div>
+
+                <div class="am-form-group">
                     <label class="am-u-sm-2 am-form-label">地址</label>
                     <div class="am-u-sm-10">
                         {{$data.province_name}} {{$data.city_name}} {{$data.area_name}}

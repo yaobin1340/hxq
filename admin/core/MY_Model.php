@@ -241,6 +241,8 @@ class MY_Model extends CI_Model{
     function tableUpdate($tbName,$primaryKey,$id,$arrFields){
         $condtionFields[$primaryKey] = $id;
         $this->db->where($condtionFields)->update($tbName,$arrFields);
+        $updateRow = $this->db->affected_rows();
+        return ($updateRow >= 0 && $id)?true:false;
     }
 
     function tableAdd($tbName,$arrFields){

@@ -12,7 +12,7 @@ class User extends MY_Controller {
 		$rs = $this->user_model->change_status($id,$status);
 		echo $rs;
 	}
-	
+
 	public function list_users($page=1){
 		$data = $this->user_model->list_users($page);
 		$base_url = "/admin.php/user/list_users";
@@ -32,7 +32,11 @@ class User extends MY_Controller {
 	public function user_upgrade(){
 		$id = $this->input->post('id');
 		$rs = $this->user_model->user_upgrade($id);
-		$this->show_message('升级成功~',site_url("/user/user_detail/$id"));
+		if($rs){
+            $this->show_message('升级成功~',site_url("/user/user_detail/$id"));
+        }else{
+            $this->show_message('升级失败~',site_url("/user/user_detail/$id"));
+        }
 	}
 
 
