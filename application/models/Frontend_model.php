@@ -231,5 +231,9 @@ class Frontend_model extends MY_Model
     public function get_area_name(){
         return $this->db->select('name')->from('area')->where('code',$this->input->post('area_code'))->get()->row_array();
     }
+
+    public function get_type_name($type){
+        return $this->db->select('name')->from('shop_type')->where('id',$type)->get()->row_array();
+    }
  
 }

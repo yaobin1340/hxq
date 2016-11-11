@@ -210,12 +210,33 @@ class Frontend extends MY_Controller {
     }
 
     public function shop_details($id){
+        $this->assign('header_name', '商店详情');
         $data = $this->frontend_model->shop_details($id);
         $this->assign('data', $data);
         $this->display('frontend/shop_details.html');
     }
 
-    public function shop_list(){
+    public function shop_list($type){
+        $type_name = $this->frontend_model->get_type_name($type);
+        $this->assign('header_name', $type_name?$type_name['name']:null);
+        $this->assign('type', $type);
+        $province_list = $this->frontend_model->get_province();
+        $area_name = $this->frontend_model->get_area_name();
+        $this->assign('area_name',$area_name?$area_name['name']:null);
+        $this->assign('province_list', $province_list);
+        $this->assign('city_code', $this->input->post('city_code'));
+        $this->assign('shop_name', $this->input->post('t_shop_name'));
+        $this->assign('area_code', $this->input->post('area_code'));
+        $this->assign('province_code', $this->input->post('province_code'));
+        $this->assign('lat', $this->input->post('lat'));
+        $this->assign('lng', $this->input->post('lng'));
         $this->display('frontend/shop_list.html');
+    }
+
+    public function shop_list_loaddata($page=1){
+        $data = $this->frontend_model->index_loaddata($page);
+        $this->assign('data', $data);
+        $this->assign('page', $page);
+        $this->display('frontend/shop_list_loaddata.html');
     }
 }

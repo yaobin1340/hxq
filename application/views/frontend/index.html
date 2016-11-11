@@ -168,8 +168,9 @@
                     {{/if}}
             {{/if}}
             <td>
+                <a href="{{site_url url='frontend/shop_list'}}/{{$row.id}}">
                 <span class="am-icon-{{$row.icon|default:'cart-plus'}} footer_span_1" style="color:{{$row.color|default:'#7891e4'}};"></span><br>
-                <span class="footer_span_2" >{{$row.name}}</span>
+                <span class="footer_span_2" >{{$row.name}}</span></a>
             </td>
             {{/foreach}}
                     </tr>
@@ -298,7 +299,6 @@
 
 
     $("#t_shop_name").bind('keydown', function (e) {
-
         var key = e.which;
         if (key == 13) {
             $('#search_form').submit();
