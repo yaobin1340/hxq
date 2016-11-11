@@ -25,7 +25,8 @@ class Frontend extends MY_Controller {
 	public function index()
 	{
 
-        //$city_list = $this->frontend_model->get_city();
+        $province_list = $this->frontend_model->get_province();
+        $this->assign('province_list', $province_list);
         $this->assign('city_code', $this->input->post('city_code'));
         $this->assign('area_code', $this->input->post('area_code'));
         $this->assign('province_code', $this->input->post('province_code'));

@@ -48,15 +48,16 @@
     }
 </style>
 <body style="background-color: #ffffff;">
-<input type="hidden" id="city_code" value="{{$city_code}}">
-<input type="hidden" id="area_code" value="{{$area_code}}">
-<input type="hidden" id="province_code" value="{{$province_code}}">
-<input type="hidden" id="type" value="{{$type}}">
-<input type="hidden" id="lat" value="{{$lat}}">
-<input type="hidden" id="lng" value="{{$lng}}">
+
 <div style="overflow: auto;">
 <header class="am-topbar am-topbar-inverse" style="height: 60px;">
-    <form class="am-topbar-form am-topbar-left am-form-inline" role="search" style="width: 100%;margin-top: 10px;">
+    <form method="post" id="search_form" class="am-topbar-form am-topbar-left am-form-inline" action="{{site_url url='frontend/index'}}" role="search" style="width: 100%;margin-top: 10px;">
+        <input type="hidden" name="city_code" id="city_code" value="{{$city_code}}">
+        <input type="hidden" name="area_code" id="area_code" value="{{$area_code}}">
+        <input type="hidden" name="province_code" id="province_code" value="{{$province_code}}">
+        <input type="hidden" name="type" id="type" value="{{$type}}">
+        <input type="hidden" name="lat" id="lat" value="{{$lat}}">
+        <input type="hidden" name="lng" id="lng" value="{{$lng}}">
         <div class="am-form-group">
             <input type="text" class="am-form-field am-input-sm" placeholder="搜索" style="width: 70%;height: 40px;margin-left: 10px;border-radius: 5px;">
         </div>
@@ -66,31 +67,21 @@
 
                 <div id="doc-dropdown-justify">
                     <div class="am-dropdown" data-am-dropdown="{justify: '#doc-dropdown-justify'}">
-                        <button class="am-btn am-btn-primary am-dropdown-toggle">昆山市<span class="am-icon-caret-down"></span></button>
+                        <button id="address_btn" class="am-btn am-btn-primary am-dropdown-toggle">{{$area_name|default:'昆山市'}}<span class="am-icon-caret-down"></span></button>
                         <div class="am-dropdown-content" style="width: 300px;color: #777777;">
 
                             <div id="address_provice" style="display: block;margin-bottom: 30px;">
-                               <div style="width: 100%;border-bottom: 1px solid #eeeeee"><span style="color: #777777;margin-left: 30px;">昆山市</span></div>
+                               <div style="width: 100%;border-bottom: 1px solid #eeeeee"><span style="color: #777777;margin-left: 30px;">{{$area_name|default:'昆山市'}}</span></div>
                                <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
-                                   <span style="margin-left: 10px;" onclick="address_provice()">&nbsp;江苏省</span>
-                                   <span>&nbsp;安徽省</span>
-                                   <span>&nbsp;浙江省</span>
-                                   <span>&nbsp;湖南省</span>
+                                   {{foreach from=$province_list key=k item=row}}
+                                   <span style="margin-left: 10px;" onclick="address_provice('{{$row.code}}')">&nbsp;{{$row.name}}</span>
+                                   {{/foreach}}
                                </div>
-                               <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
-                                  <span style="margin-left: 10px;">&nbsp;江苏省</span>
-                                  <span>&nbsp;安徽省</span>
-                                  <span>&nbsp;浙江省</span>
-                                 <span>&nbsp;湖南省</span>
-                              </div>
                             </div>
 
                             <div id="address_city" style="display: none;margin-bottom: 30px;">
                                 <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
-                                    <span style="margin-left: 10px;" onclick="address_city()">&nbsp;苏州市</span>
-                                    <span>&nbsp;宿迁市</span>
-                                    <span>&nbsp;徐州市</span>
-                                    <span>&nbsp;南京市</span>
+
                                 </div>
                             </div>
 
@@ -105,17 +96,42 @@
 
 
                             <script>
-                                function address_provice() {
+                                $("#address_btn").click(function(){
+                                    document.getElementById("address_provice").style.display="block";
+                                    document.getElementById("address_city").style.display="none";
+                                    document.getElementById("address_county").style.display="none";
+                                });
+                                function address_provice(code) {
+
+                                    $.post("{{site_url url='Frontend/get_city'}}/"+code,{},function(data){
+                                        var jsonObj = eval('(' + data + ')');
+                                        html='';
+                                        for(var i = 0; i < jsonObj.length; i++){
+                                            //alert(jsonObj[i].name)
+                                            html += "<span style='' onclick='address_city("+jsonObj[i].code+")'>&nbsp;"+jsonObj[i].name+"</span>"
+                                        }
+                                        $('#address_city').find('div').html(html);
+                                    })
                                     document.getElementById("address_provice").style.display="none";
                                     document.getElementById("address_city").style.display="block";
                                     document.getElementById("address_county").style.display="none";
                                 }
-                                function address_city() {
+                                function address_city(code) {
+                                    $.post("{{site_url url='Frontend/get_area'}}/"+code,{},function(data){
+                                        var jsonObj = eval('(' + data + ')');
+                                        html='';
+                                        for(var i = 0; i < jsonObj.length; i++){
+                                            //alert(jsonObj[i].name)
+                                            html += "<span style='margin-left: 10px;' onclick='address_county("+jsonObj[i].code+")'>&nbsp;"+jsonObj[i].name+"</span>"
+                                        }
+                                        $('#address_county').find('div').html(html);
+                                    })
                                     document.getElementById("address_provice").style.display="none";
                                     document.getElementById("address_city").style.display="none";
                                     document.getElementById("address_county").style.display="block";
 
                                 }
+
                             </script>
 
                         </div>
@@ -271,6 +287,12 @@
             }
 
         });
+    }
+
+    function address_county(code){
+        $('#area_code').val(code);
+        $('#search_form').submit();
+
     }
 
     $(function() {

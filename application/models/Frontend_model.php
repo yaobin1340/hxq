@@ -207,7 +207,6 @@ class Frontend_model extends MY_Model
         $this->db->order_by('juli','asc');
         $this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
         $data['items'] = $this->db->get()->result_array();
-       // echo $this->db->last_query();
         return $data;
     }
  
