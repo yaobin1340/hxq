@@ -58,8 +58,9 @@
         <input type="hidden" name="type" id="type" value="{{$type}}">
         <input type="hidden" name="lat" id="lat" value="{{$lat}}">
         <input type="hidden" name="lng" id="lng" value="{{$lng}}">
+        <input type="hidden" name="h_shop_name" id="h_shop_name" value="{{$shop_name|default:''}}">
         <div class="am-form-group">
-            <input type="text" class="am-form-field am-input-sm" placeholder="搜索" style="width: 70%;height: 40px;margin-left: 10px;border-radius: 5px;">
+            <input type="text" value="{{$shop_name|default:''}}" name="t_shop_name" id="t_shop_name" class="am-form-field am-input-sm" placeholder="搜索" style="width: 70%;height: 40px;margin-left: 10px;border-radius: 5px;">
         </div>
     </form>
         <div class="am-nav am-nav-pills am-topbar-nav" style="float: right;margin-top: -45px;">
@@ -87,15 +88,14 @@
 
                             <div id="address_county" style="display: none;margin-bottom: 30px;">
                                 <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
-                                    <span style="margin-left: 10px;" onclick="address_county()">&nbsp;昆山市</span>
-                                    <span>&nbsp;太仓市</span>
-                                    <span>&nbsp;张家港</span>
-                                    <span>&nbsp;常熟</span>
+
                                 </div>
                             </div>
 
 
                             <script>
+
+
                                 $("#address_btn").click(function(){
                                     document.getElementById("address_provice").style.display="block";
                                     document.getElementById("address_city").style.display="none";
@@ -142,10 +142,10 @@
 </header>
 
 
-<div style="width: 100%; height: 30px;margin-top: -20px;">
+<!--<div style="width: 100%; height: 30px;margin-top: -20px;">
     <span style="float: right;margin-right: -30px;line-height: 30px;"><a href="/frontend/register">注册</a></span>&nbsp;
     <span style="float: right;margin-right: 10px;line-height: 30px;"> <a href="/frontend/login">登录</a></span>
-</div>
+</div>-->
 <div style="">
     <div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0" style="">
         <ul class="am-slides">
@@ -257,13 +257,14 @@
         city_code = $('#city_code').val()
         area_code = $('#area_code').val()
         province_code = $('#province_code').val()
+        shop_name = $('#h_shop_name').val()
         type = $('#type').val()
         lat = 31.39055 //纬度
         lng = 120.949   //经度
         //经纬度值通过微信端 获取,
         //这里在进入页面时需要判断是否已存在经纬度值
         //如果存在则使用,不存在则使用微信获取
-        $.post("{{site_url url='Frontend/index_loaddata'}}/"+window.page,{city_code:city_code,area_code:area_code,province_code:province_code,type:type,lng:lng,lat:lat},function(data){
+        $.post("{{site_url url='Frontend/index_loaddata'}}/"+window.page,{shop_name:shop_name,city_code:city_code,area_code:area_code,province_code:province_code,type:type,lng:lng,lat:lat},function(data){
             if(data){
                 $("#accordion").append(data)
                 $('#accordion').find('.flag-'+window.page).add('#doc-confirm-toggle').
@@ -294,6 +295,15 @@
         $('#search_form').submit();
 
     }
+
+
+    $("#t_shop_name").bind('keydown', function (e) {
+
+        var key = e.which;
+        if (key == 13) {
+            $('#search_form').submit();
+        }
+    });
 
     $(function() {
         get_data()

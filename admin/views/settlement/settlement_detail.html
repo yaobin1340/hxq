@@ -1,0 +1,175 @@
+<script type="text/javascript" charset="utf-8" src="/statics/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/statics/ueditor/ueditor.all.min.js"></script>
+<!-- content start -->
+<div class="admin-content">
+    <div class="am-cf am-padding">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">结算详情</strong> /
+            <small>Settlement Detail</small>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="am-g">
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">日期</label>
+            <div class="am-u-sm-8">
+                {{$data.date}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">6系总营业额</label>
+            <div class="am-u-sm-8">
+                {{$data.total6/100}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">12系总营业额</label>
+            <div class="am-u-sm-8">
+                {{$data.total12/100}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">24系总营业额</label>
+            <div class="am-u-sm-8">
+                {{$data.total24/100}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">6系会员向日葵总数</label>
+            <div class="am-u-sm-8">
+                {{$data.ax6}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">12系会员向日葵总数</label>
+            <div class="am-u-sm-8">
+                {{$data.ax12}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">24系会员向日葵总数</label>
+            <div class="am-u-sm-8">
+                {{$data.ax24}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">6系会员向日葵单价</label>
+            <div class="am-u-sm-8">
+                {{$data.ax6_price/100}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">12系会员向日葵单价</label>
+            <div class="am-u-sm-8">
+                {{$data.ax12_price/100}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">24系会员向日葵单价</label>
+            <div class="am-u-sm-8">
+                {{$data.ax24_price/100}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">6系商家向日葵总数</label>
+            <div class="am-u-sm-8">
+                {{$data.shop_ax6}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">12系商家向日葵总数</label>
+            <div class="am-u-sm-8">
+                {{$data.shop_ax12}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">24系商家向日葵总数</label>
+            <div class="am-u-sm-8">
+                {{$data.shop_ax24}}
+            </div>
+        </div>
+
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">6系商家向日葵单价</label>
+            <div class="am-u-sm-8">
+                {{$data.shop_ax6_price/100}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">12系商家向日葵单价</label>
+            <div class="am-u-sm-8">
+                {{$data.shop_ax12_price/100}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">24系商家向日葵单价</label>
+            <div class="am-u-sm-8">
+                {{$data.shop_ax24_price/100}}
+            </div>
+        </div>
+
+        <div class="am-form-group">
+            <div class="am-u-sm-9 am-u-sm-push-3">
+                {{if $data.status == 1}}
+                <button class="am-btn am-btn-danger" id="doc-confirm-toggle">审核</button>
+                {{/if}}
+                <a class="am-btn am-btn-default" href="{{site_url url='user/list_users'}}">返回</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function() {
+        $('#doc-confirm-toggle').
+        on('click', function() {
+            $('#my-confirm').modal({
+                relatedTarget: this,
+                onConfirm: function(options) {
+                    $.get("{{site_url url='settlement/audit_settlement'}}/{{$data.id}}",function(rs){
+                        if(rs == 1){
+                            alert('审核成功');
+                            window.location.reload();
+                        }
+                    });
+                },
+                // closeOnConfirm: false,
+                onCancel: function() {
+
+                }
+            });
+        });
+    });
+</script>
+
+
+<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">提示</div>
+        <div class="am-modal-bd">
+            你，确定要审核吗？
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+        </div>
+    </div>
+</div>
+<!-- content end -->
