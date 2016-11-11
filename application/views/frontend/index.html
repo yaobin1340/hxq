@@ -63,36 +63,69 @@
     </form>
         <div class="am-nav am-nav-pills am-topbar-nav" style="float: right;margin-top: -45px;">
             <div class="am-form-group" >
-                <!--<select id="doc-select-1" style="height: 40px;color: black;border-style: none;margin-right: 10px;">-->
-                    <!--<option value="option1">上海</option>-->
-                    <!--<option value="option2">苏州</option>-->
-                    <!--<option value="option3">太仓</option>-->
-                <!--</select>-->
 
                 <div id="doc-dropdown-justify">
                     <div class="am-dropdown" data-am-dropdown="{justify: '#doc-dropdown-justify'}">
-                        <button class="am-btn am-btn-success am-dropdown-toggle">江苏省<span class="am-icon-caret-down"></span></button>
-                        <div class="am-dropdown-content" style="width: 100%;">
-                            <h2>I am what I am</h2>
-                            <p>
-                                多么高兴 在琉璃屋中快乐生活
-                                对世界说 甚么是光明和磊落
-                                我就是我 是颜色不一样的烟火
-                            </p>
+                        <button class="am-btn am-btn-primary am-dropdown-toggle">昆山市<span class="am-icon-caret-down"></span></button>
+                        <div class="am-dropdown-content" style="width: 300px;color: #777777;">
+
+                            <div id="address_provice" style="display: block;margin-bottom: 30px;">
+                               <div style="width: 100%;border-bottom: 1px solid #eeeeee"><span style="color: #777777;margin-left: 30px;">昆山市</span></div>
+                               <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
+                                   <span style="margin-left: 10px;" onclick="address_provice()">&nbsp;江苏省</span>
+                                   <span>&nbsp;安徽省</span>
+                                   <span>&nbsp;浙江省</span>
+                                   <span>&nbsp;湖南省</span>
+                               </div>
+                               <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
+                                  <span style="margin-left: 10px;">&nbsp;江苏省</span>
+                                  <span>&nbsp;安徽省</span>
+                                  <span>&nbsp;浙江省</span>
+                                 <span>&nbsp;湖南省</span>
+                              </div>
+                            </div>
+
+                            <div id="address_city" style="display: none;margin-bottom: 30px;">
+                                <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
+                                    <span style="margin-left: 10px;" onclick="address_city()">&nbsp;苏州市</span>
+                                    <span>&nbsp;宿迁市</span>
+                                    <span>&nbsp;徐州市</span>
+                                    <span>&nbsp;南京市</span>
+                                </div>
+                            </div>
+
+                            <div id="address_county" style="display: none;margin-bottom: 30px;">
+                                <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
+                                    <span style="margin-left: 10px;" onclick="address_county()">&nbsp;昆山市</span>
+                                    <span>&nbsp;太仓市</span>
+                                    <span>&nbsp;张家港</span>
+                                    <span>&nbsp;常熟</span>
+                                </div>
+                            </div>
+
+
+                            <script>
+                                function address_provice() {
+                                    document.getElementById("address_provice").style.display="none";
+                                    document.getElementById("address_city").style.display="block";
+                                    document.getElementById("address_county").style.display="none";
+                                }
+                                function address_city() {
+                                    document.getElementById("address_provice").style.display="none";
+                                    document.getElementById("address_city").style.display="none";
+                                    document.getElementById("address_county").style.display="block";
+
+                                }
+                            </script>
 
                         </div>
                     </div>
                 </div>
-                <script>
-                    $(function() {
-                        $('#doc-dropdown-js').dropdown({justify: '#doc-dropdown-justify-js'});
-                    });
-                </script>
-
-                <span class="am-form-caret"></span>
             </div>
         </div>
 </header>
+
+
 <div style="width: 100%; height: 30px;margin-top: -20px;">
     <span style="float: right;margin-right: -30px;line-height: 30px;"><a href="/frontend/register">注册</a></span>&nbsp;
     <span style="float: right;margin-right: 10px;line-height: 30px;"> <a href="/frontend/login">登录</a></span>
