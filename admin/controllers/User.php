@@ -29,6 +29,12 @@ class User extends MY_Controller {
 		$this->show('user/user_detail');
 	}
 
+	public function user_upgrade(){
+		$id = $this->input->post('id');
+		$rs = $this->user_model->user_upgrade($id);
+		$this->show_message('升级成功~',site_url("/user/user_detail/$id"));
+	}
+
 
 
 }

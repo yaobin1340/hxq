@@ -221,6 +221,32 @@ class MY_Model extends CI_Model{
         return $this->db->update($table);
     }
 
+    function tableQueryByKey($tbName,$primaryKey,$id, $selectFields = '*') {
+        $condtionFields [$primaryKey] = $id;
+
+        return $this->tableQueryContent($tbName,$condtionFields, $selectFields);
+    }
+
+    function tableQueryContent($tbName,$condtionFields = array(), $selectFields = '*', $inField = '', $inArr = array()) {
+        $this->db->select($selectFields)->from($tbName);
+        if($condtionFields || $inField){
+            if($condtionFields) $this->db->where($condtionFields);
+            if($inField) $this->db->where_in($inField,$inArr);
+            return $this->db->get()->result_array();
+        }else{
+            return $this->db->get()->result_array();
+        }
+    }
+
+    function tableUpdate($tbName,$primaryKey,$id,$arrFields){
+        $condtionFields[$primaryKey] = $id;
+        $this->db->where($condtionFields)->update($tbName,$arrFields);
+    }
+
+    function tableAdd($tbName,$arrFields){
+        return $this->db->insert($tbName,$arrFields);
+    }
+
     /**
      * 析构函数
      *

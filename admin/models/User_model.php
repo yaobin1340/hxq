@@ -60,7 +60,9 @@ class User_model extends MY_Model
 		return $this->db->get()->row_array();
 	}
 
-
-
+	public function user_upgrade($id){
+		$is_dl = $this->input->post('is_dl');
+		$this->tableUpdate('users','id',$id,array('is_dl'=>$is_dl));
+	}
 
 }
