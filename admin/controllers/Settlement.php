@@ -19,7 +19,19 @@ class Settlement extends MY_Controller {
 
 	//每日结算
 	public function settlement(){
-		echo 1;
+		$rs = $this->settlement_model->settlement();
+		echo $rs;
+	}
+
+	public function settlement_detail($id){
+		$data = $this->settlement_model->settlement_detail($id);
+		$this->assign('data', $data);
+		$this->show('settlement/settlement_detail');
+	}
+
+	public function audit_settlement($id){
+		$rs = $this->settlement_model->audit_settlement($id);
+		echo $rs;
 	}
 
 
