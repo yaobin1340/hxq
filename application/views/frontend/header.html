@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>会员注册</title>
+    <title>三客柚</title>
     <meta name="description" content="这是一个 index 页面">
     <meta name="renderer" content="webkit">
     <meta name="keywords" content="index">
@@ -39,47 +39,23 @@
         margin:0;
         padding:0;
     }
-    body{
-        /*background: #f0efed;*/
+    .register_one_header{
+        height: 50px;width: 100%;text-align: center;
     }
-    .am-topbar .am-text-ir {
-        display: block;
-        margin-right: 10px;
-        height: 50px;
-        width: 125px;
-        background: url(http://a.static.amazeui.org/assets/i/ui/logo.png) no-repeat left center;
-        -webkit-background-size: 125px 24px;
-        background-size: 125px 24px;
+    .register_header_title{
+        text-align: center;line-height: 50px;font-size: 18px;font-family: '宋体';
+    }
+    .register_header_back{
+        line-height: 50px;font-size: 20px;margin-left: 20px;float: left;
     }
 </style>
-<body style="overflow-y:hid">
+<body >
 
-<header class="am-topbar am-topbar-inverse am-topbar-fixed-top">
-    <div class="am-container">
-        <h1 class="am-topbar-brand">
-            <a href="#" class="am-text-ir">Amaze UI</a>
-        </h1>
+<header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
+    <span class="register_header_title">会员注册</span>
+    <span class="am-icon-chevron-left register_header_back"></span>
 
-        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-secondary am-show-sm-only"
-                data-am-collapse="{target: '#doc-topbar-collapse-4'}"><span class="am-sr-only">导航切换</span> <span
-                class="am-icon-bars"></span></button>
-
-        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse-4">
-            <ul class="am-nav am-nav-pills am-topbar-nav">
-                <li class="am-active"><a href="#">首页</a></li>
-                <li class=""><a href="#">登陆</a></li>
-                <li><a href="#">项目</a></li>
-                <li class="am-dropdown" data-am-dropdown>
-                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
-                        下拉 <span class="am-icon-caret-down"></span>
-                    </a>
-                    <ul class="am-dropdown-content">
-                        <li><a href="#">带我去月球</a></li>
-                        <li><a href="#">还是回地球</a></li>
-                        <li class="am-disabled"><a href="#">臣妾做不到</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
 </header>
+
+
+
