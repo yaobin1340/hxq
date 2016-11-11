@@ -1,18 +1,8 @@
 {{include file="./header.html"}}
 <body>
-<link rel="stylesheet" href="/static/default/wap/css/housekeeping.css"/>  
-	<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet" />
-	<script src="/static/default/wap/other/jquery-ui.js"></script> 
-	<header class="top-fixed bg-yellow bg-inverse">
-		<div class="top-back">
-			<a class="top-addr" href=""><i class="icon-angle-left"></i></a>
-		</div>
-		<div class="top-title">
-			<h2>提现申请</h2>
-		</div>
-	</header>
-
-
+<link rel="stylesheet" href="/static/default/wap/css/housekeeping.css"/>
+<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet" />
+<script src="/static/default/wap/other/jquery-ui.js"></script>
 <style>
 	.list_all{
 		color: #696969;font-size: 18px;z-index: 11;
@@ -107,94 +97,173 @@
 	}
 </style>
 <style>
-ul { padding-left: 0px;}
-.layui-layer-molv .layui-layer-title {background-color: #F8F8F8;border-bottom: 1px solid #eee;color: #333;}
+	ul { padding-left: 0px;}
+	.layui-layer-molv .layui-layer-title {background-color: #F8F8F8;border-bottom: 1px solid #eee;color: #333;}
+
+
+	.table1{
+		width: 100%; height: 45px; border-collapse:collapse;color: #bfbfbf; cursor:pointer;
+	}
+	.table1 tr{
+		font-size: 14px;text-align: center;color: #999999;
+	}
+	.td1{
+		border-bottom:1px solid #e5e5e5;
+	}
+	.td1 a{
+		color: #777777;
+	}
 </style>
+
+<table class="table1" border="0">
+	<tr>
+		<td class="td1"><a href="{{site_url url='user/money_log_list'}}" onclick="fund()" id="fund">资金日志</a></td>
+		<td class="td1"><a href="{{site_url url='user/withdraw_list'}}" onclick="cash()" id="cash">提现日志</a></td>
+		<td class="td1"><a href="{{site_url url='user/withdraw'}}" onclick="application()" id="application">申请提现</a></td>
+	</tr>
+</table>
 <!-- 筛选TAB -->
-<ul class="am-tabs-nav am-nav am-nav-tabs">
-	<!--<li style="width:25%;"><a href="<{:U('money/index')}>">商家资金</a></li>-->
-	<li style="width:33.3%;"><a href="{{site_url url='user/money_log_list'}}">资金日志</a></li>
-	<li style="width:33.3%;"><a href="{{site_url url='user/withdraw_list'}}">提现日志</a></li>
-	<li style="width:33.3%;" class="am-active"><a href="{{site_url url='user/withdraw'}}">申请提现</a></li>
+<!--<ul class="am-tabs-nav am-nav am-nav-tabs">-->
+<!--&lt;!&ndash;<li style="width:25%;"><a href="<{:U('money/index')}>">商家资金</a></li>&ndash;&gt;-->
+<!--<li style="width:33.3%;"><a href="{{site_url url='user/money_log_list'}}">资金日志</a></li>-->
+<!--<li style="width:33.3%;"><a href="{{site_url url='user/withdraw_list'}}">提现日志</a></li>-->
+<!--<li style="width:33.3%;" class="am-active"><a href="{{site_url url='user/withdraw'}}">申请提现</a></li>-->
+<!--</ul>-->
 
-</ul>
+<!--<header class="top-fixed bg-yellow bg-inverse">-->
+<!--<div class="top-back">-->
+<!--<a class="top-addr" href=""><i class="icon-angle-left"></i></a>-->
+<!--</div>-->
+<!--<div class="top-title">-->
+<!--<h2>提现日志</h2>-->
+<!--</div>-->
+<!--</header>-->
+
 <form class="am-form" data-am-validator action="/user/save_withdraw" method="post">
-
 	<div class="am-list-news-bd">
-		<ul class="am-list">
+		<div class="am-g am-list-item-dated" style="margin: 0;height: 50px;line-height: 50px;">
+			<span class="x12 text-gray" style="margin-left: 30px;">你好：{{$data.user_info.rel_name}}</span>
+			<span class="x12 text-gray" style="float: right;margin-right: 30px;">可提现余额：{{$data.user_info.integral/100}}元</span>
+		</div>
 
-			<li class="am-g am-list-item-dated" style="margin: 0">
+		<div class="am-form-group am-form-icon">
+			<i class="am-icon-dollar" style="font-size: 18px;"></i>
+			<input type="text" id="money"  name="money" class="am-form-field" placeholder="请输入提现金额 &nbsp;单笔最少100元" style="height: 50px;" required />
+		</div>
+		<!--<div class="am-g am-list-item-dated " style="margin: 0">-->
+		<!--<div class="blank-10 bg"></div>-->
+		<!--<div class="line padding border-bottom" >-->
+		<!--<span class="x12 text-gray">提现金额：<input type="text" name="money" id="money" class="text-input" ></span>-->
+		<!--<span class="am-list-date">单笔最少100元</span>-->
+		<!--</div>-->
+		<!--</div>-->
 
-					<span class="x12 text-gray">你好：{{$data.user_info.rel_name}}</span>
-					<span class="x12 text-gray">可提现余额：{{$data.user_info.integral/100}}元，</span>
+		<div class="am-form-group am-form-icon">
+			<i class="am-icon-building" style="font-size: 18px;"></i>
+			<input type="text" id="bank"  name="bank" class="am-form-field" placeholder="请输入开户银行" value="{{$data.withdraw_info.bank|default:''}}" style="height: 50px;" required />
+		</div>
+		<!--<li class="am-g am-list-item-dated" style="margin: 0">-->
+		<!--<div class="blank-10 bg"></div>-->
+		<!--<div class="line padding border-bottom" >-->
+		<!--<span class="x12 text-gray">开户银行：<input type="text" name="bank" id="bank" class="text-input"  value="{{$data.withdraw_info.bank|default:''}}"  placeholder="请输入开户银行" ></span>-->
+		<!--</div>-->
+		<!--</li>-->
 
-			</li>
-			<li class="am-g am-list-item-dated" style="margin: 0">
+		<div class="am-form-group am-form-icon">
+			<i class="am-icon-credit-card" style="font-size: 18px;"></i>
+			<input type="text" id="bank_no"  name="bank_no" class="am-form-field"  placeholder="请输入银行账户" value="{{$data.withdraw_info.bank_no|default:''}}"  style="height: 50px;" required />
+		</div>
+		<!--<li class="am-g am-list-item-dated" style="margin: 0">-->
+		<!--<div class="blank-10 bg"></div>-->
+		<!--<div class="line padding border-bottom" >-->
+		<!--<span class="x12 text-gray">银行账号：<input type="text" name="bank_no" id="bank_no" class="text-input"  value="{{$data.withdraw_info.bank_no|default:''}}"  placeholder="请输入银行账户" ></span>-->
+		<!--</div>-->
+		<!--</li>-->
 
-			<div class="blank-10 bg"></div>
-			<div class="line padding border-bottom" >
-				<span class="x12 text-gray">提现金额：<input type="text" name="money" id="money" class="text-input" ></span>
-				<span class="am-list-date">单笔最少100元</span>
+		<div class="am-form-group am-form-icon">
+			<i class="am-icon-bank" style="font-size: 18px;"></i>
+			<input type="text" id="bank_branch"  name="bank_branch" class="am-form-field" placeholder="请输入具体支行名字" value="{{$data.withdraw_info.bank_branch|default:''}}"  style="height: 50px;" required />
+		</div>
+		<!--<li class="am-g am-list-item-dated" style="margin: 0">-->
+		<!--<div class="blank-10 bg"></div>-->
+		<!--<div class="line padding border-bottom" >-->
+		<!--<span class="x12 text-gray">具体支行：<input type="text" name="bank_branch" id="bank_branch" class="text-input"  value="{{$data.withdraw_info.bank_branch|default:''}}"  placeholder="请输入具体支行名字" ></span>-->
+		<!--</div>-->
+		<!--</li>-->
+
+		<div class="am-form-group am-form-icon">
+			<i class="am-icon-user" style="font-size: 18px;"></i>
+			<input type="text" id="rel_name"  name="rel_name" class="am-form-field" placeholder="请输入开户名" value="{{$data.withdraw_info.rel_name|default:''}}"  style="height: 50px;" required />
+		</div>
+		<!--<li class="am-g am-list-item-dated" style="margin: 0">-->
+		<!--<div class="blank-10 bg"></div>-->
+		<!--<div class="line padding border-bottom" >-->
+		<!--<span class="x12 text-gray">开户名：<input type="text" name="rel_name" id="rel_name" class="text-input"  value="{{$data.withdraw_info.rel_name|default:''}}"  placeholder="请输入具体支行名字" ></span>-->
+		<!--</div>-->
+		<!--</li>-->
+
+		<div class="am-form-group am-form-icon">
+			<i class="am-icon-mobile-phone"></i>
+			<input type="text" id="mobile"  name="mobile" class="am-form-field js-pattern-number am-form-mobile" value="{{$data.user_info.mobile}}" required  disabled="disabled"  style="width: 60%;"/>
+			<!--<a href="javascript:;" href="javascript:void(0);id="jq_send">-->
+			<!--<input class="am-btn-secondary get_btn_yzm" type="button" value="获取验证码" style=" position:absolute;border: 1px solid #ffffff;height: 50px;color: #ffffff;width:100px;right:20px;margin-top: -50px;">-->
+			<!--</a>-->
+
+			<div class="am-btn-secondary" style="height: 50px;width: 100px;position:absolute;right:20px;margin-top: -50px;line-height: 50px;text-align: center;">
+				<a class="button button-small bg-dot" id="jq_send" href="javascript:void(0);" style="color: #ffffff;">获取验证码</a>
 			</div>
-		</li>
-			<li class="am-g am-list-item-dated" style="margin: 0">
 
-				<div class="blank-10 bg"></div>
-				<div class="line padding border-bottom" >
-					<span class="x12 text-gray">开户银行：<input type="text" name="bank" id="bank" class="text-input"  value="{{$data.withdraw_info.bank|default:''}}"  placeholder="请输入开户银行" ></span>
-				</div>
-			</li>
-			<li class="am-g am-list-item-dated" style="margin: 0">
+		</div>
 
-				<div class="blank-10 bg"></div>
-				<div class="line padding border-bottom" >
-					<span class="x12 text-gray">银行账号：<input type="text" name="bank_no" id="bank_no" class="text-input"  value="{{$data.withdraw_info.bank_no|default:''}}"  placeholder="请输入银行账户" ></span>
-				</div>
-			</li>
-			<li class="am-g am-list-item-dated" style="margin: 0">
+		<div class="am-form-group am-form-icon">
+			<i class="am-icon-tag" style="font-size: 18px;"></i>
+			<input type="text" id="yzm"  name="yzm" class="am-form-field" minlength="6" placeholder="请输入验证码" style="height: 50px;" required />
+		</div>
 
-				<div class="blank-10 bg"></div>
-				<div class="line padding border-bottom" >
-					<span class="x12 text-gray">具体支行：<input type="text" name="bank_branch" id="bank_branch" class="text-input"  value="{{$data.withdraw_info.bank_branch|default:''}}"  placeholder="请输入具体支行名字" ></span>
-				</div>
-			</li>
-			<li class="am-g am-list-item-dated" style="margin: 0">
+		<!--<li class="am-g am-list-item-dated" style="margin: 0">-->
+		<!--<div class="line padding border-bottom">-->
+		<!--<span class="x3 text-gray">输入手机</span>-->
+		<!--<span class="x5">-->
+		<!--<input type="text" name="mobile" id="mobile" class="text-input" value="{{$data.user_info.mobile}}" disabled="disabled">-->
+		<!--</span>-->
+		<!--<span class="x4"><a class="button button-small bg-dot" id="jq_send" href="javascript:void(0);">获取验证码</a></span>-->
+		<!--</div>-->
+		<!--<div class="line padding border-bottom">-->
+		<!--<span class="x3 text-gray">验证码</span>-->
+		<!--<span class="x5"><input type="text" name="yzm" id="yzm" class="text-input" placeholder="验证码"></span>-->
+		<!--<span class="x4"><em class="text-small text-gray">手机收到的验证码<em></span>-->
+		<!--</div>-->
+		<!--</li>-->
 
-				<div class="blank-10 bg"></div>
-				<div class="line padding border-bottom" >
-					<span class="x12 text-gray">开户名：<input type="text" name="rel_name" id="rel_name" class="text-input"  value="{{$data.withdraw_info.rel_name|default:''}}"  placeholder="请输入具体支行名字" ></span>
-				</div>
-			</li>
-			<li class="am-g am-list-item-dated" style="margin: 0">
-				<div class="line padding border-bottom">
-					<span class="x3 text-gray">输入手机</span>
-		<span class="x5">
-        <input type="text" name="mobile" id="mobile" class="text-input" value="{{$data.user_info.mobile}}" disabled="disabled">
-        </span>
-					<span class="x4"><a class="button button-small bg-dot" id="jq_send" href="javascript:void(0);">获取验证码</a></span>
-				</div>
-				<div class="line padding border-bottom">
-					<span class="x3 text-gray">验证码</span>
-					<span class="x5"><input type="text" name="yzm" id="yzm" class="text-input" placeholder="验证码"></span>
-					<span class="x4"><em class="text-small text-gray">手机收到的验证码<em></span>
-				</div>
-			</li>
+		<div style=" width: 100%; text-align: center;"><span style="color: red;">小提示:</span> 请您认真填写!</div>
+		<div class="am-form-group am-form-icon" style="margin-top: 30px;">
+			{{if $data.user_info.integral <=10000}}
+			<button class="am-btn am-btn-default am-btn-block">您的余额不足</button>
 
-			<li class="am-g am-list-item-dated" style="margin: 0">
-<span class="x8 text-gray">小提示: 请您认真填写!</span><br/>
-				{{if $data.user_info.integral <=10000}}
-				<button class="am-btn am-btn-default">您的余额不足</button>
-				{{else}}
-				<button class="am-btn">确认申请</button>
-				{{/if}}
-			</li>
-			<li class="am-g am-list-item-dated" style="margin: 0">
-				<div class="container">
-					<div class="blank-30"></div>
-					<p><span class="text-dot"></p>
-				</div>
-			</li>
-		</ul>
+			{{else}}
+			<button class="am-btn am-btn-secondary am-btn-block">确认申请</button>
+			{{/if}}
+		</div>
+		<br><br>
+
+
+
+		<!--<li class="am-g am-list-item-dated" style="margin: 0">-->
+		<!--<span class="x8 text-gray">小提示: 请您认真填写!</span><br/>-->
+		<!--{{if $data.user_info.integral <=10000}}-->
+		<!--<button class="am-btn am-btn-default">您的余额不足</button>-->
+		<!--{{else}}-->
+		<!--<button class="am-btn">确认申请</button>-->
+		<!--{{/if}}-->
+		<!--</li>-->
+
+		<!--<li class="am-g am-list-item-dated" style="margin: 0">-->
+		<!--<div class="container">-->
+		<!--<div class="blank-30"></div>-->
+		<!--<p><span class="text-dot"></p>-->
+		<!--</div>-->
+		<!--</li>-->
+
 	</div>
 
 </form>
@@ -217,7 +286,6 @@ ul { padding-left: 0px;}
 				BtnCount();
 				mobile_lock = 1;
 			}
-
 		});
 	});
 	BtnCount = function () {
@@ -295,5 +363,43 @@ ul { padding-left: 0px;}
 		$("#cheaporder").css("color","#7c7c7c");
 		$("#message").css("color","#7c7c7c");
 		$("#someone_center").css("color","#3ab5f3");
+	}
+
+	window.onload=function(){
+		application();
+	}
+	function  fund() {
+		$("#fund").css("color","#f15a0c");
+		$("#cash").css("color","#7c7c7c");
+		$("#application").css("color","#7c7c7c");
+	}
+	function  cash() {
+		$("#fund").css("color","#7c7c7c");
+		$("#cash").css("color","#f15a0c");
+		$("#application").css("color","#7c7c7c");
+	}
+	function  application() {
+		$("#fund").css("color","#7c7c7c");
+		$("#cash").css("color","#7c7c7c");
+		$("#application").css("color","#f15a0c");
+
+		window.onload=function(){
+			application();
+		}
+		function  fund() {
+			$("#fund").css("color","#f15a0c");
+			$("#cash").css("color","#7c7c7c");
+			$("#application").css("color","#7c7c7c");
+		}
+		function  cash() {
+			$("#fund").css("color","#7c7c7c");
+			$("#cash").css("color","#f15a0c");
+			$("#application").css("color","#7c7c7c");
+		}
+		function  application() {
+			$("#fund").css("color","#7c7c7c");
+			$("#cash").css("color","#7c7c7c");
+			$("#application").css("color","#f15a0c");
+		}
 	}
 </script>

@@ -4,28 +4,32 @@
 <body>
 <link rel="stylesheet" href="/static/default/wap/css/housekeeping.css"/>  
 	<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet" />
-	<header class="top-fixed bg-yellow bg-inverse">
-		<div class="top-back">
-			<a class="top-addr" href=""><i class="icon-angle-left"></i></a>
-		</div>
-		<div class="top-title">
-			<h2>资金日志</h2>
-		</div>
-	</header>
-
 
 <style>
 ul { padding-left: 0px;}
 .layui-layer-molv .layui-layer-title {background-color: #F8F8F8;border-bottom: 1px solid #eee;color: #333;}
-</style>
-<!-- 筛选TAB -->
-<ul class="am-tabs-nav am-nav am-nav-tabs">
-	<!--<li style="width:25%;"><a href="<{:U('money/index')}>">商家资金</a></li>-->
-	<li style="width:33.3%;" class="am-active"><a href="{{site_url url='user/money_log_list'}}">资金日志</a></li>
-	<li style="width:33.3%;"><a href="{{site_url url='user/withdraw_list'}}">提现日志</a></li>
-	<li style="width:33.3%;" ><a href="{{site_url url='user/withdraw'}}">申请提现</a></li>
 
-</ul>
+.table1{
+	width: 100%; height: 45px; border-collapse:collapse;color: #bfbfbf; cursor:pointer;
+}
+.table1 tr{
+	font-size: 14px;text-align: center;color: #999999;
+}
+.td1{
+	border-bottom:1px solid #e5e5e5;
+}
+.td1 a{
+	color: #777777;
+}
+</style>
+<table class="table1" border="0">
+	<tr>
+		<td class="td1"><a href="{{site_url url='user/money_log_list'}}" onclick="fund()" id="fund">资金日志</a></td>
+		<td class="td1"><a href="{{site_url url='user/withdraw_list'}}" onclick="cash()" id="cash">提现日志</a></td>
+		<td class="td1"><a href="{{site_url url='user/withdraw'}}" onclick="application()" id="application">申请提现</a></td>
+	</tr>
+</table>
+
 <div class="am-modal-actions" style="height: 20em" id="my-actions-search">
 	<form class="am-form-inline" role="form" action="{{site_url url='user/money_log_list'}}" method="post">
 		<div class="am-modal-actions-group">
@@ -49,7 +53,6 @@ ul { padding-left: 0px;}
 		<div class="am-panel-group" id="accordion">
 
 		</div>
-		<p id="is_end">已到最后一页</p>
 	</div>
 <div class="xuanfu_plus">
 	<a href="#" class="am-icon-btn am-icon-search xuanfu_icon_search" data-am-modal="{target: '#my-actions-search'}"></a>
@@ -125,6 +128,25 @@ ul { padding-left: 0px;}
 		$("#cheaporder").css("color","#7c7c7c");
 		$("#message").css("color","#7c7c7c");
 		$("#someone_center").css("color","#3ab5f3");
+	}
+
+	window.onload=function(){
+		fund();
+	}
+	function  fund() {
+		$("#fund").css("color","#f15a0c");
+		$("#cash").css("color","#7c7c7c");
+		$("#application").css("color","#7c7c7c");
+	}
+	function  cash() {
+		$("#fund").css("color","#7c7c7c");
+		$("#cash").css("color","#f15a0c");
+		$("#application").css("color","#7c7c7c");
+	}
+	function  application() {
+		$("#fund").css("color","#7c7c7c");
+		$("#cash").css("color","#7c7c7c");
+		$("#application").css("color","#f15a0c");
 	}
 </script>
 <script>

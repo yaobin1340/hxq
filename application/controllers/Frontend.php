@@ -26,6 +26,12 @@ class Frontend extends MY_Controller {
 	{
 
         //$city_list = $this->frontend_model->get_city();
+        $this->assign('city_code', $this->input->post('city_code'));
+        $this->assign('area_code', $this->input->post('area_code'));
+        $this->assign('province_code', $this->input->post('province_code'));
+        $this->assign('lat', $this->input->post('lat'));
+        $this->assign('type', $this->input->post('type'));
+        $this->assign('lng', $this->input->post('lng'));
         $shop_type = $this->frontend_model->get_shop_type();
         $this->assign('shop_type', $shop_type);
 		$this->display('frontend/index.html');
@@ -93,7 +99,11 @@ class Frontend extends MY_Controller {
 		$text = '您的短信验证码是:'.$yzm;
 		$this->session->set_userdata('yzm',$yzm);
 		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
-		echo $rs;
+        $obj=json_decode($rs);
+        if($obj->error !=0){
+            $rs = $this->sendsms_curl($mobile,$text);
+        }
+        echo $rs;
 	}
 
     public function get_yzm_forget($mobile){
@@ -105,6 +115,10 @@ class Frontend extends MY_Controller {
         $text = '您的短信验证码是:'.$yzm;
         $this->session->set_userdata('yzm',$yzm);
         $rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
+        $obj=json_decode($rs);
+        if($obj->error !=0){
+            $rs = $this->sendsms_curl($mobile,$text);
+        }
         echo $rs;
     }
 
