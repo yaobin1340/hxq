@@ -21,12 +21,13 @@
             <table class="am-table am-table-striped am-table-hover table-main">
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>姓名</th>
-                    <th>手机</th>
-                    <th>金币</th>
-                    <th>总计消费</th>
-                    <th>注册时间</th>
+                    <th>日期</th>
+                    <th>会员日值(6)</th>
+                    <th>会员日值(12)</th>
+                    <th>会员日值(24)</th>
+                    <th>商家日值(6)</th>
+                    <th>商家日值(12)</th>
+                    <th>商家日值(24)</th>
                     <th>状态</th>
                     <th>操作</th>
                 </tr>
@@ -34,17 +35,18 @@
                 <tbody>
                 {{foreach from=$data.items key=key item=item}}
                 <tr>
-                    <td>{{$item.id}}</td>
-                    <td><a>{{$item.rel_name}}</a></td>
-                    <td><a>{{$item.mobile}}</a></td>
-                    <td><a>{{$item.integral}}</a></td>
-                    <td><a>{{($item.total6 + $item.total12 + $item.total24)/100}}</a></td>
-                    <td><a>{{$item.cdate}}</a></td>
-                    <td><a>{{if $item.status == 1}}<font color="green">正常</font>{{else}}<font color="red">已停用</font>{{/if}}</a></td>
+                    <td>{{$item.date}}</td>
+                    <td><a>{{$item.ax6_price/100}}</a></td>
+                    <td><a>{{$item.ax12_price/100}}</a></td>
+                    <td><a>{{$item.ax24_price/100}}</a></td>
+                    <td><a>{{$item.shop_ax6_price/100}}</a></td>
+                    <td><a>{{$item.shop_ax12_price/100}}</a></td>
+                    <td><a>{{$item.shop_ax24_price/100}}</a></td>
+                    <td><a>{{if $item.status == 1}}<font color="red">待审核</font>{{else}}<font color="green">已完成</font>{{/if}}</a></td>
                     <td>
                         <div class="am-btn-toolbar">
                             <div class="am-btn-group am-btn-group-xs">
-                                <a type="button" class="am-btn am-btn-danger" href="{{site_url url='user/user_detail'}}/{{$item.id}}/2">
+                                <a type="button" class="am-btn am-btn-danger" href="{{site_url url='settlement/settlement_detail'}}/{{$item.id}}/2">
                                     <span class="am-icon-pencil-square-o"></span> 详情
                                 </a>
                             </div>

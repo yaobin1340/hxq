@@ -44,12 +44,27 @@ class Order_model extends MY_Model
 			foreach($order_list as $k=>$v){
 				//会员累加金额,结算爱心
 				$user_info = $this->db->select()->from('users')->where('id',$v['uid'])->get()->row_array();
+				$count_ax = $this->db->select('count(1) num')->from('sunflower')
+					->where('uid',$v['uid'])->where('percent',$shop_info['percent'])->get()->row();
 				$user_change = array(
 					$total_field => $user_info[$total_field] + $v['price'],
-					$ax_field => floor(($user_info[$total_field] + $v['price'])/50000)
 				);
 				$this->db->where('id',$v['uid']);
 				$this->db->update('users',$user_change);
+
+				//会员新增爱心
+				$insert_array = array();
+				for($i=0;$i<floor(($user_info[$total_field] + $v['price'])/50000)-$count_ax->num;$i++){
+					$insert_array[] = array(
+						'cdate'=>date('Y-m-d H:i:s'),
+						'percent'=>$shop_info['percent'],
+						'uid'=>$v['uid']
+					);
+				}
+				if($insert_array){
+					$this->db->insert_batch('sunflower', $insert_array);
+				}
+
 
 				//会员的推荐人获得0.6的返利
 				if($user_info['parent_id']){
@@ -58,12 +73,27 @@ class Order_model extends MY_Model
 			}
 
 			//商家累加金额和获得爱心
+			$count_ax_shop = $this->db->select('count(1) num')->from('sunflower_shop')
+				->where('shop_id',$shop_id)->where('percent',$shop_info['percent'])->get()->row();
+
 			$shop_change = array(
 				'total'=>$shop_info['total'] + $this->input->post('total'),
-				'ax'=>floor(($shop_info['total'] + $this->input->post('total'))/50000)
 			);
 			$this->db->where('id',$shop_id);
 			$this->db->update('shop',$shop_change);
+
+
+			$insert_array = array();
+			for($i=0;$i<floor(($shop_info['total'] + $this->input->post('total'))/50000)-$count_ax_shop->num;$i++){
+				$insert_array[] = array(
+					'cdate'=>date('Y-m-d H:i:s'),
+					'percent'=>$shop_info['percent'],
+					'shop_id'=>$shop_id
+				);
+			}
+			if($insert_array){
+				$this->db->insert_batch('sunflower_shop', $insert_array);
+			}
 
 			//商家上级获得分红
 			if($shop_info['parent_uid'] > 0){
@@ -103,7 +133,7 @@ class Order_model extends MY_Model
 		}
 
 		$this->db->where('id',$id);
-		$this->db->update('order',array('status'=>3));
+		$this->db->update('order',array('status'=>3,'adate'=>date('Y-m-d H:i:s')));
 
 		$this->db->where('oid',$id);
 		$this->db->update('order_list',array('status'=>3));

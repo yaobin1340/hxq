@@ -39,7 +39,7 @@ class User_model extends MY_Model
 
 		//搜索条件
 		$data['keyword'] = $this->input->post('keyword')?$this->input->post('keyword'):null;
-
+		$data['type'] = $type?$type:null;
 		//获取详细列
 		$this->db->select()->from('users');
 		if($this->input->post('keyword')){

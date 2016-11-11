@@ -1,13 +1,14 @@
 {{foreach from=$data.items item=row}}
 
 		<!--缩略图在标题左边-->
+<a href="{{site_url url='frontend/shop_details'}}/{{$row.id}}">
 		<li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
 			<div class="am-u-sm-4 am-list-thumb">
 				<img src="{{$base_url}}upload/logo/{{$row.logo}}" alt=""/>
 			</div>
 
 			<div class=" am-u-sm-8 am-list-main">
-				<h3 class="am-list-item-hd"><a href="" class="">{{$row.shop_name}}</a></h3>
+				<h3 class="am-list-item-hd">{{$row.shop_name}}</h3>
 
 
 				<div class="am-list-item-text">{{$row.desc}}</div>
@@ -15,7 +16,7 @@
 				<div class="am-list-item-text">地址:{{$row.address}}</div>
 			</div>
 		</li>
-
+</a>
 
 
 

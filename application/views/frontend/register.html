@@ -15,12 +15,33 @@
                 </a>
             </div>
             <button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block am-btn-next">下一步</button>
+
+            <div class="am-form-group">
+                <label class="am-checkbox-inline">
+                    <input type="checkbox" value="text" required>
+                     <span data-am-modal="{target: '#my-popup'}">同意
+                         <span  style="color: #ff9003;">《三客柚用户注册协议》</span>
+                     </span>
+                </label>
+                <span class="span1" style="margin-left: 10px;font-size: 14px;">已有账号？<a href="{{site_url url='/frontend/login'}}"><span class="span2">登陆</span></a></span>
+            </div>
+
+            <div class="am-popup" id="my-popup">
+                <div class="am-popup-inner">
+                    <div class="am-popup-hd">
+                        <h4 class="am-popup-title">用户协议</h4>
+                        <span data-am-modal-close
+                              class="am-close">&times;</span>
+                    </div>
+                    <div class="am-popup-bd">
+                        三客柚用户注册协议 文本
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </div>
-<div class="register_zhuming">
-    <span class="span1">已经有账号了？&nbsp;&nbsp;&nbsp;<a href="{{site_url url='/frontend/login'}}"><span class="span2">登陆</span></a></span>
-</div>
+
 <script>
     window.wait = 90
     function get_yzm(obj){

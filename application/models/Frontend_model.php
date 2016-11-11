@@ -173,6 +173,9 @@ class Frontend_model extends MY_Model
         if($this->input->post('area_code')){
             $this->db->where("area_code",$this->input->post('area_code'));
         }
+        if($this->input->post('shop_name')){
+            $this->db->like("shop_name",$this->input->post('shop_name'));
+        }
 //        $this->db->where('shop_id',1); //TODO
         $num = $this->db->get()->row();
         $data['total'] = $num->num;
@@ -184,6 +187,7 @@ class Frontend_model extends MY_Model
         $data['type'] = $this->input->post('type')?$this->input->post('type'):null;
         $data['lat'] = $this->input->post('lat')?$this->input->post('lat'):0;
         $data['lng'] = $this->input->post('lng')?$this->input->post('lng'):0;
+        $data['shop_name'] = $this->input->post('shop_name')?$this->input->post('shop_name'):null;
         //获取详细列
         $this->db->select("*,
         ROUND(lat_lng_distance({$data['lat']}, {$data['lng']}, lat, lng), 2) AS juli,
@@ -203,12 +207,29 @@ class Frontend_model extends MY_Model
         if($this->input->post('area_code')){
             $this->db->where("area_code",$this->input->post('area_code'));
         }
+        if($this->input->post('shop_name')){
+            $this->db->like("shop_name",$this->input->post('shop_name'));
+        }
 //        $this->db->where('shop_id',1); //TODO
         $this->db->order_by('juli','asc');
         $this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
         $data['items'] = $this->db->get()->result_array();
-       // echo $this->db->last_query();
         return $data;
+    }
+
+    public function shop_details($id){
+        $this->db->select('a.*,p.name p_name,c.name c_name,ar.name ar_name,st.name type_name')->from('shop a');
+        $this->db->join('province p','a.province_code = p.code','left');
+        $this->db->join('city c','a.city_code = c.code','left');
+        $this->db->join('area ar','a.area_code = ar.code','left');
+        $this->db->join('shop_type st','a.type = st.id','left');
+        $this->db->where('a.id',$id);
+        $row = $this->db->get()->row_array();
+        return $row;
+    }
+
+    public function get_area_name(){
+        return $this->db->select('name')->from('area')->where('code',$this->input->post('area_code'))->get()->row_array();
     }
  
 }

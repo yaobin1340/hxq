@@ -25,8 +25,12 @@ class Frontend extends MY_Controller {
 	public function index()
 	{
 
-        //$city_list = $this->frontend_model->get_city();
+        $province_list = $this->frontend_model->get_province();
+        $area_name = $this->frontend_model->get_area_name();
+        $this->assign('area_name',$area_name?$area_name['name']:null);
+        $this->assign('province_list', $province_list);
         $this->assign('city_code', $this->input->post('city_code'));
+        $this->assign('shop_name', $this->input->post('t_shop_name'));
         $this->assign('area_code', $this->input->post('area_code'));
         $this->assign('province_code', $this->input->post('province_code'));
         $this->assign('lat', $this->input->post('lat'));
@@ -203,6 +207,12 @@ class Frontend extends MY_Controller {
 
     public function get_name_by_keywords($keywords){
         echo $this->frontend_model->get_name_by_keywords($keywords);
+    }
+
+    public function shop_details($id){
+        $data = $this->frontend_model->shop_details($id);
+        $this->assign('data', $data);
+        $this->display('frontend/shop_details.html');
     }
 
 }
