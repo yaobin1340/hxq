@@ -63,15 +63,69 @@
     </form>
         <div class="am-nav am-nav-pills am-topbar-nav" style="float: right;margin-top: -45px;">
             <div class="am-form-group" >
-                <select id="doc-select-1" style="height: 40px;color: black;border-style: none;margin-right: 10px;">
-                    <option value="option1">上海</option>
-                    <option value="option2">苏州</option>
-                    <option value="option3">太仓</option>
-                </select>
-                <span class="am-form-caret"></span>
+
+                <div id="doc-dropdown-justify">
+                    <div class="am-dropdown" data-am-dropdown="{justify: '#doc-dropdown-justify'}">
+                        <button class="am-btn am-btn-primary am-dropdown-toggle">昆山市<span class="am-icon-caret-down"></span></button>
+                        <div class="am-dropdown-content" style="width: 300px;color: #777777;">
+
+                            <div id="address_provice" style="display: block;margin-bottom: 30px;">
+                               <div style="width: 100%;border-bottom: 1px solid #eeeeee"><span style="color: #777777;margin-left: 30px;">昆山市</span></div>
+                               <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
+                                   <span style="margin-left: 10px;" onclick="address_provice()">&nbsp;江苏省</span>
+                                   <span>&nbsp;安徽省</span>
+                                   <span>&nbsp;浙江省</span>
+                                   <span>&nbsp;湖南省</span>
+                               </div>
+                               <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
+                                  <span style="margin-left: 10px;">&nbsp;江苏省</span>
+                                  <span>&nbsp;安徽省</span>
+                                  <span>&nbsp;浙江省</span>
+                                 <span>&nbsp;湖南省</span>
+                              </div>
+                            </div>
+
+                            <div id="address_city" style="display: none;margin-bottom: 30px;">
+                                <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
+                                    <span style="margin-left: 10px;" onclick="address_city()">&nbsp;苏州市</span>
+                                    <span>&nbsp;宿迁市</span>
+                                    <span>&nbsp;徐州市</span>
+                                    <span>&nbsp;南京市</span>
+                                </div>
+                            </div>
+
+                            <div id="address_county" style="display: none;margin-bottom: 30px;">
+                                <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
+                                    <span style="margin-left: 10px;" onclick="address_county()">&nbsp;昆山市</span>
+                                    <span>&nbsp;太仓市</span>
+                                    <span>&nbsp;张家港</span>
+                                    <span>&nbsp;常熟</span>
+                                </div>
+                            </div>
+
+
+                            <script>
+                                function address_provice() {
+                                    document.getElementById("address_provice").style.display="none";
+                                    document.getElementById("address_city").style.display="block";
+                                    document.getElementById("address_county").style.display="none";
+                                }
+                                function address_city() {
+                                    document.getElementById("address_provice").style.display="none";
+                                    document.getElementById("address_city").style.display="none";
+                                    document.getElementById("address_county").style.display="block";
+
+                                }
+                            </script>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 </header>
+
+
 <div style="width: 100%; height: 30px;margin-top: -20px;">
     <span style="float: right;margin-right: -30px;line-height: 30px;"><a href="/frontend/register">注册</a></span>&nbsp;
     <span style="float: right;margin-right: 10px;line-height: 30px;"> <a href="/frontend/login">登录</a></span>
@@ -106,128 +160,6 @@
                 </table>
             </li>
             {{/if}}
-
-          <!--  <li>
-                <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0" style="color: #777777;">
-                        <tr style="height: 100px;">
-                            <td>
-                                <span class="am-icon-building footer_span_1" style="color:#7891e4;"></span><br>
-                                <span class="footer_span_2" >酒店</span>
-                            </td>
-                        <td>
-                            <span class="am-icon-building footer_span_1" style="color:#7891e4;"></span><br>
-                            <span class="footer_span_2" >酒店</span>
-                        </td>
-                        <td>
-                            <span class="am-icon-train footer_span_1" style="color: #51d2af;"></span><br>
-                            <span class="footer_span_2" >生活旅行</span>
-                        </td>
-                        <td>
-                            <span class="am-icon-cart-plus footer_span_1" style="color: #04c1e7;"></span><br>
-                            <span class="footer_span_2">超市</span>
-                        </td>
-                    </tr>
-                        <tr style="height: 100px;">
-                            <td>
-                                <span class="am-icon-car footer_span_1" style="color: #61c2ed;"></span><br>
-                                <span class="footer_span_2" >汽车</span>
-                            </td>
-                            <td>
-                                <span class="am-icon-camera footer_span_1" style="color: #f7b755;"></span><br>
-                                <span class="footer_span_2" >手机数码</span>
-                            </td>
-                            <td>
-                                <span class="am-icon-music footer_span_1" style="color: #17ab55;"></span><br>
-                                <span class="footer_span_2" >休闲娱乐</span>
-                            </td>
-                            <td>
-                                <span class="am-icon-leanpub footer_span_1" style="color: #f08c59;"></span><br>
-                                <span class="footer_span_2">生活服务</span>
-                            </td>
-                        </tr>
-                    </table>
-
-            </li>
-            <li>
-                <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0" style="color: #777777;">
-                    <tr style="height: 100px;">
-                        <td>
-                            <span class="am-icon-desktop footer_span_1" style="color: #ff8c59;"></span><br>
-                            <span class="footer_span_2" >电脑办公</span>
-                        </td>
-                        <td>
-                            <span class="am-icon-fax footer_span_1" style="color: #7d95e5;"></span><br>
-                            <span class="footer_span_2" >家用电器</span>
-                        </td>
-                        <td>
-                            <span class="am-icon-child footer_span_1" style="color: #e37470;"></span><br>
-                            <span class="footer_span_2" >母婴童装</span>
-                        </td>
-                        <td>
-                            <span class="am-icon-eye footer_span_1" style="color: #f7ba5b;"></span><br>
-                            <span class="footer_span_2">个护化妆</span>
-                        </td>
-                    </tr>
-                    <tr style="height: 100px;">
-                        <td>
-                            <span class="am-icon-archive footer_span_1" style="color: #2c8871;"></span><br>
-                            <span class="footer_span_2" >鞋靴箱包</span>
-                        </td>
-                        <td>
-                            <span class="am-icon-fire footer_span_1" style="color: #ec2a4a;"></span><br>
-                            <span class="footer_span_2" >潮流服装</span>
-                        </td>
-                        <td>
-                            <span class="am-icon-diamond footer_span_1" style="color: #bbcd23;"></span><br>
-                            <span class="footer_span_2" >奢侈礼品</span>
-                        </td>
-                        <td>
-                            <span class="am-icon-sun-o footer_span_1" style="color: #f8ab94;"></span><br>
-                            <span class="footer_span_2">钟表珠宝</span>
-                        </td>
-                    </tr>
-                </table>
-            </li>
-            <li>
-                <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0" style="color: #777777;">
-                    <tr style="height: 100px;">
-                        <td>
-                            <span class="am-icon-gamepad footer_span_1" style="color: #eb5e16;"></span><br>
-                            <span class="footer_span_2" >玩具乐器</span>
-                        </td>
-                        <td>
-                            <span class="am-icon-leaf footer_span_1" style="color: #7891e4;"></span><br>
-                            <span class="footer_span_2" >内衣配饰</span>
-                        </td>
-                        <td>
-                            <span class="am-icon-umbrella footer_span_1" style="color: #51d2af;"></span><br>
-                            <span class="footer_span_2" >家居家纺</span>
-                        </td>
-                        <td>
-                            <span class="am-icon-medkit footer_span_1" style="color: #04c1e7;"></span><br>
-                            <span class="footer_span_2">滋补养生</span>
-                        </td>
-                    </tr>
-                    <tr style="height: 100px;">
-                        <td>
-                            <span class="am-icon-home footer_span_1" style=""></span><br>
-                            <span class="footer_span_2" >汽车</span>
-                        </td>
-                        <td>
-                            <span class="am-icon-cart-plus footer_span_1" style=""></span><br>
-                            <span class="footer_span_2" >手机数码</span>
-                        </td>
-                        <td>
-                            <span class="am-icon-tags footer_span_1"></span><br>
-                            <span class="footer_span_2" >休闲娱乐</span>
-                        </td>
-                        <td>
-                            <span class="am-icon-volume-up footer_span_1"></span><br>
-                            <span class="footer_span_2">生活服务</span>
-                        </td>
-                    </tr>
-                </table>
-            </li>-->
         </ul>
     </div>
 </div>
