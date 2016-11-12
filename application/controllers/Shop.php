@@ -119,4 +119,9 @@ class Shop extends MY_Controller {
 		}
 	}
 
+    public function show_information()
+    {
+        $this->display('shop/show_information.html');
+    }
+
 }
