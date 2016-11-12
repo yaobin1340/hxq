@@ -172,4 +172,10 @@ class User extends MY_Controller {
 		$this->assign('page', $page);
 		$this->display('user/money_log_list_loaddata.html');
 	}
+
+    public function user_heart(){
+        //$data = $this->user_model->withdraw_list();
+        $this->display('user/user_heart.html');
+    }
+
 }
