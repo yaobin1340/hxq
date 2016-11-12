@@ -25,6 +25,7 @@ class User extends MY_Controller {
 		$this->load->model('user_model');
 		$user_info = $this->user_model->get_user_info();
 		$this->assign('user_info', $user_info);
+		$this->assign('footer_flag', 4);
 	}
 
 	public function index()
@@ -62,6 +63,7 @@ class User extends MY_Controller {
 	}
 
 	public function list_orders($page = 1){
+		$this->assign('footer_flag', 2);
 		$this->assign('s_date', $this->input->post('s_date'));
 		$this->assign('e_date', $this->input->post('e_date'));
 		$this->display('user/list_orders.html');
