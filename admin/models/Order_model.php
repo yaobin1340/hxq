@@ -10,19 +10,29 @@ class Order_model extends MY_Model
 		parent::__construct();
 	}
 
-	public function list_orders($page)
+	public function list_orders($page,$status)
 	{
 		$data['limit'] = $this->limit;
 		//获取总记录数
 		$this->db->select('count(1) num')->from('order');
-		$this->db->where_in('status',array(2,3,-1));
+		if($status == 1){
+			$this->db->where_in('status',array(1));
+		}else{
+			$this->db->where_in('status',array(2,3,-1));
+		}
+
 		$num = $this->db->get()->row();
 		$data['total'] = $num->num;
+		$data['status'] = $status;
 
 		//获取详细列
 		$this->db->select('a.*,shop_name,percent')->from('order a');
 		$this->db->join('shop b','a.shop_id=b.id','left');
-		$this->db->where_in('a.status',array(2,3,-1));
+		if($status == 1){
+			$this->db->where_in('a.status',array(1));
+		}else{
+			$this->db->where_in('a.status',array(2,3,-1));
+		}
 		$this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
 		$data['items'] = $this->db->get()->result_array();
 

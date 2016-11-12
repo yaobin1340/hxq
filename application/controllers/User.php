@@ -25,6 +25,7 @@ class User extends MY_Controller {
 		$this->load->model('user_model');
 		$user_info = $this->user_model->get_user_info();
 		$this->assign('user_info', $user_info);
+		$this->assign('footer_flag', 4);
 	}
 
 	public function index()
@@ -62,6 +63,7 @@ class User extends MY_Controller {
 	}
 
 	public function list_orders($page = 1){
+		$this->assign('footer_flag', 2);
 		$this->assign('s_date', $this->input->post('s_date'));
 		$this->assign('e_date', $this->input->post('e_date'));
 		$this->display('user/list_orders.html');
@@ -173,9 +175,18 @@ class User extends MY_Controller {
 		$this->display('user/money_log_list_loaddata.html');
 	}
 
-    public function user_heart(){
+    public function user_heart($type=1){
         //$data = $this->user_model->withdraw_list();
+		$this->assign('footer_flag', 3);
+		$this->assign('type', $type);
         $this->display('user/user_heart.html');
     }
+
+	public function user_heart_loaddata($page=1){
+		$data = $this->user_model->user_heart_loaddata($page);
+		$this->assign('data', $data);
+		$this->assign('page', $page);
+		$this->display('user/user_heart_loaddata.html');
+	}
 
 }

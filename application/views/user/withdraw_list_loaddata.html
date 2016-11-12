@@ -1,29 +1,11 @@
 {{foreach from=$data.items item=row}}
-<style>
-	.table{
-		width: 100%; height: 50px; border-collapse:collapse;color: #bfbfbf;margin-left: 10px;
-	}
-	.table tr{
-		font-size: 14px; height: 50px; text-align: center;color: #999999;
-	}
-	.td{
-		border-bottom:1px solid #e5e5e5;
-	}
-</style>
-<table class="table" border="0">
-	<tr style="color: #343434;font-weight: bold;">
-		<td class="td">ID</td>
-		<td class="td">金额</td>
-		<td class="td">日期</td>
-		<td class="td">状态</td>
-	</tr>
+
 	<tr style="color: #343434;">
 		<td class="td">{{$row.id}}</td>
 		<td class="td">{{$row.money}}元</td>
 		<td class="td">{{$row.cdate}}</td>
 		<td class="td">{{if $row.status==1}}<span style="color: red;">待审核</span>{{/if}}
 			{{if $row.status==2}}<span style="color: #00a0e9;">审核通过</span>{{/if}}
-			{{if $row.status==11}}<span style="color: red;">拒绝</span>{{/if}}</td>
+			{{if $row.status==-1}}<span style="color: red;">拒绝</span>{{/if}}</td>
 	</tr>
-</table>
 {{/foreach}}

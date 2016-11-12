@@ -289,4 +289,49 @@ class User_model extends MY_Model
 
         return $data;
     }
+
+    public function user_heart_loaddata($page=1){
+        $data['limit'] = $this->limit;
+        //获取总记录数
+        $this->db->select('count(1) num')->from('sunflower a');
+        $this->db->where('a.uid',$this->session->userdata('uid'));
+        switch($this->input->post('tab_type')){
+            case 1:
+                $this->db->where("a.percent",6);
+                break;
+            case 2:
+                $this->db->where("a.percent",12);
+                break;
+            case 3:
+                $this->db->where("a.percent",24);
+                break;
+
+        }
+//        $this->db->where('shop_id',1); //TODO
+        $num = $this->db->get()->row();
+        $data['total'] = $num->num;
+
+        //搜索条件
+        $data['tab_type'] = $this->input->post('tab_type')?$this->input->post('tab_type'):null;
+        //获取详细列
+        $this->db->select('a.*')->from('sunflower a');
+        $this->db->where('a.uid',$this->session->userdata('uid'));
+        switch($this->input->post('tab_type')){
+            case 1:
+                $this->db->where("a.percent",6);
+                break;
+            case 2:
+                $this->db->where("a.percent",12);
+                break;
+            case 3:
+                $this->db->where("a.percent",24);
+                break;
+
+        }
+        $this->db->limit($data['limit'], $offset = ($page - 1) * $data['limit']);
+        $this->db->order_by('a.cdate','desc');
+        $data['items'] = $this->db->get()->result_array();
+
+        return $data;
+    }
 }
