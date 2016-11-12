@@ -4,19 +4,20 @@
 <div class="footer">
     <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
-            <td id="home" style="color: #3ab5f3;" onclick="home()">
+            <td id="home" style="{{if $footer_flag==1}}color: #3ab5f3;{{/if}}" onclick="home()">
                 <span class="am-icon-home footer_span_1"></span><br>
                 <span class="footer_span_2" >主页</span>
             </td>
-            <td id="myorder" onclick="myorder()">
+            <td id="myorder" style="{{if $footer_flag==2}}color: #3ab5f3;{{/if}}" onclick="myorder()">
                 <span class="am-icon-cart-plus footer_span_1"></span><br>
                 <span class="footer_span_2" >我的订单</span>
             </td>
-            <td id="cheaporder" onclick="cheaporder()">
+            <td id="cheaporder" style="{{if $footer_flag==3}}color: #3ab5f3;{{/if}}" onclick="cheaporder()">
+
                 <span class="am-icon-pagelines footer_span_1"></span><br>
                 <span class="footer_span_2" >我的向日葵</span>
             </td>
-            <td id="message" onclick="message()">
+            <td id="message" style="{{if $footer_flag==4}}color: #3ab5f3;{{/if}}" onclick="message()">
                 <span class="am-icon-user footer_span_1"></span><br>
                 <span class="footer_span_2">个人中心</span>
             </td>
@@ -24,6 +25,7 @@
     </table>
 </div>
 <script>
+
     function home() {
         $("#home").css("color","#3ab5f3");
         $("#myorder").css("color","#7c7c7c");
@@ -41,6 +43,7 @@
         $("#myorder").css("color","#7c7c7c");
         $("#cheaporder").css("color","#3ab5f3");
         $("#message").css("color","#7c7c7c");
+        location.href = "{{site_url url='user/user_heart'}}";
     }
     function message() {
         $("#home").css("color","#7c7c7c");

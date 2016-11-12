@@ -30,14 +30,15 @@
 
 
 <body style="background: #ffffff;">
-<div data-am-widget="tabs" class="am-tabs am-tabs-d2">
+<input type="hidden" name="tab_type" id="tab_type" value="{{$type}}">
+<div data-am-widget="tabs" class="am-tabs-d2">
     <ul class="am-tabs-nav am-cf">
-        <li class="am-active"><a href="[data-tab-panel-0]">6%激励</a></li>
-        <li class="border"><a href="[data-tab-panel-1]">12%激励</a></li>
-        <li class=""><a href="[data-tab-panel-2]">24%激励</a></li>
+        <li class="{{if $type==1}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/1'}}">6%激励</a></li>
+        <li class="{{if $type==2}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/2'}}">12%激励</a></li>
+        <li class="{{if $type==3}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/3'}}">24%激励</a></li>
     </ul>
     <div class="am-tabs-bd">
-        <div data-tab-panel-0 class="am-tab-panel am-active">
+        <div class="am-tab-panel am-active">
             <img src="" alt="" width="100%" height="100px">
             <table class="am-table">
                 <thead>
@@ -47,83 +48,54 @@
                     <th>日期</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                <tr>
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                <tr class="am-active">
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
+                <tbody id="accordion">
+
                 </tbody>
+
             </table>
-        </div>
-        <div data-tab-panel-1 class="am-tab-panel ">
-            <img src="" alt="" width="100%" height="100px">
-            <table class="am-table">
-                <thead>
-                <tr>
-                    <th>向日葵</th>
-                    <th>已返</th>
-                    <th>日期</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                <tr>
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                <tr class="am-active">
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div data-tab-panel-2 class="am-tab-panel ">
-            <img src="" alt="" width="100%" height="100px">
-            <table class="am-table">
-                <thead>
-                <tr>
-                    <th>向日葵</th>
-                    <th>已返</th>
-                    <th>日期</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                <tr>
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                <tr class="am-active">
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                </tbody>
-            </table>
+            <p id="is_end" style="text-align: center;font-size: 12px;">已到最后一页</p>
         </div>
     </div>
+
 </div>
+<script>
+    window.is_end = false
+    window.page = 1
+    $(window).scroll(function () {
+        var scrollTop = $(this).scrollTop();
+        var scrollHeight = $(document).height();
+        var windowHeight = $(this).height();
+        if (scrollTop + windowHeight == scrollHeight) {
+            if(window.is_end){
+                $("#is_end").show()
+            }else{
+                $("#my-actions-search").show()
+
+                $('#my-modal-loading').modal()
+
+                get_data()
+            }
+        }
+    });
+
+    function get_data(){
+        tab_type = $('#tab_type').val()
+        $.post("{{site_url url='user/user_heart_loaddata'}}/"+window.page,{tab_type:tab_type},function(data){
+            if(data){
+                $("#accordion").append(data)
+                window.page += 1
+                $('#my-modal-loading').modal('close');
+            }else{
+                $('#my-modal-loading').modal('close');
+                $("#is_end").show()
+                window.is_end = true
+            }
+
+        });
+    }
+
+    $(function() {
+        get_data()
+    });
+</script>
 {{include file="../public/footer.html"}}
