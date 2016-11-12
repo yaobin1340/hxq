@@ -165,34 +165,50 @@ class Settlement_model extends MY_Model
 		if($data->status != 1){
 			return -1;
 		}
-
+		$this->db->trans_start();//--------开始事务
 		//用户返利6系列
 		$this->db->where('status',1);
 		$this->db->where('percent',6);
-		$this->db->where('return_integral <',500);
+		$this->db->where('return_integral <',12500);
 		$this->db->set('return_integral', 'return_integral+'.$data->ax6_price, FALSE);
 		$this->db->update('sunflower');
 
 		//用户返利12系列
 		$this->db->where('status',1);
 		$this->db->where('percent',12);
-		$this->db->where('return_integral <',500);
+		$this->db->where('return_integral <',25000);
 		$this->db->set('return_integral', 'return_integral+'.$data->ax12_price, FALSE);
 		$this->db->update('sunflower');
 
 		//用户返利24系列
 		$this->db->where('status',1);
 		$this->db->where('percent',24);
-		$this->db->where('return_integral <',500);
+		$this->db->where('return_integral <',50000);
 		$this->db->set('return_integral', 'return_integral+'.$data->ax24_price, FALSE);
 		$this->db->update('sunflower');
 
-		//返满500后溢出金额
-		$rs = $this->db->select('sum(return_integral-50000) overflow_integral,uid')->from('sunflower')->where('status',1)->where('return_integral >',50000)->group_by('uid')->get()->result_array();
-		$overflow_integral = array();
+		//返满后溢出金额
+		$rs6 = $this->db->select('sum(return_integral-12500) overflow_integral,uid')->from('sunflower')
+			->where('status',1)->where('return_integral >',12500)->where('percent',6)->group_by('uid')->get()->result_array();
+
+		$rs12 = $this->db->select('sum(return_integral-25000) overflow_integral,uid')->from('sunflower')
+			->where('status',1)->where('return_integral >',25000)->where('percent',6)->group_by('uid')->get()->result_array();
+
+		$rs24 = $this->db->select('sum(return_integral-50000) overflow_integral,uid')->from('sunflower')
+			->where('status',1)->where('return_integral >',50000)->where('percent',6)->group_by('uid')->get()->result_array();
+
+		$overflow_integral6 = array();
+		$overflow_integral12 = array();
+		$overflow_integral24 = array();
 		$add_integral = array();
-		foreach($rs as $k=>$v){
-			$overflow_integral[$v['uid']] = $v['overflow_integral'];
+		foreach($rs6 as $k=>$v){
+			$overflow_integral6[$v['uid']] = $v['overflow_integral'];
+		}
+		foreach($rs12 as $k=>$v){
+			$overflow_integral12[$v['uid']] = $v['overflow_integral'];
+		}
+		foreach($rs24 as $k=>$v){
+			$overflow_integral24[$v['uid']] = $v['overflow_integral'];
 		}
 		$rs = $this->db->select('sum(status) ax,percent,uid')->from('sunflower')->where('status',1)->group_by(array("percent", "uid"))->get()->result_array();
 		foreach($rs as $k=>$v){
@@ -211,6 +227,82 @@ class Settlement_model extends MY_Model
 		}
 
 		foreach($add_integral as $uid=>$v){
+			$integral = $v;
+			if(isset($overflow_integral6[$uid])){
+				$integral = $integral - $overflow_integral6[$uid];
+			}
+			if(isset($overflow_integral12[$uid])){
+				$integral = $integral - $overflow_integral12[$uid];
+			}
+			if(isset($overflow_integral24[$uid])){
+				$integral = $integral - $overflow_integral24[$uid];
+			}
+			$this->db->where('id',$uid);
+			$this->db->set('integral', 'integral+'.$integral, FALSE);
+			$this->db->update('users');
+
+			$this->db->insert('money_log',array(
+				'remark'=>'向日葵返利(会员)',
+				'money'=>$integral,
+				'type'=>2,
+				'uid'=>$uid,
+				'cdate' => date('Y-m-d H:i:s')
+			));
+		}
+		//TODO 商家返利
+		//商家返利6系列
+		$this->db->where('status',1);
+		$this->db->where('percent',6);
+		$this->db->where('return_integral <',2700);
+		$this->db->set('return_integral', 'return_integral+'.$data->shop_ax6_price, FALSE);
+		$this->db->update('sunflower_shop');
+
+		//商家返利12系列
+		$this->db->where('status',1);
+		$this->db->where('percent',12);
+		$this->db->where('return_integral <',5400);
+		$this->db->set('return_integral', 'return_integral+'.$data->shop_ax12_price, FALSE);
+		$this->db->update('sunflower_shop');
+
+		//商家返利24系列
+		$this->db->where('status',1);
+		$this->db->where('percent',24);
+		$this->db->where('return_integral <',10800);
+		$this->db->set('return_integral', 'return_integral+'.$data->shop_ax24_price, FALSE);
+		$this->db->update('sunflower_shop');
+
+		//返满后溢出金额
+		$rs = $this->db->select('sum(return_integral-(450*a.`percent`)) overflow_integral,shop_id,a.percent,b.uid')->from('sunflower_shop a')
+			->join('shop b','a.shop_id=b.id')
+			->where('a.status',1)->where('return_integral >','(450*a.`percent`)')
+			->group_by(array('shop_id','a.percent'))->get()->result_array();
+
+		$overflow_integral = array();
+		$add_integral = array();
+		foreach($rs as $k=>$v){
+			$overflow_integral[$v['uid']] = $v['overflow_integral'];
+		}
+		$rs = $this->db->select('sum(a.status) ax,a.percent,uid')->from('sunflower_shop a')
+			->join('shop b','a.shop_id=b.id')
+			->where('a.status',1)
+			->group_by(array("a.percent", "uid"))->get()->result_array();
+
+		foreach($rs as $k=>$v){
+			if(!isset($add_integral[$v['uid']])){
+				$add_integral[$v['uid']] = 0;
+			}
+			if($v['percent'] == 6){//6系
+				$add_integral[$v['uid']] += $rs['ax']*$data->shop_ax6_price;
+			}
+			if($v['percent'] == 12){//12系
+				$add_integral[$v['uid']] += $rs['ax']*$data->shop_ax12_price;
+			}
+			if($v['percent'] == 24){//24系
+				$add_integral[$v['uid']] += $rs['ax']*$data->shop_ax24_price;
+			}
+		}
+
+		foreach($add_integral as $uid=>$v){
 			if(isset($overflow_integral[$uid])){
 				$integral = $v - $overflow_integral[$uid];
 				$this->db->where('id',$uid);
@@ -218,7 +310,7 @@ class Settlement_model extends MY_Model
 				$this->db->update('users');
 
 				$this->db->insert('money_log',array(
-					'remark'=>'向日葵返利',
+					'remark'=>'向日葵返利(商家)',
 					'money'=>$integral,
 					'type'=>2,
 					'uid'=>$uid,
@@ -226,7 +318,56 @@ class Settlement_model extends MY_Model
 				));
 			}
 		}
-		//TODO 商家返利
+
+		$this->db->where('percent',24);
+		$this->db->where('return_integral >=',50000);
+		$this->db->update('sunflower',array(
+			'status'=>2,
+			'return_integral'=>50000
+		));
+
+		$this->db->where('percent',12);
+		$this->db->where('return_integral >=',25000);
+		$this->db->update('sunflower',array(
+			'status'=>2,
+			'return_integral'=>25000
+		));
+
+		$this->db->where('percent',6);
+		$this->db->where('return_integral >=',12500);
+		$this->db->update('sunflower',array(
+			'status'=>2,
+			'return_integral'=>12500
+		));
+
+		$this->db->where('percent',24);
+		$this->db->where('return_integral >=',10800);
+		$this->db->update('sunflower_shop',array(
+			'status'=>2,
+			'return_integral'=>10800
+		));
+
+		$this->db->where('percent',12);
+		$this->db->where('return_integral >=',5400);
+		$this->db->update('sunflower_shop',array(
+			'status'=>2,
+			'return_integral'=>5400
+		));
+
+		$this->db->where('percent',6);
+		$this->db->where('return_integral >=',2700);
+		$this->db->update('sunflower_shop',array(
+			'status'=>2,
+			'return_integral'=>2700
+		));
+
+		$this->db->trans_complete();//------结束事务
+		if ($this->db->trans_status() === FALSE) {
+			return -1;
+		} else {
+			return 1;
+		}
+
 
 	}
 
