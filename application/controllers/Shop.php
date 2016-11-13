@@ -37,6 +37,7 @@ class Shop extends MY_Controller {
 	}
 
 	public function list_orders($page = 1){
+		$this->assign('header_name', '订单管理');
 //		$data = $this->shop_model->list_orders($page);
 //		$this->assign('data', $data);
 //		$this->display('shop/list_orders.html');
@@ -63,6 +64,7 @@ class Shop extends MY_Controller {
 	}
 
 	public function list_order_audit(){
+		$this->assign('header_name', '订单提交');
 		$this->assign('s_date', $this->input->post('s_date'));
 		$this->assign('e_date', $this->input->post('e_date'));
 		$this->display('shop/list_order_audit.html');
@@ -88,6 +90,7 @@ class Shop extends MY_Controller {
 	}
 
 	public function order_detail($order_id){
+		$this->assign('header_name', '订单详情');
 		$data = $this->shop_model->order_detail($order_id);
 		if($data == -1){
 			$this->show_message('订单不存在！');
