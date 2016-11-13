@@ -30,11 +30,12 @@ ul { padding-left: 0px;}
 		border-bottom:1px solid #e5e5e5;
 	}
 </style>
+<body style="background: #ffffff;">
 <table class="table1" border="0">
 	<tr>
-		<td class="td1"><a href="{{site_url url='user/money_log_list'}}" onclick="fund()" id="fund">资金日志</a></td>
-		<td class="td1"><a href="{{site_url url='user/withdraw_list'}}" onclick="cash()" id="cash">提现日志</a></td>
-		<td class="td1"><a href="{{site_url url='user/withdraw'}}" onclick="application()" id="application">申请提现</a></td>
+		<td class="td1"><a href="{{site_url url='user/money_log_list'}}" onclick="money_record()" id="money_record">资金日志</a></td>
+		<td class="td1"><a href="{{site_url url='user/withdraw_list'}}" onclick="cash_record()" id="cash_record">提现日志</a></td>
+		<td class="td1"><a href="{{site_url url='user/withdraw'}}" onclick="application_record()" id="application_record">申请提现</a></td>
 	</tr>
 </table>
 <form class="am-form" data-am-validator action="" method="post">
@@ -42,9 +43,9 @@ ul { padding-left: 0px;}
 	<table class="table" border="0">
 		<thead>
 		<tr style="color: #343434;font-weight: bold;">
-			<th class="td">ID</th>
-			<th class="td">金额</th>
-			<th class="td">日期</th>
+			<td class="td">ID</td>
+			<td class="td">金额</td>
+			<td class="td">日期</td>
 			<td class="td">状态</td>
 		</tr>
 		</thead>
@@ -54,8 +55,8 @@ ul { padding-left: 0px;}
 	</table>
 	<p id="is_end" style="text-align: center;font-size: 12px;">已到最后一页</p>
 
-
 </form>
+</body>
 
 
 {{include file="../public/footer.html"}}
@@ -117,5 +118,25 @@ ul { padding-left: 0px;}
 	$(function() {
 		get_data()
 	});
+
+	window.onload=function(){
+		cash_record();
+	}
+
+	function money_record() {
+		$("#money_record").css("color","#3ab5f3");
+		$("#cash_record").css("color","#7c7c7c");
+		$("#application_record").css("color","#7c7c7c");
+	}
+	function cash_record() {
+		$("#money_record").css("color","#7c7c7c");
+		$("#cash_record").css("color","#3ab5f3");
+		$("#application_record").css("color","#7c7c7c");
+	}
+	function application_record() {
+		$("#money_record").css("color","#7c7c7c");
+		$("#cash_record").css("color","#7c7c7c");
+		$("#application_record").css("color","#3ab5f3");
+	}
 
 </script>

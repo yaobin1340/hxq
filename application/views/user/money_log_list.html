@@ -3,8 +3,7 @@
 <input type="hidden" id="e_date" value="{{$e_date}}">
 <body>
 <link rel="stylesheet" href="/static/default/wap/css/housekeeping.css"/>  
-	<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet" />
-
+<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet" />
 <style>
 ul { padding-left: 0px;}
 .layui-layer-molv .layui-layer-title {background-color: #F8F8F8;border-bottom: 1px solid #eee;color: #333;}
@@ -21,8 +20,7 @@ ul { padding-left: 0px;}
 .td1 a{
 	color: #777777;
 }
-</style>
-<style>
+
 	.table{
 		width: 100%; height: 50px; border-collapse:collapse;color: #bfbfbf;margin-left: 20px;
 	}
@@ -33,11 +31,13 @@ ul { padding-left: 0px;}
 		border-bottom:1px solid #e5e5e5;
 	}
 </style>
+
+<body style="background: #ffffff;">
 <table class="table1" border="0">
 	<tr>
-		<td class="td1"><a href="{{site_url url='user/money_log_list'}}" onclick="fund()" id="fund">资金日志</a></td>
-		<td class="td1"><a href="{{site_url url='user/withdraw_list'}}" onclick="cash()" id="cash">提现日志</a></td>
-		<td class="td1"><a href="{{site_url url='user/withdraw'}}" onclick="application()" id="application">申请提现</a></td>
+		<td class="td1"><a href="{{site_url url='user/money_log_list'}}" onclick="money_record()" id="money_record">资金日志</a></td>
+		<td class="td1"><a href="{{site_url url='user/withdraw_list'}}" onclick="cash_record()" id="cash_record">提现日志</a></td>
+		<td class="td1"><a href="{{site_url url='user/withdraw'}}" onclick="application_record()" id="application_record">申请提现</a></td>
 	</tr>
 </table>
 
@@ -64,9 +64,9 @@ ul { padding-left: 0px;}
 
 	<thead>
 	<tr style="color: #343434;font-weight: bold;">
-		<th class="td">ID</th>
-		<th class="td">金额变化</th>
-		<th class="td">日期</th>
+		<td class="td">ID</td>
+		<td class="td">金额变化</td>
+		<td class="td">日期</td>
 	</tr>
 	</thead>
 	<tbody id="accordion">
@@ -86,6 +86,7 @@ ul { padding-left: 0px;}
 		</div>
 	</div>
 </div>
+</body>
 
 {{include file="../public/footer.html"}}
 <script>
@@ -138,5 +139,25 @@ ul { padding-left: 0px;}
 	$(function() {
 		get_data()
 	});
+
+	window.onload=function(){
+		money_record();
+	}
+
+	function money_record() {
+		$("#money_record").css("color","#3ab5f3");
+		$("#cash_record").css("color","#7c7c7c");
+		$("#application_record").css("color","#7c7c7c");
+	}
+	function cash_record() {
+		$("#money_record").css("color","#7c7c7c");
+		$("#cash_record").css("color","#3ab5f3");
+		$("#application_record").css("color","#7c7c7c");
+	}
+	function application_record() {
+		$("#money_record").css("color","#7c7c7c");
+		$("#cash_record").css("color","#7c7c7c");
+		$("#application_record").css("color","#3ab5f3");
+	}
 
 </script>
