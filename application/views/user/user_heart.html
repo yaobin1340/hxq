@@ -1,192 +1,165 @@
 {{include file="./header.html"}}
 <style>
 
-    /*a{*/
-        /*color:#c7c7c7;*/
-        /*background: #fff;*/
-    /*}*/
-
-    /*.am-tabs-d2 .am-tabs-nav > .am-active::after{*/
-        /*border-style:none;*/
-    /*}*/
-    /*.am-tabs-d2 .am-tabs-nav > .am-active a{*/
-        /*color: #f15a0c;*/
-    /*}*/
-    /*.am-tabs-d2 .am-tabs-nav > .am-active {*/
-        /*border-bottom: 4px solid #f15a0c;*/
-
-    /*}*/
-    /*.am-tabs-d2 .am-tabs-nav li{*/
-        /*height: 42px;*/
-    /*}*/
-    /*.am-tabs-d2 .am-tabs-nav a{*/
-        /*color: #c7c7c7;*/
-    /*}*/
-
-    /*.am-table > tbody > tr > td,*/
-    /*.am-table > tbody > tr > th,*/
-    /*.am-table > tfoot > tr > td,*/
-    /*.am-table > tfoot > tr > th,*/
-    /*.am-table > thead > tr > td,*/
-    /*.am-table > thead > tr > th {*/
-        /*font-size: 14px;*/
-        /*text-align: center;*/
-        /*color:#7f8c8d;*/
-        /*border-top: 1px solid #fafafa;*/
-        /*line-height: 1.6;*/
-        /*padding: 1.1rem;*/
-        /*vertical-align: top;*/
-    /*}*/
-    /*.am-tabs-bd{*/
-        /*border: none;*/
-    /*}*/
-    /*.am-table > thead > tr > th {*/
-        /*border-bottom:none;*/
-
-    /*}*/
-    /*.am-tabs-bd .am-tab-panel{*/
-        /*padding: 0;*/
-    /*}*/
-
-    .table1{
-        width: 100%; height: 45px; border-collapse:collapse;color: #bfbfbf; cursor:pointer;
+    a{
+        color:#c7c7c7;
+        background: #fff;
     }
-    .table1 tr{
-        font-size: 14px;text-align: center;color: #999999;
+
+    .am-tabs-d2 .am-tabs-nav > .am-active::after{
+        border-style:none;
     }
-    .td1{
-        border-bottom:1px solid #e5e5e5;
+    .am-tabs-d2 .am-tabs-nav > .am-active a{
+        color: #f15a0c;
     }
-    .td1 a{
-        color: #777777;
+    .am-tabs-d2 .am-tabs-nav > .am-active {
+        border-bottom: 4px solid #f15a0c;
+
     }
+    .am-tabs-d2 .am-tabs-nav li{
+        height: 42px;
+    }
+    .am-tabs-d2 .am-tabs-nav a{
+        color: #7f8c8d;
+    }
+
+    .am-table > tbody > tr > td,
+    .am-table > tbody > tr > th,
+    .am-table > tfoot > tr > td,
+    .am-table > tfoot > tr > th,
+    .am-table > thead > tr > td,
+    .am-table > thead > tr > th {
+        font-size: 14px;
+        text-align: center;
+        color:#7f8c8d;
+        border-top: 1px solid #fafafa;
+        line-height: 1.6;
+        padding: 1.1rem;
+        vertical-align: top;
+    }
+    .am-tabs-bd{
+        border: none;
+    }
+    .am-table > thead > tr > th {
+        border-bottom:none;
+    }
+    .am-tabs-bd .am-tab-panel{
+        padding: 0;
+    }
+    .am-tabs-d2 .am-tabs-nav li{
+        height:40px;
+    }
+   .data-am-widget{
+       display: none;
+   }
 </style>
 
 
-<body style="background: #ffffff;">
+<body style="background: #ffffff; z-index: 1;">
 <input type="hidden" name="tab_type" id="tab_type" value="{{$type}}">
+<div data-am-widget="tabs"     class="am-tabs am-tabs-d2" style="width: 100%; margin: 0;">
+    <ul class="am-tabs-nav am-cf" style="background: red;width: 100%;">
+        <li class="{{if $type==1}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/1'}}">6%激励</a></li>
+        <li class="{{if $type==2}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/2'}}">12%激励</a></li>
+        <li class="{{if $type==3}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/3'}}">24%激励</a></li>
+    </ul>
 
-    <!--<ul class="am-tabs-nav am-cf">-->
-        <!--<li class="{{if $type==1}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/1'}}">6%激励</a></li>-->
-        <!--<li class="{{if $type==2}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/2'}}">12%激励</a></li>-->
-        <!--<li class="{{if $type==3}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/3'}}">24%激励</a></li>-->
-    <!--</ul>-->
-<table class="table1" border="0">
-    <tr>
-        <td class="td1 {{if $type==1}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/1'}}" onclick="encourage1()" id="encourage1">6%激励</a></td>
-        <td class="td1 {{if $type==2}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/2'}}" onclick="encourage2()" id="encourage2">12%激励</a></td>
-        <td class="td1 {{if $type==3}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/3'}}" onclick="encourage3()" id="encourage3">24%激励</a></td>
-    </tr>
-</table>
 
-<div id="bestir_1" style="width: 100%;display: block;">
-   aaaaaaaaaaaaaaa
+    <div class="am-tabs-bd" style="margin-top:5px;">
+        <div class="am-tab-panel am-active">
+            <img src="img/beijing.jpg"  width="100%" height="170px">
+            <table class="am-table">
+                <thead>
+                <tr>
+                    <th>向日葵</th>
+                    <th>已返</th>
+                    <th>日期</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><i class="am-icon-star"></i>(500)</td>
+                    <td>100</td>
+                    <td>2016-11-11 11:11:11</td>
+                </tr>
+                <tr>
+                    <td><i class="am-icon-star"></i>(500)</td>
+                    <td>100</td>
+                    <td>2016-11-11 11:11:11</td>
+                </tr>
+                <tr class="am-active">
+                    <td><i class="am-icon-star"></i>(500)</td>
+                    <td>100</td>
+                    <td>2016-11-11 11:11:11</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div data-tab-panel-1 class="am-tab-panel ">
+            <img src="{{$base_url}}statics/images/2.jpg"  width="100%" height="170px">
+            <table class="am-table">
+                <thead>
+                <tr>
+                    <th>向日葵</th>
+                    <th>已返</th>
+                    <th>日期</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><i class="am-icon-star"></i>(500)</td>
+                    <td>100</td>
+                    <td>2016-11-11 11:11:11</td>
+                </tr>
+                <tr>
+                    <td><i class="am-icon-star"></i>(500)</td>
+                    <td>100</td>
+                    <td>2016-11-11 11:11:11</td>
+                </tr>
+                <tr class="am-active">
+                    <td><i class="am-icon-star"></i>(500)</td>
+                    <td>100</td>
+                    <td>2016-11-11 11:11:11</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div data-tab-panel-2 class="am-tab-panel ">
+            <img src="img/beijing.jpg"  width="100%" height="170px">
+            <table class="am-table">
+                <thead>
+                <tr>
+                    <th>向日葵</th>
+                    <th>已返</th>
+                    <th>日期</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><i class="am-icon-star"></i>(500)</td>
+                    <td>100</td>
+                    <td>2016-11-11 11:11:11</td>
+                </tr>
+                <tr>
+                    <td><i class="am-icon-star"></i>(500)</td>
+                    <td>100</td>
+                    <td>2016-11-11 11:11:11</td>
+                </tr>
+
+                </tbody>
+
+                <tbody id="accordion">
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+    <br>
+    <br>
 </div>
 
-<div id="bestir_2" style="width: 100%;display: none;">
-    bbbbb
-</div>
-
-<div id="bestir_3" style="width: 100%;display: none;">
-   cccccccccccc
-</div>
-
-
-<script>
-
-</script>
-
-    <!--<div class="am-tabs-bd">-->
-        <!--<div class="am-tab-panel am-active">-->
-            <!--<img src="" alt="" width="100%" height="100px">-->
-                <!--<tbody>-->
-                <!--<tr>-->
-                    <!--<td><i class="am-icon-star"></i>(500)</td>-->
-                    <!--<td>100</td>-->
-                    <!--<td>2016-11-11 11:11:11</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><i class="am-icon-star"></i>(500)</td>-->
-                    <!--<td>100</td>-->
-                    <!--<td>2016-11-11 11:11:11</td>-->
-                <!--</tr>-->
-                <!--<tr class="am-active">-->
-                    <!--<td><i class="am-icon-star"></i>(500)</td>-->
-                    <!--<td>100</td>-->
-                    <!--<td>2016-11-11 11:11:11</td>-->
-                <!--</tr>-->
-                <!--</tbody>-->
-            <!--</table>-->
-        <!--</div>-->
-        <!--<div data-tab-panel-1 class="am-tab-panel ">-->
-            <!--<img src="img/beijing.jpg"  width="100%" height="170px">-->
-            <!--<table class="am-table">-->
-                <!--<thead>-->
-                <!--<tr>-->
-                    <!--<th>向日葵</th>-->
-                    <!--<th>已返</th>-->
-                    <!--<th>日期</th>-->
-                <!--</tr>-->
-                <!--</thead>-->
-                <!--<tbody>-->
-                <!--<tr>-->
-                    <!--<td><i class="am-icon-star"></i>(500)</td>-->
-                    <!--<td>100</td>-->
-                    <!--<td>2016-11-11 11:11:11</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><i class="am-icon-star"></i>(500)</td>-->
-                    <!--<td>100</td>-->
-                    <!--<td>2016-11-11 11:11:11</td>-->
-                <!--</tr>-->
-                <!--<tr class="am-active">-->
-                    <!--<td><i class="am-icon-star"></i>(500)</td>-->
-                    <!--<td>100</td>-->
-                    <!--<td>2016-11-11 11:11:11</td>-->
-                <!--</tr>-->
-                <!--</tbody>-->
-            <!--</table>-->
-        <!--</div>-->
-        <!--<div data-tab-panel-2 class="am-tab-panel ">-->
-            <!--<img src="img/beijing.jpg"  width="100%" height="170px">-->
-            <!--<table class="am-table">-->
-                <!--<thead>-->
-                <!--<tr>-->
-                    <!--<th>向日葵</th>-->
-                    <!--<th>已返</th>-->
-                    <!--<th>日期</th>-->
-                <!--</tr>-->
-                <!--</thead>-->
-                <!--<tbody>-->
-                <!--<tr>-->
-                    <!--<td><i class="am-icon-star"></i>(500)</td>-->
-                    <!--<td>100</td>-->
-                    <!--<td>2016-11-11 11:11:11</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td><i class="am-icon-star"></i>(500)</td>-->
-                    <!--<td>100</td>-->
-                    <!--<td>2016-11-11 11:11:11</td>-->
-                <!--</tr>-->
-                <!--<tr class="am-active">-->
-                    <!--<td><i class="am-icon-star"></i>(500)</td>-->
-                    <!--<td>100</td>-->
-                    <!--<td>2016-11-11 11:11:11</td>-->
-                <!--</tr>-->
-
-                <!--<tbody id="accordion">-->
-
-                <!--</tbody>-->
-
-            <!--</table>-->
-            <!--<p id="is_end" style="text-align: center;font-size: 12px;">已到最后一页</p>-->
-        <!--</div>-->
-    <!--</div>-->
-
-
-
-{{include file="../public/footer.html"}}
-</body>
 
 <script>
     window.is_end = false
@@ -228,4 +201,6 @@
         get_data()
     });
 </script>
-
+<p id="is_end" style="text-align: center;font-size: 12px;">已到最后一页</p>
+{{include file="../public/footer.html"}}
+</body>
