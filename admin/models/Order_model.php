@@ -13,6 +13,12 @@ class Order_model extends MY_Model
 	public function list_orders($page,$status)
 	{
 		$data['limit'] = $this->limit;
+		$search_date = 'cdate';
+		if($status == 1){
+			$search_date = 'cdate';
+		}else{
+			$search_date = 'sdate';
+		}
 		//获取总记录数
 		$this->db->select('count(1) num')->from('order a');
 		$this->db->join('shop b','a.shop_id=b.id','left');
@@ -25,11 +31,11 @@ class Order_model extends MY_Model
 			$this->db->like('b.shop_name',$this->input->post('keyword'));
 		}
 		if($this->input->post('s_date')){
-			$this->db->where("a.cdate >=",$this->input->post('s_date'));
+			$this->db->where("a.{$search_date} >=",$this->input->post('s_date'));
 		}
 
 		if($this->input->post('e_date')){
-			$this->db->where("a.cdate <=",$this->input->post('e_date')." 23:59:59");
+			$this->db->where("a.{$search_date} <=",$this->input->post('e_date')." 23:59:59");
 		}
 		$num = $this->db->get()->row();
 		$data['total'] = $num->num;
@@ -49,13 +55,15 @@ class Order_model extends MY_Model
 			$this->db->like('b.shop_name',$this->input->post('keyword'));
 		}
 		if($this->input->post('s_date')){
-			$this->db->where("a.cdate >=",$this->input->post('s_date'));
+			$this->db->where("a.{$search_date} >=",$this->input->post('s_date'));
 		}
 
 		if($this->input->post('e_date')){
-			$this->db->where("a.cdate <=",$this->input->post('e_date')." 23:59:59");
+			$this->db->where("a.{$search_date} <=",$this->input->post('e_date')." 23:59:59");
 		}
+		$this->db->order_by($search_date,'desc');
 		$this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
+
 		$data['items'] = $this->db->get()->result_array();
 
 		return $data;

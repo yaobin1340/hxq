@@ -269,6 +269,7 @@ class Shop_model extends MY_Model
         $data = array(
             'pic'=>$order_pic,
             'remark'=>$this->input->post('remark'),
+            'sdate'=>date('Y-m-d H:i:s',time()),
             'status'=>2,//待審核
         );
         $this->db->trans_start();//--------开始事务

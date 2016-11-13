@@ -13,10 +13,11 @@
 
             <div class="am-u-sm-12 am-u-md-8">
                 <div class="am-input-group am-input-group-sm">
-                    <input style="width: 200px" type="text" class="am-form-field" name="keyword" value="{{$data.keyword}}" placeholder="请输入会员名称或手机号码">
+                    <input style="width: 200px" type="text" class="am-form-field" name="keyword" value="{{$data.keyword}}" placeholder="请输入商店名称">
                 </div>
                 <div class="am-input-group am-input-group-sm">
-                    时间范围:
+                    {{if $data.status == 2}}申请时间{{/if}}
+                    {{if $data.status == 1}}创建时间{{/if}}
                     <input  class="form-control" id="s_date" name="s_date" type="text" value="{{$data.s_date}}"
                             onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'yyyy-MM-dd'})">——
                     <input  class="form-control" id="e_date" name="e_date" type="text" value="{{$data.e_date}}"
@@ -41,7 +42,7 @@
                     <th>需支付</th>
                     <th>订单数</th>
                     <th>起始时间</th>
-                    <th>申请时间</th>
+                    {{if $data.status != 1}}<th>申请时间</th>{{/if}}
                     <th>状态</th>
                     <th>操作</th>
                 </tr>
@@ -54,7 +55,7 @@
                     <td><a>{{$item.total*$item.percent/10000}}</a></td>
                     <td><a>{{$item.num}}</a></td>
                     <td><a>{{$item.cdate}}</a></td>
-                    <td><a>{{$item.sdate}}</a></td>
+                    {{if $data.status != 1}}<td><a>{{$item.sdate}}</a></td>{{/if}}
                     <td><a>{{if $item.status == 3}}<font color="green">已完成</font>{{else if $item.status == 2}}<font color="red">待审核</font>{{else if $item.status == 1}}<font color="#9acd32">待提交</font>{{else}}<font color="red">已拒绝</font>{{/if}}</a></td>
 
                     <td>
