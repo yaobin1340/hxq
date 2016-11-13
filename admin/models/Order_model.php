@@ -14,17 +14,29 @@ class Order_model extends MY_Model
 	{
 		$data['limit'] = $this->limit;
 		//获取总记录数
-		$this->db->select('count(1) num')->from('order');
+		$this->db->select('count(1) num')->from('order a');
+		$this->db->join('shop b','a.shop_id=b.id','left');
 		if($status == 1){
-			$this->db->where_in('status',array(1));
+			$this->db->where_in('a.status',array(1));
 		}else{
-			$this->db->where_in('status',array(2,3,-1));
+			$this->db->where_in('a.status',array(2,3,-1));
+		}
+		if($this->input->post('keyword')){
+			$this->db->like('b.shop_name',$this->input->post('keyword'));
+		}
+		if($this->input->post('s_date')){
+			$this->db->where("a.cdate >=",$this->input->post('s_date'));
 		}
 
+		if($this->input->post('e_date')){
+			$this->db->where("a.cdate <=",$this->input->post('e_date')." 23:59:59");
+		}
 		$num = $this->db->get()->row();
 		$data['total'] = $num->num;
 		$data['status'] = $status;
-
+		$data['keyword'] = $this->input->post('keyword')?$this->input->post('keyword'):null;
+		$data['s_date'] = $this->input->post('s_date')?$this->input->post('s_date'):null;
+		$data['e_date'] = $this->input->post('e_date')?$this->input->post('e_date'):null;
 		//获取详细列
 		$this->db->select('a.*,shop_name,percent')->from('order a');
 		$this->db->join('shop b','a.shop_id=b.id','left');
@@ -32,6 +44,16 @@ class Order_model extends MY_Model
 			$this->db->where_in('a.status',array(1));
 		}else{
 			$this->db->where_in('a.status',array(2,3,-1));
+		}
+		if($this->input->post('keyword')){
+			$this->db->like('b.shop_name',$this->input->post('keyword'));
+		}
+		if($this->input->post('s_date')){
+			$this->db->where("a.cdate >=",$this->input->post('s_date'));
+		}
+
+		if($this->input->post('e_date')){
+			$this->db->where("a.cdate <=",$this->input->post('e_date')." 23:59:59");
 		}
 		$this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
 		$data['items'] = $this->db->get()->result_array();

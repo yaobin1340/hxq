@@ -11,7 +11,7 @@ class Order extends MY_Controller {
 	public function list_orders($status,$page=1){
 		$data = $this->order_model->list_orders($page,$status);
 		$base_url = "/admin.php/Order/list_orders/".$status;
-		$pager = $this->pagination->getPageLink($base_url, $data['total'], $data['limit']);
+		$pager = $this->pagination->getPageLink_by4($base_url, $data['total'], $data['limit']);
 		$this->assign('pager', $pager);
 		$this->assign('data', $data);
 		$this->show('order/list_orders');

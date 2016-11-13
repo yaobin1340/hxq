@@ -12,7 +12,7 @@ class Withdraw extends MY_Controller {
 
 		$data = $this->withdraw_model->list_withdraw($page,$status);
 		$base_url = "/admin.php/withdraw/list_withdraw/".$status;
-		$pager = $this->pagination->getPageLink($base_url, $data['total'], $data['limit']);
+		$pager = $this->pagination->getPageLink_by4($base_url, $data['total'], $data['limit']);
 		$this->assign('pager', $pager);
 		$this->assign('data', $data);
 		$this->assign('status', $status);

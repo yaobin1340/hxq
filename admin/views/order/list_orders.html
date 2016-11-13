@@ -9,7 +9,26 @@
     </div>
 
     <div class="am-g">
+        <form method="post" action="{{site_url url='order/list_orders'}}/{{$data.status}}/1" class="search_form">
 
+            <div class="am-u-sm-12 am-u-md-8">
+                <div class="am-input-group am-input-group-sm">
+                    <input style="width: 200px" type="text" class="am-form-field" name="keyword" value="{{$data.keyword}}" placeholder="请输入会员名称或手机号码">
+                </div>
+                <div class="am-input-group am-input-group-sm">
+                    时间范围:
+                    <input  class="form-control" id="s_date" name="s_date" type="text" value="{{$data.s_date}}"
+                            onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'yyyy-MM-dd'})">——
+                    <input  class="form-control" id="e_date" name="e_date" type="text" value="{{$data.e_date}}"
+                            onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'yyyy-MM-dd'})">
+ <span class="am-input-group-btn">
+            <input type="submit" class="am-btn am-btn-default" value="搜索"/>
+          </span>
+                </div>
+
+            </div>
+
+        </form>
 
     </div>
     <div class="am-g">
