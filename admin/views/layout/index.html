@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Amaze UI Admin index Examples</title>
+<title>三客柚后台管理系统</title>
 <meta name="description" content="这是一个 index 页面">
 <meta name="renderer" content="webkit">
 <meta name="keywords" content="index">
@@ -116,24 +116,11 @@ $(function() {
 	      $('#my-confirm').modal({
 		        relatedTarget: this,
 		        onConfirm: function(options) {
-		        	location.href='/login/logout';
+		        	location.href="{{site_url url='login/logout'}}";
 		        }
 		      });
 	  });
 });
-
-setInterval('get_notince_count()', 300000);
-
-function get_notince_count(){
-	$.get('/common/get_notince_count',function(num){
-		if(num > 0){
-			html = '<span class="am-badge am-badge-warning">'+num+'</span>';
-			$('#notice_count').html(html);
-		}else{
-			$('#notice_count').html('');
-		}
-	});
-}
 
 </script>
 </body>
