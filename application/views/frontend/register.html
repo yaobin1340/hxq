@@ -1,7 +1,7 @@
 {{include file="./header.html"}}
 <div class="am-g">
     <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered"><br>
-        <form method="post" class="am-form " action="/frontend/register" data-am-validator>
+        <form class="am-form" data-am-validator action="/frontend/register" method="post">
             <div class="am-form-group am-form-icon">
                 <i class="am-icon-mobile-phone"></i>
                 <input type="number" id="doc-vld-phone-2"  name="mobile" class="am-form-field js-pattern-number am-form-mobile" placeholder="请输入你的手机号(11位)" required />
@@ -18,7 +18,7 @@
 
             <div class="am-form-group">
                 <label class="am-checkbox-inline">
-                    <input type="checkbox" value="text" required />
+                    <input type="checkbox" name="agree" required>
                      <span data-am-modal="{target: '#my-popup'}">同意
                          <span class="checkbox_agreement">《三客柚用户注册协议》</span>
                      </span>
@@ -38,6 +38,7 @@
                     </div>
                 </div>
             </div>
+
         </form>
     </div>
 </div>
