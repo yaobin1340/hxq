@@ -1,5 +1,23 @@
 {{foreach from=$data.items item=row}}
+<style>
+    .am-panel-hd{
+        padding: 0;
+        background: #fff;
+    }
+    .am-panel-default>.am-panel-hd{
+        background: #fff;
+    }
+    .list_all_sort_img{
+        margin-right: 10px;
+    }
+    .list_all_information{
+        padding:0;
+    }
+</style>
 <div class="am-panel am-panel-default">
+    <div style="width: 100%;height: 50px;border-bottom: 1px solid #e9e9e9;">
+        <span class="am-icon-list-ul" style="line-height: 50px;color: #66b3e1;margin-left: 10px;">&nbsp;订单列表</span>
+    </div>
     <div id="list_btn" class="am-panel-hd" >
         <div class="am-panel-title list_all_btn" data-am-collapse="{parent: '#accordion', target: '#do-not-say-{{$row.id}}'}">
             <span class="am-front-icon am-icon-user list_all_user_img"></span>

@@ -1,5 +1,6 @@
 {{include file="./header.html"}}
 
+<body style="overflow: auto;background: #ffffff;">
 <!--<script src="{{$base_url}}statics/js/user_list.js"></script>-->
 <input type="hidden" id="keywords" value="{{$keywords}}">
 <input type="hidden" id="s_date" value="{{$s_date}}">
@@ -34,6 +35,7 @@
             <button class="am-btn am-btn-secondary am-btn-block" data-am-modal-close>取消</button>
         </div>
     </form>
+
 </div>
 
 <div class="am-popup" id="my-popup">
@@ -89,7 +91,7 @@
 </div>
 
 {{include file="../public/footer.html"}}
-
+</body>
 <script>
     window.is_end = false
     window.page = 1
