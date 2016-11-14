@@ -57,7 +57,7 @@
 
 <body style="background: #ffffff; z-index: 1;">
 <input type="hidden" name="tab_type" id="tab_type" value="{{$type}}">
-<div data-am-widget="tabs"     class="am-tabs am-tabs-d2" style="width: 100%; margin: 0;">
+<div data-am-widget="tabs"     class="am-tabs-d2" style="width: 100%; margin: 0;">
     <ul class="am-tabs-nav am-cf" style="background: red;width: 100%;">
         <li class="{{if $type==1}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/1'}}">6%激励</a></li>
         <li class="{{if $type==2}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/2'}}">12%激励</a></li>
@@ -80,117 +80,11 @@
                     <th>日期</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                <tr>
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                <tr class="am-active">
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div data-tab-panel-1 class="am-tab-panel ">
-            <img src="{{$base_url}}statics/images/2.jpg"  width="100%" height="170px">
-            <div style="width: 100%;position: absolute;top:50px;margin: 0;text-align: center;font-family: '黑体';">
-                <span style="color: #000000;font-size: 20px;">24列爱心总计</span><br>
-                <span style="font-size: 22px;">0</span>
-            </div>
-            <table class="am-table">
-                <thead>
-                <tr>
-                    <th>向日葵</th>
-                    <th>已返</th>
-                    <th>日期</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                <tr>
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                <tr class="am-active">
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div data-tab-panel-2 class="am-tab-panel ">
-            <img src="{{$base_url}}statics/images/2.jpg"  width="100%" height="170px">
-            <div style="width: 100%;position: absolute;top:50px;margin: 0;text-align: center;font-family: '黑体';">
-                <span style="color: #000000;font-size: 20px;">24列爱心总计</span><br>
-                <span style="font-size: 22px;">0</span>
-            </div>
-            <table class="am-table">
-                <thead>
-                <tr>
-                    <th>向日葵</th>
-                    <th>已返</th>
-                    <th>日期</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                <tr>
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                <tr>
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                <tr>
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                <tr>
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                <tr>
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-                <tr>
-                    <td><i class="am-icon-star"></i>(500)</td>
-                    <td>100</td>
-                    <td>2016-11-11 11:11:11</td>
-                </tr>
-
-                </tbody>
-
                 <tbody id="accordion">
 
                 </tbody>
-
             </table>
-
+            <p id="is_end" style="text-align: center;font-size: 12px;">已到最后一页</p>
         </div>
     </div>
     <br>
@@ -238,6 +132,6 @@
         get_data()
     });
 </script>
-<p id="is_end" style="text-align: center;font-size: 12px;">已到最后一页</p>
+
 {{include file="../public/footer.html"}}
 </body>
