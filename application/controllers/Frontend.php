@@ -239,4 +239,10 @@ class Frontend extends MY_Controller {
         $this->assign('page', $page);
         $this->display('frontend/shop_list_loaddata.html');
     }
+
+    public function show_information()
+    {
+        $this->assign('header_name', '数据中心');
+        $this->display('frontend/show_information.html');
+    }
 }

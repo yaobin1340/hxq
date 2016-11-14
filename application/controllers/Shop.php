@@ -122,10 +122,6 @@ class Shop extends MY_Controller {
 		}
 	}
 
-    public function show_information()
-    {
-		$this->assign('header_name', '数据中心');
-        $this->display('shop/show_information.html');
-    }
+
 
 }
