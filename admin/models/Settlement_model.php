@@ -216,13 +216,13 @@ class Settlement_model extends MY_Model
 				$add_integral[$v['uid']] = 0;
 			}
 			if($v['percent'] == 6){//6系
-				$add_integral[$v['uid']] += $rs['ax']*$data->ax6_price;
+				$add_integral[$v['uid']] += $v['ax']*$data->ax6_price;
 			}
 			if($v['percent'] == 12){//12系
-				$add_integral[$v['uid']] += $rs['ax']*$data->ax12_price;
+				$add_integral[$v['uid']] += $v['ax']*$data->ax12_price;
 			}
 			if($v['percent'] == 24){//24系
-				$add_integral[$v['uid']] += $rs['ax']*$data->ax24_price;
+				$add_integral[$v['uid']] += $v['ax']*$data->ax24_price;
 			}
 		}
 
@@ -292,13 +292,13 @@ class Settlement_model extends MY_Model
 				$add_integral[$v['uid']] = 0;
 			}
 			if($v['percent'] == 6){//6系
-				$add_integral[$v['uid']] += $rs['ax']*$data->shop_ax6_price;
+				$add_integral[$v['uid']] += $v['ax']*$data->shop_ax6_price;
 			}
 			if($v['percent'] == 12){//12系
-				$add_integral[$v['uid']] += $rs['ax']*$data->shop_ax12_price;
+				$add_integral[$v['uid']] += $v['ax']*$data->shop_ax12_price;
 			}
 			if($v['percent'] == 24){//24系
-				$add_integral[$v['uid']] += $rs['ax']*$data->shop_ax24_price;
+				$add_integral[$v['uid']] += $v['ax']*$data->shop_ax24_price;
 			}
 		}
 
@@ -361,6 +361,10 @@ class Settlement_model extends MY_Model
 			'return_integral'=>2700
 		));
 
+		$this->db->where('id',$id);
+		$this->db->update('settlement',array(
+			'status'=>2
+		));
 		$this->db->trans_complete();//------结束事务
 		if ($this->db->trans_status() === FALSE) {
 			return -1;

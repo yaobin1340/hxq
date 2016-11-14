@@ -33,12 +33,17 @@
     <script src="{{$base_url}}statics/js/common.js"></script>
 </head>
 <style>
-
+    .am-slider-default .am-direction-nav a {
+        display: none;
+    }
+    .am-slider-default .am-control-nav{
+        bottom: 10px;
+    }
     .line_02{
         height: 1px;
         border-top: 1px solid #ddd;
         text-align: center;
-        margin-top: 50px;
+        margin-top: 30px;
     }
     .line_02 span{
         position: relative;
@@ -46,6 +51,7 @@
         background: #fff;
         padding: 0 20px;
     }
+
 </style>
 <body style="background-color: #ffffff;">
 
@@ -94,8 +100,6 @@
 
 
                             <script>
-
-
                                 $("#address_btn").click(function(){
                                     document.getElementById("address_provice").style.display="block";
                                     document.getElementById("address_city").style.display="none";
@@ -146,7 +150,7 @@
     <span style="float: right;margin-right: -30px;line-height: 30px;"><a href="/frontend/register">注册</a></span>&nbsp;
     <span style="float: right;margin-right: 10px;line-height: 30px;"> <a href="/frontend/login">登录</a></span>
 </div>-->
-<div style="">
+<div style="margin-top: -5px;">
     <div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0" style="">
         <ul class="am-slides">
             {{if $shop_type}}
@@ -156,7 +160,8 @@
             {{foreach from=$shop_type key=k item=row}}
             {{if $k is div by 8}}
             {{if $k !=0}}
-               </tr> </table></li>
+               </tr> </table>
+            </li>
             <li>
                 <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0" style="color: #777777;">
                     <tr style="height: 100px;">
@@ -167,14 +172,14 @@
                     </tr><tr style="height: 100px;">
                     {{/if}}
             {{/if}}
-            <td>
+            <td style="">
                 <a href="{{site_url url='frontend/shop_list'}}/{{$row.id}}">
-                <span class="am-icon-{{$row.icon|default:'cart-plus'}} footer_span_1" style="color:{{$row.color|default:'#7891e4'}};"></span><br>
+                <span class="am-icon-{{$row.icon|default:'cart-plus'}} footer_span_1" style="color:{{$row.color|default:'#7891e4'}};font-size: 26px;"></span><br>
                 <span class="footer_span_2" >{{$row.name}}</span></a>
             </td>
             {{/foreach}}
                     </tr>
-                </table>
+            </table>
             </li>
             {{/if}}
         </ul>
@@ -182,7 +187,7 @@
 </div>
 <div class="line_02"><span>附近店铺</span></div>
 
-<div data-am-widget="list_news" class="am-list-news am-list-news-default" >
+<div data-am-widget="list_news" class="am-list-news am-list-news-default" style="margin-top: -10px;">
     <!--列表标题-->
     <div class="am-list-news-hd am-cf">
         <!--带更多链接-->
@@ -203,7 +208,7 @@
     </div>
 
 </div>
-<br><br>
+<br>
 
     {{include file="../public/footer.html"}}
     </div>
@@ -311,10 +316,6 @@
 
 </script>
 
-
-
-
-<br>
 
 
 
