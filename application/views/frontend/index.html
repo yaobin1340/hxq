@@ -329,6 +329,7 @@
                     alert(JSON.stringify(res));
                 }
             });
+
             wx.getLocation({
                 type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
                 success: function (res) {
@@ -338,6 +339,16 @@
                     var accuracy = res.accuracy; // 位置精度
                     alert(JSON.stringify(res));
                     $("#address_btn").html('上海');
+                },
+                cancel: function (res) {
+                   /* stopCount();
+                  */
+                    alert(JSON.stringify(res));
+                },
+                error: function (res) {
+                    /*stopCount();
+                  */
+                    alert(JSON.stringify(res));
                 }
             });
         };
