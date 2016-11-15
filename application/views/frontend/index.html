@@ -74,11 +74,11 @@
 
                 <div id="doc-dropdown-justify">
                     <div class="am-dropdown" data-am-dropdown="{justify: '#doc-dropdown-justify'}">
-                        <button id="address_btn" class="am-btn am-btn-primary am-dropdown-toggle">{{$area_name|default:'上海市'}}<span class="am-icon-caret-down"></span></button>
+                        <button id="address_btn" class="am-btn am-btn-primary am-dropdown-toggle">{{$area_name|default:'黄浦区'}}<span class="am-icon-caret-down"></span></button>
                         <div class="am-dropdown-content" style="width: 300px;color: #777777;">
 
                             <div id="address_provice" style="display: block;margin-bottom: 30px;">
-                               <div style="width: 100%;border-bottom: 1px solid #eeeeee"><span style="color: #777777;margin-left: 30px;">{{$area_name|default:'上海市'}}</span></div>
+                               <div style="width: 100%;border-bottom: 1px solid #eeeeee"><span id="insert_area_name" style="color: #777777;margin-left: 30px;">{{$area_name|default:'黄浦区'}}</span></div>
                                <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
                                    {{foreach from=$province_list key=k item=row}}
                                    <span style="margin-left: 10px;" onclick="address_provice('{{$row.code}}')">&nbsp;{{$row.name}}</span>
@@ -334,13 +334,17 @@
                     if($("#lng").val()==""){
                         $("#lng").val(longitude);
                     }
-                    get_data();
                     f_path = "{{site_url url='Frontend/nearcity'}}/"+latitude+"/"+longitude;
-                    //alert(f_path);
-                    $.getJSON(f_path,function(data){
-                        $("#address_btn").html(data.name);
-                        $("#area_code").val(data.code);
-                    })
+                    if($("#area_code").val()==""){
+                        $.getJSON(f_path,function(data){
+                            $("#address_btn").html(data.name);
+                            $("#area_code").val(data.code);
+                            $("#insert_area_name").html(data.name);
+                            get_data();
+                        })
+                    }else{
+                        get_data();
+                    }
 
                 },
                 cancel: function (res) {
