@@ -36,7 +36,6 @@
 
 </head>
 <body class="user_center_body" style="overflow: auto;">
-<div class="header">
  <div class="header_center">
     <img src="{{$base_url}}statics/images/2.jpg">
     <div class="header_photo">
@@ -51,7 +50,7 @@
         <span class="header_font_2">金币：{{$user_info.integral}}&nbsp;&nbsp;向日葵总计：xx</span>
     </div>
 </div>
-<div class="list">
+<div class="list" style="padding-bottom:50px;">
     <a style="color: #696969" href="{{site_url url='user/information_revise'}}">
         <div class="list_back">
                 <span class="am-icon-cogs list_bac_name">&nbsp;&nbsp;账户管理</span>
@@ -81,7 +80,5 @@
         </div>
     </a>
 </div>
-
-</div>
-{{include file="../public/footer.html"}}
+ {{include file="../public/footer.html"}}
 </body>

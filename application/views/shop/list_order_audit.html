@@ -94,9 +94,10 @@
 </style>
 
 <!--<script src="{{$base_url}}statics/js/user_list.js"></script>-->
+<body style="overflow: auto;background: #ffffff;">
 <input type="hidden" id="s_date" value="{{$s_date}}">
 <input type="hidden" id="e_date" value="{{$e_date}}">
-<div class="list_all">
+<div class="list_all" style="padding-bottom:50px;">
     <div class="am-panel-group" id="accordion">
     </div>
     <p id="is_end" style="display: none">已到最后一页</p>
@@ -179,7 +180,7 @@
 </div>
 
 {{include file="../public/footer.html"}}
-
+</body>
 <script>
     window.is_end = false
     window.page = 1
