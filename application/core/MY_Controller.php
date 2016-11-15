@@ -260,6 +260,15 @@ class MY_Controller extends CI_Controller
 		return $res;
 	}
 
+	public function buildWxData(){
+		$signPackage = $this->wxjssdk->wxgetSignPackage();
+		//变量
+		$this->cismarty->assign('wxappId',$signPackage["appId"]);
+		$this->cismarty->assign('wxtimestamp',$signPackage["timestamp"]);
+		$this->cismarty->assign('wxnonceStr',$signPackage["nonceStr"]);
+		$this->cismarty->assign('wxsignature',$signPackage["signature"]);
+	}
+
 }
 
 /* End of file MY_Controller.php */

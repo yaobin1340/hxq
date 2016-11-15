@@ -98,6 +98,7 @@
 <script>
     window.is_end = false
     window.page = 1
+    get_data()
     $(window).scroll(function () {
         var scrollTop = $(this).scrollTop();
         var scrollHeight = $(document).height();
@@ -158,8 +159,5 @@
         });
     }
 
-    $(function() {
-        get_data()
-    });
 </script>
 
