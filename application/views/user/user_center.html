@@ -46,11 +46,14 @@
         <div class="header_photo_user_name">普通用户</div>
     </div>
     <div class="header_font">
-       <span class="header_font_1">你好，{{$user_info.rel_name}}</span><br>
-        <span class="header_font_2">金币：{{$user_info.integral}}&nbsp;&nbsp;向日葵总计：xx</span>
+       <span class="header_font_1">
+           你好，{{$user_info.rel_name}}
+       </span><br>
+        <span class="header_font_2">
+            <span><img src="{{$base_url}}statics/images/zhongzi.png" style="width: 25px;height: 25px;"></span>金币：{{$user_info.integral}}&nbsp;&nbsp;向日葵总计：xx</span>
     </div>
 </div>
-<div class="list" style="padding-bottom:80px;">
+<div class="list" style="padding-bottom:50px;">
     <a style="color: #696969" href="{{site_url url='user/information_revise'}}">
         <div class="list_back">
                 <span class="am-icon-cogs list_bac_name">&nbsp;&nbsp;账户管理</span>
@@ -68,7 +71,7 @@
     {{if $user_info.shop_id > 0}}
     <a style="color: #696969" href="{{site_url url='shop'}}">
         <div class="list_back" >
-            &nbsp;<span class="am-icon-cart-plus list_bac_name">&nbsp;&nbsp;我的商家</span>
+            &nbsp;<span class="am-icon-building-o list_bac_name">&nbsp;&nbsp;我的商家</span>
             <span class="list_bac_jiantou" >></span>
         </div>
     </a>
@@ -79,6 +82,8 @@
             <span class="list_bac_jiantou" >></span>
         </div>
     </a>
+
+    <button class="am-btn am-btn-secondary am-btn-block" style="margin-top: 30px;">返回</button>
 </div>
  {{include file="../public/footer.html"}}
 </body>
