@@ -249,7 +249,7 @@ class Frontend extends MY_Controller {
     }
 
     public function nearcity($lat,$lng){
-        $res = file_get_contents("http://api.map.baidu.com/geocoder?location=38.990998,103.645966&output=xml&key=28bcdd84fae25699606ffad27f8da77b");
+        $res = file_get_contents("http://api.map.baidu.com/geocoder?location={$lat},{$lng}&output=xml&key=28bcdd84fae25699606ffad27f8da77b");
         $obj=json_decode($res);
         $default = array(
             'area_code'=>'310101',
