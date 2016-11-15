@@ -25,6 +25,7 @@ class Frontend extends MY_Controller {
 	public function index()
 	{
 
+        $this->assign('header_name', '三客柚首页');
         $province_list = $this->frontend_model->get_province();
         $area_name = $this->frontend_model->get_area_name();
         $this->assign('area_name',$area_name?$area_name['name']:null);
@@ -210,7 +211,7 @@ class Frontend extends MY_Controller {
     }
 
     public function shop_details($id){
-        $this->assign('header_name', '商店详情');
+        $this->assign('header_name', '商家详情');
         $data = $this->frontend_model->shop_details($id);
         $this->assign('data', $data);
         $this->display('frontend/shop_details.html');

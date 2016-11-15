@@ -30,12 +30,10 @@ class User extends MY_Controller {
 
 	public function index()
 	{
+		$this->assign('header_name', '用户中心');
 		$this->display('user/user_center.html');
 	}
-    public function test()
-    {
-        $this->display('user/test.html');
-    }
+
     public function user_list()
     {
         $this->display('user/user_list.html');
@@ -43,6 +41,7 @@ class User extends MY_Controller {
 
     public function information_revise()
     {
+		$this->assign('header_name', '账户管理');
         $this->load->model('frontend_model');
         $provinces = $this->frontend_model->get_province();
         $this->assign('provinces', $provinces);
@@ -63,6 +62,7 @@ class User extends MY_Controller {
 	}
 
 	public function list_orders($page = 1){
+		$this->assign('header_name', '我的订单');
 		$this->assign('footer_flag', 2);
 		$this->assign('s_date', $this->input->post('s_date'));
 		$this->assign('e_date', $this->input->post('e_date'));
@@ -97,6 +97,7 @@ class User extends MY_Controller {
         $this->display('user/list_order_audit_loaddata.html');
     }
 	public function withdraw(){
+		$this->assign('header_name', '资金管理');
 		$data = $this->user_model->withdraw();
 		$this->assign('data',$data);
 		$this->display('user/withdraw.html');
@@ -177,6 +178,7 @@ class User extends MY_Controller {
 
     public function user_heart($type=1){
         //$data = $this->user_model->withdraw_list();
+		$this->assign('header_name', '我的向日葵');
 		$this->assign('footer_flag', 3);
 		$this->assign('type', $type);
         $this->display('user/user_heart.html');

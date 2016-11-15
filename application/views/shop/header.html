@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>三客柚</title>
+    <title>{{$header_name}}</title>
     <meta name="description" content="这是一个 index 页面">
     <meta name="renderer" content="webkit">
     <meta name="keywords" content="index">
@@ -64,12 +64,8 @@
 <body >
 
 <header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
-    <span class="register_header_title">{{$header_name|default:'个人中心'}}</span>
-    {{if $header_name == '订单管理' || $header_name == '订单提交'}}
-     <a href="{{site_url url='shop'}}"><span class="am-icon-chevron-left register_header_back"></span></a>
-    {{else}}
-    <a href="#" onClick="javascript :history.back(-1);"><span class="am-icon-chevron-left register_header_back"></span></a>
-    {{/if}}
+    <span class="register_header_title">{{$header_name}}</span>
+    <a href="javascript:history.back(-1);"><span class="am-icon-chevron-left register_header_back"></span></a>
 
 
 </header>
