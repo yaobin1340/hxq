@@ -241,6 +241,7 @@
 </body>
 </html>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/getscript?v=1.4&amp;ak=&amp;services=&amp;t=20150522093217"></script>
 <script>
     window.is_end = false
     window.page = 1
@@ -265,8 +266,8 @@
         province_code = $('#province_code').val()
         shop_name = $('#h_shop_name').val()
         type = $('#type').val()
-        lat = 31.39055 //纬度
-        lng = 120.949   //经度
+        lat = $('#lat').val() //纬度
+        lng = $('#lng').val()   //经度
         //经纬度值通过微信端 获取,
         //这里在进入页面时需要判断是否已存在经纬度值
         //如果存在则使用,不存在则使用微信获取
@@ -310,28 +311,75 @@
         }
     });
     get_data();
-
     wx.config({
         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         appId: '{{$wxappId}}', // 必填，公众号的唯一标识
         timestamp: {{$wxtimestamp}}, // 必填，生成签名的时间戳
         nonceStr: '{{$wxnonceStr}}', // 必填，生成签名的随机串
         signature: '{{$wxsignature}}',// 必填，签名，见附录1
-        jsApiList: ['getLocation','scanQRCode'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        jsApiList: ['getLocation','checkJsApi'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
     });
     wx.ready(function () {
-        wx.getLocation({
-            timestamp: 0, // 位置签名时间戳，仅当需要兼容6.0.2版本之前时提供
-            nonceStr: '', // 位置签名随机串，仅当需要兼容6.0.2版本之前时提供
-            addrSign: '', // 位置签名，仅当需要兼容6.0.2版本之前时提供，详见附录4
-            success: function (res) {
-                var longitude = res.longitude; // 纬度，浮点数，范围为90 ~ -90
-                var latitude = res.latitude; // 经度，浮点数，范围为180 ~ -180。
-                var speed = res.speed; // 速度，以米/每秒计
-                var accuracy = res.accuracy; // 位置精度
-                alert(longitude);
-            }
-        });
+        /*document.querySelector('#checkJsApi').onclick = function () {
+            wx.checkJsApi({
+                jsApiList: [
+                    'getLocation',
+                    'checkJsApi'
+                ],
+                success: function (res) {
+                    alert(JSON.stringify(res));
+                }
+            });
+
+        };*/
+        if($("#area_code").val == ""){
+            wx.getLocation({
+                type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                success: function (res) {
+                    var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                    var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                    var speed = res.speed; // 速度，以米/每秒计
+                    var accuracy = res.accuracy; // 位置精度
+                    if($("#lat").val()==""){
+                        $("#lat").val(latitude);
+                    }
+                    if($("#lng").val()==""){
+                        $("#lng").val(longitude);
+                    }
+                    var map = new BMap.Map("allmap");
+                    var point = new BMap.Point(longitude,latitude);
+                    map.centerAndZoom(point,12);
+
+                    function myFun(result){
+                        var cityName = result.name;
+                        map.setCenter(cityName);
+                        alert(cityName);
+                    }
+                    var myCity = new BMap.LocalCity();
+                    myCity.get(myFun);
+                    $.post("{{site_url url='Frontend/nearcity'}}",{lat:latitude,lng:longitude},function(data){
+                        if(data){
+                            alert(data);
+                        }else{
+
+                        }
+
+                    });
+                    $("#address_btn").html('上海');
+                },
+                cancel: function (res) {
+                    /* stopCount();
+                     */
+                    alert(JSON.stringify(res));
+                },
+                error: function (res) {
+                    /*stopCount();
+                     */
+                    alert(JSON.stringify(res));
+                }
+            });
+        }
+
     });
 
     $(function() {

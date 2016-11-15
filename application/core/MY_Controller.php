@@ -263,7 +263,7 @@ class MY_Controller extends CI_Controller
 	}
 
 	public function buildWxData(){
-		$signPackage = $this->wxjssdk->wxgetSignPackage();
+		$signPackage = @$this->wxjssdk->wxgetSignPackage();
 		//变量
 		$this->cismarty->assign('wxappId',$signPackage["appId"]);
 		$this->cismarty->assign('wxtimestamp',$signPackage["timestamp"]);
