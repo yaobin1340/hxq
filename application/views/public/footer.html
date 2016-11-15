@@ -4,7 +4,7 @@
 <div class="footer">
     <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
-            <td id="home" onclick="home()">
+            <td id="home" style="width: 25%;">
                 <a href="{{site_url url='Frontend/index'}}">
                     {{if $footer_flag ==1}}
                     <img src="{{$base_url}}statics/images/home1.png" style="width: 25px;height: 25px;margin: 0 auto;margin-top: 5px;"><br>
@@ -17,19 +17,19 @@
                 </a>
             </td>
 
-            <td id="myorder" onclick="myorder()">
+            <td id="myorder" style="width: 25%;">
                 <a href="{{site_url url='user/list_orders'}}">
                     {{if $footer_flag == 2}}
-                    <img src="{{$base_url}}statics/images/user_center2.png" style="width: 25px;height: 25px;margin: 0 auto;margin-top: 5px;"><br>
+                    <img src="{{$base_url}}statics/images/my_order1.png" style="width: 25px;height: 25px;margin: 0 auto;margin-top: 5px;"><br>
                     <span class="footer_span_2" style="color: #01a2f2;">我的订单</span>
                     {{else}}
-                    <img src="{{$base_url}}statics/images/user_center1.png" style="width: 25px;height: 25px;margin: 0 auto;margin-top: 5px;"><br>
+                    <img src="{{$base_url}}statics/images/my_order2.png" style="width: 25px;height: 25px;margin: 0 auto;margin-top: 5px;"><br>
                     <span class="footer_span_2" style="color: #888888;">我的订单</span>
                     {{/if}}
                 </a>
             </td>
 
-            <td id="cheaporder" onclick="cheaporder()">
+            <td id="cheaporder" style="width: 25%;">
                 <a href="{{site_url url='user/user_heart'}}">
                   {{if $footer_flag == 3}}
                 <img src="{{$base_url}}statics/images/sunflower2.png" style="width: 25px;height: 25px;margin: 0 auto;margin-top: 5px;"><br>
@@ -41,7 +41,7 @@
                 </a>
             </td>
 
-            <td id="message" onclick="message()">
+            <td id="message" style="width: 25%;">
                 <a href="{{site_url url='user'}}">
                 {{if $footer_flag == 4}}
                 <img src="{{$base_url}}statics/images/user_center2.png" style="width: 25px;height: 25px;margin: 0 auto;margin-top: 5px;"><br>
