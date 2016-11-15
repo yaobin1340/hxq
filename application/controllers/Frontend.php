@@ -235,6 +235,7 @@ class Frontend extends MY_Controller {
     }
 
     public function shop_list($type){
+        $this->load->model('user_model');
         $type_name = $this->frontend_model->get_type_name($type);
         if(!$this->input->post('area_code')){
             $user_info = $this->user_model->find($this->session->userdata('uid'));
