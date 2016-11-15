@@ -59,7 +59,7 @@
 <header class="am-topbar am-topbar-inverse" style="height: 60px;">
     <form method="post" id="search_form" class="am-topbar-form am-topbar-left am-form-inline" action="{{site_url url='frontend/index'}}" role="search" style="width: 100%;margin-top: 10px;">
         <input type="hidden" name="city_code" id="city_code" value="{{$city_code}}">
-        <input type="hidden" name="area_code" id="area_code" value="{{$area_code}}">
+        <input type="hidden" name="area_code" id="area_code" value="{{$area_code|default:310101}}">
         <input type="hidden" name="province_code" id="province_code" value="{{$province_code}}">
         <input type="hidden" name="type" id="type" value="{{$type}}">
         <input type="hidden" name="lat" id="lat" value="{{$lat}}">
@@ -74,11 +74,11 @@
 
                 <div id="doc-dropdown-justify">
                     <div class="am-dropdown" data-am-dropdown="{justify: '#doc-dropdown-justify'}">
-                        <button id="address_btn" class="am-btn am-btn-primary am-dropdown-toggle">{{$area_name|default:'上海市'}}<span class="am-icon-caret-down"></span></button>
+                        <button id="address_btn" class="am-btn am-btn-primary am-dropdown-toggle">{{$area_name|default:'黄浦区'}}<span class="am-icon-caret-down"></span></button>
                         <div class="am-dropdown-content" style="width: 300px;color: #777777;">
 
                             <div id="address_provice" style="display: block;margin-bottom: 30px;">
-                               <div style="width: 100%;border-bottom: 1px solid #eeeeee"><span style="color: #777777;margin-left: 30px;">{{$area_name|default:'上海市'}}</span></div>
+                               <div style="width: 100%;border-bottom: 1px solid #eeeeee"><span id="insert_area_name" style="color: #777777;margin-left: 30px;">{{$area_name|default:'黄浦区'}}</span></div>
                                <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
                                    {{foreach from=$province_list key=k item=row}}
                                    <span style="margin-left: 10px;" onclick="address_provice('{{$row.code}}')">&nbsp;{{$row.name}}</span>
@@ -340,6 +340,7 @@
                     $.getJSON(f_path,function(data){
                         $("#address_btn").html(data.name);
                         $("#area_code").val(data.code);
+                        $("#insert_area_name").html(data.name);
                     })
 
                 },
