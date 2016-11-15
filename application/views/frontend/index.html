@@ -309,7 +309,7 @@
             $('#search_form').submit();
         }
     });
-    get_data();
+
     wx.config({
         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         appId: '{{$wxappId}}', // 必填，公众号的唯一标识
@@ -319,18 +319,7 @@
         jsApiList: ['getLocation','checkJsApi'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
     });
     wx.ready(function () {
-        /*document.querySelector('#checkJsApi').onclick = function () {
-            wx.checkJsApi({
-                jsApiList: [
-                    'getLocation',
-                    'checkJsApi'
-                ],
-                success: function (res) {
-                    alert(JSON.stringify(res));
-                }
-            });
 
-        };*/
         if($("#area_code").val == ""){
             wx.getLocation({
                 type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
@@ -345,9 +334,10 @@
                     if($("#lng").val()==""){
                         $("#lng").val(longitude);
                     }
-                    $.getJSON("{{site_url url='Frontend/nearcity'}}",function(data){
+                    get_data();
+                    /*$.getJSON("{{site_url url='Frontend/nearcity'}}",function(data){
                         alert(data);
-                    })
+                    })*/
                     $("#address_btn").html('上海');
                 },
                 cancel: function (res) {
@@ -361,7 +351,10 @@
                     alert(JSON.stringify(res));
                 }
             });
+        }else{
+            get_data();
         }
+
 
     });
 
