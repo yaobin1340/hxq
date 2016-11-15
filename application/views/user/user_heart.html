@@ -67,8 +67,16 @@
         <div class="am-tab-panel am-active">
             <img src="{{$base_url}}statics/images/2.jpg"  width="100%" height="170px">
             <div style="width: 100%;position: absolute;top:50px;margin: 0;text-align: center;font-family: '黑体';">
-                <span style="color: #000000;font-size: 20px;">24列爱心总计</span><br>
-                <span style="font-size: 22px;">0</span>
+                <span style="color: #000000;font-size: 20px;">
+                    {{if $type==1}}
+                    6系列向日葵总计
+                    {{elseif $type==2}}
+                    12系列向日葵总计
+                    {{elseif $type==3}}
+                    24系列向日葵总计
+                    {{/if}}
+                </span><br>
+                <!--<span style="font-size: 22px;">0</span>-->
             </div>
             <table class="am-table">
                 <thead>
