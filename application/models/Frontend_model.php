@@ -214,6 +214,11 @@ class Frontend_model extends MY_Model
         $this->db->order_by('juli','asc');
         $this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
         $data['items'] = $this->db->get()->result_array();
+        if($this->input->post('area_code')){
+            $this->db->where('id',$this->session->userdata('uid'))
+                ->update('users',array('u_area_code'=>$this->input->post('area_code')));
+           // echo $this->db->last_query();
+        }
         return $data;
     }
 
@@ -228,8 +233,8 @@ class Frontend_model extends MY_Model
         return $row;
     }
 
-    public function get_area_name(){
-        return $this->db->select('name')->from('area')->where('code',$this->input->post('area_code'))->get()->row_array();
+    public function get_area_name($code){
+        return $this->db->select('name')->from('area')->where('code',$code)->get()->row_array();
     }
 
     public function get_type_name($type){

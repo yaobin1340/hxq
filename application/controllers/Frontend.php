@@ -27,14 +27,28 @@ class Frontend extends MY_Controller {
 	public function index()
 	{
 
+        $this->load->model('user_model');
+
+        if(!$this->input->post('area_code')){
+            $user_info = $this->user_model->find($this->session->userdata('uid'));
+            if($user_info){
+                $area_name = $this->frontend_model->get_area_name($user_info['u_area_code']?$user_info['u_area_code']:null);//第一次登陆 进入首页默认是 310101
+                $this->assign('area_name',$area_name?$area_name['name']:null);
+                $this->assign('area_code', $user_info['u_area_code']?$user_info['u_area_code']:null);
+            }else{
+                $this->assign('area_name',null);
+                $this->assign('area_code','null');
+            }
+        }else{
+            $area_name = $this->frontend_model->get_area_name($this->input->post('area_code'));
+            $this->assign('area_name',$area_name?$area_name['name']:null);
+            $this->assign('area_code', $this->input->post('area_code'));
+        }
         $this->assign('header_name', '三客柚首页');
         $province_list = $this->frontend_model->get_province();
-        $area_name = $this->frontend_model->get_area_name();
-        $this->assign('area_name',$area_name?$area_name['name']:null);
         $this->assign('province_list', $province_list);
         $this->assign('city_code', $this->input->post('city_code'));
         $this->assign('shop_name', $this->input->post('t_shop_name'));
-        $this->assign('area_code', $this->input->post('area_code'));
         $this->assign('province_code', $this->input->post('province_code'));
         $this->assign('lat', $this->input->post('lat'));
         $this->assign('type', $this->input->post('type'));
@@ -54,7 +68,7 @@ class Frontend extends MY_Controller {
     public function register(){
         if($this->input->post()){
             if($this->input->post('yzm') != $this->session->userdata('yzm')){
-                $this->show_message('验证码错误');
+//                $this->show_message('验证码错误');
             }
             $this->session->set_userdata('mobile',$this->input->post('mobile'));
             $provinces = $this->frontend_model->get_province();
@@ -221,16 +235,29 @@ class Frontend extends MY_Controller {
     }
 
     public function shop_list($type){
+        $this->load->model('user_model');
         $type_name = $this->frontend_model->get_type_name($type);
+        if(!$this->input->post('area_code')){
+            $user_info = $this->user_model->find($this->session->userdata('uid'));
+            if($user_info){
+                $area_name = $this->frontend_model->get_area_name($user_info['u_area_code']?$user_info['u_area_code']:null);//第一次登陆 进入首页默认是 310101
+                $this->assign('area_name',$area_name?$area_name['name']:null);
+                $this->assign('area_code', $user_info['u_area_code']?$user_info['u_area_code']:null);
+            }else{
+                $this->assign('area_name',null);
+                $this->assign('area_code','null');
+            }
+        }else{
+            $area_name = $this->frontend_model->get_area_name($this->input->post('area_code'));
+            $this->assign('area_name',$area_name?$area_name['name']:null);
+            $this->assign('area_code', $this->input->post('area_code'));
+        }
         $this->assign('header_name', $type_name?$type_name['name']:null);
         $this->assign('type', $type);
         $province_list = $this->frontend_model->get_province();
-        $area_name = $this->frontend_model->get_area_name();
-        $this->assign('area_name',$area_name?$area_name['name']:null);
         $this->assign('province_list', $province_list);
         $this->assign('city_code', $this->input->post('city_code'));
         $this->assign('shop_name', $this->input->post('t_shop_name'));
-        $this->assign('area_code', $this->input->post('area_code'));
         $this->assign('province_code', $this->input->post('province_code'));
         $this->assign('lat', $this->input->post('lat'));
         $this->assign('lng', $this->input->post('lng'));
