@@ -10,7 +10,7 @@
 <input type="hidden" id="e_date" value="{{$e_date}}">
 <div class="list_all">
     <div class="am-panel-group" id="accordion"></div>
-    <p id="is_end" style="text-align: center;font-size: 12px;">已到最后一页</p>
+    <p id="is_end" style="text-align: center;font-size: 12px;display: none;">已到最后一页</p>
 </div>
 
 <div class="xuanfu_plus">
@@ -63,8 +63,10 @@
 </body>
 
 <script>
+
     window.is_end = false
     window.page = 1
+    get_data()
     $(window).scroll(function () {
         var scrollTop = $(this).scrollTop();
         var scrollHeight = $(document).height();
@@ -99,9 +101,5 @@
         });
     }
 
-
-    $(document).ready(function(){
-        get_data()
-    });
 </script>
 
