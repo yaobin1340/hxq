@@ -217,7 +217,7 @@ class Frontend_model extends MY_Model
         if($this->input->post('area_code')){
             $this->db->where('id',$this->session->userdata('uid'))
                 ->update('users',array('u_area_code'=>$this->input->post('area_code')));
-            echo $this->db->last_query();
+           // echo $this->db->last_query();
         }
         return $data;
     }
