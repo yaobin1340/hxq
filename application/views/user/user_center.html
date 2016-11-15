@@ -35,14 +35,14 @@
     <script src="{{$base_url}}statics/js/common.js"></script>
 
 </head>
-<body class="user_center_body">
+<body class="user_center_body" style="overflow: auto;">
 <div class="header">
  <div class="header_center">
     <img src="{{$base_url}}statics/images/2.jpg">
     <div class="header_photo">
         <a href="{{site_url url='frontend/register_shop'}}" class="header_shop">商家入驻</a>
         <div class="header_photo_user">
-            <img src="{{$base_url}}upload/face/{{$user_info.face}}">
+            <img {{if $user_info.face}}src="{{$base_url}}upload/face/{{$user_info.face}}"{{else}}src="{{$base_url}}statics/images/2.jpg"{{/if}}">
         </div>
         <div class="header_photo_user_name">普通用户</div>
     </div>
