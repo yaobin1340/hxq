@@ -11,7 +11,7 @@
  */
 class MY_Model extends CI_Model{
 	
-	public $limit = 2;
+	public $limit = 20;
 
     protected $db_error = "数据操作发生错误，请稍后再试-_-!";
 
