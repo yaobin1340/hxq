@@ -319,18 +319,21 @@
         signature: '{{$wxsignature}}',// 必填，签名，见附录1
         jsApiList: ['getLocation','scanQRCode'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
     });
-    wx.getLocation({
-        timestamp: 0, // 位置签名时间戳，仅当需要兼容6.0.2版本之前时提供
-        nonceStr: '', // 位置签名随机串，仅当需要兼容6.0.2版本之前时提供
-        addrSign: '', // 位置签名，仅当需要兼容6.0.2版本之前时提供，详见附录4
-        success: function (res) {
-            var longitude = res.longitude; // 纬度，浮点数，范围为90 ~ -90
-            var latitude = res.latitude; // 经度，浮点数，范围为180 ~ -180。
-            var speed = res.speed; // 速度，以米/每秒计
-            var accuracy = res.accuracy; // 位置精度
-            alert(longitude);
-        }
+    wx.ready(function () {
+        wx.getLocation({
+            timestamp: 0, // 位置签名时间戳，仅当需要兼容6.0.2版本之前时提供
+            nonceStr: '', // 位置签名随机串，仅当需要兼容6.0.2版本之前时提供
+            addrSign: '', // 位置签名，仅当需要兼容6.0.2版本之前时提供，详见附录4
+            success: function (res) {
+                var longitude = res.longitude; // 纬度，浮点数，范围为90 ~ -90
+                var latitude = res.latitude; // 经度，浮点数，范围为180 ~ -180。
+                var speed = res.speed; // 速度，以米/每秒计
+                var accuracy = res.accuracy; // 位置精度
+                alert(longitude);
+            }
+        });
     });
+
     $(function() {
         alert('asd');
     });
