@@ -1,5 +1,5 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Wxjssdk {
+class wxjssdk {
 
     private $appId;
     private $appSecret;
