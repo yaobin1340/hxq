@@ -1,5 +1,5 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class wxjssdk {
+class Wxjssdk {
 
     private $appId;
     private $appSecret;
@@ -10,6 +10,7 @@ class wxjssdk {
         $this->appSecret = "3cbf8a0ea011dd71a2fbc95124858804";
         $this->wxjssdk_config_file_path = '/var/www/html/hxq';
     }
+
 
     public function wxgetSignPackage() {
         $jsapiTicket = $this->wxgetJsApiTicket();

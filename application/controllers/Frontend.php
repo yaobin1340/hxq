@@ -21,6 +21,7 @@ class Frontend extends MY_Controller {
 		parent::__construct();
 		$this->load->model('frontend_model');
         $this->assign('footer_flag', 1);
+        $this->buildWxData();
 	}
 
 	public function index()
@@ -247,4 +248,25 @@ class Frontend extends MY_Controller {
         $this->assign('header_name', '数据中心');
         $this->display('frontend/show_information.html');
     }
+
+    public function nearcity($lat,$lng){
+        $res = file_get_contents("http://api.map.baidu.com/geocoder?location={$lat},{$lng}&output=xml&key=28bcdd84fae25699606ffad27f8da77b");
+        $xml = simplexml_load_string($res);
+        $default = array(
+            'code'=>'310101',
+            'name'=>'黄浦区'
+        );
+        if($xml->status=='OK'){
+            $data = $this->frontend_model->nearcity($xml->result->addressComponent->district);
+            if($data){
+                echo json_encode($data);
+            }else{
+                echo json_encode($default);
+            }
+        }else{
+            echo json_encode($default);
+        }
+
+    }
+
 }
