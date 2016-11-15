@@ -85,7 +85,7 @@
             <button type="button" class="am-btn am-btn-secondary am-btn-block" style="width:24%;float: left;margin-left: 5px;height: 50px;" data-am-modal="{target: '#baidu_map'}">百度地图</button>
 
         </div>
-           <button type="button" id="here_map" class="" style="width:24%;float: left;margin-left: 5px;height: 50px;" >本地定位</button>
+           <button type="button" id="dw_btn">本地定位</button>
         <div class="am-form-group am-form-file upload_img_all">
             <input id="license" type="file" accept="image/*" capture=camera"/>
             <div class="upload_img_div1">
@@ -354,7 +354,8 @@
             jsApiList: ['getLocation','checkJsApi'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
     });
     wx.ready(function () {
-        $("#here_map").click(function(){
+        $("#dw_btn").click(function(){
+            alert('定位');
             wx.getLocation({
                 type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
                 success: function (res) {
