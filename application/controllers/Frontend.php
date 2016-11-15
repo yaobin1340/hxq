@@ -31,7 +31,7 @@ class Frontend extends MY_Controller {
 
         if(!$this->input->post('area_code')){
             $user_info = $this->user_model->find($this->session->userdata('uid'));
-            if(!$user_info){
+            if($user_info){
                 $area_name = $this->frontend_model->get_area_name($user_info['u_area_code']?$user_info['u_area_code']:null);//第一次登陆 进入首页默认是 310101
                 $this->assign('area_name',$area_name?$area_name['name']:null);
                 $this->assign('area_code', $user_info['u_area_code']?$user_info['u_area_code']:null);
@@ -239,7 +239,7 @@ class Frontend extends MY_Controller {
         $type_name = $this->frontend_model->get_type_name($type);
         if(!$this->input->post('area_code')){
             $user_info = $this->user_model->find($this->session->userdata('uid'));
-            if(!$user_info){
+            if($user_info){
                 $area_name = $this->frontend_model->get_area_name($user_info['u_area_code']?$user_info['u_area_code']:null);//第一次登陆 进入首页默认是 310101
                 $this->assign('area_name',$area_name?$area_name['name']:null);
                 $this->assign('area_code', $user_info['u_area_code']?$user_info['u_area_code']:null);
