@@ -335,7 +335,9 @@
                         $("#lng").val(longitude);
                     }
                     get_data();
-                    $.getJSON("{{site_url url='Frontend/nearcity'}}/"+latitude+"/"+longitude,function(data){
+                    f_path = "{{site_url url='Frontend/nearcity'}}/"+latitude+"/"+longitude;
+                    alert(f_path);
+                    $.getJSON(f_path,function(data){
                         $("#address_btn").html(data);
                     })
 
