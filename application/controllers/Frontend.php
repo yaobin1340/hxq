@@ -20,6 +20,7 @@ class Frontend extends MY_Controller {
 	{
 		parent::__construct();
 		$this->load->model('frontend_model');
+        $this->buildWxData();
 	}
 
 	public function index()
