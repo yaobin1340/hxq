@@ -237,6 +237,6 @@ class Frontend_model extends MY_Model
     }
 
     public function nearcity($lat,$lng){
-        echo 'yy';
+        return 'yy';
     }
 }
