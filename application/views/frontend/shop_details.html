@@ -1,41 +1,39 @@
 {{include file="./header.html"}}
 <style>
+    /*!*第三行*!*/
+    /*.row-three{*/
+        /*margin: 10px;*/
+        /*width: 100%;*/
 
-    /*第三行*/
-    .row-three{
-        margin: 10px;
-        width: 100%;
-
-    }
-
-    /*5*/
-    .row-five{
-        padding: 10px;
-        border-bottom: 1px solid #dbdbdb;
-        font-size: 20px;
-    }
-    /*6*/
-    .row-six{
-        margin: 20px 0 0 10px;
-        padding-left: 5px;
-        line-height: 7px;
-        border-bottom: 1px solid #dbdbdb;
-    }
-    /*9*/
-    .row-nine{
-        margin: 20px 0 0 10px;
-        padding-left: 5px;
-        line-height: 7px;
-    }
+    /*}*/
+    /*!*5*!*/
+    /*.row-five{*/
+        /*padding: 10px;*/
+        /*border-bottom: 1px solid #dbdbdb;*/
+        /*font-size: 20px;*/
+    /*}*/
+    /*!*6*!*/
+    /*.row-six{*/
+        /*margin: 20px 0 0 10px;*/
+        /*padding-left: 5px;*/
+        /*line-height: 7px;*/
+        /*border-bottom: 1px solid #dbdbdb;*/
+    /*}*/
+    /*!*9*!*/
+    /*.row-nine{*/
+        /*margin: 20px 0 0 10px;*/
+        /*padding-left: 5px;*/
+        /*line-height: 7px;*/
+    /*}*/
 </style>
 <!--第一行-->
 <body style="background:#ffffff;">
-<div data-am-widget="list_news" class="am-list-news am-list-news-default" >
+<div data-am-widget="list_news" class="am-list-news am-list-news-default">
     <div class="am-list-news-bd" style="margin-top: -65px;">
         <ul class="am-list">
             <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left" >
-                <div  class="am-u-sm-4 am-list-thumb" style="background: red; width:100px;height:110px;">
-                    <img style="background: red; width:100px;height:110px;" src="{{$base_url}}upload/logo/{{$data.logo}}" alt=""/>
+                <div  class="am-u-sm-4 am-list-thumb" style=" width:100px;height:110px;">
+                    <img style=" width:100px;height:110px;" src="{{$base_url}}upload/logo/{{$data.logo}}" alt=""/>
                 </div>
                 <div class=" am-u-sm-8 am-list-main">
                     <h3 class="am-list-item-hd"><a href="#" class="">{{$data.shop_name}}</a></h3>
@@ -56,9 +54,9 @@
 
 
 <!--第二行-->
-<div class="am-g row-two " style="margin-top: 5px;padding-bottom: 5px;">
+<div class="am-g row-two " style="margin-top: 3px;padding-bottom: 5px;">
     <div class="am-u-sm-9 font-sm">
-        <i class="am-icon-map-marker"></i>
+        <i class="am-icon-map-marker" style="color:#12b8f6;"></i>
         {{$data.p_name}}{{$data.c_name}}{{$data.ar_name}}{{$data.address}}
     </div>
     <div class="am-u-sm-3">
@@ -69,21 +67,20 @@
     </div>
 </div>
 <!--第三行-->
-<div class="row-three font-sm" style="border-bottom: 1px solid #dbdbdb;padding-bottom: 15px;">
-    <i class="am-icon-phone"></i>
+<div class="row-three font-sm" style="border-bottom: 1px solid #dbdbdb;padding-bottom: 10px;padding-left: 1rem;">
+    <i class="am-icon-phone" style="color:#12b8f6;"></i>
     {{$data.phone}}
 </div>
-<!--第四行-->
-<div class="row-four"></div>
+
 <!--第五行-->
-<div class="row-five">
-    <i class="am-icon-home" style="color: #12b8f6;font-size: 28px;"></i>
+<div class="row-five" style="padding-left: 1rem;border-bottom: 1px solid #dbdbdb;padding-bottom: 5px;padding-top: 5px;font-size: 20px;color: #12b8f6;">
+    <i class="am-icon-home" style="font-size: 28px;"></i>
     商家详情
 </div>
 <!--第六行-->
-<div class="row-six">
-    <p>营业时间</p>
-    <p class="font-sm">{{$data.business_time}}</p>
+<div class="row-six" style="padding-left: 1rem;padding-top: 10px;border-bottom: 1px solid #dbdbdb;padding-bottom: 5px;">
+    <span>营业时间</span>
+    <span class="font-sm" style="margin-left: 20px;">{{$data.business_time}}</span>
 </div>
 <!--7-->
 <!--<div class="row-six">
@@ -92,23 +89,19 @@
 
 </div>-->
 <!--8-->
-<div class="row-six">
-    <p>简介</p>
-    <p class="font-sm">{{$data.desc}}</p>
+<div class="row-six" style="padding-left: 1rem;padding-top: 10px;border-bottom: 1px solid #dbdbdb;">
+    <p style="border-bottom: 1px dashed #dbdbdb;">简介</p>
+    <p class="font-sm" style="margin-top: -10px;">&nbsp;&nbsp;{{$data.desc}}</p>
 </div>
 <!--9-->
-<div class="row-nine">
-    <p>商家类型</p>
-    <p class="font-sm">{{$data.type_name}}</p>
+<div class="row-nine" style="margin-bottom: 0px;padding-left: 1rem;padding-top: 10px;border-bottom: 1px solid #dbdbdb;padding-bottom: 5px;">
+    <span>商家类型</span>
+    <span class="font-sm"  style="margin-left: 20px;">{{$data.type_name}}</span>
 </div>
+<br>
+<br>
+<br>
+<br>
 
-
-<div class="am-tabs" data-am-tabs>
- <!--   <ul class="am-tabs-nav am-nav am-nav-tabs">
-        <li class="am-active"><a href="#tab1">恣意</a></li>
-        <li><a href="#tab2">等候</a></li>
-        <li><a href="#tab3">流浪</a></li>
-    </ul>-->
-</div>
 {{include file="../public/footer.html"}}
 </body>

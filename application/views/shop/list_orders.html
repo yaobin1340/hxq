@@ -1,5 +1,9 @@
 {{include file="./header.html"}}
 
+<body style="overflow: auto;background: #ffffff;">
+<div style="width: 100%;height: 50px;border-bottom: 1px solid #e9e9e9;">
+    <span class="am-icon-list-ul" style="line-height: 50px;color: #66b3e1;margin-left: 10px;">&nbsp;订单列表</span>
+</div>
 <!--<script src="{{$base_url}}statics/js/user_list.js"></script>-->
 <input type="hidden" id="keywords" value="{{$keywords}}">
 <input type="hidden" id="s_date" value="{{$s_date}}">
@@ -34,6 +38,7 @@
             <button class="am-btn am-btn-secondary am-btn-block" data-am-modal-close>取消</button>
         </div>
     </form>
+
 </div>
 
 <div class="am-popup" id="my-popup">
@@ -89,7 +94,7 @@
 </div>
 
 {{include file="../public/footer.html"}}
-
+</body>
 <script>
     window.is_end = false
     window.page = 1
