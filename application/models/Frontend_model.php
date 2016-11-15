@@ -237,6 +237,6 @@ class Frontend_model extends MY_Model
     }
 
     public function nearcity($area_name){
-        return $this->db->select('name')->from('area')->where('name',$area_name)->get()->row_array();
+        return $this->db->select('name,code')->from('area')->where('name',$area_name)->get()->row_array();
     }
 }

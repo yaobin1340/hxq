@@ -252,8 +252,8 @@ class Frontend extends MY_Controller {
         $res = file_get_contents("http://api.map.baidu.com/geocoder?location={$lat},{$lng}&output=xml&key=28bcdd84fae25699606ffad27f8da77b");
         $xml = simplexml_load_string($res);
         $default = array(
-            'area_code'=>'310101',
-            'area_name'=>'黄浦区'
+            'code'=>'310101',
+            'name'=>'黄浦区'
         );
         if($xml->status=='OK'){
             $data = $this->frontend_model->nearcity($xml->result->addressComponent->district);
