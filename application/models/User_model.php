@@ -25,6 +25,10 @@ class User_model extends MY_Model
         return $result = $this->db->select('*')->from('users')->where("id = $user_flag or mobile = $user_flag")->get()->row_array();
     }
 
+    public function find($id){
+        return $result = $this->db->select('*')->from('users')->where(array('id'=>$id))->get()->row_array();
+    }
+
     function queryByKey($id, $selectFields = '*') {
         $condtionFields [$this->primaryKey] = $id;
 
