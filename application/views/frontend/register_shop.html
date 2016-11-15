@@ -83,6 +83,7 @@
             <input type="text" {{if $shop}}value="{{$shop.lng}}"{{/if}} class="am-form-field am-u-sm-4" placeholder="请输入经度" id="data_lng" name="lng" style="width:34%;height: 50px;">
             <input type="text" {{if $shop}}value="{{$shop.lat}}"{{/if}} class="am-form-field am-u-sm-4" placeholder="请输入纬度" id="data_lat" name="lat" style="width:34%;float: left;height: 50px;">
             <button type="button" class="am-btn am-btn-secondary am-btn-block" style="width:24%;float: left;margin-left: 5px;height: 50px;" data-am-modal="{target: '#baidu_map'}">百度地图</button>
+            <button type="button" id="here_map" class="am-btn am-btn-secondary am-btn-block" style="width:24%;float: left;margin-left: 5px;height: 50px;" >本地定位</button>
         </div>
 
         <div class="am-form-group am-form-file upload_img_all">
@@ -253,7 +254,7 @@
         </div>
     </div>
 </div>
-
+       <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/javascript">
     $(window).scroll(function ()
     {
@@ -343,7 +344,42 @@
         $("#" + name).val(v2);
         $("#baidu_map").modal('close')
     }
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '{{$wxappId}}', // 必填，公众号的唯一标识
+        timestamp: {{$wxtimestamp}}, // 必填，生成签名的时间戳
+        nonceStr: '{{$wxnonceStr}}', // 必填，生成签名的随机串
+            signature: '{{$wxsignature}}',// 必填，签名，见附录1
+            jsApiList: ['getLocation','checkJsApi'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    wx.ready(function () {
+        $("#here_map").click(function(){
+            wx.getLocation({
+                type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                success: function (res) {
+                    var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                    var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                    var speed = res.speed; // 速度，以米/每秒计
+                    var accuracy = res.accuracy; // 位置精度
+                    $("#lat").val(latitude);
+                    $("#lng").val(longitude);
+                },
+                cancel: function (res) {
+                    /* stopCount();
+                     */
+                    //alert(JSON.stringify(res));
+                },
+                error: function (res) {
+                    /*stopCount();
+                     */
+                    //alert(JSON.stringify(res));
+                }
+            });
+        })
 
+
+
+    });
 </script>
 
 
