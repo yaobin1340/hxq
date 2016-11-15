@@ -18,6 +18,7 @@ class MY_Controller extends CI_Controller
 		ini_set('date.timezone','Asia/Shanghai');
 		$this->cismarty->assign('base_url',base_url());//url路径
 		$this->cismarty->assign('header_name','');//初始化标题
+		$this->cismarty->assign('footer_flag','');//初始化
 
 	}
 
