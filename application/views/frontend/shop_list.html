@@ -4,7 +4,7 @@
 <div>
     <form method="post" id="search_form" class="am-topbar-form am-topbar-left am-form-inline" action="{{site_url url='frontend/shop_list'}}/{{$type}}" role="search" style="width: 100%;margin-top: 10px;">
         <input type="hidden" name="city_code" id="city_code" value="{{$city_code}}">
-        <input type="hidden" name="area_code" id="area_code" value="{{$area_code|default:310101}}">
+        <input type="hidden" name="area_code" id="area_code" value="{{$area_code}}">
         <input type="hidden" name="province_code" id="province_code" value="{{$province_code}}">
         <input type="hidden" name="type" id="type" value="{{$type}}">
         <input type="hidden" name="lat" id="lat" value="{{$lat}}">
@@ -185,14 +185,19 @@
                 if($("#lng").val()==""){
                     $("#lng").val(longitude);
                 }
-                get_data();
                 f_path = "{{site_url url='Frontend/nearcity'}}/"+latitude+"/"+longitude;
                 //alert(f_path);
-                $.getJSON(f_path,function(data){
-                    $("#address_btn").html(data.name);
-                    $("#area_code").val(data.code);
-                    $("#insert_area_name").html(data.name);
-                })
+                if($("#area_code").val()==""){
+                    $.getJSON(f_path,function(data){
+                        $("#address_btn").html(data.name);
+                        $("#area_code").val(data.code);
+                        $("#insert_area_name").html(data.name);
+                        get_data();
+                    })
+                }else{
+                    get_data();
+                }
+
 
             },
             cancel: function (res) {

@@ -334,14 +334,17 @@
                     if($("#lng").val()==""){
                         $("#lng").val(longitude);
                     }
-                    get_data();
                     f_path = "{{site_url url='Frontend/nearcity'}}/"+latitude+"/"+longitude;
-                    //alert(f_path);
-                    $.getJSON(f_path,function(data){
-                        $("#address_btn").html(data.name);
-                        $("#area_code").val(data.code);
-                        $("#insert_area_name").html(data.name);
-                    })
+                    if($("#area_code").val()==""){
+                        $.getJSON(f_path,function(data){
+                            $("#address_btn").html(data.name);
+                            $("#area_code").val(data.code);
+                            $("#insert_area_name").html(data.name);
+                            get_data();
+                        })
+                    }else{
+                        get_data();
+                    }
 
                 },
                 cancel: function (res) {
