@@ -10,7 +10,7 @@
      </div>
       <div class="am-form-group am-form-icon login_form_password">
           <i class="am-icon-lock"></i>
-          <input type="password" id="doc-vld-mima-2"  name="password" class="am-form-field js-pattern-number" placeholder="请输入您的密码" required />
+          <input type="password" id="doc-vld-mima-2"  name="password" class="am-form-field js-pattern-pwd" placeholder="请输入您的密码" required />
       </div>
   </div>
     <button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block login_form_btn">登陆</button>
@@ -22,5 +22,8 @@
 <script>
     if ($.AMUI && $.AMUI.validator) {
         $.AMUI.validator.patterns.mobile = /^\s*1\d{10}\s*$/;
+    }
+    if ($.AMUI && $.AMUI.validator) {
+        $.AMUI.validator.patterns.pwd = /^[0-9 | A-Z | a-z]{6,16}$/;
     }
 </script>
