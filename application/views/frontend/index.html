@@ -59,7 +59,7 @@
 <header class="am-topbar am-topbar-inverse" style="height: 60px;">
     <form method="post" id="search_form" class="am-topbar-form am-topbar-left am-form-inline" action="{{site_url url='frontend/index'}}" role="search" style="width: 100%;margin-top: 10px;">
         <input type="hidden" name="city_code" id="city_code" value="{{$city_code}}">
-        <input type="hidden" name="area_code" id="area_code" value="{{$area_code|default:310101}}">
+        <input type="hidden" name="area_code" id="area_code" value="{{$area_code}}">
         <input type="hidden" name="province_code" id="province_code" value="{{$province_code}}">
         <input type="hidden" name="type" id="type" value="{{$type}}">
         <input type="hidden" name="lat" id="lat" value="{{$lat}}">
