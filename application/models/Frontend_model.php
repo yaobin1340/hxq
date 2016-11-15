@@ -236,7 +236,7 @@ class Frontend_model extends MY_Model
         return $this->db->select('name')->from('shop_type')->where('id',$type)->get()->row_array();
     }
 
-    public function nearcity(){
-        echo 'yy';
+    public function nearcity($area_name){
+        return $this->db->select('name,code')->from('area')->where('name',$area_name)->get()->row_array();
     }
 }

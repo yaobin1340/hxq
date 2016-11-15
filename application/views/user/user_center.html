@@ -35,14 +35,13 @@
     <script src="{{$base_url}}statics/js/common.js"></script>
 
 </head>
-<body class="user_center_body">
-<div class="header">
+<body class="user_center_body" style="overflow: auto;">
  <div class="header_center">
     <img src="{{$base_url}}statics/images/2.jpg">
     <div class="header_photo">
         <a href="{{site_url url='frontend/register_shop'}}" class="header_shop">商家入驻</a>
         <div class="header_photo_user">
-            <img src="{{$base_url}}upload/face/{{$user_info.face}}">
+            <img {{if $user_info.face}}src="{{$base_url}}upload/face/{{$user_info.face}}"{{else}}src="{{$base_url}}statics/images/2.jpg"{{/if}}">
         </div>
         <div class="header_photo_user_name">普通用户</div>
     </div>
@@ -51,7 +50,7 @@
         <span class="header_font_2">金币：{{$user_info.integral}}&nbsp;&nbsp;向日葵总计：xx</span>
     </div>
 </div>
-<div class="list">
+<div class="list" style="padding-bottom:80px;">
     <a style="color: #696969" href="{{site_url url='user/information_revise'}}">
         <div class="list_back">
                 <span class="am-icon-cogs list_bac_name">&nbsp;&nbsp;账户管理</span>
@@ -81,7 +80,5 @@
         </div>
     </a>
 </div>
-
-</div>
-{{include file="../public/footer.html"}}
+ {{include file="../public/footer.html"}}
 </body>

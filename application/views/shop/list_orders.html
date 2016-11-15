@@ -1,6 +1,21 @@
 {{include file="./header.html"}}
-
+<style>
+    .am-panel-hd{
+        padding: 0;
+        background: #fff;
+    }
+    .am-panel-default>.am-panel-hd{
+        background: #fff;
+    }
+    .list_all_sort_img{
+        margin-right: 10px;
+    }
+    .list_all_information{
+        padding:0;
+    }
+</style>
 <body style="overflow: auto;background: #ffffff;">
+<div>
 <div style="width: 100%;height: 50px;border-bottom: 1px solid #e9e9e9;">
     <span class="am-icon-list-ul" style="line-height: 50px;color: #66b3e1;margin-left: 10px;">&nbsp;订单列表</span>
 </div>
@@ -8,11 +23,9 @@
 <input type="hidden" id="keywords" value="{{$keywords}}">
 <input type="hidden" id="s_date" value="{{$s_date}}">
 <input type="hidden" id="e_date" value="{{$e_date}}">
-<div class="list_all">
-    <div class="am-panel-group" id="accordion">
-
-    </div>
-    <p id="is_end">已到最后一页</p>
+<div class="list_all" style="padding-bottom:80px;">
+    <div class="am-panel-group" id="accordion"></div>
+    <p id="is_end" style="text-align: center;font-size: 12px;display: none;">已到最后一页</p>
 </div>
 
 <div class="xuanfu_plus">
@@ -92,6 +105,8 @@
         </div>
     </div>
 </div>
+
+
 
 {{include file="../public/footer.html"}}
 </body>

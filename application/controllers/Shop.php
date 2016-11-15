@@ -35,10 +35,12 @@ class Shop extends MY_Controller {
 	{
 		$this->assign('header_name', '我的商家');
 		$this->display('shop/shop_center.html');
+        $this->assign('footer_flag', 3);
 	}
 
 	public function list_orders($page = 1){
 		$this->assign('header_name', '订单管理');
+        $this->assign('footer_flag', 3);
 //		$data = $this->shop_model->list_orders($page);
 //		$this->assign('data', $data);
 //		$this->display('shop/list_orders.html');

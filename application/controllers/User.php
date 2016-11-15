@@ -62,6 +62,7 @@ class User extends MY_Controller {
 	}
 
 	public function list_orders($page = 1){
+        $this->assign('footer_flag', 2);
 		$this->assign('header_name', '我的订单');
 		$this->assign('footer_flag', 2);
 		$this->assign('s_date', $this->input->post('s_date'));

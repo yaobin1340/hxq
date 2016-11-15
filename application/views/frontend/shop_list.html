@@ -19,11 +19,11 @@
 
             <div id="doc-dropdown-justify">
                 <div class="am-dropdown" data-am-dropdown="{justify: '#doc-dropdown-justify'}">
-                    <button id="address_btn" class="am-btn am-btn-primary am-dropdown-toggle">{{$area_name|default:'昆山市'}}<span class="am-icon-caret-down"></span></button>
+                    <button id="address_btn" class="am-btn am-btn-primary am-dropdown-toggle">{{$area_name|default:'黄浦区'}}<span class="am-icon-caret-down"></span></button>
                     <div class="am-dropdown-content" style="width: 300px;color: #777777;">
 
                         <div id="address_provice" style="display: block;margin-bottom: 30px;">
-                            <div style="width: 100%;border-bottom: 1px solid #eeeeee"><span style="color: #777777;margin-left: 30px;">{{$area_name|default:'昆山市'}}</span></div>
+                            <div style="width: 100%;border-bottom: 1px solid #eeeeee"><span id="insert_area_name" style="color: #777777;margin-left: 30px;">{{$area_name|default:'黄浦区'}}</span></div>
                             <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
                                 {{foreach from=$province_list key=k item=row}}
                                 <span style="margin-left: 10px;" onclick="address_provice('{{$row.code}}')">&nbsp;{{$row.name}}</span>
@@ -106,7 +106,7 @@
 </div>
 {{include file="../public/footer.html"}}
 </body>
-
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
     window.is_end = false
     window.page = 1
@@ -161,6 +161,59 @@
 
         });
     }
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '{{$wxappId}}', // 必填，公众号的唯一标识
+        timestamp: {{$wxtimestamp}}, // 必填，生成签名的时间戳
+    nonceStr: '{{$wxnonceStr}}', // 必填，生成签名的随机串
+            signature: '{{$wxsignature}}',// 必填，签名，见附录1
+            jsApiList: ['getLocation','checkJsApi'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    wx.ready(function () {
+
+
+        wx.getLocation({
+            type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+            success: function (res) {
+                var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                var speed = res.speed; // 速度，以米/每秒计
+                var accuracy = res.accuracy; // 位置精度
+                if($("#lat").val()==""){
+                    $("#lat").val(latitude);
+                }
+                if($("#lng").val()==""){
+                    $("#lng").val(longitude);
+                }
+                f_path = "{{site_url url='Frontend/nearcity'}}/"+latitude+"/"+longitude;
+                //alert(f_path);
+                if($("#area_code").val()==""){
+                    $.getJSON(f_path,function(data){
+                        $("#address_btn").html(data.name);
+                        $("#area_code").val(data.code);
+                        $("#insert_area_name").html(data.name);
+                        get_data();
+                    })
+                }else{
+                    get_data();
+                }
+
+
+            },
+            cancel: function (res) {
+                /* stopCount();
+                 */
+                //alert(JSON.stringify(res));
+            },
+            error: function (res) {
+                /*stopCount();
+                 */
+                //alert(JSON.stringify(res));
+            }
+        });
+
+
+    });
     function address_county(code){
         $('#area_code').val(code);
         $('#search_form').submit();
@@ -172,7 +225,6 @@
             $('#search_form').submit();
         }
     });
-    get_data()
     $(function() {
 
     });
