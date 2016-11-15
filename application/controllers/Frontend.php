@@ -139,6 +139,7 @@ class Frontend extends MY_Controller {
     }
 
 	public function register_shop(){
+        $this->assign('header_name', '商家入驻');
         $this->load->model('city_model');
         $this->load->model('area_model');
         $provinces = $this->frontend_model->get_province();
