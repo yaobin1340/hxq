@@ -345,11 +345,9 @@
                     if($("#lng").val()==""){
                         $("#lng").val(longitude);
                     }
-
-                    $.post("{{site_url url='Frontend/nearcity'}}",{lat:latitude,lng:longitude},function(data){
+                    $.getJSON("{{site_url url='Frontend/nearcity'}}",function(data){
                         alert(data);
-
-                    });
+                    })
                     $("#address_btn").html('上海');
                 },
                 cancel: function (res) {
