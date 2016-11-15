@@ -248,8 +248,8 @@ class Frontend extends MY_Controller {
         $this->display('frontend/show_information.html');
     }
 
-    public function nearcity(){
-        $data = $this->frontend_model->nearcity();
+    public function nearcity($lat,$lng){
+        $data = $this->frontend_model->nearcity($lat,$lng);
         echo json_decode($data);
     }
 
