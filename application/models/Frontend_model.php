@@ -150,6 +150,7 @@ class Frontend_model extends MY_Model
     }
 
     public function get_name_by_keywords($keywords){
+        if(!$keywords) return false;
         $rs = $this->db->select('rel_name')->from('users')
             ->where('id',$keywords)
             ->or_where('mobile',$keywords)
