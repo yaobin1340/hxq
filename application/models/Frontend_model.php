@@ -180,6 +180,7 @@ class Frontend_model extends MY_Model
         if($this->input->post('shop_name')){
             $this->db->like("shop_name",$this->input->post('shop_name'));
         }
+        $this->db->where('status',2);
 //        $this->db->where('shop_id',1); //TODO
         $num = $this->db->get()->row();
         $data['total'] = $num->num;
@@ -215,6 +216,7 @@ class Frontend_model extends MY_Model
             $this->db->like("shop_name",$this->input->post('shop_name'));
         }
 //        $this->db->where('shop_id',1); //TODO
+        $this->db->where('status',2);
         $this->db->order_by('juli','asc');
         $this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
         $data['items'] = $this->db->get()->result_array();
