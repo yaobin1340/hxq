@@ -42,7 +42,7 @@
     <div class="header_photo">
         <a href="{{site_url url='frontend/register_shop'}}" class="header_shop">商家入驻</a>
         <div class="header_photo_user">
-            <img {{if $user_info.face}}src="{{$base_url}}upload/face/{{$user_info.face}}"{{else}}src="{{$base_url}}statics/images/2.jpg"{{/if}}">
+            <img {{if $user_info.face}}src="{{$base_url}}upload/face/{{$user_info.face}}"{{else}}src="{{$base_url}}statics/images/user.jpg"{{/if}}">
         </div>
         <div class="header_photo_user_name">普通用户</div>
     </div>
@@ -51,7 +51,7 @@
            你好，{{$user_info.rel_name}}
        </span><br>
         <span class="header_font_2">
-            <span><img src="{{$base_url}}statics/images/zhongzi.png" style="width: 25px;height: 25px;"></span>金币：{{$user_info.integral}}&nbsp;&nbsp;向日葵总计：xx</span>
+            <span><img src="{{$base_url}}statics/images/zhongzi.png" style="width: 25px;height: 25px;"></span>总计：{{$user_info.integral}}&nbsp;&nbsp; <span><img src="{{$base_url}}statics/images/sunflower.png" style="width: 25px;height: 25px;"></span>&nbsp;总计：xx</span>
     </div>
 </div>
 <div class="list" style="">

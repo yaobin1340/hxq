@@ -1,5 +1,4 @@
 {{include file="./header.html"}}
-
 <body style="background:#ffffff;">
 <div>
     <form method="post" id="search_form" class="am-topbar-form am-topbar-left am-form-inline" action="{{site_url url='frontend/shop_list'}}/{{$type}}" role="search" style="width: 100%;margin-top: 10px;">
@@ -11,7 +10,7 @@
         <input type="hidden" name="lng" id="lng" value="{{$lng}}">
         <input type="hidden" name="h_shop_name" id="h_shop_name" value="{{$shop_name|default:''}}">
         <div class="am-form-group">
-            <input type="text" value="{{$shop_name|default:''}}" name="t_shop_name" id="t_shop_name" class="am-form-field am-input-sm" placeholder="搜索" style="width: 70%;height: 40px;margin-left: 10px;border-radius: 5px;">
+            <input type="text" value="{{$shop_name|default:''}}" name="t_shop_name" id="t_shop_name" class="am-form-field am-input-sm" placeholder="搜索" style="width: 60%;height: 40px;margin-left: 10px;border-radius: 5px;">
         </div>
     </form>
     <div class="am-nav am-nav-pills am-topbar-nav" style="float: right;margin-top: -45px;">
