@@ -89,7 +89,6 @@ class Shop extends MY_Controller {
 		}else{
 			$this->show_message('操作失败！');
 		}
-
 	}
 
 	public function order_detail($order_id){
