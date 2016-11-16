@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="/static/default/wap/css/housekeeping.css"/>  
 	<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet" />
 <style>
-ul { padding-left: 0px;}
+
 .layui-layer-molv .layui-layer-title {background-color: #F8F8F8;border-bottom: 1px solid #eee;color: #333;}
 
 .table1{
@@ -29,7 +29,9 @@ ul { padding-left: 0px;}
 }
 </style>
 
-<body style="background: #ffffff;">
+<body style="background: #ffffff;overflow-x: hidden;">
+
+<div style="overflow-x: hidden;padding-bottom: 30px;">
 <table class="table1" border="0">
 	<tr>
 		<td class="td1"><a href="{{site_url url='user/money_log_list'}}" onclick="money_record()" id="money_record">资金日志</a></td>
@@ -55,6 +57,7 @@ ul { padding-left: 0px;}
 	<p id="is_end" style="text-align: center;font-size: 12px;margin-top: 10px;">已到最后一页</p>
 
 </form>
+	</div>
 </body>
 {{include file="../public/footer.html"}}
 
