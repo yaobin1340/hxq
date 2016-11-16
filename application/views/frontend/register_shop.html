@@ -293,9 +293,10 @@
         });
     });
     {{/if}}
+    var map = new BMap.Map("allmap");
     function create_map(lat,lng){
         // 百度地图API功能
-        var map = new BMap.Map("allmap");
+
         map.centerAndZoom(new BMap.Point(lng , lat ), 15);
         var point = new BMap.Point( lng , lat );
         map.centerAndZoom(point, 15);
