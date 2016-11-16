@@ -258,11 +258,11 @@ class MY_Model extends CI_Model{
     }
 
     public function update_openid($uid,$openid){
-        $this->db->where('id',$uid)->update('users',array('openid',$openid));
+        $this->db->where('id',$uid)->update('users',array('openid'=>$openid));
     }
 
     public function delete_openid($uid){
-        $this->db->where('id',$uid)->update('users',array('openid',''));
+        $this->db->where('id',$uid)->update('users',array('openid'=>''));
     }
 }
 
