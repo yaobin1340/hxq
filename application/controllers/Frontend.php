@@ -199,6 +199,7 @@ class Frontend extends MY_Controller {
     }
 
     public function login(){
+        $this->assign('header_name', '登陆');
         $this->display('frontend/login.html');
     }
 
