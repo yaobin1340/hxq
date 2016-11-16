@@ -87,11 +87,35 @@
                 <div class="am-panel am-panel-default" style="margin-top: -5px;">
                     <div id="list_btn" class="am-panel-hd" style="width: 100%;">
                         <div class="am-panel-title list_all_btn" data-am-collapse="{parent: '#accordion', target: '#do-not-say-{{$row.id}}'}">
-                            <span class="am-front-icon am-icon-user list_all_user_img" style="margin-left: 5px;"></span>
-                            <span class="list_all_user_id">&nbsp;ID:{{$row.uid}}</span>
-                            <span class="am-icon-sort-desc list_all_sort_img"></span>
-                            <span class="list_all_money">{{$row.price/100}}元</span>
-                            <span class="am-front-icon am-icon-rmb list_all_rmb"></span>
+                            <!--<span class="am-front-icon am-icon-user list_all_user_img" style="margin-left: 5px;"></span>-->
+                            <!--<span class="list_all_user_id">&nbsp;ID:{{$row.uid}}</span>-->
+                            <!--<span class="am-icon-sort-desc list_all_sort_img"></span>-->
+                            <!--<span class="list_all_money">{{$row.price/100}}元</span>-->
+                            <!--<span class="am-front-icon am-icon-rmb list_all_rmb"></span>-->
+                            <table class="" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td id="home" style="width:50%;line-height: 50px;">
+                                        <span class="am-front-icon am-icon-user list_all_user_img" style="margin-left: 5px;"></span>
+                                        <span class="list_all_user_id">&nbsp;ID:{{$row.uid}}</span>
+                                    </td>
+
+                                    <td id="myorder" style="width: 10%;">
+                                        <span class="am-front-icon am-icon-rmb list_all_rmb"></span>
+                                    </td>
+
+                                    <td id="cheaporder" style="width: 30%;">
+                                        <span>{{$row.price/100}}元</span>
+                                    </td>
+
+                                    <td id="message" style="width: 10%;">
+                                        <span class="am-icon-sort-desc list_all_sort_img"></span>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+
+
                         </div>
                     </div>
                     <div id="do-not-say-{{$row.id}}" class="am-panel-collapse am-collapse">
