@@ -360,6 +360,7 @@
         $("#" + id).val(point['lng']);
         $("#" + name).val(point['lat']);
         $("#baidu_map").modal('close')
+        alert(''+v2+','+v1+';'+point['lat']+','+point['lng'])
         create_map(v2,v1)
 
         /*f_path = 'http://apis.map.qq.com/ws/coord/v1/translate?locations='+v2+','+v1+'&type=3&key=A3VBZ-4YG3P-53JDL-LHHDZ-XPTM7-7MFZN'
