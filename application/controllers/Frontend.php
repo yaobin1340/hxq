@@ -284,8 +284,8 @@ class Frontend extends MY_Controller {
             'code'=>'310101',
             'name'=>'黄浦区'
         );
-        //$res = file_get_contents("http://api.map.baidu.com/geocoder?location={$lat},{$lng}&output=xml&key=28bcdd84fae25699606ffad27f8da77b");//百度API
-        /*$xml = simplexml_load_string($res);
+        $res = file_get_contents("http://api.map.baidu.com/geocoder?location={$lat},{$lng}&output=xml&key=28bcdd84fae25699606ffad27f8da77b");//百度API
+        $xml = simplexml_load_string($res);
 
         if($xml->status=='OK'){
             $data = $this->frontend_model->nearcity($xml->result->addressComponent->district);
@@ -296,9 +296,9 @@ class Frontend extends MY_Controller {
             }
         }else{
             echo json_encode($default);
-        }*/
+        }
 
-        $res = file_get_contents("http://apis.map.qq.com/ws/geocoder/v1/?location={$lat},{$lng}&get_poi=1&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77");//百度API
+        /*$res = file_get_contents("http://apis.map.qq.com/ws/geocoder/v1/?location={$lat},{$lng}&get_poi=1&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77");//腾讯API
         $obj=json_decode($res);
         if($obj->status=='0'){
             $data = $this->frontend_model->nearcity($obj->result->address_component->district);
@@ -309,7 +309,7 @@ class Frontend extends MY_Controller {
             }
         }else{
             echo json_encode($default);
-        }
+        }*/
 
     }
 
