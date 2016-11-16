@@ -346,7 +346,7 @@
         local.search(myValue);
     }
 
-    function change_jwd(lat,lng){
+    function baidu_to_tx(lat,lng){
             x_pi = 3.14159265358979324 * 3000.0 / 180.0;
             var x = lng - 0.0065, y = lat - 0.006;
             var z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * x_pi);
@@ -369,7 +369,7 @@
             $("#baidu_map").modal('close')
             create_map(v2,v1)
         });
-       /* point = change_jwd(v2,v1)
+       /* point = baidu_to_tx(v2,v1)
         $("#" + id).val(point['lng']);
         $("#" + name).val(point['lat']);
         $("#baidu_map").modal('close')
