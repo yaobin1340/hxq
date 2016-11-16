@@ -1,5 +1,7 @@
        {{include file="./header.html"}}
        <form class="am-form" data-am-validator action="/frontend/save_register_shop" method="post">
+           <input type="hidden" id="bd_lat" name="baidu_lat" value="{{if $shop}}{{$shop.baidu_lat}}{{/if}}">
+           <input type="hidden" id="bd_lng"  name="baidu_lng" value="{{if $shop}}{{$shop.baidu_lng}}{{/if}}">
         <div class="am-form-group am-form-file upload_img_all">
             <input id="file" type="file" accept="image/*" capture=camera"/>
             <div class="upload_img_div1">
@@ -253,6 +255,7 @@
     </div>
 </div>
        <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+       <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&libraries=convertor"></script>
 <script type="text/javascript">
 
     $(window).scroll(function ()
@@ -356,13 +359,22 @@
     }
 
     function selectCallBack(id, name, v1, v2) {
-        /*point = change_jwd(v2,v1)
+        qq.maps.convertor.translate(new qq.maps.LatLng(v2,v1), 3, function(res){
+            latlng = res[0];
+            $("#" + id).val(latlng[1]);
+            $("#" + name).val(latlng[0]);
+            $("#bd_lng").val(latlng[1]);
+            $("#bd_lat").val(latlng[0]);
+            $("#baidu_map").modal('close')
+            create_map(v2,v1)
+        });
+       /* point = change_jwd(v2,v1)
         $("#" + id).val(point['lng']);
         $("#" + name).val(point['lat']);
         $("#baidu_map").modal('close')
         create_map(v2,v1)*/
 
-        api_path ='http://mapi.map.qq.com/translate/?type=3&points='+v1+','+v2+'&output=jsonp'
+        /*api_path ='http://mapi.map.qq.com/translate/?type=3&points='+v1+','+v2+'&output=jsonp'
         f_path = 'http://apis.map.qq.com/ws/coord/v1/translate?locations='+v2+','+v1+'&type=3&key=LC5BZ-2T3H5-BZ2IG-QMWEQ-H5G25-VCBL5'
         $.getJSON(f_path,function(data){
             if(data.status==0){
@@ -376,7 +388,7 @@
                 $("#baidu_map").modal('close')
                 create_map(v2,v1)
             }
-        })
+        })*/
 
     }
 

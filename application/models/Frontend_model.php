@@ -74,6 +74,8 @@ class Frontend_model extends MY_Model
             'person'=>$this->input->post('person'),
             'lat'=>$this->input->post('lat'),
             'lng'=>$this->input->post('lng'),
+            'baidu_lat'=>$this->input->post('baidu_lat'),
+            'baidu_lng'=>$this->input->post('baidu_lng'),
             'desc'=>$this->input->post('desc'),
             'business_time'=>$this->input->post('business_time'),
             'license'=>$license,
