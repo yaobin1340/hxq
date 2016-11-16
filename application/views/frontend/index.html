@@ -55,7 +55,7 @@
 </style>
 <body style="background-color: #ffffff;">
 
-<div style="overflow: auto;">
+<div style="overflow: auto;padding-bottom: 80px;">
 <header class="am-topbar am-topbar-inverse" style="height: 60px;">
     <form method="post" id="search_form" class="am-topbar-form am-topbar-left am-form-inline" action="{{site_url url='frontend/index'}}" role="search" style="width: 100%;margin-top: 10px;">
         <input type="hidden" name="city_code" id="city_code" value="{{$city_code}}">
@@ -208,10 +208,8 @@
     </div>
 
 </div>
-<br>
-
     {{include file="../public/footer.html"}}
-    </div>
+</div>
 
     <script>
         $(function() {

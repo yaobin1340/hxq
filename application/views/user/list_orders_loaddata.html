@@ -1,5 +1,11 @@
 {{foreach from=$data.items item=row}}
 
+<style>
+    .list_all_information{
+
+    }
+</style>
+
 <div class="am-panel am-panel-default">
     <div id="list_btn" class="am-panel-hd" >
         <div class="am-panel-title list_all_btn" data-am-collapse="{parent: '#accordion', target: '#do-not-say-{{$row.id}}'}">
@@ -10,26 +16,24 @@
             <!--<span class="am-front-icon am-icon-rmb list_all_rmb"></span>-->
             <table class="" width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                    <td id="home" style="width:50%;line-height: 50px;">
+                    <td id="home" style="width:65%;line-height: 50px;">
                         <span class="am-front-icon am-icon-user list_all_user_img" style="margin-left: 5px;"></span>
                         <span class="list_all_user_id">&nbsp;ID:{{$row.uid}}</span>
                     </td>
 
-                    <td id="myorder" style="width: 10%;">
-                        <span class="am-front-icon am-icon-rmb list_all_rmb"></span>
+                    <td id="myorder" style="width:5%;">
+                        <span class="am-front-icon am-icon-rmb" style="color: #e47b75;"></span>
                     </td>
 
-                    <td id="cheaporder" style="width: 30%;">
-                        <span>{{$row.price/100}}元</span>
+                    <td id="cheaporder" style="width: 22%;">
+                        <span>{{$row.price/100}}</span>
                     </td>
 
-                    <td id="message" style="width: 10%;">
-                        <span class="am-icon-sort-desc list_all_sort_img"></span>
+                    <td id="message" style="width: 8%;">
+                        <span class="am-icon-sort-desc" style="color: #569cf1;"></span>
                     </td>
                 </tr>
             </table>
-
-
         </div>
     </div>
     <div id="do-not-say-{{$row.id}}" class="am-panel-collapse am-collapse">
