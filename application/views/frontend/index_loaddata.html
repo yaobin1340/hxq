@@ -11,7 +11,13 @@
 				<h3 class="am-list-item-hd">{{$row.shop_name}}</h3>
 
 				<div class="am-list-item-text">{{$row.desc}}</div>
-				<div class="am-list-item-text">距离:{{$row.juli}}千米</div>
+				<div class="am-list-item-text">距离:
+					{{if $row.juli < 1}}
+					{{$row.juli*1000}}米
+					{{else}}
+					{{$row.juli}}千米
+					{{/if}}
+					</div>
 				<div class="am-list-item-text">地址:{{$row.address}}</div>
 			</div>
 		</li>
