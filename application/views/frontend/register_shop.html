@@ -360,11 +360,12 @@
 
     function selectCallBack(id, name, v1, v2) {
         qq.maps.convertor.translate(new qq.maps.LatLng(v2,v1), 3, function(res){
-            latlng = res[0];
-            $("#" + id).val(latlng[1]);
-            $("#" + name).val(latlng[0]);
-            $("#bd_lng").val(latlng[1]);
-            $("#bd_lat").val(latlng[0]);
+            var words = res.toString().split(',')
+            alert(words[0]);
+            $("#" + id).val(words[1]);
+            $("#" + name).val(words[0]);
+            $("#bd_lng").val(words[1]);
+            $("#bd_lat").val(words[0]);
             $("#baidu_map").modal('close')
             create_map(v2,v1)
         });
