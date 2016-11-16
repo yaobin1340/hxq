@@ -204,6 +204,7 @@ class Frontend extends MY_Controller {
     }
 
 	public function logout(){
+        $this->frontend_model->delete_openid($this->session->userdata('uid'));
 		$this->session->sess_destroy();
 		redirect(site_url('frontend/login'));
 	}

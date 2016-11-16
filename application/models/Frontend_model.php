@@ -22,6 +22,7 @@ class Frontend_model extends MY_Model
             return -1;
         }
         $data = array(
+            'openid'=>$this->session->userdata('openid'),
             'mobile'=>$this->session->userdata('mobile'),
             'password'=>sha1($this->input->post('password')),
             's_password'=>sha1($this->input->post('s_password')),
@@ -125,6 +126,7 @@ class Frontend_model extends MY_Model
             ->get()->row();
         if($rs){
             $this->session->set_userdata('uid',$rs->id);
+            $this->update_openid($rs->id,$this->session->userdata('openid'));
             return 1;
         }else{
             return -1;
