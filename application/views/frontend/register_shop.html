@@ -343,9 +343,22 @@
         local.search(myValue);
     }
 
+    function change_jwd(lat,lng){
+            x_pi = 3.14159265358979324 * 3000.0 / 180.0;
+            var x = lng - 0.0065, y = lat - 0.006;
+            var z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * x_pi);
+            var theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * x_pi);
+            var point = new Array()
+            point['lng']=z * Math.cos(theta);
+            point['lat']= z * Math.sin(theta);
+        return point;
+
+    }
+
     function selectCallBack(id, name, v1, v2) {
-        $("#" + id).val(v1);
-        $("#" + name).val(v2);
+        point = change_jwd(v2,v1)
+        $("#" + id).val(point['lng']);
+        $("#" + name).val(point['lat']);
         $("#baidu_map").modal('close')
         create_map(v2,v1)
 
