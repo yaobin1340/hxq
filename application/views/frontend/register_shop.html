@@ -358,6 +358,18 @@
 
     }
 
+    function tx_to_baidu(lat,lng){
+        x_pi = 3.14159265358979324 * 3000.0 / 180.0;
+        var x = lng - 0.0065, y = lat - 0.006;
+        var z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * x_pi);
+        var theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * x_pi);
+        var point = new Array()
+        point['lng'] = z * Math.cos(theta);
+        point['lat'] = z * Math.sin(theta);
+        return point;
+
+    }
+
     function selectCallBack(id, name, v1, v2) {
         qq.maps.convertor.translate(new qq.maps.LatLng(v2,v1), 3, function(res){
             var words = res.toString().split(',')
@@ -415,7 +427,10 @@
                 //alert('lat:'+latitude+';lng:'+longitude);
                 $("#data_lat").val(latitude);
                 $("#data_lng").val(longitude);
-                create_map(latitude,longitude);
+                point = tx_to_baidu(latitude,longitude)
+                $("#bd_lng").val(point['lng']);
+                $("#bd_lat").val(point['lat']);
+                create_map(point['lat'],point['lng']);
             },
             cancel: function (res) {
 
