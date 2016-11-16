@@ -44,7 +44,11 @@ class User extends MY_Controller {
 		$this->assign('header_name', '账户管理');
         $this->load->model('frontend_model');
         $provinces = $this->frontend_model->get_province();
+        $city = $this->frontend_model->get_city();
+        $area = $this->frontend_model->get_area();
         $this->assign('provinces', $provinces);
+        $this->assign('city', $city);
+        $this->assign('area', $area);
         $this->display('user/information_revise.html');
     }
 

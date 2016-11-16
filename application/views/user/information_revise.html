@@ -18,17 +18,23 @@
                 <div class="information_tel">您的号码：<span>{{$user_info.mobile}}</span></div>
             </div>
             <div class="am-form-group am-form-select" style="margin-top:20px;width: 100%;">
-                <select name="province_code" onchange="changeSelect(this)" style="width: 100%;height: 50px; ">
+                <select name="province_code" onchange="changeSelect(this)" style="width: 100%;height: 50px; " required>
                     <option value="">-省份-</option>
                     {{foreach from=$provinces item=row}}
-                    <option value="{{$row.code}}">{{$row.name}}</option>
+                    <option value="{{$row.code}}" {{if $row.code eq $user_info.province_code}}selected="selected"{{/if}}>{{$row.name}}</option>
                     {{/foreach}}
                 </select>
-                <select name="city_code" style="width:100%; height: 50px;margin-top: 5px;" onchange="changeSelectCity(this)">
+                <select name="city_code" style="width:100%; height: 50px;margin-top: 5px;" onchange="changeSelectCity(this)" required>
                     <option value="">-城市-</option>
+                    {{foreach from=$city item=row}}
+                    <option value="{{$row.code}}" {{if $row.code eq $user_info.city_code}}selected="selected"{{/if}}>{{$row.name}}</option>
+                    {{/foreach}}
                 </select>
-                <select name="area_code" style="width:100%;height: 50px;margin-top: 5px;">
+                <select name="area_code" style="width:100%;height: 50px;margin-top: 5px;" required>
                     <option value="">-区域-</option>
+                    {{foreach from=$area item=row}}
+                    <option value="{{$row.code}}" {{if $row.code eq $user_info.area_code}}selected="selected"{{/if}}>{{$row.name}}</option>
+                    {{/foreach}}
                 </select>
             </div>
             <input class="am-btn am-btn-secondary am-btn-block" style="margin-top: 30px;" type="submit" value="确认">
@@ -56,17 +62,17 @@
     });
 </script>
 <script type="text/javascript">
-    $().ready(function(){
-        $('[name="province_code"]').val("{{$user_info.province_code}}");
-        $('[name="province_code"]').trigger('change');
-        setTimeout(function(){
-            $('[name="city_code"]').val("{{$user_info.city_code}}");
-            $('[name="city_code"]').trigger('change');
-            setTimeout(function(){
-                $('[name="area_code"]').val("{{$user_info.area_code}}");
-            },300);
-        },300);
-    });
+//    $().ready(function(){
+//        $('[name="province_code"]').val("{{$user_info.province_code}}");
+//        $('[name="province_code"]').trigger('change');
+//        setTimeout(function(){
+//            $('[name="city_code"]').val("{{$user_info.city_code}}");
+//            $('[name="city_code"]').trigger('change');
+//            setTimeout(function(){
+//                $('[name="area_code"]').val("{{$user_info.area_code}}");
+//            },300);
+//        },300);
+//    });
     function changeSelect(obj)
     {
         province = $(obj).val();
