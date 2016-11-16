@@ -74,6 +74,8 @@ class Frontend_model extends MY_Model
             'person'=>$this->input->post('person'),
             'lat'=>$this->input->post('lat'),
             'lng'=>$this->input->post('lng'),
+            'baidu_lat'=>$this->input->post('baidu_lat'),
+            'baidu_lng'=>$this->input->post('baidu_lng'),
             'desc'=>$this->input->post('desc'),
             'business_time'=>$this->input->post('business_time'),
             'license'=>$license,
@@ -179,6 +181,7 @@ class Frontend_model extends MY_Model
         if($this->input->post('shop_name')){
             $this->db->like("shop_name",$this->input->post('shop_name'));
         }
+        $this->db->where('status',2);
 //        $this->db->where('shop_id',1); //TODO
         $num = $this->db->get()->row();
         $data['total'] = $num->num;
@@ -214,6 +217,7 @@ class Frontend_model extends MY_Model
             $this->db->like("shop_name",$this->input->post('shop_name'));
         }
 //        $this->db->where('shop_id',1); //TODO
+        $this->db->where('status',2);
         $this->db->order_by('juli','asc');
         $this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
         $data['items'] = $this->db->get()->result_array();
@@ -246,5 +250,27 @@ class Frontend_model extends MY_Model
 
     public function nearcity($area_name){
         return $this->db->select('name,code')->from('area')->where('name',$area_name)->get()->row_array();
+    }
+
+    public function show_information()
+    {
+        $this->db->select();
+        $this->db->from('settlement');
+        $this->db->where('date <= now()');
+        $this->db->order_by('date','desc');
+        $row = $this->db->get()->row_array();
+        //var_dump($row);
+        return $row;
+    }
+
+    public function yesterday_info()
+    {
+        $this->db->select();
+        $this->db->from('settlement');
+        $this->db->where('date',date("Y-m-d",strtotime("-1 day")));
+        $this->db->order_by('date','desc');
+        $row = $this->db->get()->row_array();
+        //var_dump($row);
+        return $row;
     }
 }

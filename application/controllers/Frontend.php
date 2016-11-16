@@ -276,6 +276,10 @@ class Frontend extends MY_Controller {
     public function show_information()
     {
         $this->assign('header_name', '数据中心');
+        $data = $this->frontend_model->show_information();
+        $ysday = $this->frontend_model->yesterday_info();
+        $this->assign('data', $data);
+        $this->assign('ysday', $ysday);
         $this->display('frontend/show_information.html');
     }
 
