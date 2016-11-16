@@ -35,7 +35,7 @@
     <script src="{{$base_url}}statics/js/common.js"></script>
 
 </head>
-<body class="user_center_body" style="overflow: auto;">
+<body class="user_center_body" style="overflow: auto;padding-bottom:60px;">
  <div class="header_center">
     <img src="{{$base_url}}statics/images/2.jpg">
     <div class="header_photo">
@@ -53,7 +53,7 @@
             <span><img src="{{$base_url}}statics/images/zhongzi.png" style="width: 25px;height: 25px;"></span>金币：{{$user_info.integral}}&nbsp;&nbsp;向日葵总计：xx</span>
     </div>
 </div>
-<div class="list" style="padding-bottom:50px;">
+<div class="list" style="">
     <a style="color: #696969" href="{{site_url url='user/information_revise'}}">
         <div class="list_back">
                 <span class="am-icon-cogs list_bac_name">&nbsp;&nbsp;账户管理</span>
@@ -83,7 +83,9 @@
         </div>
     </a>
 
-    <button class="am-btn am-btn-secondary am-btn-block" style="margin-top: 30px;">返回</button>
+<div style="width: 100%;margin: 0 auto;margin-top: 20px;text-align: center">
+    <a href="{{site_url url='frontend/logout'}}"><button class="am-btn am-btn-danger" style="width: 98%;">退出登录</button></a>
+</div>
 </div>
  {{include file="../public/footer.html"}}
 </body>
