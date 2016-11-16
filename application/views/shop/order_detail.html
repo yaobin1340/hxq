@@ -1,5 +1,23 @@
 {{include file="./header.html"}}
 <!--<script src="{{$base_url}}statics/js/user_list.js"></script>-->
+<style>
+    .am-panel-hd{
+        padding: 0;
+    }
+    .am-popup-bd{
+        padding: 0;
+    }
+    .list_all{
+        color: #696969;overflow: auto;padding-bottom: 50px;
+    }
+    .list_all_btn{
+        background: #ffffff;
+        width: 100%;height: 50px;
+    }
+    .list_all_sort_img{
+        margin-right: 10px;
+    }
+</style>
 <body class="order_detail_body">
 <div data-am-widget="list_news" class="am-list-news am-list-news-default">
     <!--列表标题-->
@@ -66,10 +84,10 @@
         <div class="am-popup-bd user_add_bak">
             <div class="list_all">
                 {{foreach from=$data.items item=row}}
-                <div class="am-panel am-panel-default" >
-                    <div id="list_btn" class="am-panel-hd" >
+                <div class="am-panel am-panel-default" style="margin-top: -5px;">
+                    <div id="list_btn" class="am-panel-hd" style="width: 100%;">
                         <div class="am-panel-title list_all_btn" data-am-collapse="{parent: '#accordion', target: '#do-not-say-{{$row.id}}'}">
-                            <span class="am-front-icon am-icon-user list_all_user_img"></span>
+                            <span class="am-front-icon am-icon-user list_all_user_img" style="margin-left: 5px;"></span>
                             <span class="list_all_user_id">&nbsp;ID:{{$row.uid}}</span>
                             <span class="am-icon-sort-desc list_all_sort_img"></span>
                             <span class="list_all_money">{{$row.price/100}}元</span>

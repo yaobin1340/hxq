@@ -256,6 +256,14 @@ class MY_Model extends CI_Model{
     {
         $this->db->close();
     }
+
+    public function update_openid($uid,$openid){
+        $this->db->where('id',$uid)->update('users',array('openid'=>$openid));
+    }
+
+    public function delete_openid($uid){
+        $this->db->where('id',$uid)->update('users',array('openid'=>''));
+    }
 }
 
 /* End of file MY_Model.php */
