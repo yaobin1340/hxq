@@ -363,14 +363,12 @@
         alert(''+v2+','+v1+';'+point['lat']+','+point['lng'])
         create_map(v2,v1)*/
 
-
+        api_path ='http://mapi.map.qq.com/translate/?type=3&points='+v1+','+v2+'&output=jsonp'
         f_path = 'http://apis.map.qq.com/ws/coord/v1/translate?locations='+v2+','+v1+'&type=3&key=GJQBZ-Q4X3K-TUUJM-A4ULF-NJ6CJ-U6F34'
         $.getJSON(f_path,function(data){
-            alert('23');
-            alert(data);
-            if(data.status==0){
-                $("#" + id).val(data.locations.lat);
-                $("#" + name).val(data.locations.lng);
+            if(data[0].error==0){
+                $("#" + id).val(data.points.lat);
+                $("#" + name).val(data.points.lng);
                 $("#baidu_map").modal('close')
                 create_map(v2,v1)
             }else{
