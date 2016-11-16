@@ -133,9 +133,11 @@
     });
 
     function get_name_by_keywords(obj){
-        $.get("{{site_url url='shop/get_name_by_keywords'}}/"+$(obj).val(),function(data){
-            $("#rel_name").val(data)
-        })
+        if($(obj).val()){
+            $.get("{{site_url url='shop/get_name_by_keywords'}}/"+$(obj).val(),function(data){
+                $("#rel_name").val(data)
+            })
+        }
     }
 
     function get_data(){
