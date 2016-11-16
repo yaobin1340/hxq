@@ -30,14 +30,14 @@ class Frontend extends MY_Controller {
         $this->load->model('user_model');
 
         if(!$this->input->post('area_code')){
-            $user_info = $this->user_model->find($this->session->userdata('uid'));
+            $user_info = $this->user_model->find($this->session->userdata('uid')?$this->session->userdata('uid'):0);
             if($user_info){
                 $area_name = $this->frontend_model->get_area_name($user_info['u_area_code']?$user_info['u_area_code']:null);//第一次登陆 进入首页默认是 310101
                 $this->assign('area_name',$area_name?$area_name['name']:null);
                 $this->assign('area_code', $user_info['u_area_code']?$user_info['u_area_code']:null);
             }else{
                 $this->assign('area_name',null);
-                $this->assign('area_code','null');
+                $this->assign('area_code',null);
             }
         }else{
             $area_name = $this->frontend_model->get_area_name($this->input->post('area_code'));
@@ -240,14 +240,14 @@ class Frontend extends MY_Controller {
         $this->load->model('user_model');
         $type_name = $this->frontend_model->get_type_name($type);
         if(!$this->input->post('area_code')){
-            $user_info = $this->user_model->find($this->session->userdata('uid'));
+            $user_info = $this->user_model->find($this->session->userdata('uid')?$this->session->userdata('uid'):0);
             if($user_info){
                 $area_name = $this->frontend_model->get_area_name($user_info['u_area_code']?$user_info['u_area_code']:null);//第一次登陆 进入首页默认是 310101
                 $this->assign('area_name',$area_name?$area_name['name']:null);
                 $this->assign('area_code', $user_info['u_area_code']?$user_info['u_area_code']:null);
             }else{
                 $this->assign('area_name',null);
-                $this->assign('area_code','null');
+                $this->assign('area_code',null);
             }
         }else{
             $area_name = $this->frontend_model->get_area_name($this->input->post('area_code'));
@@ -280,12 +280,13 @@ class Frontend extends MY_Controller {
     }
 
     public function nearcity($lat,$lng){
-        $res = file_get_contents("http://api.map.baidu.com/geocoder?location={$lat},{$lng}&output=xml&key=28bcdd84fae25699606ffad27f8da77b");
-        $xml = simplexml_load_string($res);
         $default = array(
             'code'=>'310101',
             'name'=>'黄浦区'
         );
+        $res = file_get_contents("http://api.map.baidu.com/geocoder?location={$lat},{$lng}&output=xml&key=28bcdd84fae25699606ffad27f8da77b");//百度API
+        $xml = simplexml_load_string($res);
+
         if($xml->status=='OK'){
             $data = $this->frontend_model->nearcity($xml->result->addressComponent->district);
             if($data){
@@ -296,6 +297,19 @@ class Frontend extends MY_Controller {
         }else{
             echo json_encode($default);
         }
+
+        /*$res = file_get_contents("http://apis.map.qq.com/ws/geocoder/v1/?location={$lat},{$lng}&get_poi=1&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77");//腾讯API
+        $obj=json_decode($res);
+        if($obj->status=='0'){
+            $data = $this->frontend_model->nearcity($obj->result->address_component->district);
+            if($data){
+                echo json_encode($data);
+            }else{
+                echo json_encode($default);
+            }
+        }else{
+            echo json_encode($default);
+        }*/
 
     }
 
