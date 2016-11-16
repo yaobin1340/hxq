@@ -356,14 +356,14 @@
     }
 
     function selectCallBack(id, name, v1, v2) {
-        point = change_jwd(v2,v1)
+       /* point = change_jwd(v2,v1)
         $("#" + id).val(point['lng']);
         $("#" + name).val(point['lat']);
         $("#baidu_map").modal('close')
         alert(''+v2+','+v1+';'+point['lat']+','+point['lng'])
-        create_map(v2,v1)
+        create_map(v2,v1)*/
 
-        /*f_path = 'http://apis.map.qq.com/ws/coord/v1/translate?locations='+v2+','+v1+'&type=3&key=A3VBZ-4YG3P-53JDL-LHHDZ-XPTM7-7MFZN'
+        f_path = 'http://apis.map.qq.com/ws/coord/v1/translate?locations='+v2+','+v1+'&type=3&key=GJQBZ-Q4X3K-TUUJM-A4ULF-NJ6CJ-U6F34'
         alert(f_path)
         $.getJSON(f_path,function(data){
             alert('23');
@@ -379,7 +379,7 @@
                 $("#baidu_map").modal('close')
                 create_map(v2,v1)
             }
-        })*/
+        })
 
     }
 
