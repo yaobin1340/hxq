@@ -63,16 +63,26 @@
         </li>
 
         <li>
-            <div style="width: 70%;height: 300px;background: rgba(255, 255, 255, 0.3);margin:0 auto;margin-top: 50px;">
+            <div style="width: 70%;height: 400px;background: rgba(255, 255, 255, 0.3);margin:0 auto;margin-top: 50px;">
                 <div style="width: 100%;height: 90px;text-align: center;">
                     <div style="padding-top:30px;color: #ffffff;">供应链爱心日值</div>
-                    <div  style="color: #ffffff;">激励日期：2016-11-11</div>
+                    <div  style="color: #ffffff;">激励日期：{{if $data}}{{$data.date}}{{/if}}</div>
                 </div>
                 <div style="width:80%;height: 60px;margin-top: 50px;margin: 0 auto;text-align: center;border: 1px dashed #ffffff;border-radius: 5px;">
-                    <div style="color: #f7e288;">&nbsp;1.73&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>
+                    <div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax6_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>
                     <div style="color: #f7e288;">
                         <p>
+
                             <i class="am-icon-star"></i>
+                        </p>
+                    </div>
+                </div>
+
+                <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;margin-top: 30px;text-align: center;border-radius: 5px;">
+                    <div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax12_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>
+                    <div style="color: #f7e288;">
+                        <p>
+
                             <i class="am-icon-star"></i>
                             <i class="am-icon-star"></i>
                         </p>
@@ -80,7 +90,7 @@
                 </div>
 
                 <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;margin-top: 30px;text-align: center;border-radius: 5px;">
-                    <div style="color: #f7e288;">&nbsp;1.73&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>
+                    <div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax24_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>
                     <div style="color: #f7e288;">
                         <p>
                             <i class="am-icon-star"></i>
@@ -89,21 +99,30 @@
                         </p>
                     </div>
                 </div>
-
             </div>
         </li>
 
         <li>
-            <div style="width: 70%;height: 300px;background: rgba(0, 0, 0, 0.2);margin:0 auto;margin-top: 50px;" >
+            <div style="width: 70%;height: 400px;background: rgba(0, 0, 0, 0.2);margin:0 auto;margin-top: 50px;" >
                 <div style="width: 100%;height: 90px;text-align: center;">
                     <div style="padding-top:30px;color: #ffffff;">全联盟爱心日值 </div>
-                    <div  style="color: #ffffff;">激励日期：2016-11-11</div>
+                    <div  style="color: #ffffff;">激励日期：{{if $data}}{{$data.date}}{{/if}}</div>
                 </div>
                 <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;margin-top: 30px;text-align: center;border-radius: 5px;">
-                    <div style="color: #f7e288;">&nbsp;1.73&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>
+                    <div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.shop_ax6}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>
                     <div style="color: #f7e288;">
                         <p>
+
                             <i class="am-icon-star"></i>
+                        </p>
+                    </div>
+                </div>
+
+                <div style="width:80%;height: 60px;border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;margin-top: 30px;text-align: center;border-radius: 5px;">
+                    <div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.shop_ax12}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>
+                    <div style="color: #f7e288;">
+                        <p>
+
                             <i class="am-icon-star"></i>
                             <i class="am-icon-star"></i>
                         </p>
@@ -111,7 +130,7 @@
                 </div>
 
                 <div style="width:80%;height: 60px;border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;margin-top: 30px;text-align: center;border-radius: 5px;">
-                    <div style="color: #f7e288;">&nbsp;1.73&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>
+                    <div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.shop_ax24}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>
                     <div style="color: #f7e288;">
                         <p>
                             <i class="am-icon-star"></i>
@@ -134,7 +153,7 @@
                     <p>
                         <i class="am-icon-star"></i>
                     </p>
-                    <div style="margin-top: -20px;">0元</div>
+                    <div style="margin-top: -20px;">{{$ysday.total6|default:0}}元</div>
                 </div>
             </div>
 
@@ -144,7 +163,7 @@
                         <i class="am-icon-star"></i>
                         <i class="am-icon-star"></i>
                     </p>
-                    <div style="margin-top: -20px;">10元</div>
+                    <div style="margin-top: -20px;">{{$ysday.total12|default:0}}元</div>
                 </div>
             </div>
 
@@ -155,7 +174,7 @@
                         <i class="am-icon-star"></i>
                         <i class="am-icon-star"></i>
                     </p>
-                    <div style="margin-top: -20px;">20元</div>
+                    <div style="margin-top: -20px;">{{$ysday.total24|default:0}}元</div>
                 </div>
             </div>
 

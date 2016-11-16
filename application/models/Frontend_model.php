@@ -246,4 +246,26 @@ class Frontend_model extends MY_Model
     public function nearcity($area_name){
         return $this->db->select('name,code')->from('area')->where('name',$area_name)->get()->row_array();
     }
+
+    public function show_information()
+    {
+        $this->db->select();
+        $this->db->from('settlement');
+        $this->db->where('date <= now()');
+        $this->db->order_by('date','desc');
+        $row = $this->db->get()->row_array();
+        //var_dump($row);
+        return $row;
+    }
+
+    public function yesterday_info()
+    {
+        $this->db->select();
+        $this->db->from('settlement');
+        $this->db->where('date',date("Y-m-d",strtotime("-1 day")));
+        $this->db->order_by('date','desc');
+        $row = $this->db->get()->row_array();
+        //var_dump($row);
+        return $row;
+    }
 }

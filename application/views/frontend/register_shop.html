@@ -348,6 +348,25 @@
         $("#" + name).val(v2);
         $("#baidu_map").modal('close')
         create_map(v2,v1)
+
+        /*f_path = 'http://apis.map.qq.com/ws/coord/v1/translate?locations='+v2+','+v1+'&type=3&key=A3VBZ-4YG3P-53JDL-LHHDZ-XPTM7-7MFZN'
+        alert(f_path)
+        $.getJSON(f_path,function(data){
+            alert('23');
+            alert(data);
+            if(data.status==0){
+                $("#" + id).val(data.locations.lat);
+                $("#" + name).val(data.locations.lng);
+                $("#baidu_map").modal('close')
+                create_map(v2,v1)
+            }else{
+                $("#" + id).val(v1);
+                $("#" + name).val(v2);
+                $("#baidu_map").modal('close')
+                create_map(v2,v1)
+            }
+        })*/
+
     }
 
     wx.config({
