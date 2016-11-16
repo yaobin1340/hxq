@@ -213,7 +213,7 @@ body{
     float: right; margin-right: 15px;line-height: 50px;color:#e47b75;
 }
 .list_all_information{
-    border-bottom: 1px solid #eeeeee;margin-top: 10px;padding-bottom: 10px;
+   margin-top: 10px;padding-bottom: 10px;
 }
 .list_all_information_mobile{
     color: #4f9ce0;

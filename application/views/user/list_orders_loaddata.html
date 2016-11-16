@@ -1,9 +1,7 @@
 {{foreach from=$data.items item=row}}
 
 <style>
-    .list_all_information{
 
-    }
 </style>
 
 <div class="am-panel am-panel-default">
@@ -39,7 +37,7 @@
     <div id="do-not-say-{{$row.id}}" class="am-panel-collapse am-collapse">
         <div class="am-panel-bd">
             <p class="list_all_information"><span class="am-icon-phone list_all_information_mobile"></span>&nbsp;&nbsp;商家：{{$row.shop_name}}</p>
-            <p class="list_all_information"><span class="am-icon-user list_all_information_name"></span>&nbsp;&nbsp;地址：{{$row.address}}</p>
+            <p class="list_all_information"><span class="am-icon-map-marker list_all_information_name"></span>&nbsp;&nbsp;地址：{{$row.address}}</p>
             <p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;时间：{{$row.cdate}}</p>
         </div>
     </div>
