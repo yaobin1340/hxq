@@ -402,7 +402,7 @@
             jsApiList: ['getLocation','checkJsApi'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
     });
     {{if $shop}}
-    create_map({{$shop.baidu_lat}},{{$shop.baidu_lng}});
+    create_map({{$shop.baidu_lat|default:$shop.lat}},{{$shop.baidu_lng|default:$shop.lng}});
     {{else}}
     wx.ready(function () {
         wx.getLocation({
