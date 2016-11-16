@@ -356,19 +356,19 @@
     }
 
     function selectCallBack(id, name, v1, v2) {
-        point = change_jwd(v2,v1)
+       /* point = change_jwd(v2,v1)
         $("#" + id).val(point['lng']);
         $("#" + name).val(point['lat']);
         $("#baidu_map").modal('close')
        // alert(''+v2+','+v1+';'+point['lat']+','+point['lng'])
-        create_map(v2,v1)
+        create_map(v2,v1)*/
 
-        /*api_path ='http://mapi.map.qq.com/translate/?type=3&points='+v1+','+v2+'&output=jsonp'
-        f_path = 'http://apis.map.qq.com/ws/coord/v1/translate?locations='+v2+','+v1+'&type=3&key=GJQBZ-Q4X3K-TUUJM-A4ULF-NJ6CJ-U6F34'
-        $.getJSON(api_path,function(data){
-            if(data[0].error==0){
-                $("#" + id).val(data.points.lat);
-                $("#" + name).val(data.points.lng);
+        api_path ='http://mapi.map.qq.com/translate/?type=3&points='+v1+','+v2+'&output=jsonp'
+        f_path = 'http://apis.map.qq.com/ws/coord/v1/translate?locations='+v2+','+v1+'&type=3&key=LC5BZ-2T3H5-BZ2IG-QMWEQ-H5G25-VCBL5'
+        $.getJSON(f_path,function(data){
+            if(data.status==0){
+                $("#" + id).val(data.locations.lat);
+                $("#" + name).val(data.locations.lng);
                 $("#baidu_map").modal('close')
                 create_map(v2,v1)
             }else{
@@ -377,7 +377,7 @@
                 $("#baidu_map").modal('close')
                 create_map(v2,v1)
             }
-        })*/
+        })
 
     }
 
