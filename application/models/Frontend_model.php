@@ -24,6 +24,7 @@ class Frontend_model extends MY_Model
             return -1;
         }
         $data = array(
+            'parent_uid'=>$this->input->post('parent_id'),
             'openid'=>$this->session->userdata('openid'),
             'mobile'=>$this->session->userdata('mobile'),
             'password'=>sha1($this->input->post('password')),
