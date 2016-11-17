@@ -189,8 +189,8 @@ class Frontend extends MY_Controller {
 		$license = $this->upload('license','license');
         $cns1 = $this->upload('cns','cns1');
         $cns2 = $this->upload('cns','cns2');
-        $sfz1 = $this->upload('cns','sfz1');
-        $sfz2 = $this->upload('cns','sfz2');
+        $sfz1 = $this->upload('sfz','sfz1');
+        $sfz2 = $this->upload('sfz','sfz2');
         $imgs = array(
             'logo'=>$img,
             'license'=>$license,
@@ -240,6 +240,11 @@ class Frontend extends MY_Controller {
 
     public function get_name_by_keywords($keywords){
         echo $this->frontend_model->get_name_by_keywords($keywords);
+    }
+
+    public function get_naid_by_keywords($keywords){
+        $res = $this->frontend_model->get_naid_by_keywords($keywords);
+        echo json_encode($res);
     }
 
     public function shop_details($id){

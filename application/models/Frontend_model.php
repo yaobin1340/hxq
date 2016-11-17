@@ -24,6 +24,7 @@ class Frontend_model extends MY_Model
             return -1;
         }
         $data = array(
+            'parent_id'=>$this->input->post('parent_id'),
             'openid'=>$this->session->userdata('openid'),
             'mobile'=>$this->session->userdata('mobile'),
             'password'=>sha1($this->input->post('password')),
@@ -171,6 +172,18 @@ class Frontend_model extends MY_Model
             ->get()->row();
         if($rs)
             return $rs->rel_name;
+        else
+            return null;
+    }
+
+    public function get_naid_by_keywords($keywords){
+        if(!$keywords) return false;
+        $rs = $this->db->select('rel_name,id')->from('users')
+            ->where('id',$keywords)
+            ->or_where('mobile',$keywords)
+            ->get()->row_array();
+        if($rs)
+            return $rs;
         else
             return null;
     }
