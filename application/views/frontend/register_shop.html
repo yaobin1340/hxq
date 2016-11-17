@@ -404,7 +404,11 @@
     }
 
     function showInfo(e) {
-        parent.selectCallBack('data_lng', 'data_lat',document.getElementById('lng').value, document.getElementById('lat').value);
+        if($.trim($("#lng").val())!='' && $.trim($("#lat").val())!=''){
+            parent.selectCallBack('data_lng', 'data_lat',document.getElementById('lng').value, document.getElementById('lat').value);
+        }else{
+            alert('请选择地址!');
+        }
     }
     function showPoint(e) {
         document.getElementById('lat').value = e.point.lat;
