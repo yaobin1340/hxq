@@ -31,6 +31,8 @@ class User extends MY_Controller {
 	public function index()
 	{
 		$this->assign('header_name', '用户中心');
+		$sum_count = $this->user_model->sum_count();
+		$this->assign('sum_count', $sum_count);
 		$this->display('user/user_center.html');
 	}
 

@@ -36,17 +36,18 @@
 <body >
 <div class="header" style="overflow: auto;">
     <div class="header_center">
-        <img src="{{$base_url}}statics/images/2.jpg">
+        <img src="{{$base_url}}statics/images/shop.png">
         <div class="header_photo">
             <!--<a href="{{site_url url='frontend/register_shop'}}" class="header_shop am-icon-th-large" style="float: right;margin-right: 5px;font-size: 13px;margin-top: -10px;color: blue;">商家入驻</a>-->
             <div class="header_photo_user">
-                <img src="{{$base_url}}statics/images/user.jpg">
+                <img src="{{$base_url}}{{if $user_info.logo}}upload/logo/{{$user_info.logo}}{{else}}statics/images/user.jpg{{/if}}">
             </div>
-            <div class="header_photo_user_name">普通用户</div>
+            <div class="header_photo_user_name">普通商家</div>
         </div>
         <div class="header_font">
-            <span class="header_font_1">你好，xxx</span><br>
-            <span class="header_font_2">金币：1200&nbsp;&nbsp;向日葵总计：xx</span>
+            <span class="header_font_1">你好，{{$user_info.shop_name}}</span><br>
+            <span class="header_font_2">
+                <span><img src="{{$base_url}}statics/images/zhongzi.png" style="width: 25px;height: 25px;"></span>总计：1200&nbsp;&nbsp;<span><img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 25px;height: 25px;"></span>总计：{{$sum_count_shop|default:0}}</span>
         </div>
     </div>
     <div class="list">

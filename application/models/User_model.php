@@ -339,4 +339,12 @@ class User_model extends MY_Model
 
         return $data;
     }
+
+    public function sum_count(){
+        $this->db->select('count(1) num')->from('sunflower');
+        $this->db->where('uid',$this->session->userdata('uid'));
+        $this->db->where('status',1);
+        $row = $this->db->get()->row_array();
+        return $row['num'];
+    }
 }
