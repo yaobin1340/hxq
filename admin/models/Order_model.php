@@ -75,7 +75,6 @@ class Order_model extends MY_Model
 		$order_list = $this->db->select()->from('order_list')->where('oid',$id)->get()->result_array();
 		$shop_info = $this->db->select()->from('shop')->where('id',$shop_id)->get()->row_array();
 		$total_field = 'total'.$shop_info['percent'];
-		$ax_field = 'ax'.$shop_info['percent'];
 
 		$this->db->trans_start();//--------开始事务
 
@@ -107,7 +106,7 @@ class Order_model extends MY_Model
 
 
 				//会员的推荐人获得0.6的返利
-				if($user_info['parent_id'] && $user_info['parent_id'] == $v['uid']){
+				if($user_info['parent_id']){
 					$this->money_log($v['price']*0.006,3,'推荐客户奖励',$user_info['parent_id']);
 				}
 			}
