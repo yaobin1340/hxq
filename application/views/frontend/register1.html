@@ -102,7 +102,7 @@
                 $.getJSON("{{site_url url='frontend/get_naid_by_keywords'}}/"+invite_flag,function(data){
                     alert(data)
                     if(data){
-                        var str = '邀请人：'+data.name;
+                        var str = '邀请人：'+data.rel_name;
                         $("#inviter").val(str)
                         $("#parent_id").val(data.id)
                         $('#inviter-block').show()
