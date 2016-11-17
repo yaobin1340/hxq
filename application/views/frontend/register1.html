@@ -100,6 +100,7 @@
         var invite_flag = $(obj).val();
             if(invite_flag){
                 $.getJSON("{{site_url url='frontend/get_naid_by_keywords'}}/"+invite_flag,function(data){
+                    alert(data)
                     if(data){
                         var str = '邀请人：'+data.name;
                         $("#inviter").val(str)
