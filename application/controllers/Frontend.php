@@ -293,6 +293,7 @@ class Frontend extends MY_Controller {
         $ysday = $this->frontend_model->yesterday_info();
         $this->assign('data', $data);
         $this->assign('ysday', $ysday);
+        $this->assign('footer_flag', 5);
         $this->display('frontend/show_information.html');
     }
 

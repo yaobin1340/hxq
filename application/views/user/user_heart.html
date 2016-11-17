@@ -52,22 +52,45 @@
    .data-am-widget{
        display: none;
    }
+
+    .table1{
+        width: 100%; height: 45px; border-collapse:collapse;color: #bfbfbf; cursor:pointer;
+    }
+    .table1 tr{
+        font-size: 14px;text-align: center;color: #999999;
+    }
+    .td1{
+        border-bottom:1px solid #e5e5e5;
+    }
+    .td1 a{
+        color: #777777;
+    }
 </style>
 
 
 <body style="background: #ffffff; z-index: 1;">
 <input type="hidden" name="tab_type" id="tab_type" value="{{$type}}">
-<div data-am-widget="tabs"     class="am-tabs-d2" style="width: 100%; margin: 0;">
-    <ul class="am-tabs-nav am-cf" style="background: red;width: 100%;">
-        <li class="{{if $type==1}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/1'}}">6%激励</a></li>
-        <li class="{{if $type==2}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/2'}}">12%激励</a></li>
-        <li class="{{if $type==3}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/3'}}">24%激励</a></li>
-    </ul>
+
+<table class="table1" border="0">
+    <tr>
+        <td class="td1" onclick="shop_record()" id="shop_sunflower">商家向日葵</td>
+        <td class="td1" onclick="user_record()" id="user_sunflower">用户向日葵</a></td>
+    </tr>
+</table>
+
+
+<!--普通用户-->
+<div id="user_record" data-am-widget="tabs"     class="am-tabs-d2" style="width: 100%; margin: 0;margin-top: -10px;display: none;">
     <div class="am-tabs-bd" style="margin-top:5px;">
         <div class="am-tab-panel am-active">
-            <img src="{{$base_url}}statics/images/2.jpg"  width="100%" height="170px">
-            <div style="width: 100%;position: absolute;top:40px;margin: 0;text-align: center;font-family: '黑体';">
-                <span style="color: #01a2f2;font-size: 20px;font-weight: bold;">
+            <img src="{{$base_url}}statics/images/userimg.png"  width="100%" height="170px">
+            <ul class="am-tabs-nav am-cf" style="background: red;width: 100%;">
+                <li class="{{if $type==1}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/1'}}">6%激励</a></li>
+                <li class="{{if $type==2}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/2'}}">12%激励</a></li>
+                <li class="{{if $type==3}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/3'}}">24%激励</a></li>
+            </ul>
+            <div style="width: 100%;position: absolute;top:50px;margin: 0;text-align: center;font-family: '黑体';">
+                <span style="color: #ffffff;font-size: 20px;font-weight: bold;">
                     {{if $type==1}}
                     6系列向日葵总计
                     {{elseif $type==2}}
@@ -92,11 +115,72 @@
             </table>
             <p id="is_end" style="text-align: center;font-size: 12px;">已到最后一页</p>
         </div>
-    </div>
-    <br>
-    <br>
+    </div><br>
 </div>
+<!--普通用户-->
 
+<!--商家-->
+<div id="shop_record" data-am-widget="tabs"     class="am-tabs-d2" style="width: 100%; margin: 0;margin-top: -10px;display: block;">
+    <div class="am-tabs-bd" style="margin-top:5px;">
+        <div class="am-tab-panel am-active">
+            <img src="{{$base_url}}statics/images/shop.png"  width="100%" height="170px">
+            <ul class="am-tabs-nav am-cf" style="background: red;width: 100%;">
+                <li class="{{if $type==1}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/1'}}">6%激励</a></li>
+                <li class="{{if $type==2}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/2'}}">12%激励</a></li>
+                <li class="{{if $type==3}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/3'}}">24%激励</a></li>
+            </ul>
+            <div style="width: 100%;position: absolute;top:50px;margin: 0;text-align: center;font-family: '黑体';">
+                <span style="color: #ffffff;font-size: 20px;font-weight: bold;">
+                    {{if $type==1}}
+                    6系列向日葵总计
+                    {{elseif $type==2}}
+                    12系列向日葵总计
+                    {{elseif $type==3}}
+                    24系列向日葵总计
+                    {{/if}}
+                </span><br>
+                <!--<span style="font-size: 22px;">0</span>-->
+            </div>
+            <table class="am-table">
+                <thead>
+                <tr>
+                    <th>向日葵</th>
+                    <th>已激励</th>
+                    <th>日期</th>
+                </tr>
+                </thead>
+                <tbody id="accordion1">
+
+                </tbody>
+            </table>
+            <p id="is_end1" style="text-align: center;font-size: 12px;">已到最后一页</p>
+        </div>
+    </div><br>
+</div>
+<!--商家-->
+
+
+<script>
+
+//    window.onload=function(){
+//    shop_record();
+//}
+    function shop_record() {
+        $("#shop_sunflower").css("color","#3ab5f3");
+        $("#user_sunflower").css("color","#7c7c7c");
+        $("#shop_record").css("display","block");
+        $("#user_record").css("display","none");
+
+    }
+    function user_record() {
+        $("#shop_sunflower").css("color","#7c7c7c");
+        $("#user_sunflower").css("color","#3ab5f3");
+        $("#shop_record").css("display","none");
+        $("#user_record").css("display","block");
+
+    }
+
+</script>
 
 <script>
     window.is_end = false
