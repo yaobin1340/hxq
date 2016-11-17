@@ -175,6 +175,18 @@ class Frontend_model extends MY_Model
             return null;
     }
 
+    public function get_naid_by_keywords($keywords){
+        if(!$keywords) return false;
+        $rs = $this->db->select('rel_name,id')->from('users')
+            ->where('id',$keywords)
+            ->or_where('mobile',$keywords)
+            ->get()->row();
+        if($rs)
+            return $rs->rel_name;
+        else
+            return null;
+    }
+
     public function index_loaddata($page=1){
         $data['limit'] = $this->limit;
         //获取总记录数

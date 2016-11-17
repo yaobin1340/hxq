@@ -242,6 +242,11 @@ class Frontend extends MY_Controller {
         echo $this->frontend_model->get_name_by_keywords($keywords);
     }
 
+    public function get_naid_by_keywords($keywords){
+        $res = $this->frontend_model->get_naid_by_keywords($keywords);
+        echo json_encode($res);
+    }
+
     public function shop_details($id){
         $this->assign('header_name', '商家详情');
         $data = $this->frontend_model->shop_details($id);

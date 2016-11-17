@@ -1,7 +1,7 @@
 {{include file="./header.html"}}
 <div class="am-g">
     <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
-        <form class="am-form-inline" method="post" action="{{site_url url='frontend/save_register'}}" data-am-validator>
+        <form id="save_form" class="am-form-inline" method="post" action="{{site_url url='frontend/save_register'}}" data-am-validator>
         <div class="am-form-group am-form-file" style="width: 100%;text-align: center;margin-top: -10px;">
             <input id="file" type="file" accept="image/*" capture=camera"/>
             <div style="position: relative;">
@@ -21,6 +21,18 @@
             <i class="am-icon-lock" style="font-size: 18px;"></i>
             <input type="password" id="doc-vld-pwd-2" data-equal-to="#doc-vld-pwd-1"  name="repassword" class="am-form-field" placeholder="请确认您的密码" style="height: 50px;" required />
         </div>
+
+            <div class="am-form-group am-form-icon" style="height: 50px;">
+                <i class="am-icon-tag"></i>
+                <input type="hidden" name="parent_id" id="parent_id">
+                <input type="text" name="parent_flag" class="am-form-field user_add_phone" placeholder="请输入邀请人电话/id（必填）" style="height: 50px;" onblur="get_name_by_keywords(this)" required/>
+            </div>
+
+            <div class="am-form-group am-form-icon" id="inviter-block" hidden>
+                <i class="am-icon-user" style="font-size: 18px;"></i>
+                <input type="text" class="am-form-field js-pattern-number user_add_phone" placeholder="邀请人" id="inviter" disabled/>
+            </div>
+
         <div class="am-form-group">
                 <select name="province_code" onchange="changeSelect(this)" style="width:30%; ">
                     <option value="">-省份-</option>
@@ -44,7 +56,7 @@
             <i class="am-icon-credit-card" style="font-size:15px;"></i>
             <input type="number" id="doc-vld-credit-2"  name="id_no" class="am-form-field js-pattern-number" placeholder="请输入您的身份证号(18位)" style="height: 50px;" required />
         </div>
-            <button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block" style=" height:50px;margin:0 auto;">注册</button>
+            <button id="save_btn" type="button" class="am-btn am-btn-secondary am-btn-default am-btn-block" style=" height:50px;margin:0 auto;">注册</button>
         </form><br>
     </div>
 </div>
@@ -83,6 +95,24 @@
     });
 </script>
 <script type="text/javascript">
+
+    function get_name_by_keywords(obj){
+        var invite_flag = $(obj).val();
+            if(invite_flag){
+                $.get("{{site_url url='frontend/get_name_by_keywords'}}/"+invite_flag,function(data){
+                    if(data){
+                        var str = '邀请人：'+data.name;
+                        $("#inviter").val(str)
+                        $("#parent_id").val(data.id)
+                        $('#inviter-block').show()
+                    }else{
+                        $("#parent_id").val('')
+                        $('#inviter-block').hide()
+                        alert('邀请人手机号错误')
+                    }
+                })
+            }
+    }
     function changeSelect(obj)
     {
         province = $(obj).val();
@@ -116,6 +146,15 @@
             $("[name='area_code']").html(html)
         }
     }
+
+    $("#save_btn").click(function(){
+        if($("#parent_id").val()==''){
+            alert('请正确填写推荐人!');
+            return false;
+        }
+
+        $("#save_form").submit();
+    })
 </script>
 
 
