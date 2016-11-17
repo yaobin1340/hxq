@@ -181,9 +181,9 @@ class Frontend_model extends MY_Model
         $rs = $this->db->select('rel_name,id')->from('users')
             ->where('id',$keywords)
             ->or_where('mobile',$keywords)
-            ->get()->row();
+            ->get()->row_array();
         if($rs)
-            return $rs->rel_name;
+            return $rs;
         else
             return null;
     }
