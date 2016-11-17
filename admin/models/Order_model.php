@@ -107,7 +107,7 @@ class Order_model extends MY_Model
 
 
 				//会员的推荐人获得0.6的返利
-				if($user_info['parent_id']){
+				if($user_info['parent_id'] && $user_info['parent_id'] == $v['uid']){
 					$this->money_log($v['price']*0.006,3,'推荐客户奖励',$user_info['parent_id']);
 				}
 			}
