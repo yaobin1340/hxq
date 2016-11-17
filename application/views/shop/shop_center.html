@@ -42,12 +42,12 @@
             <div class="header_photo_user">
                 <img src="{{$base_url}}statics/images/user.jpg">
             </div>
-            <div class="header_photo_user_name">普通用户</div>
+            <div class="header_photo_user_name">普通商家</div>
         </div>
         <div class="header_font">
-            <span class="header_font_1">你好，xxx</span><br>
+            <span class="header_font_1">你好，{{$user_info.shop_name}}</span><br>
             <span class="header_font_2">
-                <span><img src="{{$base_url}}statics/images/zhongzi.png" style="width: 25px;height: 25px;"></span>总计：1200&nbsp;&nbsp;<span><img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 25px;height: 25px;"></span>总计：xx</span>
+                <span><img src="{{$base_url}}statics/images/zhongzi.png" style="width: 25px;height: 25px;"></span>总计：1200&nbsp;&nbsp;<span><img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 25px;height: 25px;"></span>总计：{{$sum_count_shop|default:0}}</span>
         </div>
     </div>
     <div class="list">

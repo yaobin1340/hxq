@@ -29,13 +29,16 @@ class Shop extends MY_Controller {
 		}
 		$this->session->set_userdata('shop_id',$shop_info['id']);
 		$this->assign('user_info', $shop_info);
+		$sum_count_shop = $this->shop_model->sum_count_shop($shop_info['id']);
+		$this->assign('sum_count_shop', $sum_count_shop);
 	}
 
 	public function index()
 	{
 		$this->assign('header_name', '我的商家');
+		$this->assign('footer_flag', 3);
 		$this->display('shop/shop_center.html');
-        $this->assign('footer_flag', 3);
+
 	}
 
 	public function list_orders($page = 1){
