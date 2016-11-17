@@ -99,7 +99,7 @@
     function get_name_by_keywords(obj){
         var invite_flag = $(obj).val();
             if(invite_flag){
-                $.get("{{site_url url='frontend/get_name_by_keywords'}}/"+invite_flag,function(data){
+                $.getJSON("{{site_url url='frontend/get_name_by_keywords'}}/"+invite_flag,function(data){
                     if(data){
                         var str = '邀请人：'+data.name;
                         $("#inviter").val(str)
