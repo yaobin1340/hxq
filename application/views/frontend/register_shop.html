@@ -82,21 +82,68 @@
 
 
         <div class="am-input-group" style="margin-left: 10px;">
-            <input type="text" {{if $shop}}value="{{$shop.lng}}"{{/if}} class="am-form-field am-u-sm-4" placeholder="请输入经度" id="data_lng" name="lng" style="width:34%;height: 50px;">
-            <input type="text" {{if $shop}}value="{{$shop.lat}}"{{/if}} class="am-form-field am-u-sm-4" placeholder="请输入纬度" id="data_lat" name="lat" style="width:34%;float: left;height: 50px;">
+            <input readonly="readonly" type="text" {{if $shop}}value="{{$shop.lng}}"{{/if}} class="am-form-field am-u-sm-4" placeholder="请输入经度" id="data_lng" name="lng" style="width:34%;height: 50px;">
+            <input readonly="readonly" type="text" {{if $shop}}value="{{$shop.lat}}"{{/if}} class="am-form-field am-u-sm-4" placeholder="请输入纬度" id="data_lat" name="lat" style="width:34%;float: left;height: 50px;">
             <button type="button" class="am-btn am-btn-secondary am-btn-block" style="width:24%;float: left;margin-left: 5px;height: 50px;" data-am-modal="{target: '#baidu_map'}">百度地图</button>
         </div>
         <div class="am-form-group am-form-file upload_img_all">
             <input id="license" type="file" accept="image/*" capture=camera"/>
             <div class="upload_img_div1">
                 <div class="upload_img_div2">
-                     <img id="license_previewResult" {{if $shop}}src="{{$base_url}}upload/license/{{$shop.license}}"{{/if}}/>
+                    <img id="license_previewResult" {{if $shop}}src="{{$base_url}}upload/license/{{$shop.license}}"{{/if}}/>
                 </div>
-            <button type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
-                <i class="am-icon-cloud-upload"></i> 上传营业执照</button>
-            <input type="hidden" name="license" id="license_img_input">
-        </div>
+                <button type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
+                    <i class="am-icon-cloud-upload"></i> 上传营业执照</button>
+                <input type="hidden" name="license" id="license_img_input">
+            </div>
      </div>
+           <div class="am-form-group am-form-file upload_img_all">
+               <input id="cns1" type="file" accept="image/*" capture=camera"/>
+               <div class="upload_img_div1">
+                   <div class="upload_img_div2">
+                       <img id="cns1_previewResult" {{if $shop}}src="{{$base_url}}upload/cns/{{$shop.cns1}}"{{/if}}/>
+                   </div>
+                   <button type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
+                       <i class="am-icon-cloud-upload"></i> 上传承诺书(1)</button>
+                   <input type="hidden" name="cns1" id="cns1_img_input">
+               </div>
+           </div>
+
+           <div class="am-form-group am-form-file upload_img_all">
+               <input id="cns2" type="file" accept="image/*" capture=camera"/>
+               <div class="upload_img_div1">
+                   <div class="upload_img_div2">
+                       <img id="cns2_previewResult" {{if $shop}}src="{{$base_url}}upload/cns/{{$shop.cns2}}"{{/if}}/>
+                   </div>
+                   <button type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
+                       <i class="am-icon-cloud-upload"></i> 上传承诺书(1)</button>
+                   <input type="hidden" name="cns2" id="cns2_img_input">
+               </div>
+           </div>
+
+           <div class="am-form-group am-form-file upload_img_all">
+               <input id="sfz1" type="file" accept="image/*" capture=camera"/>
+               <div class="upload_img_div1">
+                   <div class="upload_img_div2">
+                       <img id="sfz1_previewResult" {{if $shop}}src="{{$base_url}}upload/sfz/{{$shop.sfz1}}"{{/if}}/>
+                   </div>
+                   <button type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
+                       <i class="am-icon-cloud-upload"></i> 手持身份证(正面)</button>
+                   <input type="hidden" name="sfz1" id="sfz1_img_input">
+               </div>
+           </div>
+
+           <div class="am-form-group am-form-file upload_img_all">
+               <input id="sfz2" type="file" accept="image/*" capture=camera"/>
+               <div class="upload_img_div1">
+                   <div class="upload_img_div2">
+                       <img id="sfz2_previewResult" {{if $shop}}src="{{$base_url}}upload/sfz/{{$shop.sfz2}}"{{/if}}/>
+                   </div>
+                   <button type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
+                       <i class="am-icon-cloud-upload"></i> 手持身份证(反面)</button>
+                   <input type="hidden" name="sfz2" id="sfz2_img_input">
+               </div>
+           </div>
 
        <div class="am-input" style="width: 100%;">
            <select name="percent" class="am-form-select" style="width: 100%;margin: 0 auto;height: 50px;">
@@ -158,6 +205,46 @@
         success: function (result) {
             $("#license_img_input").val(result.base64);
             $("#license_previewResult").attr('src',result.base64)
+        }
+    });
+
+    $('#cns1').localResizeIMG({
+        width: 500,
+//        height: 300,
+        quality: 1,
+        success: function (result) {
+            $("#cns1_img_input").val(result.base64);
+            $("#cns1_previewResult").attr('src',result.base64)
+        }
+    });
+
+    $('#cns2').localResizeIMG({
+        width: 500,
+//        height: 300,
+        quality: 1,
+        success: function (result) {
+            $("#cns2_img_input").val(result.base64);
+            $("#cns2_previewResult").attr('src',result.base64)
+        }
+    });
+
+    $('#sfz1').localResizeIMG({
+        width: 500,
+//        height: 300,
+        quality: 1,
+        success: function (result) {
+            $("#sfz1_img_input").val(result.base64);
+            $("#sfz1_previewResult").attr('src',result.base64)
+        }
+    });
+
+    $('#sfz2').localResizeIMG({
+        width: 500,
+//        height: 300,
+        quality: 1,
+        success: function (result) {
+            $("#sfz2_img_input").val(result.base64);
+            $("#sfz2_previewResult").attr('src',result.base64)
         }
     });
     function get_yzm(){
