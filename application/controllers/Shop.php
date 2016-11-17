@@ -36,7 +36,7 @@ class Shop extends MY_Controller {
 	public function index()
 	{
 		$this->assign('header_name', '我的商家');
-		$this->assign('footer_flag', 3);
+		$this->assign('footer_flag', 4);
 		$this->display('shop/shop_center.html');
 
 	}
