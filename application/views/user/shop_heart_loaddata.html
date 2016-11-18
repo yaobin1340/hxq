@@ -1,0 +1,9 @@
+{{foreach from=$data.items item=row}}
+
+<tr class="am-active">
+    <td><i class="am-icon-star"></i>(500)</td>
+    <td>{{$row.return_integral/100}}</td>
+    <td>{{$row.cdate}}</td>
+</tr>
+
+{{/foreach}}

@@ -51,7 +51,9 @@
         background: #fff;
         padding: 0 20px;
     }
-
+    .am-topbar{
+        margin-bottom: 0;
+    }
 </style>
 <body style="background-color: #ffffff;">
 
@@ -69,9 +71,8 @@
             <input type="text" value="{{$shop_name|default:''}}" name="t_shop_name" id="t_shop_name" class="am-form-field am-input-sm" placeholder="搜索" style="width: 60%;height: 40px;margin-left: 10px;border-radius: 5px;">
         </div>
     </form>
-        <div class="am-nav am-nav-pills am-topbar-nav" style="float: right;margin-top: -45px;">
+        <div class="am-nav am-nav-pills am-topbar-nav" style="float: right;margin-top: -45px;background: red;height: 30px;">
             <div class="am-form-group" >
-
                 <div id="doc-dropdown-justify">
                     <div class="am-dropdown" data-am-dropdown="{justify: '#doc-dropdown-justify'}">
                         <button id="address_btn" class="am-btn am-btn-primary am-dropdown-toggle">{{$area_name|default:'黄浦区'}}<span class="am-icon-caret-down"></span></button>
@@ -151,37 +152,44 @@
     <span style="float: right;margin-right: 10px;line-height: 30px;"> <a href="/frontend/login">登录</a></span>
 </div>-->
 <div style="margin-top: -5px;">
-    <div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0" style="">
+    <!--<div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0" style="">-->
+        <!--<ul class="am-slides">-->
+            <!--{{if $shop_type}}-->
+            <!--<li>-->
+                <!--<table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0" style="color: #777777;">-->
+                    <!--<tr style="height: 100px;">-->
+            <!--{{foreach from=$shop_type key=k item=row}}-->
+            <!--{{if $k is div by 8}}-->
+            <!--{{if $k !=0}}-->
+               <!--</tr> </table>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0" style="color: #777777;">-->
+                    <!--<tr style="height: 100px;">-->
+            <!--{{/if}}-->
+            <!--{{/if}}-->
+            <!--{{if ($k-4) is div by 8}}-->
+                    <!--{{if $k !=0}}-->
+                    <!--</tr><tr style="height: 100px;">-->
+                    <!--{{/if}}-->
+            <!--{{/if}}-->
+            <!--<td style="width: 25%">-->
+                <!--<a href="{{site_url url='frontend/shop_list'}}/{{$row.id}}">-->
+                <!--<span class="am-icon-{{$row.icon|default:'cart-plus'}} footer_span_1" style="color:{{$row.color|default:'#7891e4'}};font-size: 26px;"></span><br>-->
+                <!--<span class="footer_span_2" >{{$row.name}}</span></a>-->
+            <!--</td>-->
+            <!--{{/foreach}}-->
+                    <!--</tr>-->
+            <!--</table>-->
+            <!--</li>-->
+            <!--{{/if}}-->
+        <!--</ul>-->
+    <!--</div>-->
+    <div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0">
         <ul class="am-slides">
-            {{if $shop_type}}
-            <li>
-                <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0" style="color: #777777;">
-                    <tr style="height: 100px;">
-            {{foreach from=$shop_type key=k item=row}}
-            {{if $k is div by 8}}
-            {{if $k !=0}}
-               </tr> </table>
-            </li>
-            <li>
-                <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0" style="color: #777777;">
-                    <tr style="height: 100px;">
-            {{/if}}
-            {{/if}}
-            {{if ($k-4) is div by 8}}
-                    {{if $k !=0}}
-                    </tr><tr style="height: 100px;">
-                    {{/if}}
-            {{/if}}
-            <td style="width: 25%">
-                <a href="{{site_url url='frontend/shop_list'}}/{{$row.id}}">
-                <span class="am-icon-{{$row.icon|default:'cart-plus'}} footer_span_1" style="color:{{$row.color|default:'#7891e4'}};font-size: 26px;"></span><br>
-                <span class="footer_span_2" >{{$row.name}}</span></a>
-            </td>
-            {{/foreach}}
-                    </tr>
-            </table>
-            </li>
-            {{/if}}
+            <li><img src="{{$base_url}}statics/images/3.jpg" /></li>
+            <li><img src="{{$base_url}}statics/images/3.jpg" /></li>
+            <li><img src="{{$base_url}}statics/images/3.jpg" /></li>
         </ul>
     </div>
 </div>

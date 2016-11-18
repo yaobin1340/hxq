@@ -24,6 +24,7 @@ class Frontend_model extends MY_Model
             return -1;
         }
         $data = array(
+            'parent_id'=>$this->input->post('parent_id'),
             'openid'=>$this->session->userdata('openid'),
             'mobile'=>$this->session->userdata('mobile'),
             'password'=>sha1($this->input->post('password')),
@@ -63,7 +64,7 @@ class Frontend_model extends MY_Model
         return $rs;
     }
 
-    public function save_register_shop($img,$license){
+    public function save_register_shop($imgs){
         if(!($uid = $this->session->userdata('uid'))){
             return -1;
         }
@@ -80,18 +81,26 @@ class Frontend_model extends MY_Model
             'person'=>$this->input->post('person'),
             'lat'=>$this->input->post('lat'),
             'lng'=>$this->input->post('lng'),
-            'baidu_lat'=>$this->input->post('baidu_lat'),
-            'baidu_lng'=>$this->input->post('baidu_lng'),
+            'baidu_lat'=>$this->input->post('baidu_lat')?$this->input->post('baidu_lat'):$this->input->post('lat'),
+            'baidu_lng'=>$this->input->post('baidu_lng')?$this->input->post('baidu_lng'):$this->input->post('lng'),
             'desc'=>$this->input->post('desc'),
             'business_time'=>$this->input->post('business_time'),
-            'license'=>$license,
+            'license'=>$imgs['license']?$imgs['license']:'',
             'cdate'=>date('Y-m-d H:i:s',time()),
-            'logo'=>$img,
+            'logo'=>$imgs['logo']?$imgs['logo']:'',
+            'cns1'=>$imgs['cns1']?$imgs['cns1']:'',
+            'cns2'=>$imgs['cns2']?$imgs['cns2']:'',
+            'sfz1'=>$imgs['sfz1']?$imgs['sfz1']:'',
+            'sfz2'=>$imgs['sfz2']?$imgs['sfz2']:'',
             'status'=>1,//待审核
             'percent'=>$this->input->post('percent'),
         );
-        if(!$img)unset($data['logo']);
-        if(!$license)unset($data['license']);
+        if(!$imgs['logo'])unset($data['logo']);
+        if(!$imgs['license'])unset($data['license']);
+        if(!$imgs['cns1'])unset($data['cns1']);
+        if(!$imgs['cns2'])unset($data['cns2']);
+        if(!$imgs['sfz1'])unset($data['sfz1']);
+        if(!$imgs['sfz2'])unset($data['sfz2']);
 
         //邀请人
         $parent_flag = $this->input->post('parent_flag');
@@ -163,6 +172,18 @@ class Frontend_model extends MY_Model
             ->get()->row();
         if($rs)
             return $rs->rel_name;
+        else
+            return null;
+    }
+
+    public function get_naid_by_keywords($keywords){
+        if(!$keywords) return false;
+        $rs = $this->db->select('rel_name,id')->from('users')
+            ->where('id',$keywords)
+            ->or_where('mobile',$keywords)
+            ->get()->row_array();
+        if($rs)
+            return $rs;
         else
             return null;
     }

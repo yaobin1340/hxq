@@ -29,7 +29,8 @@ class Settlement_model extends MY_Model
     }
 
 	public function settlement(){
-		$date = date("Y-m-d",strtotime("-1 day"));
+//		$date = date("Y-m-d",strtotime("-1 day"));
+		$date = date("Y-m-d");
 		$rs = $this->db->select()->from('settlement')->where('date',$date)->get()->row();
 		if($rs)//已经结算过了,不能重复结算
 			return -2;
@@ -192,10 +193,10 @@ class Settlement_model extends MY_Model
 			->where('status',1)->where('return_integral >',12500)->where('percent',6)->group_by('uid')->get()->result_array();
 
 		$rs12 = $this->db->select('sum(return_integral-25000) overflow_integral,uid')->from('sunflower')
-			->where('status',1)->where('return_integral >',25000)->where('percent',6)->group_by('uid')->get()->result_array();
+			->where('status',1)->where('return_integral >',25000)->where('percent',12)->group_by('uid')->get()->result_array();
 
 		$rs24 = $this->db->select('sum(return_integral-50000) overflow_integral,uid')->from('sunflower')
-			->where('status',1)->where('return_integral >',50000)->where('percent',6)->group_by('uid')->get()->result_array();
+			->where('status',1)->where('return_integral >',50000)->where('percent',24)->group_by('uid')->get()->result_array();
 
 		$overflow_integral6 = array();
 		$overflow_integral12 = array();
@@ -237,19 +238,22 @@ class Settlement_model extends MY_Model
 			if(isset($overflow_integral24[$uid])){
 				$integral = $integral - $overflow_integral24[$uid];
 			}
-			$this->db->where('id',$uid);
-			$this->db->set('integral', 'integral+'.$integral, FALSE);
-			$this->db->update('users');
+			if($integral>0){
+				$this->db->where('id',$uid);
+				$this->db->set('integral', 'integral+'.$integral, FALSE);
+				$this->db->update('users');
 
-			$this->db->insert('money_log',array(
-				'remark'=>'向日葵返利(会员)',
-				'money'=>$integral,
-				'type'=>2,
-				'uid'=>$uid,
-				'cdate' => date('Y-m-d H:i:s')
-			));
+				$this->db->insert('money_log',array(
+					'remark'=>'向日葵返利(会员)',
+					'money'=>$integral,
+					'type'=>2,
+					'uid'=>$uid,
+					'cdate' => date('Y-m-d H:i:s')
+				));
+			}
+
 		}
-		//TODO 商家返利
+
 		//商家返利6系列
 		$this->db->where('status',1);
 		$this->db->where('percent',6);
@@ -272,10 +276,25 @@ class Settlement_model extends MY_Model
 		$this->db->update('sunflower_shop');
 
 		//返满后溢出金额
-		$rs = $this->db->select('sum(return_integral-(450*a.`percent`)) overflow_integral,shop_id,a.percent,b.uid')->from('sunflower_shop a')
-			->join('shop b','a.shop_id=b.id')
-			->where('a.status',1)->where('return_integral >','(450*a.`percent`)')
-			->group_by(array('shop_id','a.percent'))->get()->result_array();
+		$sql = "SELECT
+					sum(
+						return_integral - (450 * a.`percent`)
+					) overflow_integral,
+					`shop_id`,
+					`a`.`percent`,
+					`b`.`uid`
+				FROM
+					`sunflower_shop` `a`
+				JOIN `shop` `b` ON `a`.`shop_id` = `b`.`id`
+				WHERE
+					`a`.`status` = 1
+				AND `return_integral` > 450 * a.`percent`
+				GROUP BY
+					`shop_id`,
+					`a`.`percent`";
+
+		$query = $this->db->query($sql);
+		$rs = $query->result_array();
 
 		$overflow_integral = array();
 		$add_integral = array();
@@ -302,9 +321,14 @@ class Settlement_model extends MY_Model
 			}
 		}
 
+
 		foreach($add_integral as $uid=>$v){
-			if(isset($overflow_integral[$uid])){
+			if($overflow_integral && isset($overflow_integral[$uid])) {
 				$integral = $v - $overflow_integral[$uid];
+			}else{
+				$integral = $v;
+			}
+			if($integral>0){
 				$this->db->where('id',$uid);
 				$this->db->set('integral', 'integral+'.$integral, FALSE);
 				$this->db->update('users');
@@ -317,6 +341,7 @@ class Settlement_model extends MY_Model
 					'cdate' => date('Y-m-d H:i:s')
 				));
 			}
+
 		}
 
 		$this->db->where('percent',24);
@@ -364,6 +389,13 @@ class Settlement_model extends MY_Model
 		$this->db->where('id',$id);
 		$this->db->update('settlement',array(
 			'status'=>2
+		));
+
+		$commonweal_total = ($data->total6 + $data->total12 + $data->total24)*0.01;
+		$this->db->insert('commonweal',array(
+			'date'=>$data->date,
+			'total'=>$commonweal_total,
+			'status'=>1
 		));
 		$this->db->trans_complete();//------结束事务
 		if ($this->db->trans_status() === FALSE) {

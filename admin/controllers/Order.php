@@ -8,7 +8,7 @@ class Order extends MY_Controller {
 		$this->load->model('order_model');
 	}
 
-	public function list_orders($status,$page=1){
+	public function list_orders($status=2,$page=1){
 		$data = $this->order_model->list_orders($page,$status);
 		$base_url = "/admin.php/Order/list_orders/".$status;
 		$pager = $this->pagination->getPageLink_by4($base_url, $data['total'], $data['limit']);

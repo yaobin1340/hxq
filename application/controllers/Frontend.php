@@ -184,9 +184,22 @@ class Frontend extends MY_Controller {
 	}
 
 	public function save_register_shop(){
+
 		$img = $this->upload('logo');
 		$license = $this->upload('license','license');
-		$rs = $this->frontend_model->save_register_shop($img,$license);
+        $cns1 = $this->upload('cns','cns1');
+        $cns2 = $this->upload('cns','cns2');
+        $sfz1 = $this->upload('sfz','sfz1');
+        $sfz2 = $this->upload('sfz','sfz2');
+        $imgs = array(
+            'logo'=>$img,
+            'license'=>$license,
+            'cns1'=>$cns1,
+            'cns2'=>$cns2,
+            'sfz1'=>$sfz1,
+            'sfz2'=>$sfz2,
+        );
+		$rs = $this->frontend_model->save_register_shop($imgs);
 		if($rs == 1){
 			$this->show_message('申请成功');
 		}else{
@@ -227,6 +240,11 @@ class Frontend extends MY_Controller {
 
     public function get_name_by_keywords($keywords){
         echo $this->frontend_model->get_name_by_keywords($keywords);
+    }
+
+    public function get_naid_by_keywords($keywords){
+        $res = $this->frontend_model->get_naid_by_keywords($keywords);
+        echo json_encode($res);
     }
 
     public function shop_details($id){
@@ -280,6 +298,7 @@ class Frontend extends MY_Controller {
         $ysday = $this->frontend_model->yesterday_info();
         $this->assign('data', $data);
         $this->assign('ysday', $ysday);
+        $this->assign('footer_flag', 5);
         $this->display('frontend/show_information.html');
     }
 

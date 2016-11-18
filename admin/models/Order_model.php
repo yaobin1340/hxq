@@ -75,7 +75,6 @@ class Order_model extends MY_Model
 		$order_list = $this->db->select()->from('order_list')->where('oid',$id)->get()->result_array();
 		$shop_info = $this->db->select()->from('shop')->where('id',$shop_id)->get()->row_array();
 		$total_field = 'total'.$shop_info['percent'];
-		$ax_field = 'ax'.$shop_info['percent'];
 
 		$this->db->trans_start();//--------开始事务
 

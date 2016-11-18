@@ -291,4 +291,12 @@ class Shop_model extends MY_Model
         $this->db->join('order b','b.id = a.oid','left');
         return $this->db->where('b.id',$order_id)->get()->result_array();
     }
+
+    public function sum_count_shop($id){
+        $this->db->select('count(1) num')->from('sunflower_shop');
+        $this->db->where('shop_id',$id);
+        $this->db->where('status',1);
+        $row = $this->db->get()->row_array();
+        return $row['num'];
+    }
 }

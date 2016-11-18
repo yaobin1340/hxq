@@ -31,6 +31,8 @@ class User extends MY_Controller {
 	public function index()
 	{
 		$this->assign('header_name', '用户中心');
+		$sum_count = $this->user_model->sum_count();
+		$this->assign('sum_count', $sum_count);
 		$this->display('user/user_center.html');
 	}
 
@@ -194,6 +196,21 @@ class User extends MY_Controller {
 		$this->assign('data', $data);
 		$this->assign('page', $page);
 		$this->display('user/user_heart_loaddata.html');
+	}
+
+	public function shop_heart($type=1){
+		//$data = $this->user_model->withdraw_list();
+		$this->assign('header_name', '我的向日葵');
+		$this->assign('footer_flag', 3);
+		$this->assign('type', $type);
+		$this->display('user/shop_heart.html');
+	}
+
+	public function shop_heart_loaddata($page=1){
+		$data = $this->user_model->shop_heart_loaddata($page);
+		$this->assign('data', $data);
+		$this->assign('page', $page);
+		$this->display('user/shop_heart_loaddata.html');
 	}
 
 }

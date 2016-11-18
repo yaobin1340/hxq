@@ -38,9 +38,12 @@
 <body class="user_center_body" style="overflow: auto;">
 <div style="padding-bottom:20px;">
  <div class="header_center">
-    <img src="{{$base_url}}statics/images/2.jpg">
+    <img src="{{$base_url}}statics/images/userimg.png">
     <div class="header_photo">
-        <a href="{{site_url url='frontend/register_shop'}}" class="header_shop">商家入驻</a>
+        <a href="{{site_url url='frontend/register_shop'}}" class="header_shop">
+            <div><img src="{{$base_url}}statics/images/enter.png" style="width: 40px;height: 40px;margin-top: 18px;margin-right: 2px;"></div>
+            <div style="color:#ffffff;float: right;height: 20px;line-height: 20px;">商家入驻</div>
+        </a>
         <div class="header_photo_user">
             <img {{if $user_info.face}}src="{{$base_url}}upload/face/{{$user_info.face}}"{{else}}src="{{$base_url}}statics/images/user.jpg"{{/if}}">
         </div>
@@ -48,10 +51,10 @@
     </div>
     <div class="header_font">
        <span class="header_font_1">
-           你好，{{$user_info.rel_name}}
+           你好，{{$user_info.rel_name}}(ID:{{$user_info.id}})
        </span><br>
         <span class="header_font_2">
-            <span><img src="{{$base_url}}statics/images/zhongzi.png" style="width: 25px;height: 25px;"></span>总计：{{$user_info.integral}}&nbsp;&nbsp; <span><img src="{{$base_url}}statics/images/sunflower.png" style="width: 25px;height: 25px;"></span>&nbsp;总计：xx</span>
+            <span><img src="{{$base_url}}statics/images/zhongzi.png" style="width: 25px;height: 25px;"></span>总计：{{$user_info.integral}}&nbsp;&nbsp; <span><img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 25px;height: 25px;"></span>总计：{{$sum_count|default:0}}</span>
     </div>
 </div>
 <div class="list" style="">
@@ -80,6 +83,13 @@
     <a style="color: #696969" href="{{site_url url='user/list_orders'}}">
         <div class="list_back" >
             &nbsp;<span class="am-icon-cart-plus list_bac_name">&nbsp;&nbsp;我的订单</span>
+            <span class="list_bac_jiantou" >></span>
+        </div>
+    </a>
+
+    <a style="color: #696969" href="{{site_url url='user/user_heart'}}">
+        <div class="list_back" >
+            &nbsp;<span class="am-icon-cart-plus list_bac_name">&nbsp;&nbsp;我的向日葵</span>
             <span class="list_bac_jiantou" >></span>
         </div>
     </a>

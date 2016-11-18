@@ -73,28 +73,28 @@
 
 <table class="table1" border="0">
     <tr>
-        <td class="td1" style="color: #7c7c7c" onclick="shop_record()" id="shop_sunflower">
-        <a style="color: #7c7c7c" href="{{site_url url='user/shop_heart/1'}}">
-            商家向日葵
+        <td class="td1" style="color: #3ab5f3" onclick="shop_record()" id="shop_sunflower">
+            <a style="color: #3ab5f3" href="{{site_url url='user/shop_heart/1'}}">
+                商家向日葵
             </a>
         </td>
-        <td class="td1" style="color: #3ab5f3" onclick="user_record()" id="user_sunflower">
-        <a style="color: #3ab5f3" href="{{site_url url='user/user_heart/1'}}">
-        用户向日葵
-        </a></td>
+        <td class="td1" style="color: #7c7c7c" onclick="user_record()" id="user_sunflower">
+            <a style="color: #7c7c7c" href="{{site_url url='user/user_heart/1'}}">
+                用户向日葵
+            </a></td>
     </tr>
 </table>
 
 
-<!--普通用户-->
-<div id="user_record" data-am-widget="tabs"     class="am-tabs-d2" style="width: 100%; margin: 0;margin-top: -10px">
+<!--商家-->
+<div id="shop_record" data-am-widget="tabs"     class="am-tabs-d2" style="width: 100%; margin: 0;margin-top: -10px;">
     <div class="am-tabs-bd" style="margin-top:5px;">
         <div class="am-tab-panel am-active">
-            <img src="{{$base_url}}statics/images/userimg.png"  width="100%" height="170px">
+            <img src="{{$base_url}}statics/images/shop.png"  width="100%" height="170px">
             <ul class="am-tabs-nav am-cf" style="background: red;width: 100%;">
-                <li class="{{if $type==1}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/1'}}">6%激励</a></li>
-                <li class="{{if $type==2}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/2'}}">12%激励</a></li>
-                <li class="{{if $type==3}}am-active{{/if}}"><a href="{{site_url url='user/user_heart/3'}}">24%激励</a></li>
+                <li class="{{if $type==1}}am-active{{/if}}"><a href="{{site_url url='user/shop_heart/1'}}">6%激励</a></li>
+                <li class="{{if $type==2}}am-active{{/if}}"><a href="{{site_url url='user/shop_heart/2'}}">12%激励</a></li>
+                <li class="{{if $type==3}}am-active{{/if}}"><a href="{{site_url url='user/shop_heart/3'}}">24%激励</a></li>
             </ul>
             <div style="width: 100%;position: absolute;top:50px;margin: 0;text-align: center;font-family: '黑体';">
                 <span style="color: #ffffff;font-size: 20px;font-weight: bold;">
@@ -120,11 +120,11 @@
 
                 </tbody>
             </table>
-            <p id="is_end" style="text-align: center;font-size: 12px;">已到最后一页</p>
+            <p id="is_end1" style="text-align: center;font-size: 12px;">已到最后一页</p>
         </div>
     </div><br>
 </div>
-<!--普通用户-->
+<!--商家-->
 
 
 <script>
@@ -132,6 +132,7 @@
 //    window.onload=function(){
 //    shop_record();
 //}
+
     function shop_record() {
         $("#shop_sunflower").css("color","#3ab5f3");
         $("#user_sunflower").css("color","#7c7c7c");
@@ -141,9 +142,7 @@
         $("#shop_sunflower").css("color","#7c7c7c");
         $("#user_sunflower").css("color","#3ab5f3");
 
-
     }
-
 </script>
 
 <script>
@@ -168,7 +167,7 @@
 
     function get_data(){
         tab_type = $('#tab_type').val()
-        $.post("{{site_url url='user/user_heart_loaddata'}}/"+window.page,{tab_type:tab_type},function(data){
+        $.post("{{site_url url='user/shop_heart_loaddata'}}/"+window.page,{tab_type:tab_type},function(data){
             if(data){
                 $("#accordion").append(data)
                 window.page += 1

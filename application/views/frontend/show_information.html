@@ -20,106 +20,154 @@
        overflow:scroll;overflow-y:hidden; background-image: url(../../statics/images/4.jpg);
        background-repeat: no-repeat;
    }
-
+   .show_information_card_all{
+       background: rgba(255, 255, 255, 0.1); height: 100%;
+   }
+    .show_information_card_div_all{
+        width: 70%;height: 300px;margin:0 auto;margin-top: 50px;background: rgba(255, 255, 255, 0.3);
+    }
+    .show_information_card_1{
+        width: 100%;height: 100px;border-bottom: 1px dashed #ffffff;text-align: center;
+    }
+    .show_information_card_1 .show_information_card_title{
+        padding-top: 20px;color: #f7e288;
+    }
+    .show_information_card_1 .show_information_card_money{
+        color: #ffffff;
+    }
+    .show_information_card_1 .show_information_card_refresh{
+        color: #ffffff;
+    }
+    .show_information_card_1 .show_information_card_date{
+        color: #f7e288;
+    }
 </style>
-<body style="">
-<div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0" style="background: rgba(255, 255, 255, 0.1); height: 100%;">
+<body>
+<div class="am-slider am-slider-default show_information_card_all" data-am-flexslider id="demo-slider-0">
     <ul class="am-slides">
         <li>
-            <div style="width: 70%;height: 300px;margin:0 auto;margin-top: 50px;background: rgba(255, 255, 255, 0.3);" class="am-animation-slide-top">
-                   <div style="width: 100%;height: 90px;border-bottom: 1px dashed #ffffff;text-align: center;">
-                       <div style="padding-top: 20px;color: #f7e288;">信使注册激励剩余总额</div>
-                       <div  style="color: #ffffff;">99999999</div>
+            <div class="am-animation-slide-top show_information_card_div_all">
+                   <div class="show_information_card_1">
+                       <div class="show_information_card_title">信使注册激励剩余总额</div>
+                       <div class="show_information_card_money">99999999</div>
                    </div>
-                <div style="width: 100%;height: 100px;border-bottom: 1px dashed #ffffff;text-align: center;">
-                    <div style="padding-top: 20px;color: #f7e288;">信使注册激励剩余总额</div>
-                    <div  style="color: #ffffff;">99999999</div>
+                <div class="show_information_card_1">
+                    <div class="show_information_card_title">信使注册激励剩余总额</div>
+                    <div class="show_information_card_money">99999999</div>
                 </div>
-                <div style="width: 100%;height: 100px;border-bottom: 1px dashed #ffffff;text-align: center;">
-                    <div style="padding-top: 20px;color: #f7e288;">信使注册激励剩余总额</div>
-                    <div style="color: #ffffff;">99999999</div>
-                    <div style="color: #ffffff;"><span class="am-icon-undo"> &nbsp;点击刷新</span></div>
-                </div>
-            </div>
-        </li>
-
-        <li>
-            <div style="width: 70%;height: 300px;background: rgba(0, 0, 0, 0.2);margin:0 auto;margin-top: 50px;" class="test">
-                <div style="width: 100%;height: 90px;border-bottom: 1px dashed #ffffff;text-align: center;">
-                    <div style="padding-top:30px;color: #f7e288;">待捐款</div>
-                    <div  style="color: #ffffff;">88888</div>
-                </div>
-                <div style="width: 100%;height: 100px;border-bottom: 1px dashed #ffffff;text-align: center;">
-                    <div style="padding-top: 20px;color: #f7e288;">上个捐款日捐赠</div>
-                    <div style="color: #f7e288;">2016-11-10</div>
-                    <div  style="color: #ffffff;">99999999</div>
-                </div>
-                <div style="width: 100%;height: 100px;border-bottom: 1px dashed #ffffff;text-align: center;">
-                    <div style="padding-top: 20px;color: #f7e288;">累计捐赠</div>
-                    <div style="color: #ffffff;">99999999</div>
-                    <div style="color: #ffffff;"><span class="am-icon-undo"> &nbsp;点击刷新</span></div>
+                <div class="show_information_card_1">
+                    <div class="show_information_card_title">信使注册激励剩余总额</div>
+                    <div class="show_information_card_money">99999999</div>
+                    <div class="show_information_card_refresh"><span class="am-icon-undo"> &nbsp;点击刷新</span></div>
                 </div>
             </div>
         </li>
 
         <li>
-            <div style="width: 70%;height: 400px;background: rgba(255, 255, 255, 0.3);margin:0 auto;margin-top: 50px;">
+            <div class="test show_information_card_div_all">
+                <div class="show_information_card_1">
+                    <div class="show_information_card_title">待捐款</div>
+                    <div class="show_information_card_money">88888</div>
+                </div>
+                <div class="show_information_card_1">
+                    <div class="show_information_card_title">上个捐款日捐赠</div>
+                    <div class="show_information_card_date">2016-11-10</div>
+                    <div class="show_information_card_money">99999999</div>
+                </div>
+                <div class="show_information_card_1">
+                    <div class="show_information_card_title">累计捐赠</div>
+                    <div class="show_information_card_money">99999999</div>
+                    <div class="show_information_card_refresh"><span class="am-icon-undo"> &nbsp;点击刷新</span></div>
+                </div>
+            </div>
+        </li>
+
+        <li>
+            <div class="show_information_card_div_all">
                 <div style="width: 100%;height: 90px;text-align: center;">
-                    <div style="padding-top:30px;color: #ffffff;">供应链爱心日值</div>
+                    <div style="padding-top:30px;color: #ffffff;">供应链向日葵日值</div>
                     <div  style="color: #ffffff;">激励日期：{{if $data}}{{$data.date}}{{/if}}</div>
                 </div>
-                <div style="width:80%;height: 60px;margin-top: 50px;margin: 0 auto;text-align: center;border: 1px dashed #ffffff;border-radius: 5px;">
-                    <div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax6_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>
+                <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;text-align: center;border-radius: 5px;">
+                    <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax6_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
+                    <div style="width: 100%;height: 30px;margin:0 auto;">
+                        <div style="width:70px;margin:0 auto;">
+                            <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax6_price}}{{/if}}&nbsp;</span>
+                            <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
+                            <span style="float: left;color: #f7e288;">/</span>
+                            <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
+                        </div>
+                    </div>
                     <div style="color: #f7e288;">
-                        <p>
-
-                            <i class="am-icon-star"></i>
-                        </p>
+                        <span style="font-size: 14px;" >6系列&nbsp;&nbsp;<span class="am-icon-star"></span><span class="am-icon-star"></span></span>
                     </div>
                 </div>
 
-                <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;margin-top: 30px;text-align: center;border-radius: 5px;">
-                    <div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax12_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>
+                <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;text-align: center;border-radius: 5px;">
+                    <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax12_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
+                    <div style="width: 100%;height: 30px;margin:0 auto;">
+                        <div style="width:70px;margin:0 auto;">
+                            <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax12_price}}{{/if}}&nbsp;</span>
+                            <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
+                            <span style="float: left;color: #f7e288;">/</span>
+                            <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
+                        </div>
+                    </div>
                     <div style="color: #f7e288;">
-                        <p>
-
-                            <i class="am-icon-star"></i>
-                            <i class="am-icon-star"></i>
-                        </p>
+                            <span style="font-size: 14px;" >12系列&nbsp;&nbsp;<span class="am-icon-star"></span><span class="am-icon-star"></span></span>
                     </div>
                 </div>
 
-                <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;margin-top: 30px;text-align: center;border-radius: 5px;">
-                    <div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax24_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>
+                <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;text-align: center;border-radius: 5px;">
+                    <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax24_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
+                    <div style="width: 100%;height: 30px;margin:0 auto;">
+                        <div style="width:100px;margin:0 auto;">
+                            <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax24_price}}{{/if}}&nbsp;</span>
+                            <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
+                            <span style="float: left;color: #f7e288;">/</span>
+                            <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
+                        </div>
+                    </div>
                     <div style="color: #f7e288;">
-                        <p>
-                            <i class="am-icon-star"></i>
-                            <i class="am-icon-star"></i>
-                            <i class="am-icon-star"></i>
-                        </p>
+                            <span style="font-size: 14px;" >24系列&nbsp;&nbsp;<span class="am-icon-star"></span><span class="am-icon-star"></span><span class="am-icon-star"></span></span>
                     </div>
                 </div>
             </div>
         </li>
 
         <li>
-            <div style="width: 70%;height: 400px;background: rgba(0, 0, 0, 0.2);margin:0 auto;margin-top: 50px;" >
+            <div class="show_information_card_div_all">
                 <div style="width: 100%;height: 90px;text-align: center;">
-                    <div style="padding-top:30px;color: #ffffff;">全联盟爱心日值 </div>
+                    <div style="padding-top:30px;color: #ffffff;">全联盟向日葵日值 </div>
                     <div  style="color: #ffffff;">激励日期：{{if $data}}{{$data.date}}{{/if}}</div>
                 </div>
                 <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;margin-top: 30px;text-align: center;border-radius: 5px;">
-                    <div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.shop_ax6}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>
+                    <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.shop_ax6}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
+                    <div style="width: 100%;height: 30px;margin:0 auto;">
+                        <div style="width:70px;margin:0 auto;">
+                            <span style="float: left;color: #f7e288;">&nbsp;0&nbsp;</span>
+                            <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
+                            <span style="float: left;color: #f7e288;">/</span>
+                            <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
+                        </div>
+                    </div>
                     <div style="color: #f7e288;">
                         <p>
-
                             <i class="am-icon-star"></i>
                         </p>
                     </div>
                 </div>
 
                 <div style="width:80%;height: 60px;border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;margin-top: 30px;text-align: center;border-radius: 5px;">
-                    <div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.shop_ax12}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>
+                    <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.shop_ax12}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
+                    <div style="width: 100%;height: 30px;margin:0 auto;">
+                        <div style="width:70px;margin:0 auto;">
+                            <span style="float: left;color: #f7e288;">&nbsp;0&nbsp;</span>
+                            <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
+                            <span style="float: left;color: #f7e288;">/</span>
+                            <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
+                        </div>
+                    </div>
                     <div style="color: #f7e288;">
                         <p>
 
@@ -144,7 +192,7 @@
         </li>
 
         <li>
-        <div style="width: 70%;height: 300px;background: rgba(255, 255, 255, 0.3);margin:0 auto;margin-top: 50px;">
+        <div class="show_information_card_div_all">
             <div style="width: 100%;height: 50px;text-align: center;">
                 <div style="padding-top:10px;color: #ffffff;">全联盟昨日消费</div>
             </div>
@@ -182,9 +230,9 @@
     </li>
 
         <li>
-            <div style="width: 70%;height: 300px;background: rgba(0, 0, 0, 0.2);margin:0 auto;margin-top: 50px;" >
+            <div class="show_information_card_div_all">
                 <div style="width: 100%;height: 50px;text-align: center;">
-                    <div style="padding-top:10px;color: #ffffff;">全国市级爱心光荣榜</div>
+                    <div style="padding-top:10px;color: #ffffff;">全国市级向日葵光荣榜</div>
                 </div>
                 <div>
                     <table class="table" border="0">
@@ -204,9 +252,9 @@
         </li>
 
         <li>
-            <div style="width: 70%;height: 300px;background: rgba(255, 255, 255, 0.3);margin:0 auto;margin-top: 50px;" >
+            <div  class="show_information_card_div_all">
                 <div style="width: 100%;height: 50px;text-align: center;">
-                    <div style="padding-top:10px;color: #ffffff;">全国爱心光荣榜</div>
+                    <div style="padding-top:10px;color: #ffffff;">全国向日葵光荣榜</div>
                 </div>
                 <div>
                     <table class="table" border="0">
@@ -226,13 +274,13 @@
         </li>
 
         <li>
-            <div style="width: 70%;height: 300px;background: rgba(0, 0, 0, 0.2);margin:0 auto;margin-top: 50px;" >
+            <div class="show_information_card_div_all">
                 <div style="width: 100%;height: 50px;text-align: center;">
-                    <div style="padding-top:10px;color: #ffffff;">全联盟爱心</div>
+                    <div style="padding-top:10px;color: #ffffff;">全联盟向日葵</div>
                 </div>
                 <div style="width:80%;height: 60px;border: 1px dashed #ffffff;border-radius: 5px;margin-top: 10px;margin: 0 auto;text-align: center">
                     <div style="color: #f7e288;margin-top: 5px;">
-                        <div>联盟爱心消费总额</div>
+                        <div>联盟消费总额</div>
                         <div>11111110元</div>
                     </div>
                 </div>
