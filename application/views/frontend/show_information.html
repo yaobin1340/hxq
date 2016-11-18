@@ -32,14 +32,24 @@
     .show_information_card_1 .show_information_card_title{
         padding-top: 20px;color: #f7e288;
     }
-    .show_information_card_1 .show_information_card_money{
-        color: #ffffff;
-    }
-    .show_information_card_1 .show_information_card_refresh{
+
+    .show_information_card_1 .show_information_card_refresh , .show_information_card_2 .show_information_card_date , .show_information_card_1 .show_information_card_money{
         color: #ffffff;
     }
     .show_information_card_1 .show_information_card_date{
         color: #f7e288;
+    }
+    .show_information_card_2{
+        width: 100%;height: 90px;text-align: center;
+    }
+    .show_information_card_2 .show_information_card_title{
+        padding-top:30px;color: #ffffff;
+    }
+    .show_information_card_div_all .show_information_card_2_content{
+        width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;text-align: center;border-radius: 5px;
+    }
+    .show_information_card_2_content .show_information_card_2_content_all{
+        width: 100%;height: 30px;margin:0 auto;
     }
 </style>
 <body>
@@ -84,13 +94,13 @@
 
         <li>
             <div class="show_information_card_div_all">
-                <div style="width: 100%;height: 90px;text-align: center;">
-                    <div style="padding-top:30px;color: #ffffff;">供应链向日葵日值</div>
-                    <div  style="color: #ffffff;">激励日期：{{if $data}}{{$data.date}}{{/if}}</div>
+                <div class="show_information_card_2">
+                    <div class="show_information_card_title">供应链向日葵日值</div>
+                    <div class="show_information_card_date">激励日期：{{if $data}}{{$data.date}}{{/if}}</div>
                 </div>
-                <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;text-align: center;border-radius: 5px;">
+                <div class="show_information_card_2_content">
                     <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax6_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
-                    <div style="width: 100%;height: 30px;margin:0 auto;">
+                    <div class="show_information_card_2_content_all">
                         <div style="width:90px;margin:0 auto;">
                             <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax6_price}}{{/if}}&nbsp;</span>
                             <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
@@ -101,10 +111,10 @@
                     </div>
                 </div>
 
-                <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;text-align: center;border-radius: 5px;">
+                <div class="show_information_card_2_content">
                     <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax12_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
-                    <div style="width: 100%;height: 30px;margin:0 auto;">
-                        <div style="width:90px;margin:0 auto;">
+                    <div class="show_information_card_2_content_all">
+                        <div style="width:95px;margin:0 auto;">
                             <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax12_price}}{{/if}}&nbsp;</span>
                             <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
                             <span style="float: left;color: #f7e288;">/</span>
@@ -114,9 +124,9 @@
                     </div>
                 </div>
 
-                <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;text-align: center;border-radius: 5px;">
+                <div class="show_information_card_2_content">
                     <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax24_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
-                    <div style="width: 100%;height: 30px;margin:0 auto;">
+                    <div class="show_information_card_2_content_all">
                         <div style="width:90px;margin:0 auto;">
                             <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax24_price}}{{/if}}&nbsp;</span>
                             <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
