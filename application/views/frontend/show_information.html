@@ -32,14 +32,24 @@
     .show_information_card_1 .show_information_card_title{
         padding-top: 20px;color: #f7e288;
     }
-    .show_information_card_1 .show_information_card_money{
-        color: #ffffff;
-    }
-    .show_information_card_1 .show_information_card_refresh{
+
+    .show_information_card_1 .show_information_card_refresh , .show_information_card_2 .show_information_card_date , .show_information_card_1 .show_information_card_money{
         color: #ffffff;
     }
     .show_information_card_1 .show_information_card_date{
         color: #f7e288;
+    }
+    .show_information_card_2{
+        width: 100%;height: 90px;text-align: center;
+    }
+    .show_information_card_2 .show_information_card_title{
+        padding-top:30px;color: #ffffff;
+    }
+    .show_information_card_div_all .show_information_card_2_content{
+        width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;text-align: center;border-radius: 5px;
+    }
+    .show_information_card_2_content .show_information_card_2_content_all{
+        width: 100%;height: 30px;margin:0 auto;
     }
 </style>
 <body>
@@ -67,69 +77,62 @@
             <div class="test show_information_card_div_all">
                 <div class="show_information_card_1">
                     <div class="show_information_card_title">待捐款</div>
-                    <div class="show_information_card_money">88888</div>
+                    <div class="show_information_card_money">{{($jukuan.djk.total|default:0)/100}}</div>
                 </div>
                 <div class="show_information_card_1">
                     <div class="show_information_card_title">上个捐款日捐赠</div>
-                    <div class="show_information_card_date">2016-11-10</div>
-                    <div class="show_information_card_money">99999999</div>
+                    <div class="show_information_card_date">{{$jukuan.zjjk.date|default:'--'}}</div>
+                    <div class="show_information_card_money">{{($jukuan.zjjk.total|default:0)/100}}</div>
                 </div>
                 <div class="show_information_card_1">
                     <div class="show_information_card_title">累计捐赠</div>
-                    <div class="show_information_card_money">99999999</div>
-                    <div class="show_information_card_refresh"><span class="am-icon-undo"> &nbsp;点击刷新</span></div>
+                    <div class="show_information_card_money">{{($jukuan.zjk.total|default:0)/100}}</div>
                 </div>
             </div>
         </li>
 
         <li>
             <div class="show_information_card_div_all">
-                <div style="width: 100%;height: 90px;text-align: center;">
-                    <div style="padding-top:30px;color: #ffffff;">供应链向日葵日值</div>
-                    <div  style="color: #ffffff;">激励日期：{{if $data}}{{$data.date}}{{/if}}</div>
+                <div class="show_information_card_2">
+                    <div class="show_information_card_title">供应链向日葵日值</div>
+                    <div class="show_information_card_date">激励日期：{{if $data}}{{$data.date}}{{/if}}</div>
                 </div>
-                <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;text-align: center;border-radius: 5px;">
+                <div class="show_information_card_2_content">
                     <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax6_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
-                    <div style="width: 100%;height: 30px;margin:0 auto;">
-                        <div style="width:70px;margin:0 auto;">
+                    <div class="show_information_card_2_content_all">
+                        <div style="width:90px;margin:0 auto;">
                             <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax6_price}}{{/if}}&nbsp;</span>
                             <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
                             <span style="float: left;color: #f7e288;">/</span>
-                            <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
+                            <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;"><br>
                         </div>
-                    </div>
-                    <div style="color: #f7e288;">
-                        <span style="font-size: 14px;" >6系列&nbsp;&nbsp;<span class="am-icon-star"></span><span class="am-icon-star"></span></span>
+                        <span style="font-size: 14px;color: #f7e288;" >6系列&nbsp;&nbsp;<span class="am-icon-star"></span><span class="am-icon-star"></span></span>
                     </div>
                 </div>
 
-                <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;text-align: center;border-radius: 5px;">
+                <div class="show_information_card_2_content">
                     <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax12_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
-                    <div style="width: 100%;height: 30px;margin:0 auto;">
-                        <div style="width:70px;margin:0 auto;">
+                    <div class="show_information_card_2_content_all">
+                        <div style="width:95px;margin:0 auto;">
                             <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax12_price}}{{/if}}&nbsp;</span>
                             <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
                             <span style="float: left;color: #f7e288;">/</span>
-                            <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
+                            <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;"><br>
                         </div>
-                    </div>
-                    <div style="color: #f7e288;">
-                            <span style="font-size: 14px;" >12系列&nbsp;&nbsp;<span class="am-icon-star"></span><span class="am-icon-star"></span></span>
+                        <span style="font-size: 14px;color: #f7e288;" >12系列&nbsp;&nbsp;<span class="am-icon-star"></span><span class="am-icon-star"></span></span>
                     </div>
                 </div>
 
-                <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;text-align: center;border-radius: 5px;">
+                <div class="show_information_card_2_content">
                     <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax24_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
-                    <div style="width: 100%;height: 30px;margin:0 auto;">
-                        <div style="width:100px;margin:0 auto;">
+                    <div class="show_information_card_2_content_all">
+                        <div style="width:90px;margin:0 auto;">
                             <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax24_price}}{{/if}}&nbsp;</span>
                             <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
                             <span style="float: left;color: #f7e288;">/</span>
-                            <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
+                            <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;"><br>
                         </div>
-                    </div>
-                    <div style="color: #f7e288;">
-                            <span style="font-size: 14px;" >24系列&nbsp;&nbsp;<span class="am-icon-star"></span><span class="am-icon-star"></span><span class="am-icon-star"></span></span>
+                        <span style="font-size: 14px;color: #f7e288;" >24系列&nbsp;&nbsp;<span class="am-icon-star"></span><span class="am-icon-star"></span><span class="am-icon-star"></span></span>
                     </div>
                 </div>
             </div>
@@ -201,7 +204,7 @@
                     <p>
                         <i class="am-icon-star"></i>
                     </p>
-                    <div style="margin-top: -20px;">{{$ysday.total6|default:0}}元</div>
+                    <div style="margin-top: -20px;">{{($ysday.per6.total|default:0)/100}}元</div>
                 </div>
             </div>
 
@@ -211,7 +214,7 @@
                         <i class="am-icon-star"></i>
                         <i class="am-icon-star"></i>
                     </p>
-                    <div style="margin-top: -20px;">{{$ysday.total12|default:0}}元</div>
+                    <div style="margin-top: -20px;">{{($ysday.per12.total|default:0)/100}}元</div>
                 </div>
             </div>
 
@@ -222,7 +225,7 @@
                         <i class="am-icon-star"></i>
                         <i class="am-icon-star"></i>
                     </p>
-                    <div style="margin-top: -20px;">{{$ysday.total24|default:0}}元</div>
+                    <div style="margin-top: -20px;">{{($ysday.per24.total|default:0)/100}}元</div>
                 </div>
             </div>
 
@@ -235,16 +238,15 @@
                     <div style="padding-top:10px;color: #ffffff;">全国市级向日葵光荣榜</div>
                 </div>
                 <div>
+
                     <table class="table" border="0">
+                        {{foreach from=$phangcity item=row}}
                         <tr style="color: #343434;">
-                            <td class="td">广东省-深圳市</td>
-                            <td class="td">2449万元</td>
+                            <td class="td">{{$row.p_name}}-{{$row.c_name}}</td>
+                            <td class="td">{{round(($row.alltotal|default:0)/1000000, 2)}}万元</td>
 
                         </tr>
-                        <tr style="color: #343434;margin-top: -30px;">
-                            <td class="td">广东省-深圳市</td>
-                            <td class="td">2449万元</td>
-                        </tr>
+                        {{/foreach}}
                     </table>
                 </div>
 
@@ -258,15 +260,13 @@
                 </div>
                 <div>
                     <table class="table" border="0">
+                        {{foreach from=$phangcompany item=row}}
                         <tr style="color: #343434;">
-                            <td class="td">公司1</td>
-                            <td class="td">2449万元</td>
+                            <td class="td">{{$row.shop_name}}-{{$row.c_name}}</td>
+                            <td class="td">{{round(($row.total/1000000),2)}}万元</td>
 
                         </tr>
-                        <tr style="color: #343434;margin-top: -30px;">
-                            <td class="td">公司2</td>
-                            <td class="td">2449万元</td>
-                        </tr>
+                        {{/foreach}}
                     </table>
                 </div>
 

@@ -134,39 +134,47 @@ class Order_model extends MY_Model
 				$this->db->insert_batch('sunflower_shop', $insert_array);
 			}
 
+			$p = 1;
+			if($shop_info['percent'] == 12){
+				$p = 0.5;
+			}
+			if($shop_info['percent'] == 6){
+				$p = 0.25;
+			}
+
 			//商家上级获得分红
 			if($shop_info['parent_uid'] > 0){
 				$parent_info = $this->db->select()->from('users')->where('id',$shop_info['parent_uid'])->get()->row_array();
 				//商家上级是普通业务员
 				if($parent_info && $parent_info['is_dl'] == 1){
-					$this->money_log($this->input->post('total')*0.006,4,'业务员推荐商家奖励',$parent_info['id']);
+					$this->money_log($this->input->post('total')*0.006*$p,4,'业务员推荐商家奖励',$parent_info['id']);
 
 					$p_parent_info = $this->db->select()->from('users')->where('id',$parent_info['parent_id'])->get()->row_array();
 					//上上级是服务商
 					if($p_parent_info && $p_parent_info['is_dl'] == 2){
-						$this->money_log($this->input->post('total')*0.006,7,'服务商下级业务员推荐奖励',$p_parent_info['id']);
+						$this->money_log($this->input->post('total')*0.006*$p,7,'服务商下级业务员推荐奖励',$p_parent_info['id']);
 					}
 					//上上级是联合服务商
 					if($p_parent_info && $p_parent_info['is_dl'] == 3){
-						$this->money_log($this->input->post('total')*0.008,9,'联合服务商下级业务员推荐奖励',$p_parent_info['id']);
+						$this->money_log($this->input->post('total')*0.008*$p,9,'联合服务商下级业务员推荐奖励',$p_parent_info['id']);
 					}
 				}
 
 				//商家上级是服务商
 				if($parent_info && $parent_info['is_dl'] == 2){
-					$this->money_log($this->input->post('total')*0.012,5,'服务商推荐商家奖励',$parent_info['id']);
+					$this->money_log($this->input->post('total')*0.012*$p,5,'服务商推荐商家奖励',$parent_info['id']);
 
 					$p_parent_info = $this->db->select()->from('users')->where('id',$parent_info['parent_id'])->get()->row_array();
 
 					//上上级是联合服务商
 					if($p_parent_info && $p_parent_info['is_dl'] == 3){
-						$this->money_log($this->input->post('total')*0.002,8,'联合服务商下级服务商推荐奖励',$p_parent_info['id']);
+						$this->money_log($this->input->post('total')*0.002*$p,8,'联合服务商下级服务商推荐奖励',$p_parent_info['id']);
 					}
 				}
 
 				//商家上级是联合服务商
 				if($parent_info && $parent_info['is_dl'] == 3){
-					$this->money_log($this->input->post('total')*0.014,6,'联合服务商推荐商家奖励',$parent_info['id']);
+					$this->money_log($this->input->post('total')*0.014*$p,6,'联合服务商推荐商家奖励',$parent_info['id']);
 				}
 			}
 		}

@@ -119,7 +119,7 @@ class Frontend extends MY_Controller {
 		$yzm = rand(100000,999999);
 		$text = '您的短信验证码是:'.$yzm;
 		$this->session->set_userdata('yzm',$yzm);
-		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
+		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【三客柚】");
         $obj=json_decode($rs);
         if($obj->error !=0){
             $rs = $this->sendsms_curl($mobile,$text);
@@ -135,7 +135,7 @@ class Frontend extends MY_Controller {
         $yzm = rand(100000,999999);
         $text = '您的短信验证码是:'.$yzm;
         $this->session->set_userdata('yzm',$yzm);
-        $rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
+        $rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【三客柚】");
         $obj=json_decode($rs);
         if($obj->error !=0){
             $rs = $this->sendsms_curl($mobile,$text);
@@ -296,10 +296,21 @@ class Frontend extends MY_Controller {
         $this->assign('header_name', '数据中心');
         $data = $this->frontend_model->show_information();
         $ysday = $this->frontend_model->yesterday_info();
+        $jukuan = $this->frontend_model->jukuan();
+        $phangcity= $this->frontend_model->phang_city();
+        $phangcompany= $this->frontend_model->phang_company();
+        $this->assign('phangcity', $phangcity);
+        $this->assign('phangcompany', $phangcompany);
+        $this->assign('jukuan', $jukuan);
         $this->assign('data', $data);
         $this->assign('ysday', $ysday);
         $this->assign('footer_flag', 5);
         $this->display('frontend/show_information.html');
+    }
+
+    public function test(){
+        $jukuan = $this->frontend_model->phang_city();
+        var_dump($jukuan);
     }
 
     public function nearcity($lat,$lng){

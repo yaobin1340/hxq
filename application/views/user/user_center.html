@@ -54,7 +54,7 @@
            你好，{{$user_info.rel_name}}(ID:{{$user_info.id}})
        </span><br>
         <span class="header_font_2">
-            <span><img src="{{$base_url}}statics/images/zhongzi.png" style="width: 25px;height: 25px;"></span>总计：{{$user_info.integral}}&nbsp;&nbsp; <span><img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 25px;height: 25px;"></span>总计：{{$sum_count|default:0}}</span>
+            <span><img src="{{$base_url}}statics/images/zhongzi.png" style="width: 25px;height: 25px;"></span>总计：{{$user_info.integral/100}}&nbsp;&nbsp; <span><img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 25px;height: 25px;"></span>总计：{{$sum_count|default:0}}</span>
     </div>
 </div>
 <div class="list" style="">
@@ -89,7 +89,14 @@
 
     <a style="color: #696969" href="{{site_url url='user/user_heart'}}">
         <div class="list_back" >
-            &nbsp;<span class="am-icon-cart-plus list_bac_name">&nbsp;&nbsp;我的向日葵</span>
+            &nbsp;<span class="am-icon-sun-o list_bac_name">&nbsp;&nbsp;我的向日葵</span>
+            <span class="list_bac_jiantou" >></span>
+        </div>
+    </a>
+
+    <a style="color: #696969" href="{{site_url url='user/my_income'}}">
+        <div class="list_back" >
+            &nbsp;<span class="am-icon-line-chart list_bac_name">&nbsp;&nbsp;我的收益</span>
             <span class="list_bac_jiantou" >></span>
         </div>
     </a>

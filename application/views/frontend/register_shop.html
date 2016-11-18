@@ -1,4 +1,6 @@
        {{include file="./header.html"}}
+       <body style="background: #ffffff;">
+       <div style="padding-bottom: 60px;">
        <form class="am-form" data-am-validator action="/frontend/save_register_shop" method="post">
            <input type="hidden" id="bd_lat" name="baidu_lat" value="{{if $shop}}{{$shop.baidu_lat}}{{/if}}">
            <input type="hidden" id="bd_lng"  name="baidu_lng" value="{{if $shop}}{{$shop.baidu_lng}}{{/if}}">
@@ -184,7 +186,9 @@
            <button type="submit" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;margin-top: 5px;">取消</button>
            {{/if}}
        </form>
-
+       </div>
+       {{include file="../public/footer.html"}}
+       </body>
 <script src="{{$base_url}}statics/js/localResizeIMG.js"></script>
 <script src="{{$base_url}}statics/js/mobileBUGFix.mini.js"></script>
 <script>
@@ -308,7 +312,7 @@
         }
     }
 </script>
-</script>
+
 
 
 

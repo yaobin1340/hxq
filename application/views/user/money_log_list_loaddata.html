@@ -1,7 +1,7 @@
     {{foreach from=$data.items item=row}}
     <tr style="color: #343434;">
         <td class="td">{{$row.id}}</td>
-        <td class="td">{{if $row.type==1}}-{{else}}+{{/if}}{{$row.money}}元</td>
+        <td class="td">{{if $row.type==1}}-{{else}}+{{/if}}{{$row.money/100}}元</td>
         <td class="td">{{$row.cdate}}</td>
         <!--<td class="td">{{$row.remark}}</td>-->
     </tr>

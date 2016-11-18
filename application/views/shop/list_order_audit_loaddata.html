@@ -12,10 +12,10 @@
         <div class="am-panel-bd">
             <p class="list_all_information"><span class="am-icon-phone list_all_information_mobile"></span>&nbsp;&nbsp;订单数：{{$row.num}}</p>
             <p class="list_all_information"><span class="am-icon-user list_all_information_name"></span>&nbsp;&nbsp;状态：
-                {{if $row.status==1}}待提交{{/if}}
-                {{if $row.status==2}}待审核{{/if}}
-                {{if $row.status==3}}已完成{{/if}}
-                {{if $row.status==-1}}审核失败{{/if}}
+                <span style="color: red;">{{if $row.status==1}}待提交{{/if}}</span>
+                <span style="color: red;">{{if $row.status==2}}待审核{{/if}}</span>
+                <span style="color: #00a0e9;">{{if $row.status==3}}已完成{{/if}}</span>
+                <span style="color: red;">{{if $row.status==-1}}审核失败{{/if}}</span>
                 </p>
             <p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;时间：{{$row.cdate}}</p>
         </div>

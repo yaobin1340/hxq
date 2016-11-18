@@ -292,12 +292,64 @@ class Frontend_model extends MY_Model
 
     public function yesterday_info()
     {
-        $this->db->select();
-        $this->db->from('settlement');
-        $this->db->where('date',date("Y-m-d",strtotime("-1 day")));
-        $this->db->order_by('date','desc');
-        $row = $this->db->get()->row_array();
-        //var_dump($row);
-        return $row;
+        $this->db->select('sum(a.total) total')->from('order a');
+        $this->db->join('shop b','a.shop_id = b.id','left');
+        $this->db->where(array(
+           'a.adate >=' => date("Y-m-d",strtotime("-1 day")),
+            'a.status'=>3,
+            'b.percent'=>'6'
+        ));
+        $per['per6'] = $this->db->get()->row_array();
+
+        $this->db->select('sum(a.total) total')->from('order a');
+        $this->db->join('shop b','a.shop_id = b.id','left');
+        $this->db->where(array(
+            'a.adate >=' => date("Y-m-d",strtotime("-1 day")),
+            'a.status'=>3,
+            'b.percent'=>'12'
+        ));
+        $per['per12'] = $this->db->get()->row_array();
+
+        $this->db->select('sum(a.total) total')->from('order a');
+        $this->db->join('shop b','a.shop_id = b.id','left');
+        $this->db->where(array(
+            'a.adate >=' => date("Y-m-d",strtotime("-1 day")),
+            'a.status'=>3,
+            'b.percent'=>'24'
+        ));
+        $per['per24'] = $this->db->get()->row_array();
+        return $per;
+    }
+
+    public function jukuan(){
+        $data['djk'] = $this->db->select('sum(total) total')->from('commonweal')->where('status',1)->get()->row_array();
+        $data['zjjk'] = $this->db->select('total,date')->from('commonweal')
+            ->where('status',2)->order_by('date','desc')->get()->row_array();
+        $data['zjk'] = $this->db->select('sum(total) total')->from('commonweal')
+            ->where('status',2)->get()->row_array();
+        return $data;
+    }
+
+    public function phang_city(){
+        $this->db->select('sum(a.total) alltotal,p.name p_name,c.name c_name')->from('shop a');
+        $this->db->join('province p','p.code = a.province_code','left');
+        $this->db->join('city c','c.code = a.city_code','left');
+        $this->db->group_by('a.city_code');
+        $this->db->where('a.total >',0);
+        $this->db->order_by('alltotal','desc');
+        $this->db->limit(10, 0);
+        //var_dump($this->db->last_query());
+        return $this->db->get()->result_array();
+    }
+
+    public function phang_company(){
+        $this->db->select('a.shop_name,p.name p_name,c.name c_name,total')->from('shop a');
+        $this->db->join('province p','p.code = a.province_code','left');
+        $this->db->join('city c','c.code = a.city_code','left');
+        $this->db->where('a.total >',0);
+        $this->db->order_by('a.total','desc');
+        $this->db->limit(10, 0);
+        //var_dump($this->db->last_query());
+        return $this->db->get()->result_array();
     }
 }
