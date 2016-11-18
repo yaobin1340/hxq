@@ -21,24 +21,24 @@ class MY_Controller extends CI_Controller
 		$this->cismarty->assign('footer_flag','');//初始化
 		$this->load->model('sys_model');
 		//if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
-//			if(!$this->session->userdata('openid')){
-//				$appid="wxa6a2f25241f8bc87";
-//				$secret="3cbf8a0ea011dd71a2fbc95124858804";
-//				if(empty($_GET['code'])){
-//					$url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
-//					$url = urlencode($url);
-//					redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appid}&redirect_uri={$url}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
-//				}else{
-//					$j_access_token=file_get_contents("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$appid}&secret={$secret}&code={$_GET['code']}&grant_type=authorization_code");
-//					$a_access_token=json_decode($j_access_token,true);
-//					$access_token=$a_access_token["access_token"];
-//					$openid=$a_access_token["openid"];
-//					$this->sys_model->get_uid_byopenid($openid);
-//					$this->session->set_userdata('openid', $openid);
-//				}
-//			}else{
-//				$this->sys_model->get_uid_byopenid($this->session->userdata('openid'));
-//			}
+			if(!$this->session->userdata('openid')){
+				$appid="wxa6a2f25241f8bc87";
+				$secret="3cbf8a0ea011dd71a2fbc95124858804";
+				if(empty($_GET['code'])){
+					$url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
+					$url = urlencode($url);
+					redirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid={$appid}&redirect_uri={$url}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
+				}else{
+					$j_access_token=file_get_contents("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$appid}&secret={$secret}&code={$_GET['code']}&grant_type=authorization_code");
+					$a_access_token=json_decode($j_access_token,true);
+					$access_token=$a_access_token["access_token"];
+					$openid=$a_access_token["openid"];
+					$this->sys_model->get_uid_byopenid($openid);
+					$this->session->set_userdata('openid', $openid);
+				}
+			}else{
+				$this->sys_model->get_uid_byopenid($this->session->userdata('openid'));
+			}
 
 		//}
 	}
