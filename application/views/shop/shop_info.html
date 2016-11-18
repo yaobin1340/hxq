@@ -1,0 +1,504 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{$header_name}}</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed"
+          href="{{$base_url}}statics/amaze/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet"
+          href="{{$base_url}}statics/amaze/css/amazeui.min.css" />
+    <link rel="stylesheet" href="{{$base_url}}statics/amaze/css/admin.css">
+    <link rel="stylesheet" href="{{$base_url}}statics/css/stylecss.css">
+    <link rel="stylesheet" href="{{$base_url}}statics/css/shopcss.css">
+    <!--[if lt IE 9]>
+    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{$base_url}}assets/js/polyfill/rem.min.js"></script>
+    <script src="{{$base_url}}assets/js/polyfill/respond.min.js"></script>
+    <script src="{{$base_url}}assets/js/amazeui.legacy.js"></script>
+    <![endif]-->
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="{{$base_url}}statics/amaze/js/jquery.min.js"></script>
+    <script src="{{$base_url}}statics/amaze/js/amazeui.js"></script>
+    <!--<![endif]-->
+    <script src="{{$base_url}}statics/amaze/js/app.js"></script>
+
+    <script src="{{$base_url}}statics/js/common.js"></script>
+</head>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+    }
+    .register_one_header{
+        height: 50px;width: 100%;text-align: center;
+    }
+    .register_header_title{
+        text-align: center;line-height: 50px;font-size: 18px;font-family: '宋体';
+    }
+    .register_header_back{
+        line-height: 50px;font-size: 20px;float: left;margin-left:5px ;
+    }
+</style>
+
+<body>
+        <header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
+            <span class="register_header_title">{{$header_name}}</span>
+            <a href="javascript:void(0)" onclick="back()"><span class="am-icon-chevron-left register_header_back"></span></a>
+        </header>
+       <form class="am-form" data-am-validator action="/shop/save_shop_info" method="post">
+           <input type="hidden" id="bd_lat" name="baidu_lat" value="{{if $shop}}{{$shop.baidu_lat}}{{/if}}">
+           <input type="hidden" id="bd_lng"  name="baidu_lng" value="{{if $shop}}{{$shop.baidu_lng}}{{/if}}">
+        <div class="am-form-group am-form-file upload_img_all">
+            <input id="file" type="file" accept="image/*" capture=camera"/>
+            <div class="upload_img_div1">
+                <div class="upload_img_div2">
+                    <img id="previewResult" {{if $shop}}src="{{$base_url}}upload/logo/{{$shop.logo}}"{{/if}}/>
+                </div>
+                 <button type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
+                 <i class="am-icon-cloud-upload"></i> 上传logo</button>
+                <!--<img id="previewResult" style="width: 80px;height: 80px;"/>-->
+                 <input type="hidden" name="img_input" id="img_input">
+            </div>
+        </div>
+
+       <div class="am-form-group am-form-icon" style="height: 50px;">
+           <i class="am-icon-user"></i>
+           <input type="text" name="shop_name" {{if $shop}}value="{{$shop.shop_name}}"{{/if}} class="am-form-field user_add_phone disabled" placeholder="请输入商家名称" style="height: 50px;" required  />
+       </div>
+
+        <div class="am-input-group " style="width: 100%;">
+            <select name="type" class="am-form-select" style="width: 100%;margin: 0 auto;height: 50px;">
+                <option>-请选择类别-</option>
+                {{foreach from=$shop_type item=row}}
+                <option value="{{$row.id}}" {{if $shop && $shop.type eq $row.id}} selected="selected" {{/if}}>{{$row.name}}</option>
+                {{/foreach}}
+            </select>
+        </div>
+        <br>
+
+        <div class="am-form-group" >
+                <select name="province_code" onchange="changeSelect(this)" style="width: 100%; height: 50px;">
+                    <option value="">-请选择省份-</option>
+                    {{foreach from=$provinces item=row}}
+                    <option value="{{$row.code}}" {{if $shop}}{{if $shop.province_code eq $row.code}} selected="selected" {{/if}}{{/if}}>{{$row.name}}</option>
+                    {{/foreach}}
+                </select>
+                <select name="city_code" style="width: 100%; height: 50px;" onchange="changeSelectCity(this)">
+                    <option value="">-请选择城市-</option>
+                    {{foreach from=$city item=row}}
+                    <option value="{{$row.code}}" {{if $shop}}{{if $shop.city_code eq $row.code}} selected="selected" {{/if}}{{/if}}>{{$row.name}}</option>
+                    {{/foreach}}
+                </select>
+            <select name="area_code" style="width: 100%; height: 50px; ">
+                <option value="">-请选择区域-</option>
+                {{foreach from=$area item=row}}
+                <option value="{{$row.code}}" {{if $shop}}{{if $shop.area_code eq $row.code}} selected="selected" {{/if}}{{/if}}>{{$row.name}}</option>
+                {{/foreach}}
+            </select>
+        </div>
+
+           <div class="am-form-group am-form-icon" style="height: 50px;">
+               <i class="am-icon-map-marker"></i>
+               <input type="text" name="address" {{if $shop}}value="{{$shop.address}}"{{/if}} class="am-form-field user_add_phone" placeholder="请输入详细地址" style="height: 50px;" required />
+           </div>
+
+           <div class="am-form-group am-form-icon" style="height: 50px;">
+               <i class="am-icon-user"></i>
+               <input type="text" name="person" {{if $shop}}value="{{$shop.person}}"{{/if}} class="am-form-field user_add_phone" placeholder="请输入联系人" style="height: 50px;"  required/>
+           </div>
+           <div class="am-form-group am-form-icon" style="height: 50px;">
+               <i class="am-icon-phone"></i>
+               <input type="text" name="phone" {{if $shop}}value="{{$shop.phone}}"{{/if}} class="am-form-field  user_add_phone" placeholder="请输入联系电话" style="height: 50px;" required />
+           </div>
+
+           <div class="am-form-group am-form-icon" style="height: 50px;">
+               <i class="am-icon-clock-o"></i>
+               <input type="text" name="business_time" {{if $shop}}value="{{$shop.business_time}}"{{/if}} class="am-form-field user_add_phone" placeholder="请输入营业时间(8:00~21:00)" style="height: 50px;" required />
+           </div>
+
+
+        <div class="am-input-group" style="margin-left: 10px;">
+            <input readonly="readonly" type="text" {{if $shop}}value="{{$shop.lng}}"{{/if}} class="am-form-field am-u-sm-4" placeholder="请输入经度" id="data_lng" name="lng" style="width:34%;height: 50px;">
+            <input readonly="readonly" type="text" {{if $shop}}value="{{$shop.lat}}"{{/if}} class="am-form-field am-u-sm-4" placeholder="请输入纬度" id="data_lat" name="lat" style="width:34%;float: left;height: 50px;">
+            <button type="button" class="am-btn am-btn-secondary am-btn-block" style="width:24%;float: left;margin-left: 5px;height: 50px;" data-am-modal="{target: '#baidu_map'}">百度地图</button>
+        </div>
+`
+        <div class="am-form-group" style="height: 100px;margin-top: 10px">
+            <textarea minlength="10" maxlength="100" placeholder="请输入商家简介" name='desc' class="am-form-field" style="height: 100px;">{{if $shop}}{{$shop.desc}}{{/if}}</textarea>
+        </div>
+
+           <div class="am-form-group" style="margin-top: 10px">
+               <label class="am-u-sm-2 am-form-label">类型:</label>
+               <div class="am-u-sm-10">
+                   {{if $shop.percent eq 6}}
+                   激励类型 6
+                   {{elseif $shop.percent eq 12}}
+                   激励类型 12
+                   {{elseif $shop.percent eq 24}}
+                   激励类型 24
+                   {{/if}}
+               </div>
+           </div>
+           <button type="submit" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;margin-bottom: 130px;margin-top: 30px">修改</button>
+       </form>
+
+<script src="{{$base_url}}statics/js/localResizeIMG.js"></script>
+<script src="{{$base_url}}statics/js/mobileBUGFix.mini.js"></script>
+<script>
+    function back(){
+        var url = document.referrer;
+        location.href = url;
+    }
+
+    $('#file').localResizeIMG({
+        width: 300,
+        height: 300,
+        quality: 1,
+        success: function (result) {
+            $("#img_input").val(result.base64);
+            $("#previewResult").attr('src',result.base64)
+        }
+    });
+
+    $('#license').localResizeIMG({
+        width: 500,
+//        height: 300,
+        quality: 1,
+        success: function (result) {
+            $("#license_img_input").val(result.base64);
+            $("#license_previewResult").attr('src',result.base64)
+        }
+    });
+
+    $('#cns1').localResizeIMG({
+        width: 500,
+//        height: 300,
+        quality: 1,
+        success: function (result) {
+            $("#cns1_img_input").val(result.base64);
+            $("#cns1_previewResult").attr('src',result.base64)
+        }
+    });
+
+    $('#cns2').localResizeIMG({
+        width: 500,
+//        height: 300,
+        quality: 1,
+        success: function (result) {
+            $("#cns2_img_input").val(result.base64);
+            $("#cns2_previewResult").attr('src',result.base64)
+        }
+    });
+
+    $('#sfz1').localResizeIMG({
+        width: 500,
+//        height: 300,
+        quality: 1,
+        success: function (result) {
+            $("#sfz1_img_input").val(result.base64);
+            $("#sfz1_previewResult").attr('src',result.base64)
+        }
+    });
+
+    $('#sfz2').localResizeIMG({
+        width: 500,
+//        height: 300,
+        quality: 1,
+        success: function (result) {
+            $("#sfz2_img_input").val(result.base64);
+            $("#sfz2_previewResult").attr('src',result.base64)
+        }
+    });
+    function get_yzm(){
+        $.get("{{site_url url='/frontend/get_yzm'}}/"+$("[name='mobile']").val(),function(data){
+            console.log(data)
+        });
+    }
+</script>
+<script type="text/javascript">
+    function get_name_by_keywords(obj){
+        var invite_flag = $(obj).val();
+        if(invite_flag != "{{$sessionUser.id}}" && invite_flag != "{{$sessionUser.mobile}}"){
+            if(invite_flag){
+                $.get("{{site_url url='frontend/get_name_by_keywords'}}/"+invite_flag,function(data){
+                    if(data){
+                        var str = '邀请人：'+data;
+                        $("#inviter").val(str)
+                        $('#inviter-block').show()
+                    }else{
+                        $('#inviter-block').hide()
+                        alert('邀请人手机号错误')
+                    }
+                })
+            }
+        }else{
+            alert('邀请人不能是本人')
+            $('input[name=parent_flag]').val('')
+        }
+    }
+    function changeSelect(obj)
+    {
+        province = $(obj).val();
+        html = '<option value="">-请选择城市-</option>'
+        if(province){
+            $.getJSON("{{site_url url='frontend/get_city'}}/"+province,function(data){
+                data.forEach(function(item){
+                    html += '<option value="'+ item.code +'">'+item.name+'</option>'
+
+                })
+                $("[name='city_code']").html(html)
+            });
+        }else{
+            $("[name='city_code']").html(html)
+        }
+    }
+
+    function changeSelectCity(obj)
+    {
+        city = $(obj).val();
+        html = '<option value="">-请选择区域-</option>'
+        if(city){
+            $.getJSON("{{site_url url='frontend/get_area'}}/"+city,function(data){
+                data.forEach(function(item){
+                    html += '<option value="'+ item.code +'">'+item.name+'</option>'
+
+                })
+                $("[name='area_code']").html(html)
+            });
+        }else{
+            $("[name='area_code']").html(html)
+        }
+    }
+</script>
+
+<!--百度地图-->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+<div class="am-popup" id="baidu_map" style="display: none;position:absolute !important;">
+    <div class="am-popup-inner">
+        <div class="am-popup-hd">
+            <h4 class="am-popup-title">百度地图</h4>
+      <span data-am-modal-close
+            class="am-close">&times;</span>
+        </div>
+        <div class="am-popup-bd">
+            <div class="top">
+                <div id="r-result"><input type="text" id="suggestId" class="am-form-field" placeholder="请输入地址"/></div>
+                <br>
+                <div class="right">
+                    <div class="points"><input type='text' class="am-form-field" name='lng' id='lng' placeholder="经度"/></div>
+
+                    <div class="points"><input type='text' class="am-form-field" id='lat' name='lat' placeholder="纬度"/></div>
+                    <div class="queren" onclick="showInfo();">确认</div>
+                </div>
+            </div>
+            <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+            <div id="allmap" style="width: 100%; height:500px;"></div>
+        </div>
+    </div>
+</div>
+       <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+       <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&libraries=convertor"></script>
+<script type="text/javascript">
+
+    $(window).scroll(function ()
+    {
+        var st = $(this).scrollTop();
+        $('.am-popup').css('margin-top',st)
+    });
+
+
+    var map = new BMap.Map("allmap");
+    var ac = new BMap.Autocomplete(//建立一个自动完成的对象
+            {"input": "suggestId"
+                , "location": map
+            });
+
+    ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
+        var str = "";
+        var _value = e.fromitem.value;
+        var value = "";
+        if (e.fromitem.index > -1) {
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+        value = "";
+        if (e.toitem.index > -1) {
+            _value = e.toitem.value;
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+        G("searchResultPanel").innerHTML = str;
+    });
+
+    var myValue;
+    ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+        var _value = e.item.value;
+        myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+        G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+        setPlace();
+    });
+
+    function create_map(lat,lng){
+        // 百度地图API功能
+        map.centerAndZoom(new BMap.Point(lng , lat ), 15);
+        var point = new BMap.Point( lng , lat );
+        map.centerAndZoom(point, 15);
+        var marker = new BMap.Marker(point);  // 创建标注
+        map.clearOverlays();
+        map.addOverlay(marker);              // 将标注添加到地图中
+        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+        map.enableScrollWheelZoom(true);
+        map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+        map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));  //右上角，仅包含平移和缩放按钮
+        map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT, type: BMAP_NAVIGATION_CONTROL_PAN}));  //左下角，仅包含平移按钮
+        map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM}));  //右下角，仅包含缩放按钮
+        map.addEventListener("click", showPoint);
+
+    }
+
+    function showInfo(e) {
+        if($.trim($("#lng").val())!='' && $.trim($("#lat").val())!=''){
+            parent.selectCallBack('data_lng', 'data_lat',document.getElementById('lng').value, document.getElementById('lat').value);
+        }else{
+            alert('请选择地址!');
+        }
+    }
+    function showPoint(e) {
+        document.getElementById('lat').value = e.point.lat;
+        document.getElementById('lng').value = e.point.lng;
+        var p = new BMap.Point(e.point.lng,e.point.lat);
+        var mk = new BMap.Marker(p);
+        map.clearOverlays();
+        map.addOverlay(mk);
+        mk.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+    }
+
+    function G(id) {
+        return document.getElementById(id);
+    }
+
+    function setPlace() {
+        map.clearOverlays();    //清除地图上所有覆盖物
+        function myFun() {
+            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+            map.centerAndZoom(pp, 18);
+            map.addOverlay(new BMap.Marker(pp));    //添加标注
+        }
+        var local = new BMap.LocalSearch(map, {//智能搜索
+            onSearchComplete: myFun
+        });
+        local.search(myValue);
+    }
+
+    function baidu_to_tx(lat,lng){
+            x_pi = 3.14159265358979324 * 3000.0 / 180.0;
+            var x = lng - 0.0065, y = lat - 0.006;
+            var z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * x_pi);
+            var theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * x_pi);
+            var point = new Array()
+            point['lng']=z * Math.cos(theta);
+            point['lat']= z * Math.sin(theta);
+        return point;
+
+    }
+
+    function tx_to_baidu(lat,lng){
+        x_pi = 3.14159265358979324 * 3000.0 / 180.0;
+        var x = lng, y = lat;
+        var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * x_pi);
+        var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * x_pi);
+        var point = new Array()
+        point['lng'] = z * Math.cos(theta) + 0.0065;
+        point['lat'] = z * Math.sin(theta) + 0.006;
+        return point;
+
+    }
+
+    function selectCallBack(id, name, v1, v2) {
+        qq.maps.convertor.translate(new qq.maps.LatLng(v2,v1), 3, function(res){
+            var words = res.toString().split(',')
+            //alert(res[0]);
+            $("#" + id).val(words[1]);
+            $("#" + name).val(words[0]);
+            $("#bd_lng").val(v1);
+            $("#bd_lat").val(v2);
+            $("#baidu_map").modal('close')
+            create_map(v2,v1)
+        });
+       /* point = baidu_to_tx(v2,v1)
+        $("#" + id).val(point['lng']);
+        $("#" + name).val(point['lat']);
+        $("#baidu_map").modal('close')
+        create_map(v2,v1)*/
+
+        /*api_path ='http://mapi.map.qq.com/translate/?type=3&points='+v1+','+v2+'&output=jsonp'
+        f_path = 'http://apis.map.qq.com/ws/coord/v1/translate?locations='+v2+','+v1+'&type=3&key=LC5BZ-2T3H5-BZ2IG-QMWEQ-H5G25-VCBL5'
+        $.getJSON(f_path,function(data){
+            if(data.status==0){
+                $("#" + id).val(data.locations.lat);
+                $("#" + name).val(data.locations.lng);
+                $("#baidu_map").modal('close')
+                create_map(v2,v1)
+            }else{
+                $("#" + id).val(v1);
+                $("#" + name).val(v2);
+                $("#baidu_map").modal('close')
+                create_map(v2,v1)
+            }
+        })*/
+
+    }
+
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '{{$wxappId}}', // 必填，公众号的唯一标识
+        timestamp: {{$wxtimestamp}}, // 必填，生成签名的时间戳
+    nonceStr: '{{$wxnonceStr}}', // 必填，生成签名的随机串
+            signature: '{{$wxsignature}}',// 必填，签名，见附录1
+            jsApiList: ['getLocation','checkJsApi'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    {{if $shop}}
+    create_map({{$shop.baidu_lat|default:$shop.lat}},{{$shop.baidu_lng|default:$shop.lng}});
+    {{else}}
+    wx.ready(function () {
+        wx.getLocation({
+            type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+            success: function (res) {
+                var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                var speed = res.speed; // 速度，以米/每秒计
+                var accuracy = res.accuracy; // 位置精度
+                //alert('lat:'+latitude+';lng:'+longitude);
+                $("#data_lat").val(latitude);
+                $("#data_lng").val(longitude);
+                point = tx_to_baidu(latitude,longitude)
+                $("#bd_lng").val(point['lng']);
+                $("#bd_lat").val(point['lat']);
+                create_map(point['lat'],point['lng']);
+            },
+            cancel: function (res) {
+
+            },
+            error: function (res) {
+
+            }
+        });
+    });
+    {{/if}}
+</script>
+
+</body>
+{{include file="../public/footer.html"}}
