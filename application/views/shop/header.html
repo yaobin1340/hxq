@@ -65,8 +65,15 @@
 
 <header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
     <span class="register_header_title">{{$header_name}}</span>
-    <a href="javascript:history.back(-1);"><span class="am-icon-chevron-left register_header_back"></span></a>
-
-
+    <a href="javascript:void(0)" onclick="back()"><span class="am-icon-chevron-left register_header_back"></span></a>
 </header>
+
+<script>
+    function back(){
+        var url = document.referrer;
+        location.href = url;
+    }
+</script>
+
+
 

@@ -157,6 +157,35 @@ class MY_Controller extends CI_Controller
 		exit;
 	}
 
+	/**
+	 * URL重定向
+	 * @param string $url 重定向的URL地址
+	 * @param integer $time 重定向的等待时间（秒）
+	 * @param string $msg 重定向前的提示信息
+	 * @return void
+	 */
+	function redirect($url, $time=0, $msg='') {
+		//多行URL地址支持
+		$url        = str_replace(array("\n", "\r"), '', $url);
+		if (empty($msg))
+			$msg    = "系统将在{$time}秒之后自动跳转到{$url}！";
+		if (!headers_sent()) {
+			// redirect
+			if (0 === $time) {
+				// window.open($url);
+				header('Location: ' . $url);
+			} else {
+				header("refresh:{$time};url={$url}");
+				echo($msg);
+			}
+			exit();
+		} else {
+			$str    = "<meta http-equiv='Refresh' content='{$time};URL={$url}'>";
+			if ($time != 0)
+				$str .= $msg;
+			exit($str);
+		}
+	}
 	
 	/**
 	 * 发送邮件
@@ -294,6 +323,38 @@ class MY_Controller extends CI_Controller
 		$this->cismarty->assign('wxsignature',$signPackage["signature"]);
 	}
 
+	/**
+	 *设置令牌
+	 * 一般在展示表单页面设置令牌
+     */
+	function set_token()
+	{
+		$tokenVal = md5($this->getRandChar(10));
+		if(isset($_SESSION['token'])){
+			$_SESSION['token'][] = $tokenVal;
+		}else{
+			$_SESSION['token'] = array($tokenVal);
+		}
+
+		$this->assign('token',$tokenVal);
+	}
+
+	function valid_token()
+	{
+		//回退的情况，$_POST为空；$_POST['token'] 值为假则是表单没有加token隐藏域
+		if(!$_POST || !isset($_POST['token'])) return false;
+		if(in_array($_POST['token'],$_SESSION['token'])){
+			$return = true;
+			$key = array_search($_POST['token'],$_SESSION['token']);
+			unset($_SESSION['token'][$key]);
+		}else{
+			$return = false;
+		}
+		//重置，避免类似 ajax重复提交
+		$this->set_token();
+
+		return $return;
+	}
 }
 
 /* End of file MY_Controller.php */
