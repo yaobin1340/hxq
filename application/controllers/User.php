@@ -148,7 +148,7 @@ class User extends MY_Controller {
 		$yzm = rand(100000,999999);
 		//$yzm = 123456;
 		$text = '您的短信验证码是:'.$yzm;
-		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【拉拉秀】");
+		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【三客柚】");
 		$obj=json_decode($rs);
 		if($obj->error !=0){
 			$this->sendsms_curl($mobile,$text);

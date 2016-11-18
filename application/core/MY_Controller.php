@@ -307,7 +307,7 @@ class MY_Controller extends CI_Controller
 		curl_setopt($ch, CURLOPT_USERPWD  , 'api:key-e3829a670f2c515ab8befa5096dd135c');
 
 		curl_setopt($ch, CURLOPT_POST, TRUE);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, array('mobile' => $moblie,'message' => "{$text}【拉拉秀】"));
+		curl_setopt($ch, CURLOPT_POSTFIELDS, array('mobile' => $moblie,'message' => "{$text}【三客柚】"));
 
 		$res = curl_exec( $ch );
 		curl_close( $ch );

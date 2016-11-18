@@ -386,17 +386,17 @@ class Settlement_model extends MY_Model
 			'return_integral'=>2700
 		));
 
-		$this->db->where('id',$id);
-		$this->db->update('settlement',array(
-			'status'=>2
-		));
-
-		$commonweal_total = ($data->total6 + $data->total12 + $data->total24)*0.01;
-		$this->db->insert('commonweal',array(
-			'date'=>$data->date,
-			'total'=>$commonweal_total,
-			'status'=>1
-		));
+//		$this->db->where('id',$id);
+//		$this->db->update('settlement',array(
+//			'status'=>2
+//		));
+//
+//		$commonweal_total = ($data->total6 + $data->total12 + $data->total24)*0.01;
+//		$this->db->insert('commonweal',array(
+//			'date'=>$data->date,
+//			'total'=>$commonweal_total,
+//			'status'=>1
+//		));
 		$this->db->trans_complete();//------结束事务
 		if ($this->db->trans_status() === FALSE) {
 			return -1;
