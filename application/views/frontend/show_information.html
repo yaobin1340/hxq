@@ -49,7 +49,19 @@
         width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;text-align: center;border-radius: 5px;
     }
     .show_information_card_2_content .show_information_card_2_content_all{
-        width: 100%;height: 30px;margin:0 auto;
+        width: 100%;height: 60px;margin:0 auto;
+    }
+
+
+
+    table{
+        width: 100%; height:60px; border-collapse:collapse;color: #bfbfbf;
+    }
+    table tr{
+        font-size: 14px; height:60px; text-align: center;color: #999999;
+    }
+    .td{
+        /*border-bottom:1px solid #e5e5e5;*/
     }
 </style>
 <body>
@@ -98,41 +110,60 @@
                     <div class="show_information_card_date">激励日期：{{if $data}}{{$data.date}}{{/if}}</div>
                 </div>
                 <div class="show_information_card_2_content">
-                    <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax6_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
                     <div class="show_information_card_2_content_all">
-                        <div style="width:90px;margin:0 auto;">
-                            <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax6_price/100}}{{/if}}&nbsp;</span>
-                            <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
-                            <span style="float: left;color: #f7e288;">/</span>
-                            <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;"><br>
-                        </div>
-                        <span style="font-size: 14px;color: #f7e288;" >6系列&nbsp;&nbsp;<span class="am-icon-star"></span><span class="am-icon-star"></span></span>
+                        <table class="" border="0">
+                            <tr style="color: #343434;">
+                                <td class="" style="width: 30%;border-right: 1px dashed #ffffff;color: #f7e288;">
+                                    <span style="font-size: 14px;" >6系列</span><br>
+                                    <span class="am-icon-star"><span class="am-icon-star"></span></span>
+                                </td>
+                                <td class="" style="width:70%;">
+                                    <span style="color: #f7e288;float: left;margin-left: 20%;">&nbsp;{{if $data}}{{$data.ax6_price/100}}{{/if}}&nbsp;</span>
+                                    <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;">
+                                    <span style="float: left;color: #f7e288;">/</span>
+                                    <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;"><br>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
 
                 <div class="show_information_card_2_content">
-                    <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax12_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
                     <div class="show_information_card_2_content_all">
-                        <div style="width:95px;margin:0 auto;">
-                            <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax12_price/100}}{{/if}}&nbsp;</span>
-                            <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
-                            <span style="float: left;color: #f7e288;">/</span>
-                            <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;"><br>
-                        </div>
-                        <span style="font-size: 14px;color: #f7e288;" >12系列&nbsp;&nbsp;<span class="am-icon-star"></span><span class="am-icon-star"></span></span>
+                        <table class="" border="0">
+                            <tr style="color: #343434;">
+                                <td class="" style="width: 30%;border-right: 1px dashed #ffffff;color: #f7e288;">
+                                    <span style="font-size: 14px;" >12系列</span><br>
+                                    <span class="am-icon-star"><span class="am-icon-star"></span></span>
+                                </td>
+                                <td class="" style="width:70%;">
+                                    <span style="color: #f7e288;float: left;margin-left: 20%;">&nbsp;{{if $data}}{{$data.ax12_price/100}}{{/if}}&nbsp;</span>
+                                    <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;">
+                                    <span style="float: left;color: #f7e288;">/</span>
+                                    <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;"><br>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
 
                 <div class="show_information_card_2_content">
-                    <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax24_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
                     <div class="show_information_card_2_content_all">
-                        <div style="width:90px;margin:0 auto;">
-                            <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax24_price/100}}{{/if}}&nbsp;</span>
-                            <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
-                            <span style="float: left;color: #f7e288;">/</span>
-                            <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;"><br>
-                        </div>
-                        <span style="font-size: 14px;color: #f7e288;" >24系列&nbsp;&nbsp;<span class="am-icon-star"></span><span class="am-icon-star"></span><span class="am-icon-star"></span></span>
+                        <table class="" border="0">
+                            <tr style="color: #343434;">
+                                <td class="" style="width: 30%;border-right: 1px dashed #ffffff;color: #f7e288;">
+                                    <span style="font-size: 14px;" >24系列</span><br>
+                                    <span class="am-icon-star"><span class="am-icon-star"></span></span>
+                                </td>
+                                <td class="" style="width:70%;">
+                                    <span style="color: #f7e288;float: left;margin-left: 20%;">&nbsp;{{if $data}}{{$data.ax24_price/100}}{{/if}}&nbsp;</span>
+                                    <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;">
+                                    <span style="float: left;color: #f7e288;">/</span>
+                                    <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;"><br>
+                                </td>
+                            </tr>
+                        </table>
+
                     </div>
                 </div>
             </div>
@@ -145,49 +176,56 @@
                     <div  style="color: #ffffff;">激励日期：{{if $data}}{{$data.date}}{{/if}}</div>
                 </div>
                 <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin: 0 auto;text-align: center;border-radius: 5px;">
-                    <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.shop_ax6}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
                     <div style="width: 100%;height: 30px;margin:0 auto;">
-                        <div style="width:70px;margin:0 auto;">
-                            <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.shop_ax6_price/100}}{{/if}}&nbsp;</span>
-                            <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
-                            <span style="float: left;color: #f7e288;">/</span>
-                            <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
-                        </div>
-                    </div>
-                    <div style="color: #f7e288;">
-                        <p>
-                            <i class="am-icon-star"></i>
-                        </p>
+                        <table class="" border="0">
+                            <tr style="color: #343434;">
+                                <td class="" style="width: 30%;border-right: 1px dashed #ffffff;color: #f7e288;">
+                                    <span class="am-icon-star"></span>
+                                </td>
+                                <td class="" style="width:70%;">
+                                    <span style="color: #f7e288;float: left;margin-left: 20%;">&nbsp;{{if $data}}{{$data.ax6_price/100}}{{/if}}&nbsp;</span>
+                                    <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;">
+                                    <span style="float: left;color: #f7e288;">/</span>
+                                    <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;"><br>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
 
                 <div style="width:80%;height: 60px;border: 1px dashed #ffffff;margin: 0 auto;text-align: center;border-radius: 5px;">
-                    <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.shop_ax12}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
                     <div style="width: 100%;height: 30px;margin:0 auto;">
-                        <div style="width:70px;margin:0 auto;">
-                            <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.shop_ax12_price/100}}{{/if}}&nbsp;</span>
-                            <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
-                            <span style="float: left;color: #f7e288;">/</span>
-                            <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
-                        </div>
-                    </div>
-                    <div style="color: #f7e288;">
-                        <p>
-
-                            <i class="am-icon-star"></i>
-                            <i class="am-icon-star"></i>
-                        </p>
+                        <table class="" border="0">
+                            <tr style="color: #343434;">
+                                <td class="" style="width: 30%;border-right: 1px dashed #ffffff;color: #f7e288;">
+                                    <span class="am-icon-star"><span class="am-icon-star"></span></span>
+                                </td>
+                                <td class="" style="width:70%;">
+                                    <span style="color: #f7e288;float: left;margin-left: 20%;">&nbsp;{{if $data}}{{$data.ax12_price/100}}{{/if}}&nbsp;</span>
+                                    <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;">
+                                    <span style="float: left;color: #f7e288;">/</span>
+                                    <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;"><br>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
 
                 <div style="width:80%;height: 60px;border: 1px dashed #ffffff;margin: 0 auto;text-align: center;border-radius: 5px;">
-                    <div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.shop_ax24_price/100}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>
-                    <div style="color: #f7e288;">
-                        <p>
-                            <i class="am-icon-star"></i>
-                            <i class="am-icon-star"></i>
-                            <i class="am-icon-star"></i>
-                        </p>
+                    <div style="width: 100%;height: 30px;margin:0 auto;">
+                        <table class="" border="0">
+                            <tr style="color: #343434;">
+                                <td class="" style="width: 30%;border-right: 1px dashed #ffffff;color: #f7e288;">
+                                    <span class="am-icon-star"><span class="am-icon-star"><span class="am-icon-star"></span></span></span>
+                                </td>
+                                <td class="" style="width:70%;">
+                                    <span style="color: #f7e288;float: left;margin-left: 20%;">&nbsp;{{if $data}}{{$data.ax24_price/100}}{{/if}}&nbsp;</span>
+                                    <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;">
+                                    <span style="float: left;color: #f7e288;">/</span>
+                                    <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;"><br>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
 
