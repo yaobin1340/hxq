@@ -296,10 +296,17 @@ class Frontend extends MY_Controller {
         $this->assign('header_name', '数据中心');
         $data = $this->frontend_model->show_information();
         $ysday = $this->frontend_model->yesterday_info();
+        $jukuan = $this->frontend_model->jukuan();
+        $this->assign('jukuan', $jukuan);
         $this->assign('data', $data);
         $this->assign('ysday', $ysday);
         $this->assign('footer_flag', 5);
         $this->display('frontend/show_information.html');
+    }
+
+    public function test(){
+        $jukuan = $this->frontend_model->jukuan();
+        var_dump($jukuan);
     }
 
     public function nearcity($lat,$lng){
