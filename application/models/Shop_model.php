@@ -339,16 +339,16 @@ class Shop_model extends MY_Model
             'cdate'=>date('Y-m-d H:i:s',time()),
             'logo'=>$imgs['logo']?$imgs['logo']:'',
             'cns1'=>$imgs['cns1']?$imgs['cns1']:'',
-            'cns2'=>$imgs['cns2']?$imgs['cns2']:'',
+//            'cns2'=>$imgs['cns2']?$imgs['cns2']:'',
             'sfz1'=>$imgs['sfz1']?$imgs['sfz1']:'',
-            'sfz2'=>$imgs['sfz2']?$imgs['sfz2']:'',
+//            'sfz2'=>$imgs['sfz2']?$imgs['sfz2']:'',
         );
         if(!$imgs['logo'])unset($data['logo']);
         if(!$imgs['license'])unset($data['license']);
         if(!$imgs['cns1'])unset($data['cns1']);
-        if(!$imgs['cns2'])unset($data['cns2']);
+//        if(!$imgs['cns2'])unset($data['cns2']);
         if(!$imgs['sfz1'])unset($data['sfz1']);
-        if(!$imgs['sfz2'])unset($data['sfz2']);
+//        if(!$imgs['sfz2'])unset($data['sfz2']);
 
         $shop = $this->db->select()->from('shop')->where("uid = $uid")->get()->row_array();
         if($shop){
