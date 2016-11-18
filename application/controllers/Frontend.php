@@ -299,6 +299,8 @@ class Frontend extends MY_Controller {
         $jukuan = $this->frontend_model->jukuan();
         $phangcity= $this->frontend_model->phang_city();
         $phangcompany= $this->frontend_model->phang_company();
+        $lminfo = $this->frontend_model->lminfo();
+        $this->assign('lminfo', $lminfo);
         $this->assign('phangcity', $phangcity);
         $this->assign('phangcompany', $phangcompany);
         $this->assign('jukuan', $jukuan);
@@ -309,7 +311,7 @@ class Frontend extends MY_Controller {
     }
 
     public function test(){
-        $jukuan = $this->frontend_model->phang_city();
+        $jukuan = $this->frontend_model->lminfo();
         var_dump($jukuan);
     }
 
