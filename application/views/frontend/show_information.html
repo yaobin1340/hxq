@@ -144,7 +144,7 @@
                     <div style="padding-top:30px;color: #ffffff;">全联盟向日葵日值 </div>
                     <div  style="color: #ffffff;">激励日期：{{if $data}}{{$data.date}}{{/if}}</div>
                 </div>
-                <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;margin-top: 30px;text-align: center;border-radius: 5px;">
+                <div style="width:80%;height: 60px; border: 1px dashed #ffffff;margin: 0 auto;text-align: center;border-radius: 5px;">
                     <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.shop_ax6}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
                     <div style="width: 100%;height: 30px;margin:0 auto;">
                         <div style="width:70px;margin:0 auto;">
@@ -161,7 +161,7 @@
                     </div>
                 </div>
 
-                <div style="width:80%;height: 60px;border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;margin-top: 30px;text-align: center;border-radius: 5px;">
+                <div style="width:80%;height: 60px;border: 1px dashed #ffffff;margin: 0 auto;text-align: center;border-radius: 5px;">
                     <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.shop_ax12}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
                     <div style="width: 100%;height: 30px;margin:0 auto;">
                         <div style="width:70px;margin:0 auto;">
@@ -180,7 +180,7 @@
                     </div>
                 </div>
 
-                <div style="width:80%;height: 60px;border: 1px dashed #ffffff;margin-top: 50px;margin: 0 auto;margin-top: 30px;text-align: center;border-radius: 5px;">
+                <div style="width:80%;height: 60px;border: 1px dashed #ffffff;margin: 0 auto;text-align: center;border-radius: 5px;">
                     <div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.shop_ax24_price/100}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>
                     <div style="color: #f7e288;">
                         <p>
@@ -241,7 +241,7 @@
 
                     <table class="table" border="0">
                         {{foreach from=$phangcity item=row}}
-                        <tr style="color: #343434;">
+                        <tr style="color: #f7e288;">
                             <td class="td">{{$row.p_name}}-{{$row.c_name}}</td>
                             <td class="td">{{round(($row.alltotal|default:0)/1000000, 2)}}万元</td>
 
@@ -261,7 +261,7 @@
                 <div>
                     <table class="table" border="0">
                         {{foreach from=$phangcompany item=row}}
-                        <tr style="color: #343434;">
+                        <tr style="color: #f7e288;">
                             <td class="td">{{$row.shop_name}}-{{$row.c_name}}</td>
                             <td class="td">{{round(($row.total/1000000),2)}}万元</td>
 
@@ -278,21 +278,21 @@
                 <div style="width: 100%;height: 50px;text-align: center;">
                     <div style="padding-top:10px;color: #ffffff;">全联盟向日葵</div>
                 </div>
-                <div style="width:80%;height: 60px;border: 1px dashed #ffffff;border-radius: 5px;margin-top: 10px;margin: 0 auto;text-align: center">
+                <div style="width:80%;height: 60px;border: 1px dashed #ffffff;border-radius: 5px;margin: 0 auto;text-align: center">
                     <div style="color: #f7e288;margin-top: 5px;">
                         <div>联盟消费总额</div>
                         <div>{{($lminfo.lm_total.alltotal|default:0)/100}}元</div>
                     </div>
                 </div>
 
-                <div style="width:80%;height: 60px;border: 1px dashed #ffffff;border-radius: 5px;margin-top:20px;margin: 0 auto;text-align: center">
+                <div style="width:80%;height: 60px;border: 1px dashed #ffffff;border-radius: 5px;margin: 0 auto;text-align: center">
                     <div style="color: #f7e288;margin-top: 5px;">
                         <div>联盟消费信使人数</div>
                         <div style=";">{{($lminfo.lm_users.num|default:0)}}个</div>
                     </div>
                 </div>
 
-                <div style="width:80%;height: 60px; border: 1px dashed #ffffff;border-radius: 5px;margin-top: 20px;margin: 0 auto;text-align: center">
+                <div style="width:80%;height: 60px; border: 1px dashed #ffffff;border-radius: 5px;margin: 0 auto;text-align: center">
                     <div style="color: #f7e288;margin-top: 5px;">
                         <div>联盟商家</div>
                         <div style="">{{($lminfo.lm_shops.num|default:0)}}个</div>
