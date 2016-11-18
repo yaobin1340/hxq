@@ -217,4 +217,11 @@ class User extends MY_Controller {
         $this->display('user/my_income.html');
     }
 
+	public function my_income_loaddata($page=1){
+		$data = $this->user_model->my_income_loaddata($page);
+		$this->assign('data', $data);
+		$this->assign('page', $page);
+		$this->display('user/my_income_loaddata.html');
+	}
+
 }

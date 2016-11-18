@@ -13,27 +13,75 @@
 </style>
 <body style="background: #FFFFFF;">
 <table class="table" border="0">
-
+    <thead>
     <tr style="color: #343434;font-weight: bold;">
         <td class="td" style="width: 17%;">金额</td>
         <td class="td" style="width: 35%;">来源</td>
         <td class="td" style="width: 48%;">日期</td>
     </tr>
-    <tr style="color: #343434;">
-        <td class="td">+30000</td>
-        <td class="td">aF舒舒服服维尔</td>
-        <td class="td">2016-12-0215:33:32 </td>
-    </tr>
-    <tr style="color: #343434;">
-        <td class="td">+30000</td>
-        <td class="td">aF舒舒服服维尔外观</td>
-        <td class="td">2016-12-0215:33:32 </td>
-    </tr>
+    </thead>
+    <tbody id="accordion">
+
+    </tbody>
 
 </table>
+<p id="is_end" style="text-align: center;font-size: 12px;">已到最后一页</p>
 
-
+<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">正在加载...</div>
+        <div class="am-modal-bd">
+            <span class="am-icon-spinner am-icon-spin"></span>
+        </div>
+    </div>
+</div>
 
 
 {{include file="../public/footer.html"}}
 </body>
+<script>
+    window.is_end = false
+    window.page = 1
+    $(window).scroll(function () {
+        var scrollTop = $(this).scrollTop();
+        var scrollHeight = $(document).height();
+        var windowHeight = $(this).height();
+        if (scrollTop + windowHeight == scrollHeight) {
+            if(window.is_end){
+                $("#is_end").show()
+            }else{
+                $("#my-actions-search").show()
+                $('#my-modal-loading').modal()
+                get_data()
+            }
+        }
+    });
+
+    function get_data(){
+        $.post("{{site_url url='user/my_income_loaddata'}}/"+window.page,{},function(data){
+            if(data){
+                $("#accordion").append(data)
+                $('#accordion').find('.flag-'+window.page).add('#doc-confirm-toggle').
+                on('click', function() {
+                    $('#my-confirm').modal({
+                        relatedTarget: this,
+                        onConfirm: function(options) {
+
+                        },
+                        onCancel: function() {
+
+                        }
+                    });
+                });
+                window.page += 1
+                $('#my-modal-loading').modal('close');
+            }else{
+                $('#my-modal-loading').modal('close');
+                $("#is_end").show()
+                window.is_end = true
+            }
+
+        });
+    }
+    get_data()
+</script>
