@@ -395,4 +395,26 @@ class User_model extends MY_Model
         $row = $this->db->get()->row_array();
         return $row['num'];
     }
+
+    public function my_income_loaddata($page){
+        $data['limit'] = $this->limit;
+        //获取总记录数
+        $this->db->select('count(1) num')->from('money_log a');
+        $this->db->where('a.uid',$this->session->userdata('uid'));
+        $this->db->where('a.type',2);
+//        $this->db->where('shop_id',1); //TODO
+        $num = $this->db->get()->row();
+        $data['total'] = $num->num;
+
+        //搜索条件
+        //获取详细列
+        $this->db->select('a.*')->from('money_log a');
+        $this->db->where('a.uid',$this->session->userdata('uid'));
+        $this->db->where('a.type',2);
+        $this->db->limit($data['limit'], $offset = ($page - 1) * $data['limit']);
+        $this->db->order_by('a.id','desc');
+        $data['items'] = $this->db->get()->result_array();
+
+        return $data;
+    }
 }
