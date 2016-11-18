@@ -299,4 +299,70 @@ class Shop_model extends MY_Model
         $row = $this->db->get()->row_array();
         return $row['num'];
     }
+
+    public function get_province($code = null){
+        $this->db->select()->from('province');
+        if($code) $this->db->where('code',$code);
+        return $this->db->get()->result_array();
+    }
+
+    public function get_shop_type(){
+        return $this->db->select()->from('shop_type')->where('status',1)->get()->result_array();
+    }
+
+    public function getSessionUser($uid){
+        $user = $this->tableQueryContent('users',array('id'=>$uid),array('id','mobile'));
+        return $user[0];
+    }
+
+    public function save_shop_info($imgs){
+        if(!($uid = $this->session->userdata('uid'))){
+            return -1;
+        }
+        $data = array(
+            'uid'=>$this->session->userdata('uid'),
+            'province_code'=>$this->input->post('province_code'),
+            'city_code'=>$this->input->post('city_code'),
+            'area_code'=>$this->input->post('area_code'),
+            'shop_name'=>$this->input->post('shop_name'),
+            'type'=>$this->input->post('type'),
+            'address'=>$this->input->post('address'),
+            'phone'=>$this->input->post('phone'),
+            'person'=>$this->input->post('person'),
+            'lat'=>$this->input->post('lat'),
+            'lng'=>$this->input->post('lng'),
+            'baidu_lat'=>$this->input->post('baidu_lat')?$this->input->post('baidu_lat'):$this->input->post('lat'),
+            'baidu_lng'=>$this->input->post('baidu_lng')?$this->input->post('baidu_lng'):$this->input->post('lng'),
+            'desc'=>$this->input->post('desc'),
+            'business_time'=>$this->input->post('business_time'),
+            'license'=>$imgs['license']?$imgs['license']:'',
+            'cdate'=>date('Y-m-d H:i:s',time()),
+            'logo'=>$imgs['logo']?$imgs['logo']:'',
+            'cns1'=>$imgs['cns1']?$imgs['cns1']:'',
+            'cns2'=>$imgs['cns2']?$imgs['cns2']:'',
+            'sfz1'=>$imgs['sfz1']?$imgs['sfz1']:'',
+            'sfz2'=>$imgs['sfz2']?$imgs['sfz2']:'',
+        );
+        if(!$imgs['logo'])unset($data['logo']);
+        if(!$imgs['license'])unset($data['license']);
+        if(!$imgs['cns1'])unset($data['cns1']);
+        if(!$imgs['cns2'])unset($data['cns2']);
+        if(!$imgs['sfz1'])unset($data['sfz1']);
+        if(!$imgs['sfz2'])unset($data['sfz2']);
+
+        $shop = $this->db->select()->from('shop')->where("uid = $uid")->get()->row_array();
+        if($shop){
+            if($this->db->where(array('id'=>$shop['id']))->update('shop',$data)){
+                return 1;
+            }else{
+                return -1;
+            }
+        }else{
+            if($this->db->insert('shop',$data)){
+                return 1;
+            }else{
+                return -1;
+            }
+        }
+    }
 }

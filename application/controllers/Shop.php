@@ -133,8 +133,55 @@ class Shop extends MY_Controller {
 		}
 	}
 
-	public function goBack(){
-		$this->back();
+	public function shop_info(){
+		$this->assign('header_name', '管理店铺信息');
+		$provinces = $this->shop_model->get_province();
+		$city = $this->shop_model->tableQueryContent('city');
+		$area = $this->shop_model->tableQueryContent('area');
+		$shop_type = $this->shop_model->get_shop_type();
+		$this->assign('provinces', $provinces);
+		$this->assign('city', $city);
+		$this->assign('area', $area);
+		$this->assign('shop_type', $shop_type);
+		if($uid = $this->session->userdata('uid')){
+			$sessionUser = $this->shop_model->getSessionUser($uid);
+			$this->assign('sessionUser', $sessionUser);
+			$conditionFields = array();
+			$conditionFields['uid'] = $uid;
+			$userShop = $this->shop_model->tableQueryContent('shop',$conditionFields);
+			if($userShop){
+				$userShop = $userShop[0];
+				$this->assign('shop', $userShop);
+			}else{
+				$this->assign('shop',array());
+			}
+			$this->display('shop/shop_info.html');
+		}else{
+			$this->show_message('请先登陆~',site_url('/frontend/login'));
+		}
+	}
+
+	public function save_shop_info(){
+		$img = $this->upload('logo');
+		$license = $this->upload('license','license');
+		$cns1 = $this->upload('cns','cns1');
+		$cns2 = $this->upload('cns','cns2');
+		$sfz1 = $this->upload('sfz','sfz1');
+		$sfz2 = $this->upload('sfz','sfz2');
+		$imgs = array(
+			'logo'=>$img,
+			'license'=>$license,
+			'cns1'=>$cns1,
+			'cns2'=>$cns2,
+			'sfz1'=>$sfz1,
+			'sfz2'=>$sfz2,
+		);
+		$rs = $this->shop_model->save_shop_info($imgs);
+		if($rs == 1){
+			$this->show_message('修改成功');
+		}else{
+			$this->show_message('修改失败');
+		}
 	}
 
 }
