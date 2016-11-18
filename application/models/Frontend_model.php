@@ -329,4 +329,27 @@ class Frontend_model extends MY_Model
             ->where('status',2)->get()->row_array();
         return $data;
     }
+
+    public function phang_city(){
+        $this->db->select('sum(a.total) alltotal,p.name p_name,c.name c_name')->from('shop a');
+        $this->db->join('province p','p.code = a.province_code','left');
+        $this->db->join('city c','c.code = a.city_code','left');
+        $this->db->group_by('a.city_code');
+        $this->db->where('a.total >',0);
+        $this->db->order_by('alltotal','desc');
+        $this->db->limit(10, 0);
+        //var_dump($this->db->last_query());
+        return $this->db->get()->result_array();
+    }
+
+    public function phang_company(){
+        $this->db->select('a.shop_name,p.name p_name,c.name c_name,total')->from('shop a');
+        $this->db->join('province p','p.code = a.province_code','left');
+        $this->db->join('city c','c.code = a.city_code','left');
+        $this->db->where('a.total >',0);
+        $this->db->order_by('a.total','desc');
+        $this->db->limit(10, 0);
+        //var_dump($this->db->last_query());
+        return $this->db->get()->result_array();
+    }
 }
