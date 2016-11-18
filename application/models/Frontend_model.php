@@ -89,9 +89,9 @@ class Frontend_model extends MY_Model
             'cdate'=>date('Y-m-d H:i:s',time()),
             'logo'=>$imgs['logo']?$imgs['logo']:'',
             'cns1'=>$imgs['cns1']?$imgs['cns1']:'',
-            'cns2'=>$imgs['cns2']?$imgs['cns2']:'',
+//            'cns2'=>$imgs['cns2']?$imgs['cns2']:'',
             'sfz1'=>$imgs['sfz1']?$imgs['sfz1']:'',
-            'sfz2'=>$imgs['sfz2']?$imgs['sfz2']:'',
+//            'sfz2'=>$imgs['sfz2']?$imgs['sfz2']:'',
             'status'=>1,//待审核
             'percent'=>$this->input->post('percent'),
         );
