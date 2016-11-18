@@ -352,4 +352,11 @@ class Frontend_model extends MY_Model
         //var_dump($this->db->last_query());
         return $this->db->get()->result_array();
     }
+
+    public function lminfo(){
+        $data['lm_total'] = $this->db->select('sum(total) alltotal')->from('shop')->get()->row_array();
+        $data['lm_users'] = $this->db->select('count(1) num')->from('users')->get()->row_array();
+        $data['lm_shops'] = $this->db->select('count(1) num')->from('shop')->where('status',2)->get()->row_array();
+        return $data;
+    }
 }

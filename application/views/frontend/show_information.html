@@ -55,7 +55,7 @@
 <body>
 <div class="am-slider am-slider-default show_information_card_all" data-am-flexslider id="demo-slider-0">
     <ul class="am-slides">
-        <li>
+      <!--  <li>
             <div class="am-animation-slide-top show_information_card_div_all">
                    <div class="show_information_card_1">
                        <div class="show_information_card_title">信使注册激励剩余总额</div>
@@ -71,7 +71,7 @@
                     <div class="show_information_card_refresh"><span class="am-icon-undo"> &nbsp;点击刷新</span></div>
                 </div>
             </div>
-        </li>
+        </li>-->
 
         <li>
             <div class="test show_information_card_div_all">
@@ -101,7 +101,7 @@
                     <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax6_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
                     <div class="show_information_card_2_content_all">
                         <div style="width:90px;margin:0 auto;">
-                            <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax6_price}}{{/if}}&nbsp;</span>
+                            <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax6_price/100}}{{/if}}&nbsp;</span>
                             <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
                             <span style="float: left;color: #f7e288;">/</span>
                             <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;"><br>
@@ -114,7 +114,7 @@
                     <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax12_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
                     <div class="show_information_card_2_content_all">
                         <div style="width:95px;margin:0 auto;">
-                            <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax12_price}}{{/if}}&nbsp;</span>
+                            <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax12_price/100}}{{/if}}&nbsp;</span>
                             <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
                             <span style="float: left;color: #f7e288;">/</span>
                             <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;"><br>
@@ -127,7 +127,7 @@
                     <!--<div style="color: #f7e288;">&nbsp;{{if $data}}{{$data.ax24_price}}{{/if}}&nbsp;<span class="am-icon-pagelines">&nbsp;/&nbsp;<span class="am-icon-heart"></span></span></div>-->
                     <div class="show_information_card_2_content_all">
                         <div style="width:90px;margin:0 auto;">
-                            <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax24_price}}{{/if}}&nbsp;</span>
+                            <span style="float: left;color: #f7e288;">&nbsp;{{if $data}}{{$data.ax24_price/100}}{{/if}}&nbsp;</span>
                             <img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;">
                             <span style="float: left;color: #f7e288;">/</span>
                             <img src="{{$base_url}}statics/images/zhongzi.png" style="width: 18px;height: 18px;float: left;margin-top: 5px;"><br>
@@ -281,21 +281,21 @@
                 <div style="width:80%;height: 60px;border: 1px dashed #ffffff;border-radius: 5px;margin-top: 10px;margin: 0 auto;text-align: center">
                     <div style="color: #f7e288;margin-top: 5px;">
                         <div>联盟消费总额</div>
-                        <div>11111110元</div>
+                        <div>{{($lminfo.lm_total.alltotal|default:0)/100}}元</div>
                     </div>
                 </div>
 
                 <div style="width:80%;height: 60px;border: 1px dashed #ffffff;border-radius: 5px;margin-top:20px;margin: 0 auto;text-align: center">
                     <div style="color: #f7e288;margin-top: 5px;">
                         <div>联盟消费信使人数</div>
-                        <div style=";">10元</div>
+                        <div style=";">{{($lminfo.lm_users.num|default:0)}}个</div>
                     </div>
                 </div>
 
                 <div style="width:80%;height: 60px; border: 1px dashed #ffffff;border-radius: 5px;margin-top: 20px;margin: 0 auto;text-align: center">
                     <div style="color: #f7e288;margin-top: 5px;">
                         <div>联盟商家</div>
-                        <div style="">20元</div>
+                        <div style="">{{($lminfo.lm_shops.num|default:0)}}个</div>
                     </div>
                 </div>
 
