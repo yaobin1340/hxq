@@ -41,6 +41,8 @@ class Shop extends MY_Controller {
 	public function list_orders($page = 1){
 		$this->assign('header_name', '订单管理');
         $this->assign('footer_flag', 3);
+		//配置令牌验证，表单需要加隐藏域；接口方法加验证逻辑
+		$this->set_token();
 //		$data = $this->shop_model->list_orders($page);
 //		$this->assign('data', $data);
 //		$this->display('shop/list_orders.html');
@@ -81,6 +83,10 @@ class Shop extends MY_Controller {
 	}
 
 	public function save_order(){
+		if(!$this->valid_token()){
+			//主要用于解决回退所产生的表单重复提交的问题
+			$this->redirect(site_url('/shop'));
+		}
 		$rs = $this->shop_model->save_order();
 		if($rs == 1){
 			$this->show_message('添加成功！',site_url('shop/list_orders'));
@@ -124,6 +130,8 @@ class Shop extends MY_Controller {
 		}
 	}
 
-
+	public function goBack(){
+		$this->back();
+	}
 
 }
