@@ -213,4 +213,8 @@ class User extends MY_Controller {
 		$this->display('user/shop_heart_loaddata.html');
 	}
 
+	public function my_income(){
+        $this->display('user/my_income.html');
+    }
+
 }
