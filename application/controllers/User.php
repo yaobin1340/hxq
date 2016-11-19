@@ -104,7 +104,7 @@ class User extends MY_Controller {
         $this->display('user/list_order_audit_loaddata.html');
     }
 	public function withdraw(){
-		$this->assign('header_name', '资金管理');
+		$this->assign('header_name', '申请提现');
 		$data = $this->user_model->withdraw();
 		$this->assign('data',$data);
 		$this->display('user/withdraw.html');
@@ -159,6 +159,7 @@ class User extends MY_Controller {
 
 	public function withdraw_list(){
 		//$data = $this->user_model->withdraw_list();
+		$this->assign('header_name', '提现日志');
 		$this->display('user/withdraw_list.html');
 	}
 
@@ -171,6 +172,7 @@ class User extends MY_Controller {
 
 	public function money_log_list(){
 		//$data = $this->user_model->withdraw_list();
+		$this->assign('header_name', '资金日志');
 		$this->assign('s_date', $this->input->post('s_date'));
 		$this->assign('e_date', $this->input->post('e_date'));
 		$this->display('user/money_log_list.html');
@@ -184,10 +186,11 @@ class User extends MY_Controller {
 	}
 
     public function user_heart($type=1){
-        //$data = $this->user_model->withdraw_list();
+		$count = $this->user_model->get_count_heart($type,false);
 		$this->assign('header_name', '我的向日葵');
 		$this->assign('footer_flag', 3);
 		$this->assign('type', $type);
+		$this->assign('count', $count);
         $this->display('user/user_heart.html');
     }
 
@@ -199,21 +202,24 @@ class User extends MY_Controller {
 	}
 
 	public function shop_heart($type=1){
-		//$data = $this->user_model->withdraw_list();
+		$count = $this->user_model->get_count_heart($type);
 		$this->assign('header_name', '我的向日葵');
 		$this->assign('footer_flag', 3);
 		$this->assign('type', $type);
+		$this->assign('count', $count);
 		$this->display('user/shop_heart.html');
 	}
 
 	public function shop_heart_loaddata($page=1){
 		$data = $this->user_model->shop_heart_loaddata($page);
+		$this->assign('tab_type', $this->input->post('tab_type'));
 		$this->assign('data', $data);
 		$this->assign('page', $page);
 		$this->display('user/shop_heart_loaddata.html');
 	}
 
 	public function my_income(){
+		$this->assign('header_name', '我的收益');
         $this->display('user/my_income.html');
     }
 

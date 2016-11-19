@@ -47,7 +47,7 @@
         <div class="header_font">
             <span class="header_font_1">你好，{{$user_info.shop_name}}</span><br>
             <span class="header_font_2">
-                <span><img src="{{$base_url}}statics/images/zhongzi.png" style="width: 25px;height: 25px;"></span>总计：1200&nbsp;&nbsp;<span><img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 25px;height: 25px;"></span>总计：{{$sum_count_shop|default:0}}</span>
+                营业额：{{$user_info.total/100}}元&nbsp;&nbsp;<span><img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 25px;height: 25px;"></span>总计：{{$sum_count_shop|default:0}}</span>
         </div>
     </div>
     <div class="list">

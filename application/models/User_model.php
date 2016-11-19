@@ -417,4 +417,43 @@ class User_model extends MY_Model
 
         return $data;
     }
+
+    public function get_count_heart($type,$is_shop = true){
+        if($is_shop){
+            $this->db->select('count(1) num')->from('sunflower_shop a');
+            $this->db->join('users b','b.shop_id = a.shop_id','left');
+            $this->db->where('b.id',$this->session->userdata('uid'));
+            switch($type){
+                case 1:
+                    $this->db->where("a.percent",6);
+                    break;
+                case 2:
+                    $this->db->where("a.percent",12);
+                    break;
+                case 3:
+                    $this->db->where("a.percent",24);
+                    break;
+
+            }
+            $num = $this->db->get()->row();
+            return $num->num;
+        }else{
+            $this->db->select('count(1) num')->from('sunflower');
+            $this->db->where('uid',$this->session->userdata('uid'));
+            switch($type){
+                case 1:
+                    $this->db->where("percent",6);
+                    break;
+                case 2:
+                    $this->db->where("percent",12);
+                    break;
+                case 3:
+                    $this->db->where("percent",24);
+                    break;
+
+            }
+            $num = $this->db->get()->row();
+            return $num->num;
+        }
+    }
 }

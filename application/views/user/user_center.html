@@ -42,12 +42,24 @@
     <div class="header_photo">
         <a href="{{site_url url='frontend/register_shop'}}" class="header_shop">
             <!--<div><img src="{{$base_url}}statics/images/enter.png" style="width: 40px;height: 40px;margin-top: 18px;margin-right: 2px;"></div>-->
+            {{if $user_info.shop_id < 1}}
             <div style="color:#ffffff;float: right;height: 20px;margin-right: 10px;font-size: 13px;margin-top: 5px;font-weight: bold;">商家入驻<span class="am-icon-chevron-right" style="font-size: 12px;margin-left: 5px;"></span></div>
+            {{/if}}
         </a>
         <div class="header_photo_user">
             <img {{if $user_info.face}}src="{{$base_url}}upload/face/{{$user_info.face}}"{{else}}src="{{$base_url}}statics/images/user.jpg"{{/if}}">
         </div>
+        {{if $user_info.is_dl == 1}}
         <div class="header_photo_user_name">普通用户</div>
+        {{else if $user_info.is_dl == 2}}
+        <div class="header_photo_user_name">服务商</div>
+        {{else if $user_info.is_dl == 3}}
+        <div class="header_photo_user_name">联合服务商</div>
+        {{else if $user_info.is_dl == 4}}
+        <div class="header_photo_user_name">市级代理</div>
+        {{else}}
+        <div class="header_photo_user_name">省级代理</div>
+        {{/if}}
     </div>
     <div class="header_font">
        <span class="header_font_1">
