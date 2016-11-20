@@ -29,8 +29,7 @@ class Settlement_model extends MY_Model
     }
 
 	public function settlement(){
-//		$date = date("Y-m-d",strtotime("-1 day"));
-		$date = date("Y-m-d");
+		$date = date("Y-m-d",strtotime("-1 day"));
 		$rs = $this->db->select()->from('settlement')->where('date',$date)->get()->row();
 		if($rs)//已经结算过了,不能重复结算
 			return -2;
