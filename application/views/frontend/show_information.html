@@ -62,6 +62,7 @@
     }
     .td{
         /*border-bottom:1px solid #e5e5e5;*/
+
     }
 </style>
 <body>
@@ -304,7 +305,12 @@
                     <table class="table" border="0">
                         {{foreach from=$phangcompany item=row}}
                         <tr style="color: #f7e288;">
-                            <td class="td" style="width: 70%">{{$row.shop_name}}-{{$row.c_name}}</td>
+                            <!--<td class="td" style="width: 70%;background: red;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">-->
+                                <!--{{$row.shop_name}}-{{$row.c_name}}-->
+                            <!--</td>-->
+                            <td class="td" style="width: 70%;">
+                                <div style=" width: 180px; overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{$row.shop_name}}-{{$row.c_name}}</div>
+                            </td>
                             <td class="td" style="width: 30%;">{{round(($row.total/1000000),2)}}万元</td>
 
                         </tr>
