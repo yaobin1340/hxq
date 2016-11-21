@@ -265,8 +265,10 @@
         }
         if($.trim($('input[name=parent_flag]').val())==""){
             alert('请填写推荐人!');
-            $('input[name=parent_flag]').eq(1).focus();
+            $('input[name=parent_flag]').focus();
             return false;
+        }else{
+
         }
 
         if($("#shop_type").val()==""){
@@ -315,8 +317,23 @@
             alert('请输入商家简介!');
             return false;
         }
+        var invite_flag = $('input[name=parent_flag]').val();
+        if(invite_flag != "{{$sessionUser.id}}" && invite_flag != "{{$sessionUser.mobile}}"){
+            if(invite_flag){
+                $.get("{{site_url url='frontend/get_name_by_keywords'}}/"+invite_flag,function(data){
+                    if(data){
+                        $("#save_form").submit();
+                    }else{
 
-        $("#save_form").submit();
+                        return false
+                    }
+                })
+            }
+        }else{
+            $('input[name=parent_flag]').val('')
+            return false
+        }
+
     })
 </script>
 <script type="text/javascript">
@@ -332,7 +349,6 @@
                     }else{
                         $('#inviter-block').hide()
                         $('input[name=parent_flag]').val('')
-                        $('input[name=parent_flag]').eq(1).focus();
                         alert('邀请人手机号错误')
                     }
                 })
