@@ -311,7 +311,7 @@ class Frontend extends MY_Controller {
     }
 
     public function test(){
-        $jukuan = $this->frontend_model->lminfo();
+        $jukuan = $this->frontend_model->yesterday_info();
         var_dump($jukuan);
     }
 

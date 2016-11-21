@@ -296,6 +296,7 @@ class Frontend_model extends MY_Model
         $this->db->join('shop b','a.shop_id = b.id','left');
         $this->db->where(array(
            'a.adate >=' => date("Y-m-d",strtotime("-1 day")),
+            'a.adate <' => date("Y-m-d"),
             'a.status'=>3,
             'b.percent'=>'6'
         ));
@@ -305,6 +306,7 @@ class Frontend_model extends MY_Model
         $this->db->join('shop b','a.shop_id = b.id','left');
         $this->db->where(array(
             'a.adate >=' => date("Y-m-d",strtotime("-1 day")),
+            'a.adate <' => date("Y-m-d"),
             'a.status'=>3,
             'b.percent'=>'12'
         ));
@@ -314,10 +316,12 @@ class Frontend_model extends MY_Model
         $this->db->join('shop b','a.shop_id = b.id','left');
         $this->db->where(array(
             'a.adate >=' => date("Y-m-d",strtotime("-1 day")),
+            'a.adate <' => date("Y-m-d"),
             'a.status'=>3,
             'b.percent'=>'24'
         ));
         $per['per24'] = $this->db->get()->row_array();
+        var_dump($this->db->last_query());
         return $per;
     }
 
