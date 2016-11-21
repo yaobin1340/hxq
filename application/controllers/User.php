@@ -229,5 +229,9 @@ class User extends MY_Controller {
 		$this->assign('page', $page);
 		$this->display('user/my_income_loaddata.html');
 	}
+    public function my_team(){
+        $this->assign('header_name', '我的团队');
+        $this->display('user/my_team.html');
+    }
 
 }

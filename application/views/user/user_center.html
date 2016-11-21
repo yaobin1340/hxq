@@ -70,7 +70,7 @@
            你好，{{$user_info.rel_name}}(ID:{{$user_info.id}})
        </span><br>
         <span class="header_font_2">
-            <span><img src="{{$base_url}}statics/images/zhongzi.png" style="width: 25px;height: 25px;"></span>总计：{{$user_info.integral/100}}&nbsp;&nbsp; <span><img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 25px;height: 25px;"></span>总计：{{$sum_count|default:0}}</span>
+            <span><img src="{{$base_url}}statics/images/zhongzi.png" style="width: 20px;height: 20px;margin-top: -5px;"></span>总计：{{$user_info.integral/100}}&nbsp;&nbsp; <span><img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 20px;height: 20px;margin-top: -5px;"></span>总计：{{$sum_count|default:0}}</span>
     </div>
 </div>
 <div class="list" style="">
@@ -116,6 +116,14 @@
             <span class="list_bac_jiantou" >></span>
         </div>
     </a>
+
+    <a style="color: #696969" href="{{site_url url='user/my_team'}}">
+        <div class="list_back" >
+            &nbsp;<span class="am-icon-users list_bac_name">&nbsp;&nbsp;我的团队</span>
+            <span class="list_bac_jiantou" >></span>
+        </div>
+    </a>
+
     <div style="width: 100%;margin: 0 auto;margin-top: 30px;text-align: center">
         <a href="{{site_url url='frontend/logout'}}"><button class="am-btn am-btn-danger" style="width: 98%;">退出登录</button></a>
     </div>

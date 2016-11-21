@@ -51,8 +51,8 @@
     }
 </style>
 
-<body>
-  <div style="padding-bottom: 70px;">
+<body style="background: #ffffff;">
+  <div style="padding-bottom: 100px;">
         <header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
             <span class="register_header_title">{{$header_name}}</span>
             <a href="javascript:void(0)" onclick="back()"><span class="am-icon-chevron-left register_header_back"></span></a>
@@ -140,8 +140,8 @@
         </div>
 
            <div class="am-form-group" style="margin-top: 10px">
-               <label class="am-u-sm-2 am-form-label">类型:</label>
-               <div class="am-u-sm-10">
+               <span class="am-u-sm-2 am-form-label" style="float: left;width: 25%;">类型:</span>
+               <span class="am-u-sm-10" style="width: auto;margin-right: 50%;margin-top: -25px;">
                    {{if $shop.percent eq 6}}
                    激励类型 6
                    {{elseif $shop.percent eq 12}}
@@ -149,9 +149,9 @@
                    {{elseif $shop.percent eq 24}}
                    激励类型 24
                    {{/if}}
-               </div>
+               </span>
            </div>
-           <button type="submit" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;margin-bottom: 130px;margin-top: 30px">修改</button>
+           <button type="submit" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;margin-top: 50px">修改</button>
        </form>
 
 <script src="{{$base_url}}statics/js/localResizeIMG.js"></script>
