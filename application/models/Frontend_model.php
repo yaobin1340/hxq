@@ -341,7 +341,7 @@ class Frontend_model extends MY_Model
         $this->db->group_by('a.city_code');
         $this->db->where('a.total >',0);
         $this->db->order_by('alltotal','desc');
-        $this->db->limit(10, 0);
+        $this->db->limit(8, 0);
         //var_dump($this->db->last_query());
         return $this->db->get()->result_array();
     }
@@ -352,7 +352,7 @@ class Frontend_model extends MY_Model
         $this->db->join('city c','c.code = a.city_code','left');
         $this->db->where('a.total >',0);
         $this->db->order_by('a.total','desc');
-        $this->db->limit(10, 0);
+        $this->db->limit(8, 0);
         //var_dump($this->db->last_query());
         return $this->db->get()->result_array();
     }
