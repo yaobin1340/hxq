@@ -24,7 +24,7 @@
 
        <div class="am-form-group am-form-icon" style="height: 50px;">
            <i class="am-icon-tag"></i>
-           <input type="text" name="parent_flag" {{if $shop && $shop.parent_mobile}}value="{{$shop.parent_mobile}}"{{/if}} class="am-form-field user_add_phone" placeholder="请输入邀请人电话或id" style="height: 50px;" onblur="get_name_by_keywords(this)" required/>
+           <input type="text" name="parent_flag" {{if $shop && $shop.parent_mobile}}value="{{$shop.parent_mobile}}"{{else}}value="{{$user_info.parent_mobile|default:''}}"{{/if}} class="am-form-field user_add_phone" placeholder="请输入邀请人电话或id" style="height: 50px;" onblur="get_name_by_keywords(this)" required/>
        </div>
 
        <div class="am-form-group am-form-icon" id="inviter-block" hidden>
@@ -334,6 +334,13 @@
             $('input[name=parent_flag]').val('')
         }
     }
+    {{if $shop && $shop.parent_mobile}}
+    get_name_by_keywords($('input[name=parent_flag]'));
+    {{else}}
+    {{if $user_info.parent_mobile}}
+    get_name_by_keywords($('input[name=parent_flag]'));
+    {{/if}}
+    {{/if}}
     function changeSelect(obj)
     {
         province = $(obj).val();
