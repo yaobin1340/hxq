@@ -321,7 +321,7 @@ class Frontend_model extends MY_Model
             'b.percent'=>'24'
         ));
         $per['per24'] = $this->db->get()->row_array();
-        var_dump($this->db->last_query());
+        //var_dump($this->db->last_query());
         return $per;
     }
 
