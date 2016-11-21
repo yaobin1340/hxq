@@ -263,6 +263,12 @@
             $("#btn_file").focus();
             return false;
         }
+        if($.trim($('input[name=parent_flag]').val())==""){
+            alert('请填写推荐人!');
+            $('input[name=parent_flag]').eq(1).focus();
+            return false;
+        }
+
         if($("#shop_type").val()==""){
             alert('请选择商家类型!');
             $("#shop_type").focus();
@@ -325,6 +331,8 @@
                         $('#inviter-block').show()
                     }else{
                         $('#inviter-block').hide()
+                        $('input[name=parent_flag]').val('')
+                        $('input[name=parent_flag]').eq(1).focus();
                         alert('邀请人手机号错误')
                     }
                 })
@@ -599,7 +607,7 @@
 
             },
             error: function (res) {
-
+                alert(res);
             }
         });
     });
