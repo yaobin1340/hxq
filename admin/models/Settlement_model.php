@@ -243,7 +243,7 @@ class Settlement_model extends MY_Model
 				$this->db->update('users');
 
 				$this->db->insert('money_log',array(
-					'remark'=>'向日葵返利(会员)',
+					'remark'=>'向日葵激励(会员)',
 					'money'=>$integral,
 					'type'=>2,
 					'uid'=>$uid,
@@ -333,7 +333,7 @@ class Settlement_model extends MY_Model
 				$this->db->update('users');
 
 				$this->db->insert('money_log',array(
-					'remark'=>'向日葵返利(商家)',
+					'remark'=>'向日葵激励(商家)',
 					'money'=>$integral,
 					'type'=>2,
 					'uid'=>$uid,
