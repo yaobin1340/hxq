@@ -84,8 +84,8 @@
 
 
         <div class="am-input-group" style="margin-left: 10px;">
-            <input readonly="readonly" type="text" {{if $shop}}value="{{$shop.lng}}"{{/if}} class="am-form-field am-u-sm-4" placeholder="请输入经度" id="data_lng" name="lng" style="width:34%;height: 50px;">
-            <input readonly="readonly" type="text" {{if $shop}}value="{{$shop.lat}}"{{/if}} class="am-form-field am-u-sm-4" placeholder="请输入纬度" id="data_lat" name="lat" style="width:34%;float: left;height: 50px;">
+            <input required readonly="readonly" type="text" {{if $shop}}value="{{$shop.lng}}"{{/if}} class="am-form-field am-u-sm-4" placeholder="请输入经度" id="data_lng" name="lng" style="width:34%;height: 50px;">
+            <input required readonly="readonly" type="text" {{if $shop}}value="{{$shop.lat}}"{{/if}} class="am-form-field am-u-sm-4" placeholder="请输入纬度" id="data_lat" name="lat" style="width:34%;float: left;height: 50px;">
             <button type="button" class="am-btn am-btn-secondary am-btn-block" style="width:24%;float: left;margin-left: 5px;height: 50px;" data-am-modal="{target: '#baidu_map'}">百度地图</button>
         </div>
         <div class="am-form-group am-form-file upload_img_all">
@@ -432,6 +432,8 @@
         map.clearOverlays();    //清除地图上所有覆盖物
         function myFun() {
             var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+            $("#lat").val(pp.lat)
+            $("#lng").val(pp.lng)
             map.centerAndZoom(pp, 18);
             map.addOverlay(new BMap.Marker(pp));    //添加标注
         }
@@ -473,6 +475,9 @@
             $("#" + name).val(words[0]);
             $("#bd_lng").val(v1);
             $("#bd_lat").val(v2);
+            $("#" + id).focus();
+            $("#" + name).focus();
+            $("#" + id).focus();
             $("#baidu_map").modal('close')
             create_map(v2,v1)
         });
