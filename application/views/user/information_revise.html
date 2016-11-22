@@ -37,7 +37,41 @@
                     {{/foreach}}
                 </select>
             </div>
-            <input class="am-btn am-btn-secondary am-btn-block" style="margin-top: 30px;" type="submit" value="确认">
+            <button type="button" class="am-btn am-btn-danger am-btn-block" data-am-modal="{target: '#my-popup'}" style="margin-top: 20px;">修改密码</button>
+
+            <div class="am-popup" id="my-popup">
+                <div class="am-popup-inner">
+                    <div class="am-popup-hd">
+                        <h4 class="am-popup-title">修改密码</h4>
+                        <span data-am-modal-close
+                              class="am-close">&times;</span>
+                    </div>
+                    <div class="am-popup-bd" style="background: #ffffff;">
+                        <div class="am-g">
+                            <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered"><br>
+                                <form method="post" class="am-form " action="" data-am-validator>
+                                    <div class="am-form-group am-form-icon">
+                                        <i class="am-icon-lock"></i>
+                                        <input type="password" id="pwd_pass"  name="password" class="am-form-field js-pattern-number am-form-mobile" placeholder="请输入您的旧密码" style="height: 50px;" required />
+                                    </div>
+
+                                    <div class="am-form-group am-form-icon">
+                                        <i class="am-icon-lock"></i>
+                                        <input type="password" id="pwd_new_one"  name="password" class="am-form-field js-pattern-number am-form-mobile" placeholder="请输入新的新密码" style="height: 50px;" required />
+                                    </div>
+
+                                    <div class="am-form-group am-form-icon">
+                                        <i class="am-icon-lock"></i>
+                                        <input type="password" id="pwd_new_two"  name="password" class="am-form-field js-pattern-number am-form-mobile" placeholder="请确认您的新密码" style="height: 50px;" required />
+                                    </div>
+                                    <button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block am-btn-next" style="margin-top: 20px;">修改</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input class="am-btn am-btn-secondary am-btn-block" style="margin-top: 5px;" type="submit" value="确认">
             <a class="am-btn am-btn-default am-btn-block" style="margin-top: 5px;" href="{{site_url url='user'}}">返回</a>
         </form>
         <br>

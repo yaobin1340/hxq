@@ -13,13 +13,13 @@
     width:100%;
 }
 .get_btn_yzm{
-    position:absolute;border: 1px solid #ffffff;height: 50px;color: #ffffff;width:100px;right:20px;
+    position:absolute;height: 50px;color: #ffffff;width:100px;right:3%;
 }
 .checkbox_agreement{
     color: #ff9003;
 }
 .checkbox_zhanghaoed{
-    margin-left: 10px;font-size: 14px;
+    margin-left: 2px;font-size: 13px;
 }
 .am-btn-next{
     height:50px;margin:0 auto;margin-top: 90px;

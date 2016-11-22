@@ -1,6 +1,8 @@
 {{foreach from=$data.items item=row}}
 <tr class="my_team_title_content">
-	<td class="td">{{$row.shop_name}}</td>
+	<td class="td" style="width: 25%;">
+		<div style="width: 90%;overflow: hidden;text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp:1;-webkit-box-orient:vertical;">{{$row.shop_name}}</div>
+	</td>
 	<td class="td">{{$row.total/100}}</td>
 	<td class="td">{{$row.name}}</td>
 	<td class="td">{{$row.rel_name}}</td>

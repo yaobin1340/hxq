@@ -37,16 +37,16 @@
        <table class="table1" border="0">
            <tr>
                <td class="td1" style="{{if $type==1}}color:#3ab5f3{{else}}color:#7c7c7c{{/if}}"  id="my_vip">
-                   <a style="{{if $type==1}}color:#3ab5f3{{else}}color:#7c7c7c{{/if}}" href="{{site_url url='user/my_team/1'}}">会员</a>
+                   <a style="{{if $type==1}}color:#3ab5f3{{else}}color:#7c7c7c{{/if}}" href="{{site_url url='user/my_team/1'}}">我的会员</a>
                </td>
                <td class="td1" style="{{if $type==2}}color:#3ab5f3{{else}}color:#7c7c7c{{/if}}" id="my_shop">
                    <a style="{{if $type==2}}color:#3ab5f3{{else}}color:#7c7c7c{{/if}}" href="{{site_url url='user/my_team/2'}}">
-                   商家
+                   直属商家
                    </a>
                </td>
                <td class="td1" style="{{if $type==3}}color:#3ab5f3{{else}}color:#7c7c7c{{/if}}" id="my_XXX">
                    <a style="{{if $type==3}}color:#3ab5f3{{else}}color:#7c7c7c{{/if}}" href="{{site_url url='user/my_team/3'}}">
-                   XXX
+                   二级商家
                    </a>
                </td>
            </tr>
@@ -86,7 +86,7 @@
                </tbody>
 
            </table>
-           <p id="is_end" style="text-align: center;font-size: 12px;">已到最后一页</p>
+           <p id="is_end" style="text-align: center;font-size: 12px;margin-top: 20px;">已到最后一页</p>
        </div>
        <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
            <div class="am-modal-dialog">
