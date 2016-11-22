@@ -1,6 +1,8 @@
 <div class="am-offcanvas-bar admin-offcanvas-bar" id="menuDiv">
     <ul class="am-list admin-sidebar-list am-panel">
         <li><a href="/admin.php"><span class="am-icon-home"></span> 工作台</a></li>
+
+        {{if 'a'|in_array:$permission}}
         <li class="admin-parent">
             <a class="am-cf" data-am-collapse="{parent: '#menuDiv', target: '#collapse-nav1'}">
                 <span class="am-icon-file"></span> 商家管理 <span class="am-icon-angle-right am-fr am-margin-right"></span>
@@ -11,7 +13,9 @@
                 <li><a href="javascript:open_content('/admin.php/shop/list_shop');" class="am-cf menu"><span class="am-icon-check"></span> 全部商家列表 <span class="am-badge am-badge-danger am-margin-right am-fr">{{$count_info['shop_count']}}</span></a></li>
             </ul>
         </li>
+        {{/if}}
 
+        {{if 'b'|in_array:$permission}}
         <li class="admin-parent">
             <a class="am-cf" data-am-collapse="{parent: '#menuDiv', target: '#collapse-nav2'}">
                 <span class="am-icon-file"></span> 会员管理 <span class="am-icon-angle-right am-fr am-margin-right"></span>
@@ -22,7 +26,9 @@
                 <li><a href="javascript:open_content('/admin.php/user/list_users/3/1');" class="am-cf menu"><span class="am-icon-check"></span> 联合服务商</a></li>
             </ul>
         </li>
+        {{/if}}
 
+        {{if 'c'|in_array:$permission}}
         <li class="admin-parent">
             <a class="am-cf" data-am-collapse="{parent: '#menuDiv', target: '#collapse-nav3'}">
                 <span class="am-icon-file"></span> 订单管理 <span class="am-icon-angle-right am-fr am-margin-right"></span>
@@ -32,6 +38,9 @@
                 <li><a href="javascript:open_content('/admin.php/order/list_orders/1/1');" class="am-cf menu"><span class="am-icon-check"></span> 未提交订单</a></li>
             </ul>
         </li>
+        {{/if}}
+
+        {{if 'd'|in_array:$permission}}
         <li class="admin-parent">
             <a class="am-cf" data-am-collapse="{parent: '#menuDiv', target: '#collapse-nav4'}">
                 <span class="am-icon-file"></span> 提现管理 <span class="am-icon-angle-right am-fr am-margin-right"></span>
@@ -42,7 +51,9 @@
                 <li><a href="javascript:open_content('/admin.php/withdraw/list_withdraw/-1/1');" class="am-cf menu"><span class="am-icon-check"></span> 审核拒绝</a></li>
             </ul>
         </li>
+        {{/if}}
 
+        {{if 'e'|in_array:$permission}}
         <li class="admin-parent">
             <a class="am-cf" data-am-collapse="{parent: '#menuDiv', target: '#collapse-nav5'}">
                 <span class="am-icon-file"></span> 结算管理 <span class="am-icon-angle-right am-fr am-margin-right"></span>
@@ -51,6 +62,9 @@
                 <li><a href="javascript:open_content('/admin.php/settlement/list_settlements');" class="am-cf menu"><span class="am-icon-check"></span> 结算管理</a></li>
             </ul>
         </li>
+        {{/if}}
+
+        {{if 'f'|in_array:$permission}}
         <li class="admin-parent">
             <a class="am-cf" data-am-collapse="{parent: '#menuDiv', target: '#collapse-nav6'}">
                 <span class="am-icon-file"></span> 资金日志 <span class="am-icon-angle-right am-fr am-margin-right"></span>
@@ -59,6 +73,18 @@
                 <li><a href="javascript:open_content('/admin.php/Money_log/list_money_log');" class="am-cf menu"><span class="am-icon-check"></span> 资金日志</a></li>
             </ul>
         </li>
+        {{/if}}
+
+        {{if $user_info.username == 'admin'}}
+        <li class="admin-parent">
+            <a class="am-cf" data-am-collapse="{parent: '#menuDiv', target: '#collapse-nav7'}">
+                <span class="am-icon-file"></span> 后台用户 <span class="am-icon-angle-right am-fr am-margin-right"></span>
+            </a>
+            <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav7">
+                <li><a href="javascript:open_content('/admin.php/Admin_user/list_users');" class="am-cf menu"><span class="am-icon-check"></span> 后台用户</a></li>
+            </ul>
+        </li>
+        {{/if}}
 
     </ul>
 </div>
