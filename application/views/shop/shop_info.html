@@ -57,7 +57,7 @@
             <span class="register_header_title">{{$header_name}}</span>
             <a href="javascript:void(0)" onclick="back()"><span class="am-icon-chevron-left register_header_back"></span></a>
         </header>
-       <form class="am-form" data-am-validator action="/shop/save_shop_info" method="post">
+       <form id="save_form" class="am-form" data-am-validator action="/shop/save_shop_info" method="post">
            <input type="hidden" id="bd_lat" name="baidu_lat" value="{{if $shop}}{{$shop.baidu_lat}}{{/if}}">
            <input type="hidden" id="bd_lng"  name="baidu_lng" value="{{if $shop}}{{$shop.baidu_lng}}{{/if}}">
         <div class="am-form-group am-form-file upload_img_all">
@@ -80,7 +80,6 @@
 
         <div class="am-input-group " style="width: 100%;">
             <select name="type" class="am-form-select" style="width: 100%;margin: 0 auto;height: 50px;">
-                <option>-请选择类别-</option>
                 {{foreach from=$shop_type item=row}}
                 <option value="{{$row.id}}" {{if $shop && $shop.type eq $row.id}} selected="selected" {{/if}}>{{$row.name}}</option>
                 {{/foreach}}
@@ -89,19 +88,19 @@
         <br>
 
         <div class="am-form-group" >
-                <select name="province_code" onchange="changeSelect(this)" style="width: 100%; height: 50px;">
+                <select id="province_code" name="province_code" onchange="changeSelect(this)" style="width: 100%; height: 50px;">
                     <option value="">-请选择省份-</option>
                     {{foreach from=$provinces item=row}}
                     <option value="{{$row.code}}" {{if $shop}}{{if $shop.province_code eq $row.code}} selected="selected" {{/if}}{{/if}}>{{$row.name}}</option>
                     {{/foreach}}
                 </select>
-                <select name="city_code" style="width: 100%; height: 50px;" onchange="changeSelectCity(this)">
+                <select id="city_code" name="city_code" style="width: 100%; height: 50px;" onchange="changeSelectCity(this)">
                     <option value="">-请选择城市-</option>
                     {{foreach from=$city item=row}}
                     <option value="{{$row.code}}" {{if $shop}}{{if $shop.city_code eq $row.code}} selected="selected" {{/if}}{{/if}}>{{$row.name}}</option>
                     {{/foreach}}
                 </select>
-            <select name="area_code" style="width: 100%; height: 50px; ">
+            <select id="area_code" name="area_code" style="width: 100%; height: 50px; ">
                 <option value="">-请选择区域-</option>
                 {{foreach from=$area item=row}}
                 <option value="{{$row.code}}" {{if $shop}}{{if $shop.area_code eq $row.code}} selected="selected" {{/if}}{{/if}}>{{$row.name}}</option>
@@ -151,7 +150,7 @@
                    {{/if}}
                </span>
            </div>
-           <button type="submit" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;margin-top: 50px">修改</button>
+           <button id="save_btn" type="button" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;margin-top: 50px">修改</button>
        </form>
 
 <script src="{{$base_url}}statics/js/localResizeIMG.js"></script>
@@ -226,6 +225,33 @@
             console.log(data)
         });
     }
+    $("#save_btn").click(function(){
+        if($("#province_code").val()==""){
+            $("#province_code").focus();
+            alert('请选择省份!');
+            return false;
+        }
+        if($("#city_code").val()==""){
+            $("#city_code").focus();
+            alert('请选择城市!');
+            return false;
+        }
+        if($("#area_code").val()==""){
+            $("#area_code").focus();
+            alert('请选择区域!');
+            return false;
+        }
+        if($.trim($("#shop_desc").val())==""){
+            $("#shop_desc").focus();
+            alert('请输入商家简介!');
+            return false;
+        }
+        if($.trim($("#data_lng").val())=="" || $.trim($("#data_lat").val())==""){
+            alert('请在地图上选择坐标!');
+            return false;
+        }
+        $("#save_form").submit();
+    })
 </script>
 <script type="text/javascript">
     function get_name_by_keywords(obj){
@@ -283,31 +309,37 @@
     }
 </script>
 
-<!--百度地图-->
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
-<div class="am-popup" id="baidu_map" style="display: none;position:absolute !important;">
-    <div class="am-popup-inner">
-        <div class="am-popup-hd">
-            <h4 class="am-popup-title">百度地图</h4>
+
+  </div>
+
+
+
+  <!--百度地图-->
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+
+
+  <div class="am-popup" id="baidu_map" style="display: none;position:absolute !important;">
+      <div class="am-popup-inner">
+          <div class="am-popup-hd">
+              <h4 class="am-popup-title">百度地图</h4>
       <span data-am-modal-close
             class="am-close">&times;</span>
-        </div>
-        <div class="am-popup-bd">
-            <div class="top">
-                <div id="r-result"><input type="text" id="suggestId" class="am-form-field" placeholder="请输入地址"/></div>
-                <br>
-                <div class="right">
-                    <div class="points"><input type='text' class="am-form-field" name='lng' id='lng' placeholder="经度"/></div>
+          </div>
+          <div class="am-popup-bd">
+              <div class="top">
+                  <div id="r-result"><input type="text" id="suggestId" class="am-form-field" placeholder="请输入地址"/></div>
+                  <br>
+                  <div class="right">
+                      <div class="points"><input type='text' class="am-form-field" name='lng' id='lng' placeholder="经度"/></div>
 
-                    <div class="points"><input type='text' class="am-form-field" id='lat' name='lat' placeholder="纬度"/></div>
-                    <div class="queren" onclick="showInfo();">确认</div>
-                </div>
-            </div>
-            <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
-            <div id="allmap" style="width: 100%; height:500px;"></div>
-        </div>
-    </div>
-</div>
+                      <div class="points"><input type='text' class="am-form-field" id='lat' name='lat' placeholder="纬度"/></div>
+                      <div class="queren" onclick="showInfo();">确认</div>
+                  </div>
+              </div>
+              <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+              <div id="allmap" style="width: 100%; height:500px;"></div>
+          </div>
+      </div>
   </div>
 </body>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
@@ -397,6 +429,8 @@
         map.clearOverlays();    //清除地图上所有覆盖物
         function myFun() {
             var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+            $("#lat").val(pp.lat)
+            $("#lng").val(pp.lng)
             map.centerAndZoom(pp, 18);
             map.addOverlay(new BMap.Marker(pp));    //添加标注
         }
@@ -438,34 +472,16 @@
             $("#" + name).val(words[0]);
             $("#bd_lng").val(v1);
             $("#bd_lat").val(v2);
+            $("#" + id).focus();
+            $("#" + name).focus();
+            $("#" + id).focus();
             $("#baidu_map").modal('close')
             create_map(v2,v1)
         });
-        /* point = baidu_to_tx(v2,v1)
-         $("#" + id).val(point['lng']);
-         $("#" + name).val(point['lat']);
-         $("#baidu_map").modal('close')
-         create_map(v2,v1)*/
-
-        /*api_path ='http://mapi.map.qq.com/translate/?type=3&points='+v1+','+v2+'&output=jsonp'
-         f_path = 'http://apis.map.qq.com/ws/coord/v1/translate?locations='+v2+','+v1+'&type=3&key=LC5BZ-2T3H5-BZ2IG-QMWEQ-H5G25-VCBL5'
-         $.getJSON(f_path,function(data){
-         if(data.status==0){
-         $("#" + id).val(data.locations.lat);
-         $("#" + name).val(data.locations.lng);
-         $("#baidu_map").modal('close')
-         create_map(v2,v1)
-         }else{
-         $("#" + id).val(v1);
-         $("#" + name).val(v2);
-         $("#baidu_map").modal('close')
-         create_map(v2,v1)
-         }
-         })*/
-
     }
+    create_map({{$shop.baidu_lat|default:$shop.lat}},{{$shop.baidu_lng|default:$shop.lng}});
 
-    wx.config({
+    /*wx.config({
         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         appId: '{{$wxappId}}', // 必填，公众号的唯一标识
         timestamp: {{$wxtimestamp}}, // 必填，生成签名的时间戳
@@ -500,6 +516,6 @@
             }
         });
     });
-    {{/if}}
+    {{/if}}*/
 </script>
 {{include file="../public/footer.html"}}
