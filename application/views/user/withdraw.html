@@ -192,19 +192,20 @@
 	var mobile_timeout;
 	var mobile_count = 100;
 	var mobile_lock = 0;
+	$("#jq_send").click(function () {
+		if (mobile_lock == 0) {
+			$.ajax({
+				url: "{{site_url url='user/sendsms'}}",
+				data: 'mobile=' + $("#mobile").val(),
+				type: 'post'
+			});
+			mobile_count = 100;
+			BtnCount();
+			mobile_lock = 1;
+		}
+	});
 	$(function () {
-		$("#jq_send").click(function () {
-			if (mobile_lock == 0) {
-				$.ajax({
-					url: "{{site_url url='user/sendsms'}}",
-					data: 'mobile=' + $("#mobile").val(),
-					type: 'post'
-				});
-				mobile_count = 100;
-				BtnCount();
-				mobile_lock = 1;
-			}
-		});
+
 	});
 	BtnCount = function () {
 		if (mobile_count == 0) {
