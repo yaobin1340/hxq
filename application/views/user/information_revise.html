@@ -6,7 +6,7 @@
                 <input id="file" type="file" accept="image/*" capture=camera"/>
                 <div style="position: relative;">
                     <div style="">
-                        <img id="previewResult" style="z-index: 11;" src="{{$base_url}}upload/face/{{$user_info.face}}"/>
+                        <img id="previewResult" style="z-index: 11;" src="{{if $user_info.face}}{{$base_url}}upload/face/{{$user_info.face}}{{else}}{{$base_url}}statics/images/logo.jpg{{/if}}"/>
                     </div>
                     <button type="button" class="am-btn am-btn-danger am-btn-sm" style="margin-top: 10px;">
                         <i class="am-icon-cloud-upload"></i> 修改头像</button>
