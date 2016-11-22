@@ -1,7 +1,7 @@
        {{include file="./header.html"}}
        <body style="background: #ffffff;">
        <div style="padding-bottom: 60px;">
-       <form class="am-form" data-am-validator action="/frontend/save_register_shop" method="post">
+       <form id="save_form" class="am-form" data-am-validator action="/frontend/save_register_shop" method="post">
            <input type="hidden" id="bd_lat" name="baidu_lat" value="{{if $shop}}{{$shop.baidu_lat}}{{/if}}">
            <input type="hidden" id="bd_lng"  name="baidu_lng" value="{{if $shop}}{{$shop.baidu_lng}}{{/if}}">
         <div class="am-form-group am-form-file upload_img_all">
@@ -10,7 +10,7 @@
                 <div class="upload_img_div2">
                     <img id="previewResult" {{if $shop}}src="{{$base_url}}upload/logo/{{$shop.logo}}"{{/if}}/>
                 </div>
-                 <button type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
+                 <button id="btn_file" type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
                  <i class="am-icon-cloud-upload"></i> 上传logo</button>
                 <!--<img id="previewResult" style="width: 80px;height: 80px;"/>-->
                  <input type="hidden" name="img_input" id="img_input">
@@ -24,7 +24,7 @@
 
        <div class="am-form-group am-form-icon" style="height: 50px;">
            <i class="am-icon-tag"></i>
-           <input type="text" name="parent_flag" {{if $shop && $shop.parent_mobile}}value="{{$shop.parent_mobile}}"{{/if}} class="am-form-field user_add_phone" placeholder="请输入邀请人电话或id" style="height: 50px;" onblur="get_name_by_keywords(this)" required/>
+           <input type="text" name="parent_flag" {{if $shop && $shop.parent_mobile}}value="{{$shop.parent_mobile}}"{{else}}value="{{$user_info.parent_id|default:''}}"{{/if}} class="am-form-field user_add_phone" placeholder="请输入邀请人电话或id" style="height: 50px;" onblur="get_name_by_keywords(this)" required/>
        </div>
 
        <div class="am-form-group am-form-icon" id="inviter-block" hidden>
@@ -33,8 +33,8 @@
        </div>
 
         <div class="am-input-group " style="width: 100%;">
-            <select name="type" class="am-form-select" style="width: 100%;margin: 0 auto;height: 50px;">
-                <option>-请选择类别-</option>
+            <select id="shop_type" name="type" class="am-form-select" style="width: 100%;margin: 0 auto;height: 50px;">
+                <option value="">-请选择类别-</option>
                 {{foreach from=$shop_type item=row}}
                 <option value="{{$row.id}}" {{if $shop && $shop.type eq $row.id}} selected="selected" {{/if}}>{{$row.name}}</option>
                 {{/foreach}}
@@ -43,19 +43,19 @@
         <br>
 
         <div class="am-form-group" >
-                <select name="province_code" onchange="changeSelect(this)" style="width: 100%; height: 50px;">
+                <select id="province_code" name="province_code" onchange="changeSelect(this)" style="width: 100%; height: 50px;">
                     <option value="">-请选择省份-</option>
                     {{foreach from=$provinces item=row}}
                     <option value="{{$row.code}}" {{if $shop}}{{if $shop.province_code eq $row.code}} selected="selected" {{/if}}{{/if}}>{{$row.name}}</option>
                     {{/foreach}}
                 </select>
-                <select name="city_code" style="width: 100%; height: 50px;" onchange="changeSelectCity(this)">
+                <select id="city_code" name="city_code" style="width: 100%; height: 50px;" onchange="changeSelectCity(this)">
                     <option value="">-请选择城市-</option>
                     {{foreach from=$city item=row}}
                     <option value="{{$row.code}}" {{if $shop}}{{if $shop.city_code eq $row.code}} selected="selected" {{/if}}{{/if}}>{{$row.name}}</option>
                     {{/foreach}}
                 </select>
-            <select name="area_code" style="width: 100%; height: 50px; ">
+            <select id="area_code" name="area_code" style="width: 100%; height: 50px; ">
                 <option value="">-请选择区域-</option>
                 {{foreach from=$area item=row}}
                 <option value="{{$row.code}}" {{if $shop}}{{if $shop.area_code eq $row.code}} selected="selected" {{/if}}{{/if}}>{{$row.name}}</option>
@@ -84,8 +84,8 @@
 
 
         <div class="am-input-group" style="margin-left: 10px;">
-            <input readonly="readonly" type="text" {{if $shop}}value="{{$shop.lng}}"{{/if}} class="am-form-field am-u-sm-4" placeholder="请输入经度" id="data_lng" name="lng" style="width:34%;height: 50px;">
-            <input readonly="readonly" type="text" {{if $shop}}value="{{$shop.lat}}"{{/if}} class="am-form-field am-u-sm-4" placeholder="请输入纬度" id="data_lat" name="lat" style="width:34%;float: left;height: 50px;">
+            <input required readonly="readonly" type="text" {{if $shop}}value="{{$shop.lng}}"{{/if}} class="am-form-field am-u-sm-4" placeholder="请输入经度" id="data_lng" name="lng" style="width:34%;height: 50px;">
+            <input required readonly="readonly" type="text" {{if $shop}}value="{{$shop.lat}}"{{/if}} class="am-form-field am-u-sm-4" placeholder="请输入纬度" id="data_lat" name="lat" style="width:34%;float: left;height: 50px;">
             <button type="button" class="am-btn am-btn-secondary am-btn-block" style="width:24%;float: left;margin-left: 5px;height: 50px;" data-am-modal="{target: '#baidu_map'}">百度地图</button>
         </div>
         <div class="am-form-group am-form-file upload_img_all">
@@ -94,7 +94,7 @@
                 <div class="upload_img_div2">
                     <img id="license_previewResult" {{if $shop}}src="{{$base_url}}upload/license/{{$shop.license}}"{{/if}}/>
                 </div>
-                <button type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
+                <button id="btn_license" type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
                     <i class="am-icon-cloud-upload"></i> 上传营业执照</button>
                 <input type="hidden" name="license" id="license_img_input">
             </div>
@@ -105,7 +105,7 @@
                    <div class="upload_img_div2">
                        <img id="cns1_previewResult" {{if $shop}}src="{{$base_url}}upload/cns/{{$shop.cns1}}"{{/if}}/>
                    </div>
-                   <button type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
+                   <button id="btn_cns1" type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
                        <i class="am-icon-cloud-upload"></i> 上传承诺书</button>
                    <input type="hidden" name="cns1" id="cns1_img_input">
                </div>
@@ -129,7 +129,7 @@
                    <div class="upload_img_div2">
                        <img id="sfz1_previewResult" {{if $shop}}src="{{$base_url}}upload/sfz/{{$shop.sfz1}}"{{/if}}/>
                    </div>
-                   <button type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
+                   <button id="btn_sfz1" type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
                        <i class="am-icon-cloud-upload"></i> 手持身份证(正面)</button>
                    <input type="hidden" name="sfz1" id="sfz1_img_input">
                </div>
@@ -148,8 +148,8 @@
            <!--</div>-->
 
        <div class="am-input" style="width: 100%;">
-           <select name="percent" class="am-form-select" style="width: 100%;margin: 0 auto;height: 50px;">
-               <option>-请选择分销类型-</option>
+           <select id="percent" name="percent" class="am-form-select" style="width: 100%;margin: 0 auto;height: 50px;">
+               <option value="">-请选择分销类型-</option>
                <option value="6" {{if $shop}}{{if $shop.percent eq 6}} selected="selected" {{/if}}{{/if}}>分销类型:6</option>
                <option value="12" {{if $shop}}{{if $shop.percent eq 12}} selected="selected" {{/if}}{{/if}}>分销类型:12</option>
                <option value="24" {{if $shop}}{{if $shop.percent eq 24}} selected="selected" {{/if}}{{/if}}>分销类型:24</option>
@@ -157,7 +157,7 @@
        </div>
 
         <div class="am-form-group" style="height: 100px;margin-top: 10px;">
-            <textarea maxlength="100" placeholder="请输入商家简介" name='desc' class="am-form-field" style="height: 100px;">{{if $shop}}{{$shop.desc}}{{/if}}</textarea>
+            <textarea id="shop_desc" maxlength="100" placeholder="请输入商家简介" name='desc' class="am-form-field" style="height: 100px;">{{if $shop}}{{$shop.desc}}{{/if}}</textarea>
         </div>
 
            {{if $shop}}
@@ -178,11 +178,11 @@
 
            {{if $shop}}
                 {{if $shop.status eq -1}}
-           <button type="submit" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;">提交</button>
+           <button id="save_btn" type="button" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;">提交</button>
            <a href="{{site_url url='user'}}" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;margin-top: 5px;">取消</a>
                 {{/if}}
            {{else}}
-           <button type="submit" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;">提交</button>
+           <button id="save_btn" type="button" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;">提交</button>
            <a href="{{site_url url='user'}}" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;margin-top: 5px;">取消</a>
            {{/if}}
        </form>
@@ -203,7 +203,7 @@
     });
 
     $('#license').localResizeIMG({
-        width: 500,
+        width: 800,
 //        height: 300,
         quality: 1,
         success: function (result) {
@@ -213,7 +213,7 @@
     });
 
     $('#cns1').localResizeIMG({
-        width: 500,
+        width: 800,
 //        height: 300,
         quality: 1,
         success: function (result) {
@@ -223,7 +223,7 @@
     });
 
     $('#cns2').localResizeIMG({
-        width: 500,
+        width: 800,
 //        height: 300,
         quality: 1,
         success: function (result) {
@@ -233,7 +233,7 @@
     });
 
     $('#sfz1').localResizeIMG({
-        width: 500,
+        width: 800,
 //        height: 300,
         quality: 1,
         success: function (result) {
@@ -243,7 +243,7 @@
     });
 
     $('#sfz2').localResizeIMG({
-        width: 500,
+        width: 800,
 //        height: 300,
         quality: 1,
         success: function (result) {
@@ -256,6 +256,85 @@
             console.log(data)
         });
     }
+
+    $("#save_btn").click(function(){
+        if($("#file").val()=="" && $("#previewResult")[0].src==""){
+            alert('请上传头像!');
+            $("#btn_file").focus();
+            return false;
+        }
+        if($.trim($('input[name=parent_flag]').val())==""){
+            alert('请填写推荐人!');
+            $('input[name=parent_flag]').focus();
+            return false;
+        }else{
+
+        }
+
+        if($("#shop_type").val()==""){
+            alert('请选择商家类型!');
+            $("#shop_type").focus();
+            return false;
+        }
+
+        if($("#province_code").val()==""){
+            $("#province_code").focus();
+            alert('请选择省份!');
+            return false;
+        }
+        if($("#city_code").val()==""){
+            $("#city_code").focus();
+            alert('请选择城市!');
+            return false;
+        }
+        if($("#area_code").val()==""){
+            $("#area_code").focus();
+            alert('请选择区域!');
+            return false;
+        }
+        if($("#license").val()=="" && $("#license_previewResult")[0].src==""){
+            alert('请上传营业执照!');
+            $("#btn_license").focus();
+            return false;
+        }
+        if($("#cns1").val()=="" && $("#cns1_previewResult")[0].src==""){
+            alert('请上传承诺书!');
+            $("#btn_cns1").focus();
+            return false;
+        }
+        if($("#sfz1").val()=="" && $("#sfz1_previewResult")[0].src==""){
+            alert('请上传身份证!');
+            $("#btn_sfz1").focus();
+            return false;
+        }
+        if($("#percent").val()==""){
+            $("#percent").focus();
+            alert('请选择分销类型!');
+            return false;
+        }
+        if($.trim($("#shop_desc").val())==""){
+            $("#shop_desc").focus();
+            alert('请输入商家简介!');
+            return false;
+        }
+        var invite_flag = $('input[name=parent_flag]').val();
+        if(invite_flag != "{{$sessionUser.id}}" && invite_flag != "{{$sessionUser.mobile}}"){
+            if(invite_flag){
+                $.get("{{site_url url='frontend/get_name_by_keywords'}}/"+invite_flag,function(data){
+                    if(data){
+                        $("#save_form").submit();
+                    }else{
+
+                        return false
+                    }
+                })
+            }
+        }else{
+            $('input[name=parent_flag]').val('')
+            return false
+        }
+
+    })
 </script>
 <script type="text/javascript">
     function get_name_by_keywords(obj){
@@ -269,6 +348,7 @@
                         $('#inviter-block').show()
                     }else{
                         $('#inviter-block').hide()
+                        $('input[name=parent_flag]').val('')
                         alert('邀请人手机号错误')
                     }
                 })
@@ -278,6 +358,13 @@
             $('input[name=parent_flag]').val('')
         }
     }
+    {{if $shop && $shop.parent_mobile}}
+    get_name_by_keywords($('input[name=parent_flag]'));
+    {{else}}
+    {{if $user_info.parent_mobile}}
+    get_name_by_keywords($('input[name=parent_flag]'));
+    {{/if}}
+    {{/if}}
     function changeSelect(obj)
     {
         province = $(obj).val();
@@ -432,6 +519,8 @@
         map.clearOverlays();    //清除地图上所有覆盖物
         function myFun() {
             var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+            $("#lat").val(pp.lat)
+            $("#lng").val(pp.lng)
             map.centerAndZoom(pp, 18);
             map.addOverlay(new BMap.Marker(pp));    //添加标注
         }
@@ -473,6 +562,9 @@
             $("#" + name).val(words[0]);
             $("#bd_lng").val(v1);
             $("#bd_lat").val(v2);
+            $("#" + id).focus();
+            $("#" + name).focus();
+            $("#" + id).focus();
             $("#baidu_map").modal('close')
             create_map(v2,v1)
         });
@@ -512,6 +604,7 @@
     create_map({{$shop.baidu_lat|default:$shop.lat}},{{$shop.baidu_lng|default:$shop.lng}});
     {{else}}
     wx.ready(function () {
+
         wx.getLocation({
             type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
             success: function (res) {
@@ -531,7 +624,7 @@
 
             },
             error: function (res) {
-
+                //alert(JSON.stringify(res));
             }
         });
     });

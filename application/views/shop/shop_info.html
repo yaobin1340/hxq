@@ -51,7 +51,8 @@
     }
 </style>
 
-<body>
+<body style="background: #ffffff;">
+  <div style="padding-bottom: 100px;">
         <header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
             <span class="register_header_title">{{$header_name}}</span>
             <a href="javascript:void(0)" onclick="back()"><span class="am-icon-chevron-left register_header_back"></span></a>
@@ -139,8 +140,8 @@
         </div>
 
            <div class="am-form-group" style="margin-top: 10px">
-               <label class="am-u-sm-2 am-form-label">类型:</label>
-               <div class="am-u-sm-10">
+               <span class="am-u-sm-2 am-form-label" style="float: left;width: 25%;">类型:</span>
+               <span class="am-u-sm-10" style="width: auto;margin-right: 50%;margin-top: -25px;">
                    {{if $shop.percent eq 6}}
                    激励类型 6
                    {{elseif $shop.percent eq 12}}
@@ -148,9 +149,9 @@
                    {{elseif $shop.percent eq 24}}
                    激励类型 24
                    {{/if}}
-               </div>
+               </span>
            </div>
-           <button type="submit" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;margin-bottom: 130px;margin-top: 30px">修改</button>
+           <button type="submit" class="am-btn am-btn-secondary am-btn-block" style="margin:0 auto;margin-top: 50px">修改</button>
        </form>
 
 <script src="{{$base_url}}statics/js/localResizeIMG.js"></script>
@@ -307,8 +308,10 @@
         </div>
     </div>
 </div>
-       <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-       <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&libraries=convertor"></script>
+  </div>
+</body>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&libraries=convertor"></script>
 <script type="text/javascript">
 
     $(window).scroll(function ()
@@ -404,13 +407,13 @@
     }
 
     function baidu_to_tx(lat,lng){
-            x_pi = 3.14159265358979324 * 3000.0 / 180.0;
-            var x = lng - 0.0065, y = lat - 0.006;
-            var z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * x_pi);
-            var theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * x_pi);
-            var point = new Array()
-            point['lng']=z * Math.cos(theta);
-            point['lat']= z * Math.sin(theta);
+        x_pi = 3.14159265358979324 * 3000.0 / 180.0;
+        var x = lng - 0.0065, y = lat - 0.006;
+        var z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * x_pi);
+        var theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * x_pi);
+        var point = new Array()
+        point['lng']=z * Math.cos(theta);
+        point['lat']= z * Math.sin(theta);
         return point;
 
     }
@@ -438,27 +441,27 @@
             $("#baidu_map").modal('close')
             create_map(v2,v1)
         });
-       /* point = baidu_to_tx(v2,v1)
-        $("#" + id).val(point['lng']);
-        $("#" + name).val(point['lat']);
-        $("#baidu_map").modal('close')
-        create_map(v2,v1)*/
+        /* point = baidu_to_tx(v2,v1)
+         $("#" + id).val(point['lng']);
+         $("#" + name).val(point['lat']);
+         $("#baidu_map").modal('close')
+         create_map(v2,v1)*/
 
         /*api_path ='http://mapi.map.qq.com/translate/?type=3&points='+v1+','+v2+'&output=jsonp'
-        f_path = 'http://apis.map.qq.com/ws/coord/v1/translate?locations='+v2+','+v1+'&type=3&key=LC5BZ-2T3H5-BZ2IG-QMWEQ-H5G25-VCBL5'
-        $.getJSON(f_path,function(data){
-            if(data.status==0){
-                $("#" + id).val(data.locations.lat);
-                $("#" + name).val(data.locations.lng);
-                $("#baidu_map").modal('close')
-                create_map(v2,v1)
-            }else{
-                $("#" + id).val(v1);
-                $("#" + name).val(v2);
-                $("#baidu_map").modal('close')
-                create_map(v2,v1)
-            }
-        })*/
+         f_path = 'http://apis.map.qq.com/ws/coord/v1/translate?locations='+v2+','+v1+'&type=3&key=LC5BZ-2T3H5-BZ2IG-QMWEQ-H5G25-VCBL5'
+         $.getJSON(f_path,function(data){
+         if(data.status==0){
+         $("#" + id).val(data.locations.lat);
+         $("#" + name).val(data.locations.lng);
+         $("#baidu_map").modal('close')
+         create_map(v2,v1)
+         }else{
+         $("#" + id).val(v1);
+         $("#" + name).val(v2);
+         $("#baidu_map").modal('close')
+         create_map(v2,v1)
+         }
+         })*/
 
     }
 
@@ -499,6 +502,4 @@
     });
     {{/if}}
 </script>
-
-</body>
 {{include file="../public/footer.html"}}

@@ -1,0 +1,132 @@
+{{include file="./header.html"}}
+
+<style>
+    .table1{
+        width: 100%; height: 45px; border-collapse:collapse;color: #bfbfbf;
+    }
+    .table1 tr{
+        font-size: 14px;text-align: center;color: #999999;
+    }
+    .td1{
+        border-bottom:1px solid #e5e5e5;
+    }
+    .td1 a{
+        color: #777777;
+    }
+    .table{
+        width: 100%; height: 50px; border-collapse:collapse;color: #bfbfbf;
+    }
+    .table tr{
+        font-size: 13px; height: 50px; text-align: center;color: #999999;
+    }
+    .td{
+        border-bottom:1px solid #e5e5e5;
+    }
+    .table .my_team_title{
+        color: #343434;font-weight: bold;font-size: 15px;
+    }
+    .table .my_team_title_content{
+        color: #676767; font-size: 14px;
+    }
+</style>
+
+<body style="background: #ffffff;">
+
+   <div style="padding-bottom: 100px;">
+       <table class="table1" border="0">
+           <tr>
+               <td class="td1" onclick="my_vip()" id="my_vip">会员</td>
+               <td class="td1" onclick="my_shop()" id="my_shop">商家</td>
+               <td class="td1" onclick="my_XXX()" id="my_XXX">XXX</td>
+           </tr>
+       </table>
+
+       <div id="my_vip_content" style="display: block;">
+           <table class="table" border="0">
+               <tr class="my_team_title">
+                   <td class="td">ID</td>
+                   <td class="td">姓名</td>
+                   <td class="td">手机号码</td>
+                   <td class="td">消费总额</td>
+               </tr>
+
+               <tr class="my_team_title_content">
+                   <td class="td">1</td>
+                   <td class="td">周小婷</td>
+                   <td class="td">15850293624</td>
+                   <td class="td">1223.00</td>
+               </tr>
+
+           </table>
+       </div>
+
+       <div id="my_shop_content" style="display: none;">
+           <table class="table" border="0">
+               <tr class="my_team_title">
+                   <td class="td">商家名称</td>
+                   <td class="td">营业额</td>
+                   <td class="td">类别</td>
+                   <td class="td">推荐者</td>
+               </tr>
+
+               <tr class="my_team_title_content">
+                   <td class="td">姚斌</td>
+                   <td class="td">100000.00</td>
+                   <td class="td">激励6</td>
+                   <td class="td">上官</td>
+               </tr>
+
+           </table>
+       </div>
+
+       <div id="my_XXX_content" style="display: none;">
+           <table class="table" border="0">
+               <tr class="my_team_title">
+                   <td class="td">商家名称</td>
+                   <td class="td">营业额</td>
+                   <td class="td">类别</td>
+                   <td class="td">推荐者</td>
+               </tr>
+
+               <tr class="my_team_title_content">
+                   <td class="td">上官</td>
+                   <td class="td">100000.00</td>
+                   <td class="td">激励24</td>
+                   <td class="td">周小婷</td>
+               </tr>
+           </table>
+       </div>
+
+   </div>
+    <script>
+        window.onload=function(){
+            my_vip();
+        }
+
+        function my_vip() {
+            $("#my_vip").css("color","#3ab5f3");
+            $("#my_shop").css("color","#7c7c7c");
+            $("#my_XXX").css("color","#7c7c7c");
+            $("#my_vip_content").css("display","block");
+            $("#my_shop_content").css("display","none");
+            $("#my_XXX_content").css("display","none");
+        }
+        function my_shop() {
+            $("#my_vip").css("color","#7c7c7c");
+            $("#my_shop").css("color","#3ab5f3");
+            $("#my_XXX").css("color","#7c7c7c");
+            $("#my_vip_content").css("display","none");
+            $("#my_shop_content").css("display","block");
+            $("#my_XXX_content").css("display","none");
+        }
+        function my_XXX() {
+            $("#my_vip").css("color","#7c7c7c");
+            $("#my_shop").css("color","#7c7c7c");
+            $("#my_XXX").css("color","#3ab5f3");
+            $("#my_vip_content").css("display","none");
+            $("#my_shop_content").css("display","none");
+            $("#my_XXX_content").css("display","block");
+        }
+    </script>
+</body>
+{{include file="../public/footer.html"}}

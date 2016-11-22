@@ -14,6 +14,8 @@ class Sys_model extends MY_Model
         $result = $this->db->select('*')->from('users')->where("openid",$openid)->get()->row_array();
         if($result){
             $this->session->set_userdata('uid', $result['id']);
+        }else{
+            $this->session->unset_userdata('uid');
         }
         return 1;
     }

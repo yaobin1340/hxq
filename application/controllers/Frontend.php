@@ -166,6 +166,9 @@ class Frontend extends MY_Controller {
         $this->assign('shop_type', $shop_type);
 	    if($uid = $this->session->userdata('uid')){
 	        $sessionUser = $this->frontend_model->getSessionUser($uid);
+            $this->load->model('user_model');
+            $user_info = $this->user_model->find($this->session->userdata('uid'));
+            $this->assign('user_info', $user_info);
             $this->assign('sessionUser', $sessionUser);
             $this->load->model('shop_model');
             $conditionFields = array();
@@ -311,7 +314,7 @@ class Frontend extends MY_Controller {
     }
 
     public function test(){
-        $jukuan = $this->frontend_model->lminfo();
+        $jukuan = $this->frontend_model->yesterday_info();
         var_dump($jukuan);
     }
 

@@ -102,7 +102,7 @@
 
 
 	.table1{
-		width: 100%; height: 45px; border-collapse:collapse;color: #bfbfbf; cursor:pointer;
+		width: 100%; height: 45px; border-collapse:collapse;color: #bfbfbf;
 	}
 	.table1 tr{
 		font-size: 14px;text-align: center;color: #999999;
@@ -173,6 +173,7 @@
 
 
 		<div style=" width: 100%; text-align: center;"><span style="color: red;">小提示:</span> 请您认真填写!</div>
+		<div  style="width: 100%;text-align: center;"><span style="font-size: 14px;">(您提现的金额将在48小时之内到账)</span></div>
 		<div class="am-form-group am-form-icon" style="margin-top: 30px;">
 			{{if $data.user_info.integral <=10000}}
 			<button class="am-btn am-btn-default am-btn-block">您的余额不足</button>
@@ -191,19 +192,20 @@
 	var mobile_timeout;
 	var mobile_count = 100;
 	var mobile_lock = 0;
+	$("#jq_send").click(function () {
+		if (mobile_lock == 0) {
+			$.ajax({
+				url: "{{site_url url='user/sendsms'}}",
+				data: 'mobile=' + $("#mobile").val(),
+				type: 'post'
+			});
+			mobile_count = 100;
+			BtnCount();
+			mobile_lock = 1;
+		}
+	});
 	$(function () {
-		$("#jq_send").click(function () {
-			if (mobile_lock == 0) {
-				$.ajax({
-					url: "{{site_url url='user/sendsms'}}",
-					data: 'mobile=' + $("#mobile").val(),
-					type: 'post'
-				});
-				mobile_count = 100;
-				BtnCount();
-				mobile_lock = 1;
-			}
-		});
+
 	});
 	BtnCount = function () {
 		if (mobile_count == 0) {

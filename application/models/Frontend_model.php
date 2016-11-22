@@ -296,6 +296,7 @@ class Frontend_model extends MY_Model
         $this->db->join('shop b','a.shop_id = b.id','left');
         $this->db->where(array(
            'a.adate >=' => date("Y-m-d",strtotime("-1 day")),
+            'a.adate <' => date("Y-m-d"),
             'a.status'=>3,
             'b.percent'=>'6'
         ));
@@ -305,6 +306,7 @@ class Frontend_model extends MY_Model
         $this->db->join('shop b','a.shop_id = b.id','left');
         $this->db->where(array(
             'a.adate >=' => date("Y-m-d",strtotime("-1 day")),
+            'a.adate <' => date("Y-m-d"),
             'a.status'=>3,
             'b.percent'=>'12'
         ));
@@ -314,10 +316,12 @@ class Frontend_model extends MY_Model
         $this->db->join('shop b','a.shop_id = b.id','left');
         $this->db->where(array(
             'a.adate >=' => date("Y-m-d",strtotime("-1 day")),
+            'a.adate <' => date("Y-m-d"),
             'a.status'=>3,
             'b.percent'=>'24'
         ));
         $per['per24'] = $this->db->get()->row_array();
+        //var_dump($this->db->last_query());
         return $per;
     }
 
@@ -337,7 +341,7 @@ class Frontend_model extends MY_Model
         $this->db->group_by('a.city_code');
         $this->db->where('a.total >',0);
         $this->db->order_by('alltotal','desc');
-        $this->db->limit(10, 0);
+        $this->db->limit(8, 0);
         //var_dump($this->db->last_query());
         return $this->db->get()->result_array();
     }
@@ -348,7 +352,7 @@ class Frontend_model extends MY_Model
         $this->db->join('city c','c.code = a.city_code','left');
         $this->db->where('a.total >',0);
         $this->db->order_by('a.total','desc');
-        $this->db->limit(10, 0);
+        $this->db->limit(8, 0);
         //var_dump($this->db->last_query());
         return $this->db->get()->result_array();
     }

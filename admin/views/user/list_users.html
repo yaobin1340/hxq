@@ -32,7 +32,7 @@
                     <th>ID</th>
                     <th>姓名</th>
                     <th>手机</th>
-                    <th>金币</th>
+                    <th>葵花子</th>
                     <th>总计消费</th>
                     <th>注册时间</th>
                     <th>状态</th>
@@ -45,7 +45,7 @@
                     <td>{{$item.id}}</td>
                     <td><a>{{$item.rel_name}}</a></td>
                     <td><a>{{$item.mobile}}</a></td>
-                    <td><a>{{$item.integral}}</a></td>
+                    <td><a>{{$item.integral/100}}</a></td>
                     <td><a>{{($item.total6 + $item.total12 + $item.total24)/100}}</a></td>
                     <td><a>{{$item.cdate}}</a></td>
                     <td><a>{{if $item.status == 1}}<font color="green">正常</font>{{else}}<font color="red">已停用</font>{{/if}}</a></td>
