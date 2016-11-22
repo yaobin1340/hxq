@@ -73,6 +73,10 @@ class User_model extends MY_Model
         }
     }
 
+    public function update_pwd(){
+
+    }
+
     public function list_orders($page)
     {
         $data['limit'] = $this->limit;

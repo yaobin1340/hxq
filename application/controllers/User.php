@@ -67,6 +67,15 @@ class User extends MY_Controller {
 		}
 	}
 
+	public function update_pwd(){
+		$rs = $this->user_model->update_pwd();
+		if($rs == 1){
+			$this->show_message('修改成功',site_url('user'));
+		}else{
+			$this->show_message('操作失败');
+		}
+	}
+
 	public function list_orders($page = 1){
         $this->assign('footer_flag', 2);
 		$this->assign('header_name', '我的订单');
