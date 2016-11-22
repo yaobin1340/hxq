@@ -185,7 +185,7 @@ class User extends MY_Controller {
 		$this->display('user/money_log_list_loaddata.html');
 	}
 
-    public function user_heart($type=1){
+    public function user_heart($type=3){
 		$count = $this->user_model->get_count_heart($type,false);
 		$this->assign('header_name', '我的向日葵');
 		$this->assign('footer_flag', 3);
@@ -201,7 +201,7 @@ class User extends MY_Controller {
 		$this->display('user/user_heart_loaddata.html');
 	}
 
-	public function shop_heart($type=1){
+	public function shop_heart($type=3){
 		$count = $this->user_model->get_count_heart($type);
 		$this->assign('header_name', '我的向日葵');
 		$this->assign('footer_flag', 3);
