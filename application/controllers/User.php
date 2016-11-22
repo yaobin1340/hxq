@@ -68,9 +68,14 @@ class User extends MY_Controller {
 	}
 
 	public function update_pwd(){
+		if(!$this->input->post('new_password')){
+			$this->show_message('新密码不能为空！');
+		}
 		$rs = $this->user_model->update_pwd();
 		if($rs == 1){
 			$this->show_message('修改成功',site_url('user'));
+		}else if($rs == -2){
+			$this->show_message('旧密码填写错误！');
 		}else{
 			$this->show_message('操作失败');
 		}

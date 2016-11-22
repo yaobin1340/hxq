@@ -74,6 +74,20 @@ class User_model extends MY_Model
     }
 
     public function update_pwd(){
+        $row = $this->find($this->session->userdata('uid'));
+        if(!$row){
+            return -1;
+        }
+        if($row['password']==sha1($this->input->post('password'))){
+            $rs = $this->db->where('id',$this->session->userdata('uid'))->update('users',array('password'=>sha1($this->input->post('new_password'))));
+            if($rs){
+                return 1;
+            }else{
+                return -3;
+            }
+        }else{
+            return -2;
+        }
 
     }
 
