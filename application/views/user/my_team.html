@@ -33,77 +33,73 @@
 <body style="background: #ffffff;">
 
    <div style="padding-bottom: 100px;">
+       <input type="hidden" id="type" value="{{$type}}">
        <table class="table1" border="0">
            <tr>
-               <td class="td1" onclick="my_vip()" id="my_vip">会员</td>
-               <td class="td1" onclick="my_shop()" id="my_shop">商家</td>
-               <td class="td1" onclick="my_XXX()" id="my_XXX">XXX</td>
+               <td class="td1" style="{{if $type==1}}color:#3ab5f3{{else}}color:#7c7c7c{{/if}}"  id="my_vip">
+                   <a style="{{if $type==1}}color:#3ab5f3{{else}}color:#7c7c7c{{/if}}" href="{{site_url url='user/my_team/1'}}">会员</a>
+               </td>
+               <td class="td1" style="{{if $type==2}}color:#3ab5f3{{else}}color:#7c7c7c{{/if}}" id="my_shop">
+                   <a style="{{if $type==2}}color:#3ab5f3{{else}}color:#7c7c7c{{/if}}" href="{{site_url url='user/my_team/2'}}">
+                   商家
+                   </a>
+               </td>
+               <td class="td1" style="{{if $type==3}}color:#3ab5f3{{else}}color:#7c7c7c{{/if}}" id="my_XXX">
+                   <a style="{{if $type==3}}color:#3ab5f3{{else}}color:#7c7c7c{{/if}}" href="{{site_url url='user/my_team/3'}}">
+                   XXX
+                   </a>
+               </td>
            </tr>
        </table>
 
-       <div id="my_vip_content" style="display: block;">
+       <div>
            <table class="table" border="0">
+               <thead>
+               {{if $type==1}}
                <tr class="my_team_title">
                    <td class="td">ID</td>
                    <td class="td">姓名</td>
                    <td class="td">手机号码</td>
                    <td class="td">消费总额</td>
                </tr>
-
-               <tr class="my_team_title_content">
-                   <td class="td">1</td>
-                   <td class="td">周小婷</td>
-                   <td class="td">15850293624</td>
-                   <td class="td">1223.00</td>
-               </tr>
-
-           </table>
-       </div>
-
-       <div id="my_shop_content" style="display: none;">
-           <table class="table" border="0">
+               {{/if}}
+               {{if $type==2}}
                <tr class="my_team_title">
                    <td class="td">商家名称</td>
                    <td class="td">营业额</td>
                    <td class="td">类别</td>
                    <td class="td">推荐者</td>
                </tr>
-
-               <tr class="my_team_title_content">
-                   <td class="td">姚斌</td>
-                   <td class="td">100000.00</td>
-                   <td class="td">激励6</td>
-                   <td class="td">上官</td>
-               </tr>
-
-           </table>
-       </div>
-
-       <div id="my_XXX_content" style="display: none;">
-           <table class="table" border="0">
+               {{/if}}
+               {{if $type==3}}
                <tr class="my_team_title">
                    <td class="td">商家名称</td>
                    <td class="td">营业额</td>
                    <td class="td">类别</td>
                    <td class="td">推荐者</td>
                </tr>
+               {{/if}}
+               </thead>
 
-               <tr class="my_team_title_content">
-                   <td class="td">上官</td>
-                   <td class="td">100000.00</td>
-                   <td class="td">激励24</td>
-                   <td class="td">周小婷</td>
-               </tr>
+               <tbody id="accordion">
+
+               </tbody>
+
            </table>
+           <p id="is_end" style="text-align: center;font-size: 12px;">已到最后一页</p>
        </div>
-
+       <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+           <div class="am-modal-dialog">
+               <div class="am-modal-hd">正在加载...</div>
+               <div class="am-modal-bd">
+                   <span class="am-icon-spinner am-icon-spin"></span>
+               </div>
+           </div>
+       </div>
    </div>
     <script>
-        window.onload=function(){
-            my_vip();
-        }
 
-        function my_vip() {
+        /*function my_vip() {
             $("#my_vip").css("color","#3ab5f3");
             $("#my_shop").css("color","#7c7c7c");
             $("#my_XXX").css("color","#7c7c7c");
@@ -126,7 +122,59 @@
             $("#my_vip_content").css("display","none");
             $("#my_shop_content").css("display","none");
             $("#my_XXX_content").css("display","block");
-        }
+        }*/
     </script>
 </body>
 {{include file="../public/footer.html"}}
+<script>
+    window.is_end = false
+    window.page = 1
+    $(window).scroll(function () {
+        var scrollTop = $(this).scrollTop();
+        var scrollHeight = $(document).height();
+        var windowHeight = $(this).height();
+        if (scrollTop + windowHeight == scrollHeight) {
+            if(window.is_end){
+                $("#is_end").show()
+            }else{
+                $("#my-actions-search").show()
+                $('#my-modal-loading').modal()
+                get_data()
+            }
+        }
+    });
+
+    function get_data(){
+        type = $('#type').val()
+        $.post("{{site_url url='user/my_team_loaddata'}}/"+window.page,{type:type},function(data){
+            if(data){
+                $("#accordion").append(data)
+                $('#accordion').find('.flag-'+window.page).add('#doc-confirm-toggle').
+                on('click', function() {
+                    $('#my-confirm').modal({
+                        relatedTarget: this,
+                        onConfirm: function(options) {
+
+                        },
+                        onCancel: function() {
+
+                        }
+                    });
+                });
+                window.page += 1
+                $('#my-modal-loading').modal('close');
+            }else{
+                $('#my-modal-loading').modal('close');
+                $("#is_end").show()
+                window.is_end = true
+            }
+
+        });
+    }
+    get_data()
+    $(function() {
+
+    });
+
+
+</script>

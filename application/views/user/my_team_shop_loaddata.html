@@ -1,0 +1,8 @@
+{{foreach from=$data.items item=row}}
+<tr class="my_team_title_content">
+	<td class="td">{{$row.shop_name}}</td>
+	<td class="td">{{$row.total/100}}</td>
+	<td class="td">{{$row.name}}</td>
+	<td class="td">{{$row.rel_name}}</td>
+</tr>
+{{/foreach}}

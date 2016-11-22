@@ -456,4 +456,76 @@ class User_model extends MY_Model
             return $num->num;
         }
     }
+
+    public function my_team_user_loaddata($page=1){
+        $data['limit'] = $this->limit;
+        //获取总记录数
+        $this->db->select('count(1) num')->from('users a');
+        $this->db->where('a.parent_id',$this->session->userdata('uid'));
+//        $this->db->where('shop_id',1); //TODO
+        $num = $this->db->get()->row();
+        $data['total'] = $num->num;
+
+        //搜索条件
+        //获取详细列
+        $this->db->select('a.id,a.rel_name,a.mobile,(a.total6 + a.total12 + a.total24) team_total')->from('users a');
+        $this->db->where('a.parent_id',$this->session->userdata('uid'));
+        $this->db->limit($data['limit'], $offset = ($page - 1) * $data['limit']);
+        $this->db->order_by('a.id','desc');
+        $data['items'] = $this->db->get()->result_array();
+
+        return $data;
+    }
+
+    public function my_team_shop_loaddata($page=1){
+        $data['limit'] = $this->limit;
+        //获取总记录数
+        $this->db->select('count(1) num')->from('shop a');
+        $this->db->join('users b','b.id = a.parent_uid','left');
+        $this->db->join('shop_type c','c.id = a.type','left');
+        $this->db->where('a.parent_uid',$this->session->userdata('uid'));
+        $this->db->where('a.status',2);
+//        $this->db->where('shop_id',1); //TODO
+        $num = $this->db->get()->row();
+        $data['total'] = $num->num;
+
+        //搜索条件
+        //获取详细列
+        $this->db->select('a.shop_name,b.rel_name,c.name,total')->from('shop a');
+        $this->db->join('users b','b.id = a.parent_uid','left');
+        $this->db->join('shop_type c','c.id = a.type','left');
+        $this->db->where('a.parent_uid',$this->session->userdata('uid'));
+        $this->db->where('a.status',2);
+        $this->db->limit($data['limit'], $offset = ($page - 1) * $data['limit']);
+        $this->db->order_by('a.id','desc');
+        $data['items'] = $this->db->get()->result_array();
+
+        return $data;
+    }
+
+    public function my_team_shop2_loaddata($page=1){
+        $data['limit'] = $this->limit;
+        //获取总记录数
+        $this->db->select('count(1) num')->from('shop a');
+        $this->db->join('users b',"b.id = a.parent_uid",'left');
+        $this->db->join('shop_type c','c.id = a.type','left');
+        $this->db->where('b.parent_id',$this->session->userdata('uid'));
+        $this->db->where('a.status',2);
+//        $this->db->where('shop_id',1); //TODO
+        $num = $this->db->get()->row();
+        $data['total'] = $num->num;
+
+        //搜索条件
+        //获取详细列
+        $this->db->select('a.shop_name,b.rel_name,c.name,total')->from('shop a');
+        $this->db->join('users b',"b.id = a.parent_uid",'left');
+        $this->db->join('shop_type c','c.id = a.type','left');
+        $this->db->where('b.parent_id',$this->session->userdata('uid'));
+        $this->db->where('a.status',2);
+        $this->db->limit($data['limit'], $offset = ($page - 1) * $data['limit']);
+        $this->db->order_by('a.id','desc');
+        $data['items'] = $this->db->get()->result_array();
+
+        return $data;
+    }
 }

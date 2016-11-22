@@ -229,9 +229,40 @@ class User extends MY_Controller {
 		$this->assign('page', $page);
 		$this->display('user/my_income_loaddata.html');
 	}
-    public function my_team(){
+    public function my_team($type=1){
+		$this->assign('type', $type);
         $this->assign('header_name', '我的团队');
         $this->display('user/my_team.html');
     }
+	public function my_team_loaddata($page=1){
+		switch ($this->input->post('type')){
+			case 1:
+				$data = $this->user_model->my_team_user_loaddata($page);
+				$this->assign('data', $data);
+				$this->assign('page', $page);
+				$this->display('user/my_team_loaddata.html');
+				break;
+			case 2:
+				$data = $this->user_model->my_team_shop_loaddata($page);
+				$this->assign('data', $data);
+				$this->assign('page', $page);
+				$this->display('user/my_team_shop_loaddata.html');
+				break;
+			case 3:
+				$data = $this->user_model->my_team_shop2_loaddata($page);
+				$this->assign('data', $data);
+				$this->assign('page', $page);
+				$this->display('user/my_team_shop_loaddata.html');
+				break;
+			default:
+				$data=array();
+				echo $data;
+		}
 
+	}
+	public function test(){
+		$data = $this->user_model->my_team_shop_loaddata(1);
+		$this->assign('data', $data);
+		$this->display('user/my_team_shop_loaddata.html');
+	}
 }
