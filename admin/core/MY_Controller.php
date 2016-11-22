@@ -21,13 +21,8 @@ class MY_Controller extends CI_Controller
 		{//未登陆
 			redirect(site_url('login/index'));
 		}
-
-		$user_info = $this->session->userdata('user_info');
-//		$this->cismarty->assign('menu',$this->session->userdata('menu'));
 		$this->cismarty->assign('user_info',$this->session->userdata('user_info'));
-//		$this->cismarty->assign('operation',$this->session->userdata('operation'));
-		$this->cismarty->assign('company',$this->session->userdata('company'));
-//		$this->cismarty->assign('dept_id',$user_info['dept_id']);
+		$this->cismarty->assign('permission',$this->session->userdata('permission'));
 	}
 
 

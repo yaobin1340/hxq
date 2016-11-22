@@ -45,10 +45,8 @@ class Login_model extends MY_Model
         		->get()->row_array();
         
         if($rs){
-            $operation = array();
-            $data['operation'] = $operation;
             $data['user_info'] = $rs;
-            $data['supper'] = $rs['supper'];
+            $data['permission'] = explode('|',$rs['permission']);
             $this->session->set_userdata($data);
             return 1;
         }else{
