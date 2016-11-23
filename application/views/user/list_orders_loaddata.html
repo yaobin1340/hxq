@@ -32,25 +32,25 @@
     <div id="do-not-say-{{$row.id}}" class="am-panel-collapse am-collapse">
         <div class="am-panel-bd">
             <p class="list_all_information" style=""><span class="am-icon-phone list_all_information_mobile"></span>&nbsp;&nbsp;商家：{{$row.shop_name}}</p>
-            <div style="border-bottom: 1px solid #f3f3f3;margin-top: -10px;">
-              <span style="display: block; float: left;padding-top: 10px;"><span class="am-icon-map-marker list_all_information_mobile" style="color: #9381b3;"></span>&nbsp;地址：</span>
-              <p style="padding-left:3em;padding-top: 10px;">{{$row.address}}</p>
+            <div class="" style="border-bottom: 1px solid #f3f3f3;margin-top: -10px;">
+              <span style="display: block; float: left;padding-top: 10px;"><span class="am-icon-map-marker list_all_information_mobile" style="color: #9381b3;"></span>&nbsp;&nbsp;&nbsp;地址：</span>
+              <p style="padding-left:5em;padding-top: 10px;">{{$row.address}}</p>
             </div>
             <!--<p class="list_all_information"><span class="am-icon-map-marker list_all_information_name"></span>&nbsp;&nbsp;地址：{{$row.address}}</p>-->
 
             <p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;时间：{{$row.cdate}}</p>
-            <p class="list_all_information">&nbsp;&nbsp;
+            <p class="list_all_information" style="margin-left:-15px;">&nbsp;&nbsp;
                 {{if $row.status==1}}
-                <span style="color: red">待提交</span>
+                <span class="am-icon-clock-o" style="color: #e57c76;font-size: 10px;">&nbsp;&nbsp;待提交</span>
                 {{/if}}
                 {{if $row.status==2}}
-                <span style="color: orange">待审核</span>
+                <span class="am-icon-clock-o" style="color: #f89521;">&nbsp;&nbsp;待审核</span>
                 {{/if}}
                 {{if $row.status==3}}
-                <span style="color: green">已完成</span>
+                <span class="am-icon-check-circle-o" style="color: #4f9ce0;">&nbsp;&nbsp;已完成</span>
                 {{/if}}
                 {{if $row.status==-1}}
-                <span style="color: red">审核失败</span>
+                <span class="am-icon-exclamation-circle" style="color: #e57c76;">&nbsp;&nbsp;审核失败</span>
                 {{/if}}
 
             </p>
