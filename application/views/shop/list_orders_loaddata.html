@@ -35,8 +35,24 @@
             <p class="list_all_information"><span class="am-icon-phone list_all_information_mobile"></span>&nbsp;&nbsp;手机：{{$row.mobile}}</p>
             <p class="list_all_information"><span class="am-icon-user list_all_information_name"></span>&nbsp;&nbsp;姓名：{{$row.rel_name}}</p>
             <p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;时间：{{$row.cdate}}</p>
+            <p class="list_all_information">&nbsp;&nbsp;
+                {{if $row.status==1}}
+                <span style="color: red">待提交</span>
+                {{/if}}
+                {{if $row.status==2}}
+                <span style="color: orange">待审核</span>
+                {{/if}}
+                {{if $row.status==3}}
+                <span style="color: green">已完成</span>
+                {{/if}}
+                {{if $row.status==-1}}
+                <span style="color: red">审核失败</span>
+                {{/if}}
+
+            </p>
         </div>
         <div class="list_all_button">
+
             {{if $row.status < 2}}
             <button type="button" class="am-btn list_all_button_delete flag-{{$page}}" target="{{$row.id}}">删除</button>
             {{/if}}

@@ -39,6 +39,21 @@
             <!--<p class="list_all_information"><span class="am-icon-map-marker list_all_information_name"></span>&nbsp;&nbsp;地址：{{$row.address}}</p>-->
 
             <p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;时间：{{$row.cdate}}</p>
+            <p class="list_all_information">&nbsp;&nbsp;
+                {{if $row.status==1}}
+                <span style="color: red">待提交</span>
+                {{/if}}
+                {{if $row.status==2}}
+                <span style="color: orange">待审核</span>
+                {{/if}}
+                {{if $row.status==3}}
+                <span style="color: green">已完成</span>
+                {{/if}}
+                {{if $row.status==-1}}
+                <span style="color: red">审核失败</span>
+                {{/if}}
+
+            </p>
         </div>
     </div>
 </div>
