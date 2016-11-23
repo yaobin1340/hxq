@@ -44,11 +44,13 @@
                    直属商家
                    </a>
                </td>
+               {{if $user_info.is_dl!=1}}
                <td class="td1" style="{{if $type==3}}color:#3ab5f3{{else}}color:#7c7c7c{{/if}}" id="my_XXX">
                    <a style="{{if $type==3}}color:#3ab5f3{{else}}color:#7c7c7c{{/if}}" href="{{site_url url='user/my_team/3'}}">
                    二级商家
                    </a>
                </td>
+               {{/if}}
            </tr>
        </table>
 
