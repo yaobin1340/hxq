@@ -187,7 +187,59 @@ class Frontend extends MY_Controller {
 	}
 
 	public function save_register_shop(){
+        if(!trim($this->input->post('shop_name'))){
+            $this->show_message('商铺名称不能为空！');
+            die();
+        }
+        if(!trim($this->input->post('parent_flag'))){
+            $this->show_message('邀请人不能为空！');
+            die();
+        }
+        if(!trim($this->input->post('type'))){
+            $this->show_message('商铺类型不能为空！');
+            die();
+        }
+        if(!trim($this->input->post('province_code'))){
+            $this->show_message('省份不能为空！');
+            die();
+        }
+        if(!trim($this->input->post('city_code'))){
+            $this->show_message('城市不能为空！');
+            die();
+        }
+        if(!trim($this->input->post('area_code'))){
+            $this->show_message('区域不能为空！');
+            die();
+        }
+        if(!trim($this->input->post('address'))){
+            $this->show_message('地址不能为空！');
+            die();
+        }
+        if(!trim($this->input->post('person'))){
+            $this->show_message('联系人不能为空！');
+            die();
+        }
 
+        if(!trim($this->input->post('phone'))){
+            $this->show_message('联系电话不能为空！');
+            die();
+        }
+        if(!trim($this->input->post('business_time'))){
+            $this->show_message('营业时间不能为空！');
+            die();
+        }
+        if(!trim($this->input->post('lng')) || !trim($this->input->post('lat'))){
+            $this->show_message('经纬度不能为空！');
+            die();
+        }
+        if(!trim($this->input->post('percent'))){
+            $this->show_message('分销类型不能为空！');
+            die();
+        }
+        if(!trim($this->input->post('desc'))){
+            $this->show_message('商铺介绍不能为空！');
+            die();
+        }
 		$img = $this->upload('logo');
 		$license = $this->upload('license','license');
         $cns1 = $this->upload('cns','cns1');
