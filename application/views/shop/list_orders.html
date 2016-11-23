@@ -19,7 +19,7 @@
 <div>
 <div style="width: 100%;height: 50px;border-bottom: 1px solid #e9e9e9;">
     <span class="am-icon-list-ul" style="line-height: 50px;color: #66b3e1;margin-left: 10px;">&nbsp;订单列表</span>
-    <span style=" float: right; line-height: 50px;margin-right: 20px;">&nbsp;订单总数：<span style="color: #66b3e1;">1000</span></span>
+    <span style=" float: right; line-height: 50px;margin-right: 20px;">&nbsp;总营业额：<span style="color: #66b3e1;">{{($user_info.total|default:0)/100}}</span></span>
 </div>
 <!--<script src="{{$base_url}}statics/js/user_list.js"></script>-->
 <input type="hidden" id="keywords" value="{{$keywords}}">
