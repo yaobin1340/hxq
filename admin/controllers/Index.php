@@ -27,10 +27,10 @@ class Index extends MY_Controller {
 		$count_info = $this->index_model->get_index_count();
 		$this->assign('count_info', $count_info);
 		$this->display('layout/index.html');
+
 	}
 	
 	public function main(){
-
 		$this->show('index');
 	}
 
