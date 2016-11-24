@@ -35,6 +35,7 @@
                     <th>葵花子</th>
                     <th>总计消费</th>
                     <th>注册时间</th>
+                    <th>推荐人</th>
                     <th>状态</th>
                     <th>操作</th>
                 </tr>
@@ -48,6 +49,7 @@
                     <td><a>{{$item.integral/100}}</a></td>
                     <td><a>{{($item.total6 + $item.total12 + $item.total24)/100}}</a></td>
                     <td><a>{{$item.cdate}}</a></td>
+                    <td><a>{{$item.parent_name}}</a></td>
                     <td><a>{{if $item.status == 1}}<font color="green">正常</font>{{else}}<font color="red">已停用</font>{{/if}}</a></td>
                     <td>
                         <div class="am-btn-toolbar">

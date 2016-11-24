@@ -41,13 +41,14 @@ class User_model extends MY_Model
 		$data['keyword'] = $this->input->post('keyword')?$this->input->post('keyword'):null;
 		$data['type'] = $type?$type:null;
 		//获取详细列
-		$this->db->select()->from('users');
+		$this->db->select('a.*,b.rel_name parent_name')->from('users a');
+		$this->db->join('users b','a.parent_id = b.id','left');
 		if($this->input->post('keyword')){
-			$this->db->like('rel_name',$this->input->post('keyword'));
-			$this->db->or_like('mobile',$this->input->post('keyword'));
+			$this->db->like('a.rel_name',$this->input->post('keyword'));
+			$this->db->or_like('a.mobile',$this->input->post('keyword'));
 		}
-		$this->db->where('is_dl',$type);
-		$this->db->order_by('id','asc');
+		$this->db->where('a.is_dl',$type);
+		$this->db->order_by('a.id','asc');
 		$this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
 		$data['items'] = $this->db->get()->result_array();
 
