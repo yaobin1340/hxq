@@ -257,7 +257,9 @@ class Frontend extends MY_Controller {
 		$rs = $this->frontend_model->save_register_shop($imgs);
 		if($rs == 1){
 			$this->show_message('申请成功');
-		}else{
+		}else if($rs == -2){
+            $this->show_message('推荐人不可为自己！');
+        }else{
 			$this->show_message('申请失败');
 		}
 	}

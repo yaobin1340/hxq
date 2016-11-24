@@ -115,6 +115,10 @@ class Frontend_model extends MY_Model
             }
         }
 
+        if($data['parent_uid']==$this->session->userdata('uid')){
+            return -2;
+        }
+
         $shop = $this->db->select()->from('shop')->where("uid = $uid")->get()->row_array();
         if($shop){
             if($this->db->where(array('id'=>$shop['id']))->update('shop',$data)){

@@ -190,7 +190,8 @@ class Shop_model extends MY_Model
 
         if(!$user_info)
             return -2;//用户不存在
-
+        if($user_info->id==$this->session->userdata('uid'))
+            return -3;//用户不存在
         $rs = $this->db->select('id')->from('order')
             ->where('shop_id',$this->session->userdata('shop_id'))
             ->where('status',1)

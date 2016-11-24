@@ -63,7 +63,7 @@
             <span data-am-modal-close class="am-close">&times;</span>
         </div>
         <div class="am-popup-bd user_add_bak">
-            <form method="post" class="am-form " action="{{site_url url='shop/save_order'}}" data-am-validator style="margin-top: 80px;">
+            <form id="save_order_form" method="post" class="am-form " action="{{site_url url='shop/save_order'}}" data-am-validator style="margin-top: 80px;">
                 <input type="hidden" name="token" value="{{$token}}">
                 <div class="am-form-group am-form-icon">
                     <i class="am-icon-mobile-phone" style="font-size: 26px;"></i>
@@ -79,7 +79,7 @@
                 </div>
 
                 <div class="list_all_button user_add_button">
-                    <button type="submit" class="am-btn am-btn-secondary user_add_button_add">添加</button>
+                    <button id="save_order_btn" type="button" class="am-btn am-btn-secondary user_add_button_add">添加</button>
                     <button type="button" class="am-btn am-btn-secondary user_add_button_equit" data-am-modal-close>取消</button>
                 </div>
             </form>
@@ -136,11 +136,36 @@
 
     function get_name_by_keywords(obj){
         if($(obj).val()){
-            $.get("{{site_url url='shop/get_name_by_keywords'}}/"+$(obj).val(),function(data){
-                $("#rel_name").val(data)
-            })
+            if($.trim($(obj).val()) != "{{$user_detail.id}}" && $.trim($(obj).val()) != "{{$user_detail.mobile}}"){
+                $.get("{{site_url url='shop/get_name_by_keywords'}}/"+$(obj).val(),function(data){
+                    $("#rel_name").val(data)
+                })
+            }else{
+                $(obj).val('')
+                $("#rel_name").val('')
+                alert('订单不能填写自己')
+            }
+
         }
     }
+
+    $("#save_order_btn").click(function(){
+        if($("#doc-vld-phone-1").val()==""){
+            alert('客户编号未填写!')
+            return false
+        }
+        if($.trim($("#doc-vld-phone-1").val()) != "{{$user_detail.id}}" && $.trim($("#doc-vld-phone-1").val()) != "{{$user_detail.mobile}}"){
+            $.get("{{site_url url='shop/get_name_by_keywords'}}/"+$.trim($("#doc-vld-phone-1").val()),function(data){
+                $("#rel_name").val(data)
+                $("#save_order_form").submit();
+            })
+        }else{
+            $("#doc-vld-phone-1").val('')
+            $("#rel_name").val('')
+            alert('订单不能填写自己')
+            return false
+        }
+    })
 
     function get_data(){
         s_date = $('#s_date').val()

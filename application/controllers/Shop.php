@@ -44,6 +44,9 @@ class Shop extends MY_Controller {
 	public function list_orders($page = 1){
 		$this->assign('header_name', '订单管理');
         $this->assign('footer_flag', 3);
+		$this->load->model('user_model');
+		$user_info = $this->user_model->find($this->session->userdata('uid'));
+		$this->assign('user_detail', $user_info);
 		//配置令牌验证，表单需要加隐藏域；接口方法加验证逻辑
 		$this->set_token();
 //		$data = $this->shop_model->list_orders($page);
@@ -95,6 +98,8 @@ class Shop extends MY_Controller {
 			$this->show_message('添加成功！',site_url('shop/list_orders'));
 		}else if($rs == -2){
 			$this->show_message('用户不存在！');
+		}else if($rs == -3){
+			$this->show_message('订单不能填写自己！');
 		}else{
 			$this->show_message('操作失败！');
 		}
