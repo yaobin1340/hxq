@@ -24,5 +24,12 @@ class Index_model extends MY_Model
         );
         return $data;
     }
+
+    public function get_sett_info(){
+        $sql = "select * from (select * from settlement order by date desc limit 14) aa order by aa.date asc";
+        $rs = $this->db->query($sql)->result_array();
+
+        return $rs;
+    }
  
 }

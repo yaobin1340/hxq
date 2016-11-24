@@ -1,4 +1,5 @@
-
+<script src="/statics/js/highcharts.js"></script>
+<script src="/statics/js/exporting.js"></script>
 <style>
     .table1{
         width: 100%; height: 80px; border-collapse:collapse;color: #bfbfbf;
@@ -65,16 +66,138 @@
         </tr>
     </table>
 
-    <div class="link_user_shop">
-        <div class="link_user_shop_title">联盟客户向日葵</div>
+    <div class="link_user_shop" style="margin-bottom: 10px">
+        <div id="container" style="min-width:500px;height:300px" class="link_user_shop_title">联盟客户向日葵</div>
     </div>
-
-    <div class="link_user_shop">
-        <div class="link_user_shop_title">联盟商家向日葵</div>
+<br/>
+    <div class="link_user_shop" style="margin-top: 10px">
+        <div id="container2" style="min-width:500px;height:300px" class="link_user_shop_title">联盟商家向日葵</div>
     </div>
 
 </div><br><br>
+<script>
+  $(function () {
+    $('#container').highcharts({
+      title: {
+        text: '联盟客户向日葵',
+        x: -20 //center
+      },
+      subtitle: {
+        text: 'Source: WorldClimate.com',
+        x: -20
+      },
+      xAxis: {
+        categories: [
+          {{foreach from=$sett_info key=k item=item}}
+    {{if $k!=0}},{{/if}}'{{$item.date}}'
+    {{/foreach}}]
+      },
+      yAxis: {
+        title: {
+          text: ''
+        },
+        plotLines: [{
+          value: 0,
+          width: 1,
+          color: '#808080'
+        }]
+      },
+      tooltip: {
+        valueSuffix: ''
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle',
+        borderWidth: 0
+      },
+      series: [{
+        name: '联盟客户6系列',
+        data: [
+          {{foreach from=$sett_info key=k item=item}}
+    {{if $k!=0}},{{/if}}{{$item.ax6_price/100}}
+    {{/foreach}}
+        ]
+      },{
+      name: '联盟客户12系列',
+              data: [
+        {{foreach from=$sett_info key=k item=item}}
+      {{if $k!=0}},{{/if}}{{$item.ax12_price/100}}
+      {{/foreach}}
+    ]
+    },
+    {
+      name: '联盟客户24系列',
+              data: [
+      {{foreach from=$sett_info key=k item=item}}
+      {{if $k!=0}},{{/if}}{{$item.ax24_price/100}}
+      {{/foreach}}
+    ]
+    }
+    ]
+    });
+    $('#container2').highcharts({
+      title: {
+        text: '联盟商家向日葵',
+        x: -20 //center
+      },
+      subtitle: {
+        text: 'Source: WorldClimate.com',
+        x: -20
+      },
+      xAxis: {
+        categories: [
+          {{foreach from=$sett_info key=k item=item}}
+    {{if $k!=0}},{{/if}}'{{$item.date}}'
+    {{/foreach}}]
+  },
+    yAxis: {
+      title: {
+        text: ''
+      },
+      plotLines: [{
+        value: 0,
+        width: 1,
+        color: '#808080'
+      }]
+    },
+    tooltip: {
+      valueSuffix: ''
+    },
+    legend: {
+      layout: 'vertical',
+              align: 'right',
+              verticalAlign: 'middle',
+              borderWidth: 0
+    },
+    series: [{
+      name: '联盟商家6系列',
+      data: [
+        {{foreach from=$sett_info key=k item=item}}
+    {{if $k!=0}},{{/if}}{{$item.shop_ax6_price/100}}
+    {{/foreach}}
+    ]
+  },{
+      name: '联盟商家12系列',
+              data: [
+        {{foreach from=$sett_info key=k item=item}}
+      {{if $k!=0}},{{/if}}{{$item.shop_ax12_price/100}}
+      {{/foreach}}
+    ]
+    },
+    {
+      name: '联盟商家24系列',
+              data: [
+      {{foreach from=$sett_info key=k item=item}}
+      {{if $k!=0}},{{/if}}{{$item.shop_ax24_price/100}}
+      {{/foreach}}
+    ]
+    }
+    ]
+  });
+  });
 
+</script>
 
 <!--会员总数   商家总数   累计消费   向日葵总数-->
 
