@@ -31,8 +31,10 @@ class Index extends MY_Controller {
 	}
 	
 	public function main(){
+		$index_data = $this->index_model->index_data();
 		$sett_info = $this->index_model->get_sett_info();
 		//var_dump($sett_info);
+		$this->assign('index_data', $index_data);
 		$this->assign('sett_info', $sett_info);
 		$this->show('index');
 	}

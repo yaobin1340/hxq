@@ -32,36 +32,44 @@
             <td class="td1">
                 <span class="am-icon-users"></span><br>
                 <span class="table1_admin_title">会员总数</span>
+              <br><span class="table1_admin_title">{{$index_data.users_num|default:0}}</span>
             </td>
             <td class="td1">
                 <span class="am-icon-building"></span><br>
                 <span class="table1_admin_title">商家总数</span>
+              <br><span class="table1_admin_title">{{$index_data.shop_num|default:0}}</span>
             </td>
             <td class="td1">
                 <span class="am-icon-shopping-cart"></span><br>
                 <span class="table1_admin_title">累计消费</span>
+              <br><span class="table1_admin_title">{{($index_data.ljxf|default:0)/100}}元</span>
             </td>
             <td class="td1">
                 <span class="am-icon-sun-o"></span><br>
                 <span class="table1_admin_title">向日葵总数</span>
+              <br><span class="table1_admin_title">{{$index_data.sunflower_user_num|default:0}}/{{$index_data.sunflower_shop_num|default:0}}</span>
             </td>
         </tr>
         <tr>
             <td class="td1">
                 <span class="am-icon-money"></span><br>
                 <span class="table1_admin_title">累计收款</span>
+              <br><span class="table1_admin_title">{{($index_data.order_pay_total_3|default:0)/100}}元</span>
             </td>
             <td class="td1">
                 <span class="am-icon-money"></span><br>
                 <span class="table1_admin_title">累计提现</span>
+              <br><span class="table1_admin_title">{{($index_data.withdraw_total_2|default:0)/100}}元</span>
             </td>
             <td class="td1">
                 <span class="am-icon-clock-o"></span><br>
                 <span class="table1_admin_title">待确认收款</span>
+              <br><span class="table1_admin_title">{{($index_data.order_pay_total_2|default:0)/100}}元</span>
             </td>
             <td class="td1">
                 <span class="am-icon-clock-o"></span><br>
                 <span class="table1_admin_title">待确认提现</span>
+              <br><span class="table1_admin_title">{{($index_data.withdraw_total_1|default:0)/100}}元</span>
             </td>
         </tr>
     </table>
