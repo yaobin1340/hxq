@@ -47,7 +47,7 @@ class Index_model extends MY_Model
             ->from('order a')
             ->join('shop b','a.shop_id = b.id','left')
             ->where('a.status',2)->get()->row()->alltotal;
-        var_dump($this->db->last_query());
+       // var_dump($this->db->last_query());
         $data['withdraw_total_2']=$this->db->select('sum(money) alltotal')->from('withdraw')->where('status',2)->get()->row()->alltotal;
         $data['withdraw_total_1']=$this->db->select('sum(money) alltotal')->from('withdraw')->where('status',1)->get()->row()->alltotal;
         return $data;
