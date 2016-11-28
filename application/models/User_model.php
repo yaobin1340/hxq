@@ -128,7 +128,7 @@ class User_model extends MY_Model
             $this->db->where("a.cdate <=",$this->input->post('e_date')." 23:59:59");
         }
 //        $this->db->where('shop_id',1); //TODO
-        $this->db->order_by('cdate','acs');
+        $this->db->order_by('cdate','desc');
         $this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
         $data['items'] = $this->db->get()->result_array();
 
