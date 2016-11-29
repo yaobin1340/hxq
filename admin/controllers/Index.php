@@ -39,5 +39,14 @@ class Index extends MY_Controller {
 		$this->show('index');
 	}
 
+	public function update_password(){
+		echo $this->index_model->update_password();
+		die;
+	}
 
+	public function check_pass($pass) {
+		$user_info = $this->session->userdata('user_info');
+		echo $user_info['pwd'] == sha1($pass) ? 1 : 0;
+		die;
+	}
 }

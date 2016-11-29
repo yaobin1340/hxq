@@ -44,6 +44,7 @@
                     <th>订单数</th>
                     <th>起始时间</th>
                     {{if $data.status != 1}}<th>申请时间</th>{{/if}}
+                    {{if $data.status != 1}}<th>审核时间</th>{{/if}}
                     <th>状态</th>
                     <th>操作</th>
                 </tr>
@@ -57,6 +58,7 @@
                     <td><a>{{$item.num}}</a></td>
                     <td><a>{{$item.cdate}}</a></td>
                     {{if $data.status != 1}}<td><a>{{$item.sdate}}</a></td>{{/if}}
+                    {{if $data.status != 1}}<td><a>{{$item.adate}}</a></td>{{/if}}
                     <td><a>{{if $item.status == 3}}<font color="green">已完成</font>{{else if $item.status == 2}}<font color="red">待审核</font>{{else if $item.status == 1}}<font color="#9acd32">待提交</font>{{else}}<font color="red">已拒绝</font>{{/if}}</a></td>
 
                     <td>
