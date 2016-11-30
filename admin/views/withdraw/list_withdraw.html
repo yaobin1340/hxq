@@ -32,13 +32,14 @@
                     <th>ID</th>
                     <th>会员账户姓名</th>
                     <th>会员账户手机</th>
-                  <th>开户名</th>
+                    <th>开户名</th>
                     <!--  <th>开户银行</th>
                     <th>银行账户</th>
                     <th>具体支行名字</th>-->
-                    <th>提现金额</th>
+                    <th>实际提现金额</th>
                     <th>申请时间</th>
                     {{if $data.status != 1}}<th>审核时间</th>{{/if}}
+                    <th>类别</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -49,12 +50,16 @@
                     <td><a>{{$item.u_name}}</a></td>
                     <td><a>{{$item.mobile}}</a></td>
                     <td><a>{{$item.rel_name}}</a></td>
-                   <!-- <td><a>{{$item.bank}}</a></td>
-                    <td><a>{{$item.bank_no}}</a></td>
-                    <td><a>{{$item.bank_branch}}</a></td>-->
-                    <td><a>{{$item.money/100}}元</a></td>
+                    <!-- <td><a>{{$item.bank}}</a></td>
+                     <td><a>{{$item.bank_no}}</a></td>
+                     <td><a>{{$item.bank_branch}}</a></td>-->
+                    <td><a>{{($item.money/100)-($item.sxf/100)}}元</a></td>
                     <td><a>{{$item.cdate}}</a></td>
                     {{if $data.status != 1}}<td><a>{{$item.adate}}</a></td>{{/if}}
+                    <td><a>
+                        {{if $item.flag == 1}}银行卡提现{{/if}}
+                        {{if $item.flag == 2}}支付宝提现{{/if}}
+                    </a></td>
                     <td><div class="am-btn-toolbar">
                         <div class="am-btn-group am-btn-group-xs">
                             <a type="button" class="am-btn am-btn-danger" href="{{site_url url='withdraw/withdraw_detail'}}/{{$item.id}}/2">
