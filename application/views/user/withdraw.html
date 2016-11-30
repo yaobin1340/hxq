@@ -124,6 +124,13 @@
 	</tr>
 </table>
 
+	<table class="table1" border="0">
+		<tr>
+			<td class="td1"><a href="{{site_url url='user/pay_money'}}" onclick="zhifubao_pay()" id="zhifubao_pay">支付宝提现</a></td>
+			<td class="td1"><a href="{{site_url url='user/withdraw'}}" onclick="card_pay()" id="card_pay">银行卡提现</a></td>
+		</tr>
+	</table>
+<div style="display: ">
 <form class="am-form" data-am-validator action="/user/save_withdraw" method="post">
 	<div class="am-list-news-bd">
 		<div class="am-g am-list-item-dated" style="margin: 0;height: 50px;line-height: 50px;">
@@ -186,6 +193,7 @@
 	</div>
 </form>
 </div>
+</div>
 {{include file="../public/footer.html"}}
 </body>
 <script type="text/javascript">
@@ -222,6 +230,7 @@
 
 	window.onload=function(){
 		application_record();
+		card_pay();
 	}
 
 	function money_record() {
@@ -238,6 +247,14 @@
 		$("#money_record").css("color","#7c7c7c");
 		$("#cash_record").css("color","#7c7c7c");
 		$("#application_record").css("color","#3ab5f3");
+	}
+	function zhifubao_pay() {
+		$("#zhifubao_pay").css("color","#3ab5f3");
+		$("#card_pay").css("color","#7c7c7c");
+	}
+	function card_pay() {
+		$("#zhifubao_pay").css("color","#7c7c7c");
+		$("#card_pay").css("color","#3ab5f3");
 	}
 </script>
 

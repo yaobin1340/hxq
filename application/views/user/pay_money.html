@@ -1,0 +1,255 @@
+{{include file="./header.html"}}
+<body>
+<link rel="stylesheet" href="/static/default/wap/css/housekeeping.css"/>
+<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet" />
+<script src="/static/default/wap/other/jquery-ui.js"></script>
+<style>
+    .list_all{
+        color: #696969;font-size: 18px;z-index: 11;
+    }
+
+    .list_all_btn{
+        width: 100%;height: 50px;
+    }
+    .list_all_user_img{
+        margin-left: 20px;line-height: 50px;color: #3ab5f3;
+    }
+    .list_all_user_id{
+        line-height: 50px;
+    }
+    .list_all_sort_img{
+        float: right;line-height: 40px;color: #569cf1;
+    }
+    .list_all_money{
+        float: right; margin-right: 25px;line-height: 50px;
+    }
+    .list_all_rmb{
+        float: right; margin-right: 15px;line-height: 50px;color:#e47b75;
+    }
+    .list_all_information{
+        border-bottom: 1px solid #eeeeee;margin-top: 10px;padding-bottom: 10px;
+    }
+    .list_all_information_mobile{
+        color: #4f9ce0;
+    }
+    .list_all_information_name{
+        color: #9381b3;
+    }
+    .list_all_information_time{
+        color: #9cbb80;
+    }
+    .list_all_button{
+        width: 100%;height: 30px;margin-top: -10px;color: #3ab5f3;
+    }
+    .list_all_button_delete{
+        float: right;background: #ffffff;margin-top: -18px;color: #3ab5f3;
+    }
+    .list_all_button_update{
+        height: 30px;float: right;margin-right: 1px;background: #ffffff;margin-top: -18px;
+    }
+    .xuanfu_plus{
+        z-index: 55;
+    }
+    .xuanfu_icon_plus{
+        position: fixed;bottom: 150px;right: 20px;
+    }
+    .xuanfu_icon_search{
+        position: fixed;bottom: 80px;right: 20px;
+    }
+    #my-actions-search{
+        background: rgba(0, 0, 0, 0.8);
+    }
+    .input_start_time{
+        width: 50%; float: left;
+    }
+    .input_end_time{
+        width: 50%;float: right;
+    }
+    .input_search_user{
+        height: 50px;
+    }
+    .div_search_btn{
+        margin-top: 30px;
+    }
+    .user_add_title{
+        color: #3ab5f3;font-family: '宋体'
+    }
+    .user_add_bak{
+        width: 100%; background: #ffffff;
+    }
+    .user_add_phone{
+        width: 60%; height: 50px;
+    }
+    .user_add_user_name{
+        float: right;margin-top: -60px; margin-right: 15%;
+    }
+    .user_add_money{
+        width: 60%; height: 50px;
+    }
+    .user_add_button{
+        margin-top: 50px;
+    }
+    .user_add_button_add{
+        width: 48%; height: 50px; margin-left: 2%;
+    }
+    .user_add_button_equit{
+        width: 48%; height: 50px;
+    }
+</style>
+<style>
+    ul { padding-left: 0px;}
+    .layui-layer-molv .layui-layer-title {background-color: #F8F8F8;border-bottom: 1px solid #eee;color: #333;}
+
+
+    .table1{
+        width: 100%; height: 45px; border-collapse:collapse;color: #bfbfbf;
+    }
+    .table1 tr{
+        font-size: 14px;text-align: center;color: #999999;
+    }
+    .td1{
+        border-bottom:1px solid #e5e5e5;
+    }
+    .td1 a{
+        color: #777777;
+    }
+</style>
+<body style="background: #ffffff;">
+<div style="padding-bottom: 50px;">
+    <table class="table1" border="0">
+        <tr>
+            <td class="td1"><a href="{{site_url url='user/money_log_list'}}" onclick="money_record()" id="money_record">资金日志</a></td>
+            <td class="td1"><a href="{{site_url url='user/withdraw_list'}}" onclick="cash_record()" id="cash_record">提现日志</a></td>
+            <td class="td1"><a href="{{site_url url='user/withdraw'}}" onclick="application_record()" id="application_record">申请提现</a></td>
+        </tr>
+    </table>
+
+    <table class="table1" border="0">
+        <tr>
+            <td class="td1"><a href="{{site_url url='user/pay_money'}}" onclick="zhifubao_pay()" id="zhifubao_pay">支付宝提现</a></td>
+            <td class="td1"><a href="{{site_url url='user/withdraw'}}" onclick="card_pay()" id="card_pay">银行卡提现</a></td>
+        </tr>
+    </table>
+    <div style="display: ">
+        <form class="am-form" data-am-validator action="/user/save_withdraw" method="post">
+            <div class="am-list-news-bd">
+                <div class="am-g am-list-item-dated" style="margin: 0;height: 50px;line-height: 50px;">
+                    <span class="x12 text-gray" style="margin-left: 30px;">你好：{{$data.user_info.rel_name}}</span>
+                    <span class="x12 text-gray" style="float: right;margin-right: 30px;">可提现余额：{{$data.user_info.integral/100}}元</span>
+                </div>
+
+                <div class="am-form-group am-form-icon">
+                    <i class="am-icon-dollar" style="font-size: 18px;"></i>
+                    <input type="text" id="money"  name="money" class="am-form-field" placeholder="请输入提现金额 &nbsp;单笔最少100元" style="height: 50px;" required />
+                </div>
+
+
+
+                <div class="am-form-group am-form-icon" style="margin-top: -5px;">
+                    <i class="am-icon-credit-card" style="font-size: 18px;"></i>
+                    <input type="text" id="bank_no"  name="bank_no" class="am-form-field"  placeholder="支付宝账号" value="{{$data.withdraw_info.bank_no|default:''}}"  style="height: 50px;" required />
+                </div>
+
+                <div class="am-form-group am-form-icon" style="margin-top: -5px;">
+                    <i class="am-icon-user" style="font-size: 18px;"></i>
+                    <input type="text" id="bank_branch"  name="bank_branch" class="am-form-field" placeholder="真实姓名" value="{{$data.withdraw_info.bank_branch|default:''}}"  style="height: 50px;" required />
+                </div>
+
+
+                <div class="am-form-group am-form-icon" style="margin-top: -5px;">
+                    <i class="am-icon-mobile-phone"></i>
+                    <input type="text" id="mobile"  name="mobile" class="am-form-field js-pattern-number am-form-mobile" value="{{$data.user_info.mobile}}" required  disabled="disabled"  style="width: 60%;"/>
+
+                    <div class="am-btn-secondary" style="height: 50px;width: 100px;position:absolute;right:20px;margin-top: -50px;line-height: 50px;text-align: center;">
+                        <a class="button button-small bg-dot" id="jq_send" href="javascript:void(0);" style="color: #ffffff;">获取验证码</a>
+                    </div>
+
+                </div>
+
+                <div class="am-form-group am-form-icon" style="margin-top: -5px;">
+                    <i class="am-icon-tag" style="font-size: 18px;"></i>
+                    <input type="number" id="yzm"  name="yzm" class="am-form-field" minlength="6" placeholder="请输入验证码" style="height: 50px;" required />
+                </div>
+
+
+                <div style=" width: 100%; text-align: center;"><span style="color: red;">小提示:</span> 请您认真填写!</div>
+                <div  style="width: 100%;text-align: center;"><span style="font-size: 14px;">(您提现的金额将在48小时之内到账)</span></div>
+                <div class="am-form-group am-form-icon" style="margin-top: 30px;">
+                    {{if $data.user_info.integral <=10000}}
+                    <button class="am-btn am-btn-default am-btn-block">您的余额不足</button>
+
+                    {{else}}
+                    <button class="am-btn am-btn-secondary am-btn-block">确认申请</button>
+                    {{/if}}
+                </div>
+                <br><br>
+            </div>
+        </form>
+    </div>
+</div>
+{{include file="../public/footer.html"}}
+</body>
+<script type="text/javascript">
+    var mobile_timeout;
+    var mobile_count = 100;
+    var mobile_lock = 0;
+    $("#jq_send").click(function () {
+        if (mobile_lock == 0) {
+            $.ajax({
+                url: "{{site_url url='user/sendsms'}}",
+                data: 'mobile=' + $("#mobile").val(),
+                type: 'post'
+            });
+            mobile_count = 100;
+            BtnCount();
+            mobile_lock = 1;
+        }
+    });
+    $(function () {
+
+    });
+    BtnCount = function () {
+        if (mobile_count == 0) {
+            $('#jq_send').html("重新发送");
+            mobile_lock = 0;
+            clearTimeout(mobile_timeout);
+        }
+        else {
+            mobile_count--;
+            $('#jq_send').html("重新发送(" + mobile_count.toString() + ")秒");
+            mobile_timeout = setTimeout(BtnCount, 1000);
+        }
+    };
+
+    window.onload=function(){
+        application_record();
+        zhifubao_pay();
+    }
+
+    function money_record() {
+        $("#money_record").css("color","#3ab5f3");
+        $("#cash_record").css("color","#7c7c7c");
+        $("#application_record").css("color","#7c7c7c");
+
+    }
+    function cash_record() {
+        $("#money_record").css("color","#7c7c7c");
+        $("#cash_record").css("color","#3ab5f3");
+        $("#application_record").css("color","#7c7c7c");
+    }
+    function application_record() {
+        $("#money_record").css("color","#7c7c7c");
+        $("#cash_record").css("color","#7c7c7c");
+        $("#application_record").css("color","#3ab5f3");
+    }
+    function zhifubao_pay() {
+        $("#zhifubao_pay").css("color","#3ab5f3");
+        $("#card_pay").css("color","#7c7c7c");
+    }
+    function card_pay() {
+        $("#zhifubao_pay").css("color","#7c7c7c");
+        $("#card_pay").css("color","#3ab5f3");
+    }
+</script>
+
+

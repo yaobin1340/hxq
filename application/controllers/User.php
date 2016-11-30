@@ -279,4 +279,9 @@ class User extends MY_Controller {
 		$this->assign('data', $data);
 		$this->display('user/my_team_shop_loaddata.html');
 	}
+
+
+    public function pay_money(){
+        $this->display('user/pay_money.html');
+    }
 }
