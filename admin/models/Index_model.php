@@ -39,17 +39,31 @@ class Index_model extends MY_Model
         $data['ljxf']=$this->db->select('sum(total) alltotal')->from('shop')->get()->row()->alltotal;
         $data['sunflower_user_num']=$this->db->select('count(1) num')->from('sunflower')->where('status',1)->get()->row()->num;
         $data['sunflower_shop_num']=$this->db->select('count(1) num')->from('sunflower_shop')->where('status',1)->get()->row()->num;
-        $data['order_pay_total_3']=$this->db->select('sum((a.total*b.percent/100)) alltotal')
+        $data['order_pay_total_3']=$this->db->select("sum((a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100)) alltotal",false)
             ->from('order a')
             ->join('shop b','a.shop_id = b.id','left')
             ->where('a.status',3)->get()->row()->alltotal;
-        $data['order_pay_total_2']=$this->db->select('sum((a.total*b.percent/100)) alltotal')
+        $data['order_pay_total_2']=$this->db->select("sum((a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100)) alltotal",false)
             ->from('order a')
             ->join('shop b','a.shop_id = b.id','left')
             ->where('a.status',2)->get()->row()->alltotal;
+       // var_dump($this->db->last_query());
         $data['withdraw_total_2']=$this->db->select('sum(money) alltotal')->from('withdraw')->where('status',2)->get()->row()->alltotal;
         $data['withdraw_total_1']=$this->db->select('sum(money) alltotal')->from('withdraw')->where('status',1)->get()->row()->alltotal;
         return $data;
+    }
+
+    public function update_password(){
+        $user_info = $this->session->userdata('user_info');
+        if($user_info['pwd'] != sha1($this->input->post('old_pass'))) {
+            return -1;
+        }
+        $res = $this->db->where('id',$user_info['id'])->update('admin',array('pwd'=>sha1($this->input->post('password'))));
+        if($res){
+            return 1;
+        }else{
+            return -1;
+        }
     }
  
 }

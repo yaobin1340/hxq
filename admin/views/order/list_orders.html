@@ -14,18 +14,18 @@
 
             <div class="am-u-sm-12 am-u-md-8">
                 <div class="am-input-group am-input-group-sm">
-                    <input style="width: 200px" type="text" class="am-form-field" name="keyword" value="{{$data.keyword}}" placeholder="请输入商店名称">
+                    <input style="width: 280px;height: 40px;" type="text" class="am-form-field" name="keyword" value="{{$data.keyword}}" placeholder="请输入商店名称">
                 </div>
-                <div class="am-input-group am-input-group-sm">
-                    {{if $data.status == 2}}申请时间{{/if}}
-                    {{if $data.status == 1}}创建时间{{/if}}
-                    <input  class="form-control" id="s_date" name="s_date" type="text" value="{{$data.s_date}}"
+                <div class="am-input-group am-input-group-sm" style="margin-top: 15px;">
+                    {{if $data.status == 2}}申请时间：{{/if}}
+                    {{if $data.status == 1}}创建时间：{{/if}}
+                    <input style="height: 40px;"  class="form-control" id="s_date" name="s_date" type="text" value="{{$data.s_date}}"
                             onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'yyyy-MM-dd'})">——
-                    <input  class="form-control" id="e_date" name="e_date" type="text" value="{{$data.e_date}}"
+                    <input style="height: 40px;"  class="form-control" id="e_date" name="e_date" type="text" value="{{$data.e_date}}"
                             onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'yyyy-MM-dd'})">
- <span class="am-input-group-btn">
-            <input type="submit" class="am-btn am-btn-default" value="搜索"/>
-          </span>
+                    <span class="am-input-group-btn" style="float: right;">
+                         <input style="height: 40px;" type="submit" class="am-btn am-btn-default" value="搜索"/>
+                    </span>
                 </div>
 
             </div>
@@ -44,6 +44,7 @@
                     <th>订单数</th>
                     <th>起始时间</th>
                     {{if $data.status != 1}}<th>申请时间</th>{{/if}}
+                    {{if $data.status != 1}}<th>审核时间</th>{{/if}}
                     <th>状态</th>
                     <th>操作</th>
                 </tr>
@@ -57,6 +58,7 @@
                     <td><a>{{$item.num}}</a></td>
                     <td><a>{{$item.cdate}}</a></td>
                     {{if $data.status != 1}}<td><a>{{$item.sdate}}</a></td>{{/if}}
+                    {{if $data.status != 1}}<td><a>{{$item.adate}}</a></td>{{/if}}
                     <td><a>{{if $item.status == 3}}<font color="green">已完成</font>{{else if $item.status == 2}}<font color="red">待审核</font>{{else if $item.status == 1}}<font color="#9acd32">待提交</font>{{else}}<font color="red">已拒绝</font>{{/if}}</a></td>
 
                     <td>

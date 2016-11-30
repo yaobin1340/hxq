@@ -14,23 +14,23 @@
 
             <div class="am-u-sm-12 am-u-md-8">
                 <div class="am-input-group am-input-group-sm">
-                    <input style="width: 200px" type="text" class="am-form-field" name="keyword" value="{{$data.keyword}}" placeholder="请输入会员名称或手机号码">
-                   资金分类: <select style="width: 200px" name="type">
+                    <input style="width: 200px;height: 40px;" type="text" class="am-form-field" name="keyword" value="{{$data.keyword}}" placeholder="请输入会员名称或手机号码">
+                   &nbsp;&nbsp;资金分类: <select style="width: 200px;height: 40px;" name="type">
                         <option value="">全部</option>
                         {{foreach from=$type_list item=item}}
                         <option value="{{$item.id}}" {{if $data.type == $item.id}} selected="selected" {{/if}} >{{$item.name}}</option>
                         {{/foreach}}
                     </select>
                 </div>
-                <div class="am-input-group am-input-group-sm">
+                <div class="am-input-group am-input-group-sm" style="margin-top: 15px;">
                     时间范围:
-                    <input  class="form-control" id="s_date" name="s_date" type="text" value="{{$data.s_date}}"
+                    <input style="height: 40px;" class="form-control" id="s_date" name="s_date" type="text" value="{{$data.s_date}}"
                             onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'yyyy-MM-dd'})">——
-                    <input  class="form-control" id="e_date" name="e_date" type="text" value="{{$data.e_date}}"
+                    <input style="height: 40px;" class="form-control" id="e_date" name="e_date" type="text" value="{{$data.e_date}}"
                             onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'yyyy-MM-dd'})">
- <span class="am-input-group-btn">
-            <input type="submit" class="am-btn am-btn-default" value="搜索"/>
-          </span>
+                    <span class="am-input-group-btn" style="float: right;">
+                        <input style="height: 40px;" type="submit" class="am-btn am-btn-default" value="搜索"/>
+                    </span>
                 </div>
 
             </div>

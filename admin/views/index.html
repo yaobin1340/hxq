@@ -81,6 +81,9 @@
     <div class="link_user_shop" style="margin-top: 10px">
         <div id="container2" style="min-width:500px;height:300px" class="link_user_shop_title">联盟商家向日葵</div>
     </div>
+  <div class="link_user_shop" style="margin-top: 10px">
+    <div id="container3" style="min-width:500px;height:300px" class="link_user_shop_title">联盟营业额</div>
+  </div>
 
 </div><br><br>
 <script>
@@ -198,6 +201,66 @@
               data: [
       {{foreach from=$sett_info key=k item=item}}
       {{if $k!=0}},{{/if}}{{$item.shop_ax24_price/100}}
+      {{/foreach}}
+    ]
+    }
+    ]
+  });
+
+    $('#container3').highcharts({
+      title: {
+        text: '联盟营业额',
+        x: -20 //center
+      },
+      subtitle: {
+        text: 'Source: 三客柚',
+        x: -20
+      },
+      xAxis: {
+        categories: [
+          {{foreach from=$sett_info key=k item=item}}
+    {{if $k!=0}},{{/if}}'{{$item.date}}'
+    {{/foreach}}]
+  },
+    yAxis: {
+      title: {
+        text: ''
+      },
+      plotLines: [{
+        value: 0,
+        width: 1,
+        color: '#808080'
+      }]
+    },
+    tooltip: {
+      valueSuffix: ''
+    },
+    legend: {
+      layout: 'vertical',
+              align: 'right',
+              verticalAlign: 'middle',
+              borderWidth: 0
+    },
+    series: [{
+      name: '联盟商家6系列',
+      data: [
+        {{foreach from=$sett_info key=k item=item}}
+    {{if $k!=0}},{{/if}}{{$item.total6/100}}
+    {{/foreach}}
+    ]
+  },{
+      name: '联盟商家12系列',
+              data: [
+        {{foreach from=$sett_info key=k item=item}}
+      {{if $k!=0}},{{/if}}{{$item.total12/100}}
+      {{/foreach}}
+    ]
+    },
+    {
+      name: '联盟商家24系列',
+              data: [
+      {{foreach from=$sett_info key=k item=item}}
+      {{if $k!=0}},{{/if}}{{$item.total24/100}}
       {{/foreach}}
     ]
     }
