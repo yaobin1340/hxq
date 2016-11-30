@@ -36,7 +36,7 @@
                     <!--  <th>开户银行</th>
                     <th>银行账户</th>
                     <th>具体支行名字</th>-->
-                    <th>提现金额</th>
+                    <th>实际提现金额</th>
                     <th>申请时间</th>
                     {{if $data.status != 1}}<th>审核时间</th>{{/if}}
                     <th>操作</th>
@@ -52,7 +52,7 @@
                    <!-- <td><a>{{$item.bank}}</a></td>
                     <td><a>{{$item.bank_no}}</a></td>
                     <td><a>{{$item.bank_branch}}</a></td>-->
-                    <td><a>{{$item.money/100}}元</a></td>
+                    <td><a>{{($item.money/100)-($item.sxf/100)}}元</a></td>
                     <td><a>{{$item.cdate}}</a></td>
                     {{if $data.status != 1}}<td><a>{{$item.adate}}</a></td>{{/if}}
                     <td><div class="am-btn-toolbar">

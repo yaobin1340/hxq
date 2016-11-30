@@ -161,7 +161,7 @@ class User extends MY_Controller {
 		$mobile = $this->input->post('mobile');
 		$yzm = rand(100000,999999);
 		//$yzm =    123456;
-		$text = '您的短信验证码是:'.$yzm;
+		$text = '您的银行卡提现短信验证码是:'.$yzm;
 		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【三客柚】");
 		$obj=json_decode($rs);
 		if($obj->error !=0){
@@ -282,6 +282,49 @@ class User extends MY_Controller {
 
 
     public function pay_money(){
+		$data = $this->user_model->pay_money();
+		$this->assign('data',$data);
         $this->display('user/pay_money.html');
     }
+
+	public function save_alipay(){
+		if($this->session->userdata('mobile_alipay_code') != $this->input->post('yzm')){
+			$this->show_message('验证码错误！');
+		}
+		if((int)$this->input->post('money') < 100){
+			$this->show_message('提现金额不能小于要求最小值！');
+		}
+		if(!trim($this->input->post('alipay_no'))){
+			$this->show_message('支付宝账号不能为空！');
+		}
+		if(!trim($this->input->post('rel_name'))){
+			$this->show_message('开户名不能为空！ ');
+		}
+		$rs = $this->user_model->save_alipay();
+		if($rs == 1){
+			$this->session->unset_userdata('mobile_alipay_code');
+			$this->show_message('提交成功！',site_url('user/withdraw_list'));
+		}else if($rs == -1){
+			$this->show_message('未登陆！');
+		}else if($rs == -2){
+			$this->show_message('积分不足！');
+		}else{
+			$this->show_message('操作失败！');
+		}
+	}
+
+	public function sendsms_alipay()
+	{
+		$mobile = $this->input->post('mobile');
+		$yzm = rand(100000,999999);
+		//$yzm =    123456;
+		$text = '您的支付宝提现短信验证码是:'.$yzm;
+		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【三客柚】");
+		$obj=json_decode($rs);
+		if($obj->error !=0){
+			$this->sendsms_curl($mobile,$text);
+		}
+		$this->session->set_userdata('mobile_alipay_code', $yzm);
+
+	}
 }

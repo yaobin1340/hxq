@@ -212,11 +212,60 @@ class User_model extends MY_Model
         $data['withdraw_info'] = $this->db->select()
             ->from('withdraw')
             ->where('uid',$this->session->userdata('uid'))
+            ->where('flag',1)
             ->order_by('id','desc')
             ->get()->row_array();
         return $data;
     }
 
+    public function pay_money(){
+        $data['user_info'] = $this->db->select()->from('users')->where('id',$this->session->userdata('uid'))->get()->row_array();
+        $data['withdraw_info'] = $this->db->select()
+            ->from('withdraw')
+            ->where('uid',$this->session->userdata('uid'))
+            ->where('flag',2)
+            ->order_by('id','desc')
+            ->get()->row_array();
+        return $data;
+    }
+    public function save_alipay(){
+        if(!($uid = $this->session->userdata('uid'))){
+            return -1;
+        }
+        $user_info = $this->db->select()->from('users')->where('id',$this->session->userdata('uid'))->get()->row_array();
+        if((int)$this->input->post('money') > $user_info['integral']/100){
+            return -2;
+        }
+        $data = array(
+            'uid'=>$this->session->userdata('uid'),
+            'money' => (int)$this->input->post('money')*100,
+            'sxf'=>(int)$this->input->post('money')*5,
+            'alipay_no' => trim($this->input->post('alipay_no')),
+            'rel_name' => trim($this->input->post('rel_name')),
+            'cdate' => date('Y-m-d H:i:s'),
+            'flag'=>2,
+            'status'=>1
+        );
+        $this->db->trans_start();//--------开始事务
+        $this->db->insert('withdraw',$data);
+        $this->db->where('id',$this->session->userdata('uid'));
+        $this->db->set('integral',"integral - {$data['money']}",false);
+        $this->db->update('users');
+        $this->db->insert('money_log',array(
+            'uid'=>$this->session->userdata('uid'),
+            'cdate' => date('Y-m-d H:i:s'),
+            'type'=>1,
+            'remark'=>'用户提现',
+            'money'=>'-'.(string)$data['money']
+        ));
+        $this->db->trans_complete();//------结束事务
+
+        if ($this->db->trans_status() === FALSE) {
+            return -5;
+        } else {
+            return 1;
+        }
+    }
     public function save_withdraw(){
         if(!($uid = $this->session->userdata('uid'))){
             return -1;
@@ -228,11 +277,13 @@ class User_model extends MY_Model
         $data = array(
             'uid'=>$this->session->userdata('uid'),
             'money' => (int)$this->input->post('money')*100,
+            'sxf'=>(int)$this->input->post('money')*5,
             'bank' => trim($this->input->post('bank')),
             'bank_no' => trim($this->input->post('bank_no')),
             'bank_branch' => trim($this->input->post('bank_branch')),
             'rel_name' => trim($this->input->post('rel_name')),
             'cdate' => date('Y-m-d H:i:s'),
+            'flag'=>1,
             'status'=>1
         );
         $this->db->trans_start();//--------开始事务

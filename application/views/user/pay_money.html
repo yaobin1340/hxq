@@ -131,7 +131,7 @@
         </tr>
     </table>
     <div style="display: ">
-        <form class="am-form" data-am-validator action="/user/save_withdraw" method="post">
+        <form class="am-form" data-am-validator action="/user/save_alipay" method="post">
             <div class="am-list-news-bd">
                 <div class="am-g am-list-item-dated" style="margin: 0;height: 50px;line-height: 50px;">
                     <span class="x12 text-gray" style="margin-left: 30px;">你好：{{$data.user_info.rel_name}}</span>
@@ -147,12 +147,12 @@
 
                 <div class="am-form-group am-form-icon" style="margin-top: -5px;">
                     <i class="am-icon-credit-card" style="font-size: 18px;"></i>
-                    <input type="text" id="bank_no"  name="bank_no" class="am-form-field"  placeholder="支付宝账号" value="{{$data.withdraw_info.bank_no|default:''}}"  style="height: 50px;" required />
+                    <input type="text" id="bank_no"  name="alipay_no" class="am-form-field"  placeholder="支付宝账号" value="{{$data.withdraw_info.alipay_no|default:''}}"  style="height: 50px;" required />
                 </div>
 
                 <div class="am-form-group am-form-icon" style="margin-top: -5px;">
                     <i class="am-icon-user" style="font-size: 18px;"></i>
-                    <input type="text" id="bank_branch"  name="bank_branch" class="am-form-field" placeholder="真实姓名" value="{{$data.withdraw_info.bank_branch|default:''}}"  style="height: 50px;" required />
+                    <input type="text" id="bank_branch"  name="rel_name" class="am-form-field" placeholder="真实姓名" value="{{$data.withdraw_info.rel_name|default:''}}"  style="height: 50px;" required />
                 </div>
 
 
@@ -196,7 +196,7 @@
     $("#jq_send").click(function () {
         if (mobile_lock == 0) {
             $.ajax({
-                url: "{{site_url url='user/sendsms'}}",
+                url: "{{site_url url='user/sendsms_alipay'}}",
                 data: 'mobile=' + $("#mobile").val(),
                 type: 'post'
             });

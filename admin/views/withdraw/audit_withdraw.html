@@ -46,6 +46,9 @@
                     </div>
                 </div>
 
+                {{if $data.flag==1}}
+
+
                 <div class="am-form-group">
                     <label class="am-u-sm-2 am-form-label">开户银行</label>
                     <div class="am-u-sm-10">
@@ -74,6 +77,16 @@
                         {{$data.cdate}}
                     </div>
                 </div>
+                {{/if}}
+
+                {{if $data.flag==2}}
+                <div class="am-form-group">
+                    <label class="am-u-sm-2 am-form-label">支付宝账号</label>
+                    <div class="am-u-sm-10">
+                        {{$data.alipay_no}}
+                    </div>
+                </div>
+                {{/if}}
 
                 <div class="am-form-group">
                     <label class="am-u-sm-2 am-form-label">状态</label>
