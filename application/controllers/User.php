@@ -141,7 +141,7 @@ class User extends MY_Controller {
 			$this->show_message('具体支行不能为空！');
 		}
 		if(!trim($this->input->post('rel_name'))){
-			$this->show_message('开户名不能为空！');
+			$this->show_message('开户名不能为空！ ');
 		}
 		$rs = $this->user_model->save_withdraw();
 		if($rs == 1){
