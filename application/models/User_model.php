@@ -239,7 +239,7 @@ class User_model extends MY_Model
         $data = array(
             'uid'=>$this->session->userdata('uid'),
             'money' => (int)$this->input->post('money')*100,
-            'sxf'=>(int)$this->input->post('money')*5,
+            'sxf'=>(int)$this->input->post('money')*0.5,
             'alipay_no' => trim($this->input->post('alipay_no')),
             'rel_name' => trim($this->input->post('rel_name')),
             'cdate' => date('Y-m-d H:i:s'),
@@ -277,7 +277,7 @@ class User_model extends MY_Model
         $data = array(
             'uid'=>$this->session->userdata('uid'),
             'money' => (int)$this->input->post('money')*100,
-            'sxf'=>(int)$this->input->post('money')*5,
+            'sxf'=>(int)$this->input->post('money')*0.5,
             'bank' => trim($this->input->post('bank')),
             'bank_no' => trim($this->input->post('bank_no')),
             'bank_branch' => trim($this->input->post('bank_branch')),
