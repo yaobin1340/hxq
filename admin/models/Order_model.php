@@ -180,10 +180,10 @@ class Order_model extends MY_Model
 		}
 
 		$this->db->where('id',$id);
-		$this->db->update('order',array('status'=>3,'adate'=>date('Y-m-d H:i:s')));
+		$this->db->update('order',array('status'=>$this->input->post('status'),'adate'=>date('Y-m-d H:i:s')));
 
 		$this->db->where('oid',$id);
-		$this->db->update('order_list',array('status'=>3));
+		$this->db->update('order_list',array('status'=>$this->input->post('status')));
 
 		$this->db->trans_complete();//------结束事务
 		if ($this->db->trans_status() === FALSE) {
