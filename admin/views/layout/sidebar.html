@@ -26,6 +26,14 @@
                 <li><a href="javascript:open_content('/admin.php/user/list_users/3/1');" class="am-cf menu"><span class="am-icon-check"></span> 联合服务商</a></li>
             </ul>
         </li>
+        <li class="admin-parent">
+            <a class="am-cf" data-am-collapse="{parent: '#menuDiv', target: '#collapse-navs2'}">
+                <span class="am-icon-file"></span> 靓号管理 <span class="am-icon-angle-right am-fr am-margin-right"></span>
+            </a>
+            <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-navs2">
+                <li><a href="javascript:open_content('/admin.php/Super_id/list_super_id');" class="am-cf menu"><span class="am-icon-check"></span> 靓号列表</a></li>
+            </ul>
+        </li>
         {{/if}}
 
         {{if 'c'|in_array:$permission}}
