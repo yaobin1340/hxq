@@ -24,9 +24,7 @@ class Apiftontend extends CI_Controller {
 		$this->load->library('apifun');
 		//var_dump($this->apifun->get_token());
 	}
-//这里是 操作token 使用的
 
-//这里结束
 	public function index()
 	{
 		/*$uid = 4;
@@ -59,4 +57,91 @@ class Apiftontend extends CI_Controller {
 		echo json_encode($rs);
 		die();
 	}
+
+	public function get_yzm(){
+		if(!$this->input->post('mobile')){
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'必须提供手机号码'
+			);
+			echo json_encode($rs);
+			die();
+		}
+		$mobile = $this->input->post('mobile');
+		if($this->Apiftontend_model->check_mobile($mobile)){
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'手机已被注册'
+			);
+			echo json_encode($rs);
+			die();
+		}
+		$yzm = rand(100000,999999);
+		$text = '您的短信验证码是:'.$yzm;
+		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【三客柚】");
+		$obj=json_decode($rs);
+		if($obj->error !=0){
+			$rs = $this->apifun->sendsms_curl($mobile,$text);
+		}
+		$obj=json_decode($rs);
+		if($obj->error !=0){
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'获取验证码失败'
+			);
+			echo json_encode($rs);
+			die();
+		}
+		$res = array(
+			'success'=>true,
+			'yzm'=>$yzm,
+			'error_msg'=>''
+		);
+		echo json_encode($res);
+		die();
+	}
+
+	public function get_yzm_forget(){
+		if(!$this->input->post('mobile')){
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'必须提供手机号码'
+			);
+			echo json_encode($rs);
+			die();
+		}
+		$mobile = $this->input->post('mobile');
+		if(!$this->Apiftontend_model->check_mobile($mobile)){
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'手机号码未被注册'
+			);
+			echo json_encode($rs);
+			die();
+		}
+		$yzm = rand(100000,999999);
+		$text = '您的短信验证码是:'.$yzm;
+		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【三客柚】");
+		$obj=json_decode($rs);
+		if($obj->error !=0){
+			$rs =$this->apifun->sendsms_curl($mobile,$text);
+		}
+		$obj=json_decode($rs);
+		if($obj->error !=0){
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'获取验证码失败'
+			);
+			echo json_encode($rs);
+			die();
+		}
+		$res = array(
+			'success'=>true,
+			'yzm'=>$yzm,
+			'error_msg'=>''
+		);
+		echo json_encode($res);
+		die();
+	}
+
 }

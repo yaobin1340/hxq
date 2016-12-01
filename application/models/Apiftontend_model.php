@@ -23,4 +23,11 @@ class Apiftontend_model extends MY_Model{
             return -1;
         }
     }
+
+    public function check_mobile($mobile){
+        $rs = $this->db->select('id')->from('users')->where('mobile',$mobile)->get()->row();
+        return $rs;
+    }
+
+
 }
