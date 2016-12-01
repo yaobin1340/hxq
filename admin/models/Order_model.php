@@ -24,8 +24,10 @@ class Order_model extends MY_Model
 		$this->db->join('shop b','a.shop_id=b.id','left');
 		if($status == 1){
 			$this->db->where_in('a.status',array(1));
+		}elseif($status==-1){
+			$this->db->where_in('a.status',array(-1));
 		}else{
-			$this->db->where_in('a.status',array(2,3,-1));
+			$this->db->where_in('a.status',array(2,3));
 		}
 		if($this->input->post('keyword')){
 			$this->db->like('b.shop_name',$this->input->post('keyword'));
@@ -48,8 +50,10 @@ class Order_model extends MY_Model
 		$this->db->join('shop b','a.shop_id=b.id','left');
 		if($status == 1){
 			$this->db->where_in('a.status',array(1));
+		}elseif($status==-1){
+			$this->db->where_in('a.status',array(-1));
 		}else{
-			$this->db->where_in('a.status',array(2,3,-1));
+			$this->db->where_in('a.status',array(2,3));
 		}
 		if($this->input->post('keyword')){
 			$this->db->like('b.shop_name',$this->input->post('keyword'));
