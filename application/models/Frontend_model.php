@@ -40,7 +40,15 @@ class Frontend_model extends MY_Model
 
         if($this->db->insert('users',$data)){
             $uid = $this->db->insert_id();
-            $this->session->set_userdata('uid',$uid);
+            //这里新增查找是不是靓号,如果是就加3 保持编号
+            $super_id = $this->db->select()->from('super_id')->where('super_uid',$uid)->get()->row_array();
+            if($super_id){
+                $new_uid = $uid + 3;
+                $this->db->where("id",$uid)->set('id',$new_uid)->update('users');
+                $this->session->set_userdata('uid',$new_uid);
+            }else{
+                $this->session->set_userdata('uid',$uid);
+            }
             return 1;
         }else{
             return -1;

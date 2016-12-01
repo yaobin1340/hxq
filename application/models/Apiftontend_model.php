@@ -53,7 +53,15 @@ class Apiftontend_model extends MY_Model{
 
         if($this->db->insert('users',$data)){
             $uid = $this->db->insert_id();
-            return $uid;
+            //这里新增查找是不是靓号,如果是就加3 保持编号
+            $super_id = $this->db->select()->from('super_id')->where('super_uid',$uid)->get()->row_array();
+            if($super_id){
+                $new_uid = $uid + 3;
+                $this->db->where("id",$uid)->set('id',$new_uid)->update('users');
+                return $new_uid;
+            }else{
+                return $uid;
+            }
         }else{
             return -1;
         }
