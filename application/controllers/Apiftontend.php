@@ -147,7 +147,7 @@ class Apiftontend extends CI_Controller {
 	public function save_register(){
 		//try{
 			$img = $this->apifun->upload();
-			$user = $this->Apiftontend_model->save_register('');
+			$user = $this->Apiftontend_model->save_register($img);
 			if($user > 0){
 				$token= $this->apifun->set_token_uid($user);
 				$rs = array(
