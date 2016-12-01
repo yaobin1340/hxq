@@ -20,9 +20,24 @@ class Withdraw_model extends MY_Model
 		);
 
 		$this->db->trans_start();//--------开始事务
+		$row = $this->db->select()->from('withdraw')->where('id',$this->input->post('id'))->get()->row_array();
+		if($row['status'] == 1){
+			if($data['status']==-1){
+				$this->db->insert('money_log',array(
+					'type'=>10,
+					'uid'=>$row['uid'],
+					'cdate'=>date('Y-m-d H:i:s'),
+					'remark'=>'提现失败,退回激励',
+					'money'=>$row['money']
+				));
+				$this->db->where('id',$row['uid']);
+				$this->db->set('integral',"integral + {$row['money']}",false);
+				$this->db->update('users');
+			}
+			$this->db->where('id',$this->input->post('id'));
+			$this->db->update('withdraw',$data);
+		}
 
-		$this->db->where('id',$this->input->post('id'));
-		$this->db->update('withdraw',$data);
 		$this->db->trans_complete();//------结束事务
 		if ($this->db->trans_status() === FALSE) {
 			return -1;
