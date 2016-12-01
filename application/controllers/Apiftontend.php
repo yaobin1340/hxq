@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Apiftontend extends CI_Controller {
+require_once "MY_APIcontroller.php";
+class Apiftontend extends MY_APIcontroller {
 
 	/**
 	 * Index Page for this controller.
@@ -21,7 +22,7 @@ class Apiftontend extends CI_Controller {
 
 		parent::__construct();
 		$this->load->model('Apiftontend_model');
-		$this->load->library('apifun');
+		//$this->load->library('apifun');
 		//var_dump($this->apifun->get_token());
 	}
 
@@ -42,7 +43,7 @@ class Apiftontend extends CI_Controller {
 	public function check_login(){
 		$user = $this->Apiftontend_model->check_login();
 		if($user > 0){
-			$token= $this->apifun->set_token_uid($user);
+			$token= $this->set_token_uid($user);
 			$rs = array(
 				'success'=>true,
 				'token'=>$token,
@@ -81,7 +82,7 @@ class Apiftontend extends CI_Controller {
 		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【三客柚】");
 		$obj=json_decode($rs);
 		if($obj->error !=0){
-			$rs = $this->apifun->sendsms_curl($mobile,$text);
+			$rs = $this->sendsms_curl($mobile,$text);
 		}
 		$obj=json_decode($rs);
 		if($obj->error !=0){
@@ -124,7 +125,7 @@ class Apiftontend extends CI_Controller {
 		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【三客柚】");
 		$obj=json_decode($rs);
 		if($obj->error !=0){
-			$rs =$this->apifun->sendsms_curl($mobile,$text);
+			$rs =$this->sendsms_curl($mobile,$text);
 		}
 		$obj=json_decode($rs);
 		if($obj->error !=0){
@@ -146,10 +147,10 @@ class Apiftontend extends CI_Controller {
 
 	public function save_register(){
 		//try{
-			$img = $this->apifun->upload();
+			$img = $this->upload();
 			$user = $this->Apiftontend_model->save_register($img);
 			if($user > 0){
-				$token= $this->apifun->set_token_uid($user);
+				$token= $this->set_token_uid($user);
 				$rs = array(
 					'success'=>true,
 					'token'=>$token,
@@ -203,7 +204,7 @@ class Apiftontend extends CI_Controller {
 	}
 
 	public function test(){
-		$img = $this->apifun->upload();
+		$img = $this->upload();
 		echo $img;
 	}
 
