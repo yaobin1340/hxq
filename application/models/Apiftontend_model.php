@@ -70,4 +70,22 @@ class Apiftontend_model extends MY_Model{
         else
             return null;
     }
+
+    public function get_city($province_code = null){
+        $this->db->select()->from('city');
+        if($province_code) $this->db->where('provincecode',$province_code);
+        return $this->db->get()->result_array();
+    }
+
+    public function get_province($code = null){
+        $this->db->select()->from('province');
+        if($code) $this->db->where('code',$code);
+        return $this->db->get()->result_array();
+    }
+
+    public function get_area($city_code = null){
+        $this->db->select()->from('area');
+        if($city_code) $this->db->where('citycode',$city_code);
+        return $this->db->get()->result_array();
+    }
 }

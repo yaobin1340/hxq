@@ -207,5 +207,58 @@ class Apiftontend extends MY_APIcontroller {
 		$img = $this->upload();
 		echo $img;
 	}
+	public function get_province(){
 
+		$rs = $this->Apiftontend_model->get_province();
+		if($rs){
+			$rs = array(
+				'success'=>true,
+				'province_list'=>$rs,
+				'error_msg'=>''
+			);
+		}else{
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'未获取到信息'
+			);
+		}
+		echo json_encode($rs);
+		die();
+	}
+	public function get_city(){
+		$province_code = $this->input->post('province_code');
+		$rs = $this->Apiftontend_model->get_city($province_code);
+		if($rs){
+			$rs = array(
+				'success'=>true,
+				'city_list'=>$rs,
+				'error_msg'=>''
+			);
+		}else{
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'未获取到信息'
+			);
+		}
+		echo json_encode($rs);
+		die();
+	}
+	public function get_area(){
+		$city_code = $this->input->post('city_code');
+		$rs = $this->Apiftontend_model->get_area($city_code);
+		if($rs){
+			$rs = array(
+				'success'=>true,
+				'area_list'=>$rs,
+				'error_msg'=>''
+			);
+		}else{
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'未获取到信息'
+			);
+		}
+		echo json_encode($rs);
+		die();
+	}
 }

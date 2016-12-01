@@ -63,7 +63,7 @@ class MY_APIcontroller extends CI_Controller
     }
 
     public function upload($folder = 'face',$input_name = 'img_input') {
-        try{
+
             $base64 = $this->input->post($input_name);
             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64, $result)){
                 $name = date('Y/m/d', time());
@@ -75,13 +75,9 @@ class MY_APIcontroller extends CI_Controller
                 $img = base64_decode(str_replace($result[1], '', $base64));
                 file_put_contents($dir.$img_name, $img);//返回的是字节数
                 return $name.'/'.$img_name;
+            }else{
+                return $this->do_upload($folder,$input_name);
             }
-            return '';
-        }catch(Exception $e) {
-
-            echo $e;
-            die();
-        }
 
     }
 
@@ -97,6 +93,29 @@ class MY_APIcontroller extends CI_Controller
         return $str;
     }
 
+    public function do_upload($folder = 'face',$input_name = 'img_input')
+    {
+        $name = date('Y/m/d', time());
+        //$img_name = $this->getRandChar(24);
+        $dir = FCPATH . '/upload/'.$folder.'/' . $name . '/';
+        $config['upload_path']      = $dir;
+        $config['allowed_types']    = 'gif|jpg|png';
+        $config['max_size']     = 100;
+        $config['max_width']        = 1024;
+        $config['max_height']       = 768;
+        $config['file_name']       = $this->getRandChar(24);
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload($input_name))
+        {
+            return '';
+        }
+        else
+        {
+            return $name.'/'.$this->upload->data('file_name');
+
+        }
+    }
 
 }
 
