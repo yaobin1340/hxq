@@ -46,6 +46,40 @@ class Apifun {
         return $res;
     }
 
+    public function upload($folder = 'face',$input_name = 'img_input') {
+        try{
+            $base64 = $this->input->post($input_name);
+            if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64, $result)){
+                $name = date('Y/m/d', time());
+                $dir = FCPATH . '/upload/'.$folder.'/' . $name . '/';
+                if(!is_dir($dir)){
+                    mkdir($dir,0777,true);
+                }
+                $img_name = $this->getRandChar(24).'.jpg';
+                $img = base64_decode(str_replace($result[1], '', $base64));
+                file_put_contents($dir.$img_name, $img);//返回的是字节数
+                return $name.'/'.$img_name;
+            }
+            return '';
+        }catch(Exception $e) {
+
+            echo $e;
+            die();
+        }
+
+    }
+
+    public function getRandChar($length){
+        $str = null;
+        $strPol = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
+        $max = strlen($strPol)-1;
+
+        for($i=0;$i<$length;$i++){
+            $str.=$strPol[rand(0,$max)];//rand($min,$max)生成介于min和max两个数之间的一个随机整数
+        }
+
+        return $str;
+    }
     /**
      * 判断输入的字符串是否是一个合法的手机号(仅限中国大陆)
      *

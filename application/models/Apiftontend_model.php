@@ -29,5 +29,45 @@ class Apiftontend_model extends MY_Model{
         return $rs;
     }
 
+    public function save_register($img){
+        if(!$this->input->post('mobile')){
+            return -1;
+        }
+        $rs = $this->db->select('count(1) num')->from('users')->where('mobile',$this->input->post('mobile'))->get()->row();
+        if($rs->num > 0){
+            return -1;
+        }
+        $data = array(
+            'parent_id'=>$this->input->post('parent_id'),
+            'mobile'=>$this->input->post('mobile'),
+            'password'=>sha1($this->input->post('password')),
+            's_password'=>sha1($this->input->post('s_password')),
+            'province_code'=>$this->input->post('province_code'),
+            'city_code'=>$this->input->post('city_code'),
+            'area_code'=>$this->input->post('area_code'),
+            'rel_name'=>$this->input->post('rel_name'),
+            'id_no'=>$this->input->post('id_no'),
+            'cdate'=>date('Y-m-d H:i:s',time()),
+            'face'=>$img
+        );
 
+        if($this->db->insert('users',$data)){
+            $uid = $this->db->insert_id();
+            return $uid;
+        }else{
+            return -1;
+        }
+    }
+
+    public function get_naid_by_keywords($keywords){
+        if(!$keywords) return false;
+        $rs = $this->db->select('rel_name,id')->from('users')
+            ->where('id',$keywords)
+            ->or_where('mobile',$keywords)
+            ->get()->row_array();
+        if($rs)
+            return $rs;
+        else
+            return null;
+    }
 }

@@ -144,4 +144,67 @@ class Apiftontend extends CI_Controller {
 		die();
 	}
 
+	public function save_register(){
+		//try{
+			$img = $this->apifun->upload();
+			$user = $this->Apiftontend_model->save_register('');
+			if($user > 0){
+				$token= $this->apifun->set_token_uid($user);
+				$rs = array(
+					'success'=>true,
+					'token'=>$token,
+					'error_msg'=>''
+				);
+			}else{
+				$rs = array(
+					'success'=>false,
+					'error_msg'=>'注册失败'
+				);
+			}
+			echo json_encode($rs);
+			die();
+		/*}catch(Exception $e) {
+			$rs = array(
+				'success' => false,
+				'error_msg'=>'Api失败!'
+			);
+			echo json_encode($rs);
+			die();
+		}*/
+
+	}
+
+	public function get_naid_by_keywords(){
+		if(!$this->input->post('keywords')){
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'必须提供推荐人信息'
+			);
+			echo json_encode($rs);
+			die();
+		}
+		$keywords = $this->input->post('keywords');
+		$res = $this->Apiftontend_model->get_naid_by_keywords($keywords);
+		if($res){
+			$rs = array(
+				'success'=>true,
+				'name'=>$res['rel_name'],
+				'id'=>$res['id'],
+				'error_msg'=>''
+			);
+		}else{
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'未找到推荐人信息'
+			);
+		}
+		echo json_encode($rs);
+		die();
+	}
+
+	public function test(){
+		$img = $this->apifun->upload();
+		echo $img;
+	}
+
 }
