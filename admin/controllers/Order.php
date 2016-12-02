@@ -21,6 +21,8 @@ class Order extends MY_Controller {
 		$rs = $this->order_model->save_order();
 		if($rs == 1){
 			$this->show_message('保存成功',site_url('order/list_orders'));
+		}elseif($rs == -2){
+			$this->show_message('请等待上一日向日葵核算后再审核');
 		}else{
 			$this->show_message('保存失败');
 		}
