@@ -79,7 +79,15 @@ class Order_model extends MY_Model
 		$order_list = $this->db->select()->from('order_list')->where('oid',$id)->get()->result_array();
 		$shop_info = $this->db->select()->from('shop')->where('id',$shop_id)->get()->row_array();
 		$total_field = 'total'.$shop_info['percent'];
-
+		$now_date = date('Y-m-d H:i:s');//新增加记录当前时间变量,下面所有操作的生成时间都取这个数
+		//2016-12-2 新增加判断 审核通过时 上一日的settlement表数据是否生成,如果生产才可进行
+		if($this->input->post('status') == 3){
+			$yeday =date("Y-m-d",strtotime("-1 day"));
+			$rs = $this->db->select()->from('settlement')->where('date',$yeday)->get()->row_array();
+			if(!$rs){
+				return -2;
+			}
+		}
 		$this->db->trans_start();//--------开始事务
 
 		if($this->input->post('status') == 3){
@@ -99,7 +107,7 @@ class Order_model extends MY_Model
 				$insert_array = array();
 				for($i=0;$i<floor(($user_info[$total_field] + $v['price'])/50000)-$count_ax->num;$i++){
 					$insert_array[] = array(
-						'cdate'=>date('Y-m-d H:i:s'),
+						'cdate'=>$now_date,
 						'percent'=>$shop_info['percent'],
 						'uid'=>$v['uid']
 					);
@@ -129,7 +137,7 @@ class Order_model extends MY_Model
 			$insert_array = array();
 			for($i=0;$i<floor(($shop_info['total'] + $this->input->post('total'))/50000)-$count_ax_shop->num;$i++){
 				$insert_array[] = array(
-					'cdate'=>date('Y-m-d H:i:s'),
+					'cdate'=>$now_date,
 					'percent'=>$shop_info['percent'],
 					'shop_id'=>$shop_id
 				);
@@ -184,7 +192,7 @@ class Order_model extends MY_Model
 		}
 
 		$this->db->where('id',$id);
-		$this->db->update('order',array('status'=>$this->input->post('status'),'adate'=>date('Y-m-d H:i:s')));
+		$this->db->update('order',array('status'=>$this->input->post('status'),'adate'=>$now_date));
 
 		$this->db->where('oid',$id);
 		$this->db->update('order_list',array('status'=>$this->input->post('status')));
