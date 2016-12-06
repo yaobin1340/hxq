@@ -43,7 +43,7 @@ class MY_Pagination extends CI_Pagination {
 		$config['total_rows'] = $total_rows;
 		$config['per_page'] = $per_page;
 		$config['use_page_numbers'] = true;
-		$config['uri_segment'] = 9;
+		$config['uri_segment'] = 4;
 
 		$config['cur_tag_open'] = '<li class="am-active"><a href="javascript:;">';
 		$config['cur_tag_close'] = '</a></li>';
