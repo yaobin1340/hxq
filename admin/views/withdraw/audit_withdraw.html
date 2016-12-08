@@ -116,14 +116,14 @@
                 {{/if}}
 
             </form>
-            {{if $data.status == 1}}
             <div class="am-form-group">
                 <div class="am-u-sm-9 am-u-sm-push-3">
+                    {{if $data.status == 1}}
                     <button class="am-btn am-btn-primary" id="doc-confirm-toggle">确定</button>
-                    <a class="am-btn am-btn-default" href="{{site_url url='withdraw/list_withdraw/1/1'}}">返回</a>
+                    {{/if}}
+                    <a class="am-btn am-btn-default" href="{{site_url url='withdraw/list_withdraw'}}/{{$status}}/{{$page}}">返回</a>
                 </div>
             </div>
-            {{/if}}
 
 
         </div>
