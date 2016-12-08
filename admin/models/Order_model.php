@@ -70,8 +70,11 @@ class Order_model extends MY_Model
 		$this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
 
 		$data['items'] = $this->db->get()->result_array();
-		$today= $this->db->select('sum(total) sum')->from('order')->where('adate >=',date("Y-m-d"))->where('adate <=',date("Y-m-d")." 23:59:59")->get()->row_array();
-		$ysday= $this->db->select('sum(total) sum')->from('order')->where('adate >=',date("Y-m-d"),strtotime("-1 day"))->where('adate <=',date("Y-m-d",strtotime("-1 day"))." 23:59:59")->get()->row_array();
+
+		$ysday = date("Y-m-d",strtotime("-1 day"));
+		$today = date("Y-m-d");
+		$today= $this->db->select('sum(total) sum')->from('order')->where("DATE_FORMAT(sdate,'%Y-%m-%d')",$today)->get()->row_array();
+		$ysday= $this->db->select('sum(total) sum')->from('order')->where("DATE_FORMAT(sdate,'%Y-%m-%d')",$ysday)->get()->row_array();
 		$data['today_sum'] = $today['sum'];
 		$data['ysday_sum'] = $ysday['sum'];
 		return $data;
