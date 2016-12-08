@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>shop_index</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed"
+          href="../../statics/amaze/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet"
+          href="../../statics/amaze/css/amazeui.min.css" />
+    <link rel="stylesheet" href="../../statics/amaze/css/admin.css">
+    <link rel="stylesheet" href="../../statics/css/main.css">
+    <!--[if lt IE 9]>
+    <script src="../../statics/js/jquery.min.js"></script>
+    <script src="../../assets/js/polyfill/rem.min.js"></script>
+    <script src="../../assets/js/polyfill/respond.min.js"></script>
+    <script src="../../assets/js/amazeui.legacy.js"></script>
+    <![endif]-->
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="../../statics/amaze/js/jquery.min.js"></script>
+    <script src="../../statics/amaze/js/amazeui.js"></script>
+    <!--<![endif]-->
+    <script src="../../statics/amaze/js/app.js"></script>
+    <script src="../../statics/js/common.js"></script>
+</head>
+<body>
+<div class="body_all">
+    <header class="am-topbar am-topbar-inverse shop_index_header">
+       <div class="shop_index_header_all">
+           <span>在线商城</span>
+           <div id="doc-dropdown-justify">
+               <div class="am-dropdown" data-am-dropdown="{justify: '#doc-dropdown-justify'}">
+                   <span class="am-dropdown-toggle" id="id="address_btn">昆山 <span class="am-icon-caret-down"></span></span>
+                   <div class="am-dropdown-content">
+                       <div id="address_provice">
+                           <div class="shop_index_position_city">
+                               <span id="insert_area_name">昆山市</span>
+                           </div>
+                            <div class="shop_index_position_provice_city_county">
+                                <nav>
+                                    <ul >
+                                        <li onclick="address_provice()">江苏省</li>
+                                        <li>安徽省</li>
+                                        <li>广东省</li>
+                                        <li>北京市</li>
+                                        <li>天津市</li>
+                                        <li>河北省</li>
+                                        <li>陕西省</li>
+                                    </ul>
+                                </nav>
+                            </div>
+                       </div>
+                       <div id="address_city">
+                           <div class="shop_index_position_provice_city_county">
+                               <nav>
+                                   <ul >
+                                       <li onclick="address_city()">南京市</li>
+                                       <li>无锡市</li>
+                                       <li>徐州市</li>
+                                       <li>常州市</li>
+                                       <li>苏州市</li>
+                                       <li>南通市</li>
+                                       <li>连云港市</li>
+                                       <li>连云港市</li>
+                                   </ul>
+                               </nav>
+                           </div>
+                       </div>
+                       <div id="address_county">
+                           <div class="shop_index_position_provice_city_county">
+                               <nav>
+                                   <ul >
+                                       <li>连云区</li>
+                                       <li>新浦区</li>
+                                       <li>海州区</li>
+                                       <li>赣榆县</li>
+                                       <li>东海区</li>
+                                       <li>灌云县</li>
+                                       <li>灌南县</li>
+                                   </ul>
+                               </nav>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+</header>
+    <section>
+        <table class="shop_index_section_table" border="0">
+            <tr>
+                <td class="td_width">
+                  <div>
+                      <ul>
+                          <li class="shop_index_section_table_title">玉兰油</li>
+                          <li class="shop_index_section_table_active">双十一特价</li>
+                          <li class="shop_index_section_table_price">只要 <span class="am-icon-rmb"></span>99</li>
+                      </ul>
+                  </div>
+                </td>
+                <td class="td_width">
+                    <div>
+                        <ul>
+                            <li class="shop_index_section_table_title">玉兰油</li>
+                            <li class="shop_index_section_table_active">双十一特价</li>
+                            <li class="shop_index_section_table_price">只要 <span class="am-icon-rmb"></span>99</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+    <table class="shop_index_section_table" border="0">
+        <tr>
+            <td class="td_border">
+                <div>
+                    <span class="td_border_title">精品店铺</span><br>
+                    <span class="td_border_users">会员免单福利</span><br>
+                    <span class="td_border_img"><img src="../../statics/images/shop.jpg"></span>
+                </div>
+            </td>
+            <td class="td_border">
+                <div>
+                    <span class="td_border_title">BEAUTY</span><br>
+                    <span class="td_border_film">本周热门影片</span><br>
+                    <span class="td_border_img" ><img src="../../statics/images/shop.jpg"></span>
+                </div>
+            </td>
+            <td class="td_border">
+                <div>
+                    <span class="td_border_title">阿迪达斯</span><br>
+                    <span class="td_border_food">秋日暖心餐</span><br>
+                    <span class="td_border_img"><img src="../../statics/images/shop.jpg"></span>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="shop_index_fengeduan"></div>
+    <div class="line_02"><span>热销商品</span></div>
+        <div style="width: 100%;margin-top: 25px; font-family: 'Hiragino Sans GB W3';">
+            <!--<div data-am-widget="list_news" class="am-list-news am-list-news-default" >-->
+                <!--<div class="am-list-news-bd">-->
+                    <!--<ul class="am-list">-->
+                        <!--<li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">-->
+                            <!--<div class="am-u-sm-4" style="">-->
+                                <!--<img src="../../statics/images/shop.jpg" alt="" style="width: 120px;height: 120px;"/>-->
+                                <!--<img src="../../statics/images/home_icon_6series.png" alt="" style="position: absolute;top:0;right:0px;"/>-->
+                            <!--</div>-->
+                            <!--<div class=" am-u-sm-8 am-list-main" >-->
+                                <!--<span style="padding-left: 15%;font-size: 22px;color: #000000;" class="am-list-item-hd">BEAUTY&nbsp;HOME</span>-->
+                                <!--<span style="float: right;margin-right: 10px;;font-size: 18px;color: #fd4e87;">7.0km</span>-->
+                            <!--</div>-->
+                            <!--<div class=" am-u-sm-8 am-list-main" >-->
+                                <!--<span style="padding-left: 20px;font-size: 16px;color: #ce7121;" class="am-list-item-hd">纯手工打造，小温馨气质</span>-->
+                            <!--</div>-->
+                            <!--<div class=" am-u-sm-8 am-list-main" style="position: absolute;bottom: 15px;left: 130px;">-->
+                                <!--<span style="margin-left: 15px;font-size: 16px;color: #a3a3a3;" class="am-list-item-hd">地址：玉山镇城北中路 1288号</span>-->
+                            <!--</div>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
+            <table class="shop_index_main_content" border="0">
+                <tr>
+                    <td class="shop_index_main_content_img">
+                        <img class="img1" src="../../statics/images/shop.jpg">
+                        <!--<img class="img2" src="../../statics/images/home_icon_6series.png"/>-->
+                    </td>
+                    <td class="shop_index_main_content_td">
+                        <div class="shop_index_main_content_one">
+                            <span class="span1">BEAUTY HOME</span>
+                            <!--<span class="span2">7.0km</span>-->
+                        </div>
+                        <div class="shop_index_main_content_two">纯手工打造纯手工</div>
+                        <div class="shop_index_main_content_three"><span style="font-size: 0.12rem;color: #fd4e87;">￥<span style="font-size: 0.16rem;color: #fd4e87;">128 </span><span style="font-size: 0.12rem;color: #b1b1b1;">原价￥<span style="font-size: 0.16rem;color: #b1b1b1;">128</span></span></span></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="shop_index_main_content_img">
+                        <img class="img1" src="../../statics/images/shop.jpg">
+                        <!--<img class="img2" src="../../statics/images/home_icon_12series.png"/>-->
+                    </td>
+                    <td class="shop_index_main_content_td">
+                        <div class="shop_index_main_content_one">
+                            <span class="span1">BEAUTY HOME</span>
+                            <!--<span class="span2">7.0km</span>-->
+                        </div>
+                        <div class="shop_index_main_content_two">纯手工打造纯手工打造</div>
+                        <div class="shop_index_main_content_three" style=" "> <span style="font-size: 0.12rem;color: #fd4e87;">￥<span style="font-size: 0.16rem;color: #fd4e87;">128 </span><span style="font-size: 0.12rem;color: #b1b1b1;">原价￥<span style="font-size: 0.16rem;color: #b1b1b1;">128</span></span></span></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="shop_index_main_content_img">
+                        <img class="img1" src="../../statics/images/shop.jpg">
+                        <!--<img class="img2" src="../../statics/images/home_icon_24series.png"/>-->
+                    </td>
+                    <td class="shop_index_main_content_td">
+                        <div class="shop_index_main_content_one">
+                            <span class="span1">BEAUTY HOME</span>
+                            <!--<span class="span2">7.0km</span>-->
+                        </div>
+                        <div class="shop_index_main_content_two">纯手工打造纯手工打造纯手工打造纯手工打造aaa</div>
+                        <div class="shop_index_main_content_three"> <span class="span_1">￥<span class="span_2">128 </span><span class="span_3">原价￥<span class="span_4">128</span></span></span></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="xuanfu_plus">
+            <img class="xuanfu_icon_search" src="../../statics/images/shoppingcart_float_button.png">
+        </div>
+</section>
+    <footer>
+    <div class="footer">
+        <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td id="home">
+                    <img src="../../statics/images/home_icon_click.png"><br>
+                    <span class="footer_span_2">主页</span>
+                </td>
+                <td id="myorder">
+                    <img src="../../statics/images/orders_icon_click.png"><br>
+                    <span class="footer_span_2">我的订单</span>
+                </td>
+                <td id="daybase">
+                    <img src="../../statics/images/mall_icon_click.png"><br>
+                    <span class="footer_span_2">商城</span>
+                </td>
+
+                <td id="cheaporder">
+                    <img src="../../statics/images/data_icon_click.png"><br>
+                    <span class="footer_span_2">每日数据</span>
+                </td>
+
+                <td id="message">
+                    <img src="../../statics/images/personalcenter_icon_click.png"><br>
+                    <span class="footer_span_2">个人中心</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</footer>
+</div>
+<script>
+    $("#address_btn").click(function(){
+        document.getElementById("address_provice").style.display="block";
+        document.getElementById("address_city").style.display="none";
+        document.getElementById("address_county").style.display="none";
+    });
+    function address_provice(code) {
+        document.getElementById("address_provice").style.display="none";
+        document.getElementById("address_city").style.display="block";
+        document.getElementById("address_county").style.display="none";
+    }
+    function address_city(code) {
+        document.getElementById("address_provice").style.display="none";
+        document.getElementById("address_city").style.display="none";
+        document.getElementById("address_county").style.display="block";
+
+    }
+
+</script>
+</body>
+</html>
