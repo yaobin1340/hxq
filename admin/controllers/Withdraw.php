@@ -16,12 +16,15 @@ class Withdraw extends MY_Controller {
 		$this->assign('pager', $pager);
 		$this->assign('data', $data);
 		$this->assign('status', $status);
+		$this->assign('page', $page);
 		$this->show('withdraw/list_withdraw');
 	}
 
 
-	public function withdraw_detail($id){
+	public function withdraw_detail($id,$status=1,$page=1){
 		$data = $this->withdraw_model->withdraw_detail($id);
+		$this->assign('status', $status);
+		$this->assign('page', $page);
 		$this->assign('data', $data);
 		$this->show('withdraw/audit_withdraw');
 	}
