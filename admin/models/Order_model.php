@@ -65,6 +65,7 @@ class Order_model extends MY_Model
 		if($this->input->post('e_date')){
 			$this->db->where("a.{$search_date} <=",$this->input->post('e_date')." 23:59:59");
 		}
+		$this->db->order_by('a.status','asc');
 		$this->db->order_by($search_date,'desc');
 		$this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
 
