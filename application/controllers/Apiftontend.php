@@ -17,27 +17,38 @@ class Apiftontend extends MY_APIcontroller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+	private $token;
+	private $app_uid=0;
 	public function __construct()
 	{
 
 		parent::__construct();
 		$this->load->model('Apiftontend_model');
-		//$this->load->library('apifun');
-		//var_dump($this->apifun->get_token());
+		$this->token = $this->get_token();
+		if($this->token){
+			$this->app_uid=$this->get_token_uid($this->token);
+		}else{
+			$this->app_uid=0;
+		}
 	}
 
 	public function index()
 	{
-		/*$uid = 4;
-		$token = $this->set_token_uid($uid);*/
-		//$token= $this->token;
-		/*var_dump($token);
-		var_dump($this->get_token_uid($token));*/
-		/*$this->assign('header_name', '用户中心');
-		$sum_count = $this->user_model->sum_count();
-		$this->assign('sum_count', $sum_count);
-		$this->display('user/user_center.html');*/
-		//echo '123';
+		$rs = array(
+			'success'=>true,
+			'area_name'=>'',
+			'area_code'=>'',
+			'error_msg'=>''
+		);
+		$this->load->model('apiuser_model');
+		$user_info = $this->apiuser_model->find($this->app_uid);
+		if($user_info){
+			$area_name = $this->Apiftontend_model->get_area_name($user_info['u_area_code']?$user_info['u_area_code']:null);
+			$rs['area_name']=$area_name;
+			$rs['area_code']=$user_info['u_area_code'];
+		}
+		echo json_encode($rs);
+		die();
 	}
 
 	public function check_login(){
