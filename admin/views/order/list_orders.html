@@ -38,6 +38,7 @@
             <table class="am-table am-table-striped am-table-hover table-main">
                 <thead>
                 <tr>
+                    <th>订单ID</th>
                     <th>商家名称</th>
                     <th>总金额</th>
                     <th>需支付</th>
@@ -52,6 +53,7 @@
                 <tbody>
                 {{foreach from=$data.items key=key item=item}}
                 <tr>
+                    <td><a>{{$item.id}}</a></td>
                     <td><a>{{$item.shop_name}}</a></td>
                     <td><a>{{$item.total/100}}</a></td>
                     <td><a>{{$item.total*$item.percent/10000}}</a></td>
