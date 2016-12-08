@@ -14,6 +14,7 @@ class Order extends MY_Controller {
 		$pager = $this->pagination->getPageLink_by4($base_url, $data['total'], $data['limit']);
 		$this->assign('pager', $pager);
 		$this->assign('data', $data);
+		$this->assign('page', $page);
 		$this->show('order/list_orders');
 	}
 
@@ -28,9 +29,11 @@ class Order extends MY_Controller {
 		}
 	}
 
-	public function order_detail($id){
+	public function order_detail($id,$status=2,$page=1){
 		$data = $this->order_model->get_order_detail($id);
 		$this->assign('data', $data);
+		$this->assign('page', $page);
+		$this->assign('status', $status);
 		$this->show('order/order_detail');
 	}
 
