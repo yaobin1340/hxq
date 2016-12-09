@@ -20,7 +20,7 @@ class Settlement_model extends MY_Model
     	$data['total'] = $num->num;
 
     	//获取详细列
-    	$this->db->select()->from('settlement');
+    	$this->db->select()->from('settlement')->order_by('date','desc');
 
     	$this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
     	$data['items'] = $this->db->get()->result_array();
