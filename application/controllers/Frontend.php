@@ -304,11 +304,11 @@ class Frontend extends MY_Controller {
         echo json_encode($res);
     }
 
-    public function shop_details($id){
+    public function shop_detail($id){
         $this->assign('header_name', '商家详情');
         $data = $this->frontend_model->shop_details($id);
         $this->assign('data', $data);
-        $this->display('frontend/shop_details.html');
+        $this->display('frontend/shop_detail.html');
     }
 
     public function shop_list($type){

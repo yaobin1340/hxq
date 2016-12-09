@@ -1,397 +1,151 @@
-<!doctype html>
-<html class="no-js" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{$header_name}}</title>
-    <meta name="description" content="这是一个 index 页面">
-    <meta name="renderer" content="webkit">
-    <meta name="keywords" content="index">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed"
-          href="{{$base_url}}statics/amaze/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet"
-          href="{{$base_url}}statics/amaze/css/amazeui.min.css" />
-    <link rel="stylesheet" href="{{$base_url}}statics/amaze/css/admin.css">
-    <link rel="stylesheet" href="{{$base_url}}statics/css/shopcss.css">
-    <!--[if lt IE 9]>
-    <script src="{{$base_url}}statics/js/jquery.min.js"></script>
-    <script src="{{$base_url}}assets/js/polyfill/rem.min.js"></script>
-    <script src="{{$base_url}}assets/js/polyfill/respond.min.js"></script>
-    <script src="{{$base_url}}assets/js/amazeui.legacy.js"></script>
-    <![endif]-->
+{{include file="../public/header.html"}}
 
-    <!--[if (gte IE 9)|!(IE)]><!-->
-    <script src="{{$base_url}}statics/amaze/js/jquery.min.js"></script>
-    <script src="{{$base_url}}statics/amaze/js/amazeui.js"></script>
-    <!--<![endif]-->
-    <script src="{{$base_url}}statics/amaze/js/app.js"></script>
-    <script src="{{$base_url}}statics/js/common.js"></script>
-</head>
-<style>
-    .am-slider-default .am-direction-nav a {
-        /*display: none;*/
-    }
-    .am-slider-default .am-control-nav{
-        bottom: 10px;
-    }
-    .line_02{
-        height: 1px;
-        border-top: 1px solid #ddd;
-        text-align: center;
-        margin-top: 25px;
-    }
-    .line_02 span{
-        position: relative;
-        top: -12px;
-        background: #fff;
-        padding: 0 20px;
-    }
-    .am-topbar{
-        margin-bottom: 0;
-    }
-</style>
-<body style="background-color: #ffffff;">
-
-<div style="overflow: auto;padding-bottom: 80px;">
-<header class="am-topbar am-topbar-inverse" style="height: 60px;">
-    <form method="post" id="search_form" class="am-topbar-form am-topbar-left am-form-inline" action="{{site_url url='frontend/index'}}" role="search" style="width: 100%;margin-top: 10px;">
-        <input type="hidden" name="city_code" id="city_code" value="{{$city_code}}">
-        <input type="hidden" name="area_code" id="area_code" value="{{$area_code}}">
-        <input type="hidden" name="province_code" id="province_code" value="{{$province_code}}">
-        <input type="hidden" name="type" id="type" value="{{$type}}">
-        <input type="hidden" name="lat" id="lat" value="{{$lat}}">
-        <input type="hidden" name="lng" id="lng" value="{{$lng}}">
-        <input type="hidden" name="h_shop_name" id="h_shop_name" value="{{$shop_name|default:''}}">
-        <div class="am-form-group">
-            <input type="text" value="{{$shop_name|default:''}}" name="t_shop_name" id="t_shop_name" class="am-form-field am-input-sm" placeholder="搜索" style="width: 60%;height: 40px;margin-left: 10px;border-radius: 5px;">
-        </div>
-    </form>
-        <div class="am-nav am-nav-pills am-topbar-nav" style="float: right;margin-top: -45px;background: red;height: 30px;">
-            <div class="am-form-group" >
-                <div id="doc-dropdown-justify">
-                    <div class="am-dropdown" data-am-dropdown="{justify: '#doc-dropdown-justify'}">
-                        <button id="address_btn" class="am-btn am-btn-primary am-dropdown-toggle">{{$area_name|default:'黄浦区'}}<span class="am-icon-caret-down"></span></button>
-                        <div class="am-dropdown-content" style="width: 300px;color: #777777;">
-
-                            <div id="address_provice" style="display: block;margin-bottom: 30px;">
-                               <div style="width: 100%;border-bottom: 1px solid #eeeeee"><span id="insert_area_name" style="color: #777777;margin-left: 30px;">{{$area_name|default:'黄浦区'}}</span></div>
-                               <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
-                                   {{foreach from=$province_list key=k item=row}}
-                                   <span style="margin-left: 10px;" onclick="address_provice('{{$row.code}}')">&nbsp;{{$row.name}}</span>
-                                   {{/foreach}}
-                               </div>
+<link rel="stylesheet" href="/statics/css/index.css">
+<div class="body_all">
+    <header class="am-topbar am-topbar-inverse shop_index_header">
+        <div class="shop_index_header_all">
+            <form class="am-topbar-form am-topbar-left am-form-inline" role="search">
+                <div class="am-form-group">
+                    <input type="text" class="am-form-field am-input-sm" placeholder="搜索商家、品类或商家">
+                </div>
+            </form>
+            <div id="doc-dropdown-justify">
+                <div class="am-dropdown" data-am-dropdown="{justify: '#doc-dropdown-justify'}">
+                    <span class="am-dropdown-toggle" id="address_btn">昆山 <span class="am-icon-caret-down"></span></span>
+                    <div class="am-dropdown-content">
+                        <div id="address_provice">
+                            <div class="shop_index_position_city">
+                                <span id="insert_area_name">昆山市</span>
                             </div>
-
-                            <div id="address_city" style="display: none;margin-bottom: 30px;">
-                                <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
-
-                                </div>
+                            <div class="shop_index_position_provice_city_county">
+                                <nav>
+                                    <ul >
+                                        <li onclick="address_provice()">江苏省</li>
+                                        <li>安徽省</li>
+                                        <li>广东省</li>
+                                        <li>北京市</li>
+                                        <li>天津市</li>
+                                        <li>河北省</li>
+                                        <li>陕西省</li>
+                                    </ul>
+                                </nav>
                             </div>
-
-                            <div id="address_county" style="display: none;margin-bottom: 30px;">
-                                <div style="width: 100%;border-bottom: 1px solid #eeeeee;margin-top: 10px;">
-
-                                </div>
+                        </div>
+                        <div id="address_city">
+                            <div class="shop_index_position_provice_city_county">
+                                <nav>
+                                    <ul >
+                                        <li onclick="address_city()">南京市</li>
+                                        <li>无锡市</li>
+                                        <li>徐州市</li>
+                                        <li>常州市</li>
+                                        <li>苏州市</li>
+                                        <li>南通市</li>
+                                        <li>连云港市</li>
+                                        <li>连云港市</li>
+                                    </ul>
+                                </nav>
                             </div>
-
-
-                            <script>
-                                $("#address_btn").click(function(){
-                                    document.getElementById("address_provice").style.display="block";
-                                    document.getElementById("address_city").style.display="none";
-                                    document.getElementById("address_county").style.display="none";
-                                });
-                                function address_provice(code) {
-
-                                    $.post("{{site_url url='Frontend/get_city'}}/"+code,{},function(data){
-                                        var jsonObj = eval('(' + data + ')');
-                                        html='';
-                                        for(var i = 0; i < jsonObj.length; i++){
-                                            //alert(jsonObj[i].name)
-                                            html += "<span style='' onclick='address_city("+jsonObj[i].code+")'>&nbsp;"+jsonObj[i].name+"</span>"
-                                        }
-                                        $('#address_city').find('div').html(html);
-                                    })
-                                    document.getElementById("address_provice").style.display="none";
-                                    document.getElementById("address_city").style.display="block";
-                                    document.getElementById("address_county").style.display="none";
-                                }
-                                function address_city(code) {
-                                    $.post("{{site_url url='Frontend/get_area'}}/"+code,{},function(data){
-                                        var jsonObj = eval('(' + data + ')');
-                                        html='';
-                                        for(var i = 0; i < jsonObj.length; i++){
-                                            //alert(jsonObj[i].name)
-                                            html += "<span style='margin-left: 10px;' onclick='address_county("+jsonObj[i].code+")'>&nbsp;"+jsonObj[i].name+"</span>"
-                                        }
-                                        $('#address_county').find('div').html(html);
-                                    })
-                                    document.getElementById("address_provice").style.display="none";
-                                    document.getElementById("address_city").style.display="none";
-                                    document.getElementById("address_county").style.display="block";
-
-                                }
-
-                            </script>
-
+                        </div>
+                        <div id="address_county">
+                            <div class="shop_index_position_provice_city_county">
+                                <nav>
+                                    <ul >
+                                        <li>连云区</li>
+                                        <li>新浦区</li>
+                                        <li>海州区</li>
+                                        <li>赣榆县</li>
+                                        <li>东海区</li>
+                                        <li>灌云县</li>
+                                        <li>灌南县</li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-</header>
-
-
-<!--<div style="width: 100%; height: 30px;margin-top: -20px;">
-    <span style="float: right;margin-right: -30px;line-height: 30px;"><a href="/frontend/register">注册</a></span>&nbsp;
-    <span style="float: right;margin-right: 10px;line-height: 30px;"> <a href="/frontend/login">登录</a></span>
-</div>-->
-<div >
-    <!--<div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0" style="">-->
-        <!--<ul class="am-slides">-->
-            <!--{{if $shop_type}}-->
-            <!--<li>-->
-                <!--<table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0" style="color: #777777;">-->
-                    <!--<tr style="height: 100px;">-->
-            <!--{{foreach from=$shop_type key=k item=row}}-->
-            <!--{{if $k is div by 8}}-->
-            <!--{{if $k !=0}}-->
-               <!--</tr> </table>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0" style="color: #777777;">-->
-                    <!--<tr style="height: 100px;">-->
-            <!--{{/if}}-->
-            <!--{{/if}}-->
-            <!--{{if ($k-4) is div by 8}}-->
-                    <!--{{if $k !=0}}-->
-                    <!--</tr><tr style="height: 100px;">-->
-                    <!--{{/if}}-->
-            <!--{{/if}}-->
-            <!--<td style="width: 25%">-->
-                <!--<a href="{{site_url url='frontend/shop_list'}}/{{$row.id}}">-->
-                <!--<span class="am-icon-{{$row.icon|default:'cart-plus'}} footer_span_1" style="color:{{$row.color|default:'#7891e4'}};font-size: 26px;"></span><br>-->
-                <!--<span class="footer_span_2" >{{$row.name}}</span></a>-->
-            <!--</td>-->
-            <!--{{/foreach}}-->
-                    <!--</tr>-->
-            <!--</table>-->
-            <!--</li>-->
-            <!--{{/if}}-->
-        <!--</ul>-->
-    <!--</div>-->
-    <div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0">
-        <ul class="am-slides">
-            <li><img src="{{$base_url}}statics/images/lunbo1.jpg" /></li>
-            <li><img src="{{$base_url}}statics/images/lunbo2.jpg" /></li>
-            <li><img src="{{$base_url}}statics/images/lunbo3.jpg" /></li>
-        </ul>
-    </div>
-
-</div>
-<div class="line_02"><span>附近店铺</span></div>
-
-<div data-am-widget="list_news" class="am-list-news am-list-news-default" style="margin-top: -10px;">
-    <!--列表标题-->
-    <div class="am-list-news-hd am-cf">
-        <!--带更多链接-->
-    </div>
-    <div class="am-list-news-bd">
-        <ul class="am-list" id="accordion">
-        </ul>
-        <p id="is_end" style="margin-bottom: 3em">已到最后一页</p>
-    </div>
-
-    <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
-        <div class="am-modal-dialog">
-            <div class="am-modal-hd">正在加载...</div>
-            <div class="am-modal-bd">
-                <span class="am-icon-spinner am-icon-spin"></span>
+    </header>
+    <section>
+        <div class="index_lunbo_img">
+            <div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0">
+                <ul class="am-slides">
+                    <li><img src="../../statics/images/banner.jpg" /></li>
+                    <li><img src="../../statics/images/banner1.jpg" /></li>
+                    <li><img src="../../statics/images/banner2.jpg" /></li>
+                </ul>
             </div>
         </div>
-    </div>
+        <div class="line_02"><span>附近店铺</span></div>
+        <div class="index_main_content">
+            <table class="shop_index_main_content" border="0">
+                <tr>
+                    <td class="shop_index_main_content_img">
+                        <img class="img1" src="../../statics/images/shop.jpg">
+                        <img class="img2" src="../../statics/images/home_icon_6series.png"/>
+                    </td>
+                    <td class="shop_index_main_content_td">
+                        <div class="shop_index_main_content_one">
+                            <span class="span1">BEAUTY HOME</span>
+                            <span class="span2">7.0km</span>
+                        </div>
+                        <div class="shop_index_main_content_two">纯手工打造纯手工打造纯手工打造纯手工打造aaa</div>
+                        <div class="shop_index_main_content_three"> 地址：玉山镇城北中路 1288号玉山镇城北中路 1288号</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="shop_index_main_content_img">
+                        <img class="img1" src="../../statics/images/shop.jpg">
+                        <img class="img2" src="../../statics/images/home_icon_12series.png"/>
+                    </td>
+                    <td class="shop_index_main_content_td">
+                        <div class="shop_index_main_content_one">
+                            <span class="span1">BEAUTY HOME</span>
+                            <span class="span2">7.0km</span>
+                        </div>
+                        <div class="shop_index_main_content_two">纯手工打造纯手工打造纯手工打造纯手工打造aaa</div>
+                        <div class="shop_index_main_content_three"> 地址：玉山镇城北中路 1288号</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="shop_index_main_content_img">
+                        <img class="img1" src="../../statics/images/shop.jpg">
+                        <img class="img2" src="../../statics/images/home_icon_24series.png"/>
+                    </td>
+                    <td class="shop_index_main_content_td">
+                        <div class="shop_index_main_content_one">
+                            <span class="span1">BEAUTY HOME</span>
+                            <span class="span2">7.0km</span>
+                        </div>
+                        <div class="shop_index_main_content_two">纯手工打造纯手工打造纯手工打造纯手工打造aaa</div>
+                        <div class="shop_index_main_content_three" style=" "> 地址：玉山镇城北中路 1288号</div>
+                    </td>
+                </tr>
 
-</div>
+            </table>
+        </div>
+    </section>
     {{include file="../public/footer.html"}}
 </div>
-
-    <script>
-        $(function() {
-            var $slider = $('#demo-slider-0');
-            var counter = 0;
-            var getSlide = function() {
-                counter++;
-                return '<li><img src="http://s.amazeui.org/media/i/demos/bing-' +
-                        (Math.floor(Math.random() * 4) + 1) + '.jpg" />' +
-                        '<div class="am-slider-desc">动态插入的 slide ' + counter + '</div></li>';
-            };
-
-            $('.js-demo-slider-btn').on('click', function() {
-                var action = this.getAttribute('data-action');
-                if (action === 'add') {
-                    $slider.flexslider('addSlide', getSlide());
-                } else {
-                    var count = $slider.flexslider('count');
-                    count > 1 && $slider.flexslider('removeSlide', $slider.flexslider('count') - 1);
-                }
-            });
-
-        });
-    </script>
-
-
-</body>
-</html>
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
-    window.is_end = false
-    window.page = 1
-    $(window).scroll(function () {
-        var scrollTop = $(this).scrollTop();
-        var scrollHeight = $(document).height();
-        var windowHeight = $(this).height();
-        if (scrollTop + windowHeight == scrollHeight) {
-            if(window.is_end){
-                $("#is_end").show()
-            }else{
-                $("#my-actions-search").show()
-                $('#my-modal-loading').modal()
-                get_data()
-            }
-        }
+    $("#address_btn").click(function(){
+        document.getElementById("address_provice").style.display="block";
+        document.getElementById("address_city").style.display="none";
+        document.getElementById("address_county").style.display="none";
     });
-
-    function get_data(){
-        city_code = $('#city_code').val()
-        area_code = $('#area_code').val()
-        province_code = $('#province_code').val()
-        shop_name = $('#h_shop_name').val()
-        type = $('#type').val()
-        lat = $('#lat').val() //纬度
-        lng = $('#lng').val()   //经度
-        //经纬度值通过微信端 获取,
-        //这里在进入页面时需要判断是否已存在经纬度值
-        //如果存在则使用,不存在则使用微信获取
-        $.post("{{site_url url='Frontend/index_loaddata'}}/"+window.page,{shop_name:shop_name,city_code:city_code,area_code:area_code,province_code:province_code,type:type,lng:lng,lat:lat},function(data){
-            if(data){
-                $("#accordion").append(data)
-                $('#accordion').find('.flag-'+window.page).add('#doc-confirm-toggle').
-                on('click', function() {
-                    $('#my-confirm').modal({
-                        relatedTarget: this,
-                        onConfirm: function(options) {
-
-                        },
-                        onCancel: function() {
-
-                        }
-                    });
-                });
-                window.page += 1
-                $('#my-modal-loading').modal('close');
-            }else{
-                $('#my-modal-loading').modal('close');
-                $("#is_end").show()
-                window.is_end = true
-            }
-
-        });
+    function address_provice(code) {
+        document.getElementById("address_provice").style.display="none";
+        document.getElementById("address_city").style.display="block";
+        document.getElementById("address_county").style.display="none";
     }
-
-    function address_county(code){
-        $('#area_code').val(code);
-        $('#search_form').submit();
+    function address_city(code) {
+        document.getElementById("address_provice").style.display="none";
+        document.getElementById("address_city").style.display="none";
+        document.getElementById("address_county").style.display="block";
 
     }
-
-
-    $("#t_shop_name").bind('keydown', function (e) {
-        var key = e.which;
-        if (key == 13) {
-            $('#search_form').submit();
-        }
-    });
-
-    wx.config({
-        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-        appId: '{{$wxappId}}', // 必填，公众号的唯一标识
-        timestamp: {{$wxtimestamp}}, // 必填，生成签名的时间戳
-        nonceStr: '{{$wxnonceStr}}', // 必填，生成签名的随机串
-        signature: '{{$wxsignature}}',// 必填，签名，见附录1
-        jsApiList: ['getLocation','checkJsApi'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-    });
-    wx.ready(function () {
-
-
-            wx.getLocation({
-                type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-                success: function (res) {
-                    var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-                    var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-                    var speed = res.speed; // 速度，以米/每秒计
-                    var accuracy = res.accuracy; // 位置精度
-                    if($("#lat").val()==""){
-                        $("#lat").val(latitude);
-                    }
-                    if($("#lng").val()==""){
-                        $("#lng").val(longitude);
-                    }
-                    f_path = "{{site_url url='Frontend/nearcity'}}/"+latitude+"/"+longitude;
-                    if($("#area_code").val()==""){
-                        $.getJSON(f_path,function(data){
-                            $("#address_btn").html(data.name);
-                            $("#area_code").val(data.code);
-                            $("#insert_area_name").html(data.name);
-                            get_data();
-                        })
-                    }else{
-                        get_data();
-                    }
-
-                },
-                cancel: function (res) {
-                    /* stopCount();
-                     */
-                    //alert(JSON.stringify(res));
-                },
-                error: function (res) {
-                    /*stopCount();
-                     */
-                    //alert(JSON.stringify(res));
-                }
-            });
-
-
-    });
-
-    $(function() {
-
-    });
 
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</body>
+</html>

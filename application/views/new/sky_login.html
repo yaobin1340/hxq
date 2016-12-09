@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>shop_index</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed"
+          href="../../statics/amaze/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet"
+          href="../../statics/amaze/css/amazeui.min.css" />
+    <link rel="stylesheet" href="../../statics/amaze/css/admin.css">
+    <link rel="stylesheet" href="../../statics/css/skylogin.css">
+    <!--[if lt IE 9]>
+    <script src="../../statics/js/jquery.min.js"></script>
+    <script src="../../assets/js/polyfill/rem.min.js"></script>
+    <script src="../../assets/js/polyfill/respond.min.js"></script>
+    <script src="../../assets/js/amazeui.legacy.js"></script>
+    <![endif]-->
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="../../statics/amaze/js/jquery.min.js"></script>
+    <script src="../../statics/amaze/js/amazeui.js"></script>
+    <!--<![endif]-->
+    <script src="../../statics/amaze/js/app.js"></script>
+    <script src="../../statics/js/common.js"></script>
+</head>
+<body>
+<header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
+    <span class="register_header_title">登录</span>
+    <a href="{{site_url url='frontend'}}"><span class="am-icon-chevron-left register_header_back"></span></a>
+</header>
+<img class="sky_register_logo" src="../../statics/images/orderdetails_logo_icon.png">
+<form method="post" class="am-form " action="{{site_url url='frontend/check_login'}}" data-am-validator>
+    <div class="login_all_form">
+        <div class="am-form-group am-form-icon login_form_mobile">
+            <i class="am-icon-mobile-phone"></i>
+            <input style="border-radius: 10px;" type="number" id="doc-vld-mima-1"  name="mobile" class="am-form-field js-pattern-mobile" placeholder="请输入您的手机号" required />
+        </div>
+        <div class="am-form-group am-form-icon login_form_password">
+            <i class="am-icon-lock"></i>
+            <input style="border-radius: 10px;" type="password" id="doc-vld-mima-2"  name="password" class="am-form-field js-pattern-pwd" placeholder="请输入您的密码" required />
+        </div>
+    </div>
+    <button style="border-radius: 10px;" type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block login_form_btn">登陆</button>
+</form>
+<div class="login_others">
+    <a href="{{site_url url='frontend/forget_pwd'}}"><span class="login_others_forget_pwd">忘记密码？</span></a>
+    <a href="{{site_url url='frontend/register'}}"><span class="login_others_news_user">新用户注册</span></a>
+</div>
+</body>
+</html>
