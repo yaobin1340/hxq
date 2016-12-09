@@ -88,7 +88,27 @@ class Withdraw_model extends MY_Model
 		return $this->db->get()->row_array();
 	}
 
+	public function down_excel(){
+		$search_date = 'cdate';
+		$this->db->select('a.*,b.rel_name as u_name,b.mobile')->from('withdraw a');
+		$this->db->join('users b','a.uid = b.id','left');
+		if($this->input->post('keyword')){
+			$this->db->like('b.rel_name',$this->input->post('keyword'));
+			$this->db->or_like('b.mobile',$this->input->post('keyword'));
+		}
+		if($this->input->post('s_date')){
+			$this->db->where("a.{$search_date} >=",$this->input->post('s_date'));
+		}
 
+		if($this->input->post('e_date')){
+			$this->db->where("a.{$search_date} <=",$this->input->post('e_date')." 23:59:59");
+		}
+		$this->db->where('a.status',$this->input->post('type'));
+		$this->db->where("a.flag",1);
+		$this->db->order_by('a.id','desc');
+		$rs = $this->db->get()->result_array();
+		return $rs;
+	}
 
 
 }
