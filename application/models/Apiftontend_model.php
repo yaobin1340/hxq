@@ -100,4 +100,73 @@ class Apiftontend_model extends MY_Model{
     public function get_area_name($code){
         return $this->db->select('name')->from('area')->where('code',$code)->get()->row_array();
     }
+
+    public function index_loaddata($page=1,$app_uid){
+        $data['limit'] = $this->limit;
+        //获取总记录数
+        $this->db->select('count(1) num')->from('shop');
+
+        if($this->input->post('type')){
+            $this->db->where("type",$this->input->post('type'));
+        }
+        if($this->input->post('province_code')){
+            $this->db->where("province_code",$this->input->post('province_code'));
+        }
+        if($this->input->post('city_code')){
+            $this->db->where("city_code",$this->input->post('city_code'));
+        }
+        if($this->input->post('area_code')){
+            $this->db->where("area_code",$this->input->post('area_code'));
+        }
+        if($this->input->post('shop_name')){
+            $this->db->like("shop_name",$this->input->post('shop_name'));
+        }
+        $this->db->where('status',2);
+//        $this->db->where('shop_id',1); //TODO
+        $num = $this->db->get()->row();
+        $data['total'] = $num->num;
+        $lng = $this->input->post('lng')?$this->input->post('lng'):0;
+        $lat = $this->input->post('lat')?$this->input->post('lat'):0;
+        //搜索条件
+        /*$data['province_code'] = $this->input->post('province_code')?$this->input->post('province_code'):null;
+        $data['city_code'] = $this->input->post('city_code')?$this->input->post('city_code'):null;
+        $data['area_code'] = $this->input->post('area_code')?$this->input->post('area_code'):null;
+        $data['type'] = $this->input->post('type')?$this->input->post('type'):null;
+        $data['lat'] = $this->input->post('lat')?$this->input->post('lat'):0;
+        $data['lng'] = $this->input->post('lng')?$this->input->post('lng'):0;
+        $data['shop_name'] = $this->input->post('shop_name')?$this->input->post('shop_name'):null;*/
+        //获取详细列
+        $this->db->select("*,
+        ROUND(lat_lng_distance({$lat}, {$lng}, lat, lng), 2) AS juli,
+        ",false)->from('shop');
+        $this->db->where('lat <>','');
+        $this->db->where('lng <>','');
+        //$this->db->where('lng is not null');
+        if($this->input->post('type')){
+            $this->db->where("type",$this->input->post('type'));
+        }
+        if($this->input->post('province_code')){
+            $this->db->where("province_code",$this->input->post('province_code'));
+        }
+        if($this->input->post('city_code')){
+            $this->db->where("city_code",$this->input->post('city_code'));
+        }
+        if($this->input->post('area_code')){
+            $this->db->where("area_code",$this->input->post('area_code'));
+        }
+        if($this->input->post('shop_name')){
+            $this->db->like("shop_name",$this->input->post('shop_name'));
+        }
+//        $this->db->where('shop_id',1); //TODO
+        $this->db->where('status',2);
+        $this->db->order_by('juli','asc');
+        $this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
+        $data['items'] = $this->db->get()->result_array();
+        if($this->input->post('area_code') && $app_uid > 0){
+            $this->db->where('id',$app_uid)
+                ->update('users',array('u_area_code'=>$this->input->post('area_code')));
+            // echo $this->db->last_query();
+        }
+        return $data;
+    }
 }

@@ -51,6 +51,17 @@ class Apiftontend extends MY_APIcontroller {
 		die();
 	}
 
+	public function index_loaddata($page=1){
+		$data = $this->Apiftontend_model->index_loaddata($page,$this->app_uid);
+		$rs = array(
+			'success'=>true,
+			'shop_list'=>$data,
+			'error_msg'=>''
+		);
+		echo json_encode($rs);
+		die();
+	}
+
 	public function check_login(){
 		$user = $this->Apiftontend_model->check_login();
 		if($user > 0){
