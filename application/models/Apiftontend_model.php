@@ -169,4 +169,8 @@ class Apiftontend_model extends MY_Model{
         }
         return $data;
     }
+
+    public function get_shop_type(){
+        return $this->db->select()->from('shop_type')->where('status',1)->get()->result_array();
+    }
 }

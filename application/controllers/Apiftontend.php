@@ -47,6 +47,8 @@ class Apiftontend extends MY_APIcontroller {
 			$rs['area_name']=$area_name?$area_name['name']:'';
 			$rs['area_code']=$user_info['u_area_code'];
 		}
+		$shop_type = $this->Apiftontend_model->get_shop_type();
+		$rs['shop_type_list']=$shop_type;
 		echo json_encode($rs);
 		die();
 	}
