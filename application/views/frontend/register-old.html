@@ -1,35 +1,32 @@
-{{include file="../public/header.html"}}
-<link rel="stylesheet" href="../../statics/css/skyregister.css">
+{{include file="./header.html"}}
 <div class="am-g">
-    <header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
-        <span class="register_header_title">会员注册</span>
-        <a href="{{site_url url='frontend'}}"><span class="am-icon-chevron-left register_header_back"></span></a>
-    </header>
-    <img class="sky_register_logo" src="../../statics/images/orderdetails_logo_icon.png"><br>
     <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered"><br>
-        <form class="am-form" data-am-validator action="" method="post">
+        <form class="am-form" data-am-validator action="/frontend/register" method="post">
             <div class="am-form-group am-form-icon">
                 <i class="am-icon-mobile-phone"></i>
-                <input type="number" style="border-radius: 10px;" id="doc-vld-phone-2"  name="mobile" class="am-form-field js-pattern-number am-form-mobile sky_register_border" placeholder="请输入你的手机号(11位)" required />
+                <input type="number" id="doc-vld-phone-2"  name="mobile" class="am-form-field js-pattern-number am-form-mobile" placeholder="请输入你的手机号(11位)" required />
             </div>
             <div class="get_yzm_all">
                 <div class="am-form-group">
-                    <input type="number"  name="yzm" id="doc-vld-yanzhengma-2" class="am-form-field js-pattern-number sky_register_yzm" style="width: 60%; height: 50px; position:absolute;left:12px;right:100px;border-radius: 10px;" placeholder="请输入验证码" required/>
+                    <input type="number" name="yzm" id="doc-vld-yanzhengma-2" class="am-form-field js-pattern-number am-form-yzm" style="width: 60%; height: 50px; position:absolute;left:12px;right:100px" placeholder="请输入验证码" required/>
                 </div>
                 <a href="javascript:;" onclick="get_yzm(this)" id="get_yzm">
                     <input class="am-btn-secondary get_btn_yzm" type="button" value="获取验证码" >
                 </a>
             </div>
+
             <button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block am-btn-next">下一步</button>
-            <div class="am-form-group sky_register_xieyi">
+
+            <div class="am-form-group" style="margin-top: 5px;" >
                 <label class="am-checkbox-inline">
-                    <input class="sky_register_xieyi_input" type="checkbox" name="agree" required>
-                    <span class="sky_register_xieyi_agree" data-am-modal="{target: '#my-popup'}">同意
-                         <span  class="checkbox_agreement">《三客柚用户注册协议》</span>
+                    <input type="checkbox" name="agree" required style="width: 16px;height: 16px;">
+                     <span data-am-modal="{target: '#my-popup'}" style="font-size: 13px;">同意
+                         <span class="checkbox_agreement">《三客柚用户注册协议》</span>
                      </span>
                 </label>
-                <span class="checkbox_zhanghaoed">有账号？<a href="{{site_url url='/frontend/login'}}"><span class="span2">登陆</span></a></span>
+                <span class="checkbox_zhanghaoed">有账号？<a href="{{site_url url='/frontend/login'}}"><span class="span2" style="font-size: 16px;">登陆</span></a></span>
             </div>
+
             <div class="am-popup" id="my-popup">
                 <div class="am-popup-inner">
                     <div class="am-popup-hd">
@@ -200,12 +197,14 @@
                         <p>14.6 葵花籽：是指商家公益让利资金通过三客柚平台再次分配时激励的计算单位，1颗葵花籽价值等于1元人民币。</p>
                         <p>14.7 向日葵：是指平台给予特使和商家的激励权限，特使在同一系列的联盟商家累积消费到500元，即可获得1颗向日葵，商家对特使的营业额累积达到500元，即可获得1颗向日葵。</p>
                         <p>14.8 三客柚对本协议拥有最终解释权。</p>
+
                     </div>
                 </div>
             </div>
         </form>
     </div>
 </div>
+
 <script>
     window.wait = 90
     function get_yzm(obj){
@@ -243,4 +242,6 @@
         }
     }
 </script>
+</body>
+</html>
 

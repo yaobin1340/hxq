@@ -1,132 +1,77 @@
-<!doctype html>
-<html class="no-js">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>会员中心</title>
-    <meta name="description" content="这是一个 index 页面">
-    <meta name="renderer" content="webkit">
-    <meta name="keywords" content="index">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed"
-          href="{{$base_url}}statics/amaze/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet"
-          href="{{$base_url}}statics/amaze/css/amazeui.min.css" />
-    <link rel="stylesheet" href="{{$base_url}}statics/amaze/css/admin.css">
-    <link rel="stylesheet" href="{{$base_url}}statics/css/stylecss.css">
-    <link rel="stylesheet" href="{{$base_url}}statics/css/usercss.css">
-    <!--[if lt IE 9]>
-    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-    <script src="{{$base_url}}assets/js/polyfill/rem.min.js"></script>
-    <script src="{{$base_url}}assets/js/polyfill/respond.min.js"></script>
-    <script src="{{$base_url}}assets/js/amazeui.legacy.js"></script>
-    <![endif]-->
-
-    <!--[if (gte IE 9)|!(IE)]><!-->
-    <script src="{{$base_url}}statics/amaze/js/jquery.min.js"></script>
-    <script src="{{$base_url}}statics/amaze/js/amazeui.js"></script>
-    <!--<![endif]-->
-    <script src="{{$base_url}}statics/amaze/js/app.js"></script>
-
-    <script src="{{$base_url}}statics/js/common.js"></script>
-
-</head>
-<body class="user_center_body" style="overflow: auto;">
-<div style="padding-bottom:20px;">
- <div class="header_center">
-    <img src="{{$base_url}}statics/images/userimg.png">
-    <div class="header_photo">
-        <a href="{{site_url url='frontend/register_shop'}}" class="header_shop">
-            <!--<div><img src="{{$base_url}}statics/images/enter.png" style="width: 40px;height: 40px;margin-top: 18px;margin-right: 2px;"></div>-->
-            {{if $user_info.shop_id < 1}}
-            <div style="color:#ffffff;float: right;height: 20px;margin-right: 10px;font-size: 13px;margin-top: 5px;font-weight: bold;">商家入驻<span class="am-icon-chevron-right" style="font-size: 12px;margin-left: 5px;"></span></div>
-            {{/if}}
+{{include file="../public/header.html"}}
+<link rel="stylesheet" href="../../statics/css/usercenter.css">
+<body class="user_center_body_all">
+<header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
+    <span class="register_header_title">个人中心</span>
+    <a href="#"><span class="am-icon-chevron-left register_header_back"></span></a>
+</header>
+<section>
+    <div class="header_center">
+        <img src="../../statics/images/userimg.png">
+        <div class="header_photo">
+            <div class="header_photo_user">
+                <img src="../../statics/images/user.jpg">
+            </div>
+            <div class="user_center_user_id">
+                周小婷<span>(ID:4533)</span>
+                <div class="header_photo_user_name">普通用户</div>
+            </div>
+        </div>
+    </div>
+    <table class="shop_index_section_table" border="0">
+        <tr>
+            <td class="td_border">
+                <span>126</span><br>
+                <span>葵花籽</span>
+            </td>
+            <td class="td_border">
+                <span>126</span><br>
+                <span>向日葵</span>
+            </td>
+            <td class="td_border">
+                <span><img src="../../statics/images/personalcenter_icons_merchant.png"></span><br>
+                <span>成为商家</span>
+            </td>
+        </tr>
+    </table>
+    <div class="shop_index_section_content_all">
+        <a href="#">
+            <div class="shop_index_section_content_list">
+                <span class="user_center_list_name">账户管理</span>
+                <span class="user_center_list_right">></span>
+            </div>
         </a>
-        <div class="header_photo_user">
-            <img {{if $user_info.face}}src="{{$base_url}}upload/face/{{$user_info.face}}"{{else}}src="{{$base_url}}statics/images/logo.jpg"{{/if}}">
-        </div>
-        {{if $user_info.id == 1341}}
-            <div class="header_photo_user_name">市级代理</div>
-        {{else}}
-            {{if $user_info.is_dl == 1}}
-            <div class="header_photo_user_name">普通用户</div>
-            {{else if $user_info.is_dl == 2}}
-            <div class="header_photo_user_name">服务商</div>
-            {{else if $user_info.is_dl == 3}}
-            <div class="header_photo_user_name">联合服务商</div>
-            {{else if $user_info.is_dl == 4}}
-            <div class="header_photo_user_name">市级代理</div>
-            {{else}}
-            <div class="header_photo_user_name">省级代理</div>
-            {{/if}}
-        {{/if}}
+        <a href="#">
+            <div class="shop_index_section_content_list">
+                <span class="user_center_list_name">资金管理</span>
+                <span class="user_center_list_right">></span>
+            </div>
+        </a>
+        <a href="#">
+            <div class="shop_index_section_content_list">
+                <span class="user_center_list_name">我的订单</span>
+                <span class="user_center_list_right">></span>
+            </div>
+        </a>
+        <a href="#">
+            <div class="shop_index_section_content_list">
+                <span class="user_center_list_name">我的向日葵</span>
+                <span class="user_center_list_right">></span>
+            </div>
+        </a>
+        <a href="#">
+            <div class="shop_index_section_content_list">
+                <span class="user_center_list_name">我的收益</span>
+                <span class="user_center_list_right">></span>
+            </div>
+        </a>
+        <a href="#">
+            <div class="shop_index_section_content_list">
+                <span class="user_center_list_name">我的团队</span>
+                <span class="user_center_list_right">></span>
+            </div>
+        </a>
     </div>
-    <div class="header_font">
-       <span class="header_font_1">
-           你好，{{$user_info.rel_name}}(ID:{{$user_info.id}})
-       </span><br>
-        <span class="header_font_2">
-            <span><img src="{{$base_url}}statics/images/zhongzi.png" style="width: 20px;height: 20px;margin-top: -5px;"></span>总计：{{$user_info.integral/100}}&nbsp;&nbsp; <span><img src="{{$base_url}}statics/images/sunflowerlogo.png" style="width: 20px;height: 20px;margin-top: -5px;"></span>总计：{{$sum_count|default:0}}</span>
-    </div>
-</div>
-<div class="list" style="">
-    <a style="color: #696969" href="{{site_url url='user/information_revise'}}">
-        <div class="list_back">
-                <span class="am-icon-cogs list_bac_name">&nbsp;&nbsp;账户管理</span>
-                <span class="list_bac_jiantou" >></span>
-        </div>
-    </a>
-    <a style="color: #696969" href="{{site_url url='user/withdraw'}}">
-        <div class="list_back">
-            &nbsp;<span class="am-icon-credit-card list_bac_name">&nbsp;&nbsp;资金管理</span>
-            <span class="list_bac_jiantou">></span>
-        </div>
-    </a>
-    <br>
-
-    {{if $user_info.shop_id > 0}}
-    <a style="color: #696969" href="{{site_url url='shop'}}">
-        <div class="list_back" >
-            &nbsp;<span class="am-icon-building-o list_bac_name">&nbsp;&nbsp;我的商家</span>
-            <span class="list_bac_jiantou" >></span>
-        </div>
-    </a>
-    {{/if}}
-    <a style="color: #696969" href="{{site_url url='user/list_orders'}}">
-        <div class="list_back" >
-            &nbsp;<span class="am-icon-cart-plus list_bac_name">&nbsp;&nbsp;我的订单</span>
-            <span class="list_bac_jiantou" >></span>
-        </div>
-    </a>
-
-    <a style="color: #696969" href="{{site_url url='user/user_heart'}}">
-        <div class="list_back" >
-            &nbsp;<span class="am-icon-sun-o list_bac_name">&nbsp;&nbsp;我的向日葵</span>
-            <span class="list_bac_jiantou" >></span>
-        </div>
-    </a>
-
-    <a style="color: #696969" href="{{site_url url='user/my_income'}}">
-        <div class="list_back" >
-            &nbsp;<span class="am-icon-line-chart list_bac_name">&nbsp;&nbsp;我的收益</span>
-            <span class="list_bac_jiantou" >></span>
-        </div>
-    </a>
-
-    <a style="color: #696969" href="{{site_url url='user/my_team'}}">
-        <div class="list_back" >
-            &nbsp;<span class="am-icon-users list_bac_name">&nbsp;&nbsp;我的团队</span>
-            <span class="list_bac_jiantou" >></span>
-        </div>
-    </a>
-
-    <div style="width: 100%;margin: 0 auto;margin-top: 30px;text-align: center">
-        <a href="{{site_url url='frontend/logout'}}"><button class="am-btn am-btn-danger" style="width: 98%;">退出登录</button></a>
-    </div>
-</div>
- {{include file="../public/footer.html"}}
-</body>
+    <button class="shop_index_section_btn">退出登录</button>
+</section>
+{{include file="../public/footer.html"}}

@@ -164,6 +164,23 @@ class Frontend extends MY_Controller {
         $this->assign('city', $city);
         $this->assign('area', $area);
         $this->assign('shop_type', $shop_type);
+        $sessionUser = $this->frontend_model->getSessionUser($uid);
+        $this->load->model('user_model');
+        $user_info = $this->user_model->find($this->session->userdata('uid'));
+        $this->assign('user_info', $user_info);
+        $this->assign('sessionUser', $sessionUser);
+        $this->load->model('shop_model');
+        $conditionFields = array();
+        $conditionFields['uid'] = $uid;
+        $userShop = $this->shop_model->queryContent($conditionFields);
+        if($userShop){
+            $userShop = $userShop[0];
+            $this->assign('shop', $userShop);
+        }else{
+            $this->assign('shop',array());
+        }
+        $this->display('frontend/register_shop.html');
+        die;
 	    if($uid = $this->session->userdata('uid')){
 	        $sessionUser = $this->frontend_model->getSessionUser($uid);
             $this->load->model('user_model');
