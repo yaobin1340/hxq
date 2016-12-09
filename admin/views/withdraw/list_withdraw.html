@@ -1,4 +1,5 @@
 <!-- content start -->
+<script src="/statics/js/My97DatePicker/WdatePicker.js"></script>
 <div class="admin-content">
 
     <div class="am-cf am-padding">
@@ -12,16 +13,30 @@
 
         <form method="post" action="{{site_url url='withdraw/list_withdraw'}}/{{$status}}/1" class="search_form">
 
-            <div class="am-u-sm-12 am-u-md-3">
+            <div class="am-u-sm-12 am-u-md-8">
                 <div class="am-input-group am-input-group-sm">
                     <input type="hidden" name="type" value="{{$data.status}}">
                     <input style="width: 210px;height: 40px;" type="text" class="am-form-field" name="keyword" value="{{$data.keyword}}" placeholder="请输入会员名称或手机号">
-                    <span class="am-input-group-btn">
-                        <input style="margin-left: 10px;height: 40px;" type="submit" class="am-btn am-btn-default" value="搜索"/>
+                </div>
+                <div class="am-input-group am-input-group-sm" style="margin-top: 15px;">
+                   申请时间:
+                    <input style="height: 40px;width: 180px"  class="form-control" id="s_date" name="s_date" type="text" value="{{$data.s_date|default:''}}"
+                           onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'yyyy-MM-dd'})">——
+                    <input style="height: 40px;width: 180px"  class="form-control" id="e_date" name="e_date" type="text" value="{{$data.e_date|default:''}}"
+                           onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'yyyy-MM-dd'})">
+                    <span class="am-input-group-btn" style="float: right;">
+                         <input style="height: 40px;" type="submit" class="am-btn am-btn-default" value="搜索"/>
+                         <input style="margin-left: 10px;height: 40px;" id="excel_btn" type="button" class="am-btn am-btn-primary" value="excel导出"/>
                     </span>
                 </div>
             </div>
 
+        </form>
+        <form id="excel_form" method="post" action="{{site_url url='withdraw/down_excel'}}">
+            <input type="hidden" name="type" value="{{$data.status}}">
+            <input type="hidden" name="keyword" value="{{$data.keyword}}">
+            <input type="hidden" name="s_date" value="{{$data.s_date}}">
+            <input type="hidden" name="e_date" value="{{$data.e_date}}">
         </form>
     </div>
     <div class="am-g">
@@ -29,15 +44,15 @@
             <table class="am-table am-table-striped am-table-hover table-main">
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>编码</th>
+                    <th>申请时间</th>
                     <th>会员账户姓名</th>
                     <th>会员账户手机</th>
-                    <th>开户名</th>
+                  <th>开户名</th>
                     <!--  <th>开户银行</th>
                     <th>银行账户</th>
                     <th>具体支行名字</th>-->
                     <th>实际提现金额</th>
-                    <th>申请时间</th>
                     {{if $data.status != 1}}<th>审核时间</th>{{/if}}
                     <th>类别</th>
                     <th>操作</th>
@@ -47,14 +62,12 @@
                 {{foreach from=$data.items key=key item=item}}
                 <tr>
                     <td>{{$item.id}}</td>
-                    <td><a>{{$item.u_name}}</a></td>
+                    <td><a>{{$item.cdate}}</a></td>
+                    <td><a>{{$item.uid}}</a></td>
                     <td><a>{{$item.mobile}}</a></td>
                     <td><a>{{$item.rel_name}}</a></td>
-                    <!-- <td><a>{{$item.bank}}</a></td>
-                     <td><a>{{$item.bank_no}}</a></td>
-                     <td><a>{{$item.bank_branch}}</a></td>-->
                     <td><a>{{($item.money/100)-($item.sxf/100)}}元</a></td>
-                    <td><a>{{$item.cdate}}</a></td>
+
                     {{if $data.status != 1}}<td><a>{{$item.adate}}</a></td>{{/if}}
                     <td><a>
                         {{if $item.flag == 1}}银行卡提现{{/if}}
@@ -76,5 +89,10 @@
 
     </div>
 </div>
+<script>
+    $("#excel_btn").click(function(){
+        $("#excel_form").submit();
+    })
+</script>
 <!-- content end -->
 
