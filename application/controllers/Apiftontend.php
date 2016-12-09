@@ -56,7 +56,7 @@ class Apiftontend extends MY_APIcontroller {
 		$data = $this->Apiftontend_model->index_loaddata($page,$this->app_uid);
 		$rs = array(
 			'success'=>true,
-			'shop_list'=>$data,
+			'shop_list'=>$data['items'],
 			'error_msg'=>''
 		);
 		echo json_encode($rs);
