@@ -44,8 +44,14 @@ class Apiftontend extends MY_APIcontroller {
 		$user_info = $this->apiuser_model->find($this->app_uid);
 		if($user_info){
 			$area_name = $this->Apiftontend_model->get_area_name($user_info['u_area_code']?$user_info['u_area_code']:null);
-			$rs['area_name']=$area_name?$area_name['name']:'';
-			$rs['area_code']=$user_info['u_area_code'];
+			if($area_name){
+				$rs['area_name']=$area_name?$area_name['name']:'';
+				$rs['area_code']=$user_info['u_area_code'];
+			}else{
+				$u_area = $this->nearcity($this->input->post('lat'),$this->input->post('lng'));
+				$rs['area_name'] = $u_area['name'];
+				$rs['area_code'] = $u_area['code'];
+			}
 		}
 		$shop_type = $this->Apiftontend_model->get_shop_type();
 		$rs['shop_type_list']=$shop_type;
@@ -285,5 +291,25 @@ class Apiftontend extends MY_APIcontroller {
 		}
 		echo json_encode($rs);
 		die();
+	}
+	public function nearcity($lat=0,$lng=0){
+		$default = array(
+			'code'=>'310101',
+			'name'=>'黄浦区'
+		);
+		$res = file_get_contents("http://api.map.baidu.com/geocoder?location={$lat},{$lng}&output=xml&key=28bcdd84fae25699606ffad27f8da77b");//百度API
+		$xml = simplexml_load_string($res);
+
+		if($xml->status=='OK'){
+			$data = $this->Apiftontend_model->nearcity($xml->result->addressComponent->district);
+			if($data){
+				return $data;
+			}else{
+				return $default;
+			}
+		}else{
+			return $default;
+		}
+
 	}
 }

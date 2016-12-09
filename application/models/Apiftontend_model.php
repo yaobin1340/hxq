@@ -173,4 +173,8 @@ class Apiftontend_model extends MY_Model{
     public function get_shop_type(){
         return $this->db->select()->from('shop_type')->where('status',1)->get()->result_array();
     }
+
+    public function nearcity($area_name){
+        return $this->db->select('name,code')->from('area')->where('name',$area_name)->get()->row_array();
+    }
 }
