@@ -52,6 +52,10 @@ class Apiftontend extends MY_APIcontroller {
 				$rs['area_name'] = $u_area['name'];
 				$rs['area_code'] = $u_area['code'];
 			}
+		}else{
+			$u_area = $this->nearcity($this->input->post('lat'),$this->input->post('lng'));
+			$rs['area_name'] = $u_area['name'];
+			$rs['area_code'] = $u_area['code'];
 		}
 		$shop_type = $this->Apiftontend_model->get_shop_type();
 		$rs['shop_type_list']=$shop_type;
