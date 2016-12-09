@@ -44,7 +44,7 @@ class Apiftontend extends MY_APIcontroller {
 		$user_info = $this->apiuser_model->find($this->app_uid);
 		if($user_info){
 			$area_name = $this->Apiftontend_model->get_area_name($user_info['u_area_code']?$user_info['u_area_code']:null);
-			$rs['area_name']=$area_name;
+			$rs['area_name']=$area_name?$area_name['name']:'';
 			$rs['area_code']=$user_info['u_area_code'];
 		}
 		echo json_encode($rs);
