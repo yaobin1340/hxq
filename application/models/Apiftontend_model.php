@@ -96,4 +96,8 @@ class Apiftontend_model extends MY_Model{
         if($city_code) $this->db->where('citycode',$city_code);
         return $this->db->get()->result_array();
     }
+
+    public function get_area_name($code){
+        return $this->db->select('name')->from('area')->where('code',$code)->get()->row_array();
+    }
 }
