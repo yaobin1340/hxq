@@ -44,7 +44,8 @@
             <table class="am-table am-table-striped am-table-hover table-main">
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>编码</th>
+                    <th>申请时间</th>
                     <th>会员账户姓名</th>
                     <th>会员账户手机</th>
                   <th>开户名</th>
@@ -52,7 +53,6 @@
                     <th>银行账户</th>
                     <th>具体支行名字</th>-->
                     <th>实际提现金额</th>
-                    <th>申请时间</th>
                     {{if $data.status != 1}}<th>审核时间</th>{{/if}}
                     <th>类别</th>
                     <th>操作</th>
@@ -62,14 +62,12 @@
                 {{foreach from=$data.items key=key item=item}}
                 <tr>
                     <td>{{$item.id}}</td>
-                    <td><a>{{$item.u_name}}</a></td>
+                    <td><a>{{$item.cdate}}</a></td>
+                    <td><a>{{$item.uid}}</a></td>
                     <td><a>{{$item.mobile}}</a></td>
                     <td><a>{{$item.rel_name}}</a></td>
-                   <!-- <td><a>{{$item.bank}}</a></td>
-                    <td><a>{{$item.bank_no}}</a></td>
-                    <td><a>{{$item.bank_branch}}</a></td>-->
                     <td><a>{{($item.money/100)-($item.sxf/100)}}元</a></td>
-                    <td><a>{{$item.cdate}}</a></td>
+
                     {{if $data.status != 1}}<td><a>{{$item.adate}}</a></td>{{/if}}
                     <td><a>
                         {{if $item.flag == 1}}银行卡提现{{/if}}

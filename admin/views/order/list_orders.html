@@ -8,8 +8,8 @@
             {{if $data.status == 2}}订单审核{{/if}}
             {{if $data.status == 1}}未提交订单{{/if}}
             {{if $data.status == -1}}已拒绝订单{{/if}}<br/>
-            昨日审核营业额:{{$data.ysday_sum/100}}元;
-            今日审核营业额:{{$data.today_sum/100}}元
+            昨日营业额:{{$data.ysday_sum/100}}元;
+            今日营业额:{{$data.today_sum/100}}元
 
             </strong></div>
     </div>
@@ -43,13 +43,12 @@
             <table class="am-table am-table-striped am-table-hover table-main">
                 <thead>
                 <tr>
-                    <th>订单ID</th>
+                    {{if $data.status != 1}}<th>申请时间</th>{{/if}}
                     <th>商家名称</th>
                     <th>总金额</th>
                     <th>需支付</th>
                     <th>订单数</th>
                     <th>起始时间</th>
-                    {{if $data.status != 1}}<th>申请时间</th>{{/if}}
                     {{if $data.status != 1}}<th>审核时间</th>{{/if}}
                     <th>状态</th>
                     <th>操作</th>
@@ -58,13 +57,13 @@
                 <tbody>
                 {{foreach from=$data.items key=key item=item}}
                 <tr>
-                    <td><a>{{$item.id}}</a></td>
+                    {{if $data.status != 1}}<td><a>{{$item.sdate}}</a></td>{{/if}}
                     <td><a>{{$item.shop_name}}</a></td>
                     <td><a>{{$item.total/100}}</a></td>
                     <td><a>{{$item.total*$item.percent/10000}}</a></td>
                     <td><a>{{$item.num}}</a></td>
                     <td><a>{{$item.cdate}}</a></td>
-                    {{if $data.status != 1}}<td><a>{{$item.sdate}}</a></td>{{/if}}
+
                     {{if $data.status != 1}}<td><a>{{$item.adate}}</a></td>{{/if}}
                     <td><a>{{if $item.status == 3}}<font color="green">已完成</font>{{else if $item.status == 2}}<font color="red">待审核</font>{{else if $item.status == 1}}<font color="#9acd32">待提交</font>{{else}}<font color="red">已拒绝</font>{{/if}}</a></td>
 
