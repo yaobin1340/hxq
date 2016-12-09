@@ -1,5 +1,6 @@
 {{include file="../public/header.html"}}
 <link rel="stylesheet" href="/statics/css/merchantssettled.css">
+<link rel="stylesheet" href="/statics/css/webuploader.css">
 <body>
 <div class="body_all">
     <header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
@@ -22,16 +23,11 @@
             </div>
             <div class="am-form-group am-form-icon merchants_settled_information">
                 <i class="am-icon-user"></i>
-                <input id="merchants_settled_information_input_1" type="text" name="shop_name" {{if
-                       $shop}}value="{{$shop.shop_name}}" {{/if}} class="am-form-field user_add_phone
-                merchants_settled_information_input disabled" placeholder="请输入商家名称" required />
+                <input id="merchants_settled_information_input_1" type="text" name="shop_name" {{if $shop}}value="{{$shop.shop_name}}" {{/if}} class="am-form-field user_add_phone merchants_settled_information_input disabled" placeholder="请输入商家名称" required />
             </div>
             <div class="am-form-group am-form-icon merchants_settled_information">
                 <i class="am-icon-tag"></i>
-                <input id="merchants_settled_information_input_2" type="text" name="parent_flag" {{if $shop &&
-                       $shop.parent_mobile}}value="{{$shop.parent_mobile}}"
-                       {{else}}value="{{$user_info.parent_id|default:''}}" {{/if}} class="am-form-field user_add_phone"
-                placeholder="请输入邀请人电话或id（必填）" onblur="get_name_by_keywords(this)" required/>
+                <input id="merchants_settled_information_input_2" type="text" name="parent_flag" {{if $shop && $shop.parent_mobile}}value="{{$shop.parent_mobile}}" {{else}}value="{{$user_info.parent_id|default:''}}" {{/if}} class="am-form-field user_add_phone" placeholder="请输入邀请人电话或id（必填）" onblur="get_name_by_keywords(this)" required/>
             </div>
             <div class="am-input-group merchants_settled_information">
                 <select id="shop_type" name="type" class="am-form-select">
@@ -55,32 +51,22 @@
             </div>
             <div class="am-form-group am-form-icon merchants_settled_information">
                 <i class="am-icon-map-marker"></i>
-                <input id="merchants_settled_information_input_3" type="text" name="address" {{if
-                       $shop}}value="{{$shop.address}}" {{/if}} class="am-form-field user_add_phone"
-                placeholder="请输入详细地址" required />
+                <input id="merchants_settled_information_input_3" type="text" name="address" {{if $shop}}value="{{$shop.address}}" {{/if}} class="am-form-field user_add_phone" placeholder="请输入详细地址" required />
             </div>
             <div class="am-form-group am-form-icon merchants_settled_information">
                 <i class="am-icon-phone"></i>
-                <input id="merchants_settled_information_input_4" type="text" name="person" {{if
-                       $shop}}value="{{$shop.person}}" {{/if}} class="am-form-field user_add_phone"
-                placeholder="请输入联系电话" required/>
+                <input id="merchants_settled_information_input_4" type="text" name="person" {{if $shop}}value="{{$shop.person}}" {{/if}} class="am-form-field user_add_phone" placeholder="请输入联系电话" required/>
             </div>
             <div class="am-form-group am-form-icon merchants_settled_information">
                 <i class="am-icon-clock-o"></i>
-                <input id="merchants_settled_information_input_5" type="text" name="business_time" {{if
-                       $shop}}value="{{$shop.business_time}}" {{/if}} class="am-form-field user_add_phone"
-                placeholder="请输入营业时间(8:00~21:00)" required />
+                <input id="merchants_settled_information_input_5" type="text" name="business_time" {{if $shop}}value="{{$shop.business_time}}" {{/if}} class="am-form-field user_add_phone" placeholder="请输入营业时间(8:00~21:00)" required />
             </div>
             <div class="am-input-group merchants_settled_map">
                 <span class="merchants_settled_map_img"><img src="../../statics/images/businesssettledin_icon_map.png"></span>
                 <button type="button" class="am-btn am-btn-secondary am-btn-block" id="open_map">腾讯地图
                 </button>
-                <input id="merchants_settled_information_input_6" required readonly="readonly" type="text" {{if
-                       $shop}}value="{{$shop.lat}}" {{/if}} class="am-form-field am-u-sm-4" placeholder="请输入纬度"
-                id="data_lat" name="lat">
-                <input id="merchants_settled_information_input_7" required readonly="readonly" type="text" {{if
-                       $shop}}value="{{$shop.lng}}" {{/if}} class="am-form-field am-u-sm-4" placeholder="请输入经度"
-                id="data_lng" name="lng">
+                <input id="merchants_settled_information_input_6" required  type="text" class="am-form-field am-u-sm-4" placeholder="请输入纬度" id="data_lat" name="lat" readonly>
+                <input id="merchants_settled_information_input_7" required type="text" {{if $shop}}value="{{$shop.lng}}" {{/if}} class="am-form-field am-u-sm-4" placeholder="请输入经度" id="data_lng" name="lng" readonly>
             </div>
             <div class="am-form-group am-form-file upload_img_all">
                 <input id="license" type="file" accept="image/*" capture=camera"/>
@@ -144,12 +130,22 @@
     </section>
 </div>
 
+
+
+
+<div id="uploader-demo">
+    <!--用来存放item-->
+    <div id="fileList" class="uploader-list"></div>
+    <div id="filePicker">选择图片</div>
+</div>
+
+
 <!--腾讯地图-->
 
 <div class="am-popup" id="baidu_map" style="display: none;">
     <div class="am-popup-inner">
         <div class="am-popup-hd">
-            <h4 class="am-popup-title">...</h4>
+            <h4 class="am-popup-title">腾讯地图</h4>
           <span data-am-modal-close
                 class="am-close">&times;</span>
         </div>
@@ -160,6 +156,7 @@
 </div>
 
 <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+<script charset="utf-8" src="/statics/js/webuploader.min.js"></script>
 
 <script>
     $("#open_map").click(function(){
@@ -174,7 +171,9 @@
         // 接收位置信息，用户选择确认位置点后选点组件会触发该事件，回传用户的位置信息
         var loc = event.data;
         if (loc && loc.module == 'locationPicker') {//防止其他应用也会向该页面post信息，需判断module是否为'locationPicker'
-            console.log('location', loc);
+            $("[name='lat']").val(loc.latlng.lat)
+            $("[name='lng']").val(loc.latlng.lng)
+            $("#baidu_map").modal('close');
         }
     }, false);
 </script>
