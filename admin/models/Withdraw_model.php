@@ -48,6 +48,7 @@ class Withdraw_model extends MY_Model
 
 	public function list_withdraw($page,$status)
 	{
+		$search_date = 'cdate';
 		$data['limit'] = $this->limit;
 		//获取总记录数
 		$this->db->select('count(1) num')->from('withdraw a');
@@ -56,6 +57,13 @@ class Withdraw_model extends MY_Model
 			$this->db->like('b.rel_name',$this->input->post('keyword'));
 			$this->db->or_like('b.mobile',$this->input->post('keyword'));
 		}
+		if($this->input->post('s_date')){
+			$this->db->where("a.{$search_date} >=",$this->input->post('s_date'));
+		}
+
+		if($this->input->post('e_date')){
+			$this->db->where("a.{$search_date} <=",$this->input->post('e_date')." 23:59:59");
+		}
 		$this->db->where('a.status',$status);
 		$num = $this->db->get()->row();
 		$data['total'] = $num->num;
@@ -63,12 +71,21 @@ class Withdraw_model extends MY_Model
 		//搜索条件
 		$data['status'] = $status?$status:null;
 		$data['keyword'] = $this->input->post('keyword')?$this->input->post('keyword'):null;
+		$data['s_date'] = $this->input->post('s_date')?$this->input->post('s_date'):null;
+		$data['e_date'] = $this->input->post('e_date')?$this->input->post('e_date'):null;
 		//获取详细列
 		$this->db->select('a.*,b.rel_name as u_name,b.mobile')->from('withdraw a');
 		$this->db->join('users b','a.uid = b.id','left');
 		if($this->input->post('keyword')){
 			$this->db->like('b.rel_name',$this->input->post('keyword'));
 			$this->db->or_like('b.mobile',$this->input->post('keyword'));
+		}
+		if($this->input->post('s_date')){
+			$this->db->where("a.{$search_date} >=",$this->input->post('s_date'));
+		}
+
+		if($this->input->post('e_date')){
+			$this->db->where("a.{$search_date} <=",$this->input->post('e_date')." 23:59:59");
 		}
 		$this->db->where('a.status',$status);
 		$this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
@@ -89,6 +106,27 @@ class Withdraw_model extends MY_Model
 		return $this->db->get()->row_array();
 	}
 
+	public function down_excel(){
+		$search_date = 'cdate';
+		$this->db->select('a.*,b.rel_name as u_name,b.mobile')->from('withdraw a');
+		$this->db->join('users b','a.uid = b.id','left');
+		if($this->input->post('keyword')){
+			$this->db->like('b.rel_name',$this->input->post('keyword'));
+			$this->db->or_like('b.mobile',$this->input->post('keyword'));
+		}
+		if($this->input->post('s_date')){
+			$this->db->where("a.{$search_date} >=",$this->input->post('s_date'));
+		}
+
+		if($this->input->post('e_date')){
+			$this->db->where("a.{$search_date} <=",$this->input->post('e_date')." 23:59:59");
+		}
+		$this->db->where('a.status',$this->input->post('type'));
+		$this->db->where("a.flag",1);
+		$this->db->order_by('a.id','desc');
+		$rs = $this->db->get()->result_array();
+		return $rs;
+	}
 
 
 
