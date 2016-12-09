@@ -51,7 +51,8 @@ class Apiftontend extends MY_APIcontroller {
 		die();
 	}
 
-	public function index_loaddata($page=1){
+	public function index_loaddata(){
+		$page = $this->input->post('page')?$this->input->post('page'):1;
 		$data = $this->Apiftontend_model->index_loaddata($page,$this->app_uid);
 		$rs = array(
 			'success'=>true,
