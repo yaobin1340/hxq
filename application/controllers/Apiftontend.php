@@ -257,7 +257,7 @@ class Apiftontend extends MY_APIcontroller {
 	public function test(){
 		$dataall = $this->input->post();
 		$dataall['time'] = date('Y-m-d H:i:s',time());
-		$dataall['file'] = $_FILES['img_input'];
+		$dataall['file'] = $_FILES;
 		$open=fopen('/var/yy.txt',"a" );
 		fwrite($open,var_export($dataall,true));
 		fclose($open);
