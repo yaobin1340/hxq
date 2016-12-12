@@ -32,6 +32,22 @@ class Apiftontend extends MY_APIcontroller {
 		}
 	}
 
+	public function token_check(){
+		if($this->app_uid==0){
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'token无效'
+			);
+		}else{
+			$rs = array(
+				'success'=>true,
+				'error_msg'=>''
+			);
+		}
+		echo json_encode($rs);
+		die();
+	}
+
 	public function index()
 	{
 		$rs = array(
