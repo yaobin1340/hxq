@@ -1,9 +1,6 @@
 {{include file="../public/header.html"}}
-<link rel="stylesheet" href="../../statics/css/datacenter.css">
-<link rel="stylesheet" href="../../statics/css/datacontent1.css">
-<link rel="stylesheet" href="../../statics/css/datacontent2.css">
-<link rel="stylesheet" href="../../statics/css/datacontent3.css">
-<body class="beijing">
+<link rel="stylesheet" href="../../statics/css/text3.css">
+<body class="beijing" style="z-index: 5;">
 <div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{&quot;directionNav&quot;:false}' >
     <ul class="am-slides">
         <li>
@@ -15,37 +12,35 @@
                 <div class="center">
                     <div class="center-left">
                         <div class="wenzi3">待捐款</div>
-                        <div class="wenzi4">5666</div>
+                        <div class="wenzi4">{{($jukuan.djk.total|default:0)/100}}</div>
                         <div class="wenzi5">上个捐款日捐款</div>
-                        <div class="wenzi6">2016-11-25</div>
-                        <div class="wenzi7">12345</div>
+                        <div class="wenzi6">{{$jukuan.zjjk.date|default:'--'}}</div>
+                        <div class="wenzi7">{{($jukuan.zjjk.total|default:0)/100}}</div>
                         <div class="wenzi8">累计捐款</div>
-                        <div class="wenzi9">123456</div>
+                        <div class="wenzi9">{{($jukuan.zjk.total|default:0)/100}}</div>
                     </div>
                 </div>
             </div>
 
         </li>
         <li>
-
             <div class="main-data2">
                 <div class="top-data2">
                     <p class="top-one-data2">联盟客户向日葵日值</p>
-                    <p class="top-two-data2">2016-12-11</p>
+                    <p class="top-two-data2">{{if $data}}{{$data.date}}{{/if}}</p>
                 </div>
                 <div class="center-data2">
-
                     <div class="center-left-data2">
                         <p>
-                            <span class="wenzi3-data2">333</span>&nbsp;&nbsp;
+                            <span class="wenzi3-data2">{{if $data}}{{$data.ax6_price/100}}{{/if}}</span>&nbsp;&nbsp;
                             <span class="wenzi4-data2">3333</span>
                         </p>
                         <p>
-                            <span class="wenzi5-data2">666</span>&nbsp;&nbsp;
+                            <span class="wenzi5-data2">{{if $data}}{{$data.ax12_price/100}}{{/if}}</span>&nbsp;&nbsp;
                             <span class="wenzi6-data2">6666</span>
                         </p>
                         <p>
-                            <span class="wenzi7-data2">999</span>&nbsp;&nbsp;
+                            <span class="wenzi7-data2">{{if $data}}{{$data.ax24_price/100}}{{/if}}</span>&nbsp;&nbsp;
                             <span class="wenzi8-data2">9999</span>
                         </p>
                     </div>
@@ -56,20 +51,20 @@
             <div class="main-data2">
                 <div class="top-data2">
                     <p class="top-one-data2">联盟商家向日葵日值</p>
-                    <p class="top-two-data2">2016-12-11</p>
+                    <p class="top-two-data2">{{if $data}}{{$data.date}}{{/if}}</p>
                 </div>
                 <div class="center-data2">
                     <div class="center-left-data2">
                         <p>
-                            <span class="wenzi3-data2">333</span>&nbsp;&nbsp;
+                            <span class="wenzi3-data2">{{if $data}}{{$data.shop_ax6_price/100}}{{/if}}</span>&nbsp;&nbsp;
                             <span class="wenzi4-data2">3333</span>
                         </p>
                         <p>
-                            <span class="wenzi5-data2">666</span>&nbsp;&nbsp;
+                            <span class="wenzi5-data2">{{if $data}}{{$data.shop_ax12_price/100}}{{/if}}</span>&nbsp;&nbsp;
                             <span class="wenzi6-data2">6666</span>
                         </p>
                         <p>
-                            <span class="wenzi7-data2">999</span>&nbsp;&nbsp;
+                            <span class="wenzi7-data2">{{if $data}}{{$data.shop_ax24_price/100}}{{/if}}</span>&nbsp;&nbsp;
                             <span class="wenzi8-data2">9999</span>
                         </p>
                     </div>
@@ -86,38 +81,12 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {{foreach from=$phangcity item=row}}
                     <tr>
-                        <td>江苏省-南通市</td>
-                        <td> 12323435</td>
+                        <td>{{$row.p_name}}-{{$row.c_name}}</td>
+                        <td>{{round(($row.alltotal|default:0)/1000000, 2)}}万元</td>
                     </tr>
-                    <tr>
-                        <td>江苏省-南通市</td>
-                        <td> 12323435</td>
-                    </tr>
-                    <tr>
-                        <td>江苏省-南通市</td>
-                        <td> 12323435</td>
-                    </tr>
-                    <tr>
-                        <td>江苏省-南通市</td>
-                        <td> 12323435</td>
-                    </tr>
-                    <tr>
-                        <td>江苏省-南通市</td>
-                        <td> 12323435</td>
-                    </tr>
-                    <tr>
-                        <td>江苏省-南通市</td>
-                        <td> 12323435</td>
-                    </tr>
-                    <tr>
-                        <td>江苏省-南通市</td>
-                        <td> 12323435</td>
-                    </tr>
-                    <tr>
-                        <td>江苏省-南通市</td>
-                        <td> 12323435</td>
-                    </tr>
+                    {{/foreach}}
                     </tbody>
                 </table>
             </div>
@@ -131,12 +100,12 @@
                 <div class="center-s">
                     <div class="center-left-s">
                         <div class="wenzi3-s">联盟消费总额</div>
-                        <div class="wenzi4-s">5666元</div>
+                        <div class="wenzi4-s">{{($lminfo.lm_total.alltotal|default:0)/100}}元</div>
                         <div class="wenzi5-s">联盟消费特使人数</div>
-                        <div class="wenzi6-s">234323个</div>
+                        <div class="wenzi6-s">{{($lminfo.lm_users.num|default:0)}}个</div>
                         <!--<div class="wenzi7">12345</div>-->
                         <div class="wenzi8-s">联盟商家</div>
-                        <div class="wenzi9-s">123个</div>
+                        <div class="wenzi9-s">{{($lminfo.lm_shops.num|default:0)}}个</div>
                     </div>
                 </div>
             </div>
@@ -148,17 +117,17 @@
                     <p class="top-two-data">全联盟昨日消费</p>
                 </div>
                 <div class="center-data">
-
                     <div class="center-left-data">
                         <div class="wenzi3-data">6系列</div>
-                        <div class="wenzi4-data">5666元</div>
+                        <div class="wenzi4-data">{{($ysday.per6.total|default:0)/100}}元</div>
                         <div class="wenzi5-data">12系列</div>
-                        <div class="wenzi6-data">234323个</div>
+                        <div class="wenzi6-data">{{($ysday.per12.total|default:0)/100}}元</div>
                         <div class="wenzi8-data">24系列</div>
-                        <div class="wenzi9-data">123个</div>
+                        <div class="wenzi9-data">{{($ysday.per24.total|default:0)/100}}元</div>
                     </div>
                 </div>
             </div>
         </li>
     </ul>
 </div>
+{{include file="../public/footer.html"}}
