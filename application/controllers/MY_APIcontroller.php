@@ -102,8 +102,8 @@ class MY_APIcontroller extends CI_Controller
         $config['upload_path']      = $dir;
         $config['allowed_types']    = 'gif|jpg|png';
         $config['max_size']     = 9000;
-        $config['max_width']        = 1024;
-        $config['max_height']       = 768;
+        //$config['max_width']        = 1024;
+        //$config['max_height']       = 768;
         $config['file_name']       = $this->getRandChar(24);
         $this->load->library('upload', $config);
 
