@@ -3,25 +3,32 @@
         <table class="footer_tab" width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <td id="home">
-                    <img src="../../statics/images/home_icon_click.png"><br>
-                    <span class="footer_span_2">主页</span>
+                    <a href="{{site_url url='Frontend/index'}}">
+                        {{if $footer_flag ==1}}
+                        <img src="{{$base_url}}statics/images/home_icon_notclicked.png"><br>
+                        <span class="footer_span_2" style="color: blue;">主页</span>
+                        {{else}}
+                        <img src="{{$base_url}}statics/images/home_icon_click.png"><br>
+                        <span class="footer_span_2" style="color: red;">主页</span>
+                        {{/if}}
+                    </a>
                 </td>
                 <td id="myorder">
-                    <img src="../../statics/images/orders_icon_click.png"><br>
+                    <img src="../../statics/images/order_icon_notclick.png"><br>
                     <span class="footer_span_2">我的订单</span>
                 </td>
                 <td id="daybase">
-                    <img src="../../statics/images/mall_icon_click.png"><br>
+                    <img src="../../statics/images/mall_icon_notclick.png"><br>
                     <span class="footer_span_2">商城</span>
                 </td>
 
                 <td id="cheaporder">
-                    <img src="../../statics/images/data_icon_click.png"><br>
+                    <img src="../../statics/images/data_icon_notclick.png"><br>
                     <span class="footer_span_2">每日数据</span>
                 </td>
 
                 <td id="message">
-                    <img src="../../statics/images/personalcenter_icon_click.png"><br>
+                    <img src="../../statics/images/personalcenter_icon_notclick.png"><br>
                     <span class="footer_span_2">个人中心</span>
                 </td>
             </tr>
