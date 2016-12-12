@@ -255,13 +255,15 @@ class Apiftontend extends MY_APIcontroller {
 	}
 
 	public function test(){
+		$img = $this->upload();
 		$dataall = $this->input->post();
 		$dataall['time'] = date('Y-m-d H:i:s',time());
 		$dataall['file'] = $_FILES;
+		$dataall['info'] = $img;
 		$open=fopen('/var/yy.txt',"a" );
 		fwrite($open,var_export($dataall,true));
 		fclose($open);
-		$img = $this->upload();
+
 		echo $img;
 	}
 	public function get_province(){
