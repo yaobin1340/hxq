@@ -109,7 +109,7 @@ class MY_APIcontroller extends CI_Controller
 
         if ( ! $this->upload->do_upload($input_name))
         {
-            return '';
+            return $this->upload->display_errors();
         }
         else
         {
