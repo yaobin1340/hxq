@@ -75,7 +75,7 @@ class Withdraw extends MY_Controller {
 
 		foreach ($data_res as $k=>$v){
 			$sname = '123';
-			$data[] = array(($k+1),$v['bank'],$v['bank_no'],$v['rel_name'],$v['money']/100,$v['id']);
+			$data[] = array(($k+1),$v['bank'],$v['bank_no'],$v['rel_name'],($v['money']-$v['sxf'])/100,$v['id']);
 		}
 
 		for ($i = 4;$i <= count($data) + 3;$i++) {

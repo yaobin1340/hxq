@@ -65,12 +65,13 @@ class MY_APIcontroller extends CI_Controller
     public function upload($folder = 'face',$input_name = 'img_input') {
 
             $base64 = $this->input->post($input_name);
+        $name = date('Y/m/d', time());
+        $dir = FCPATH . '/upload/'.$folder.'/' . $name . '/';
+        if(!is_dir($dir)){
+            mkdir($dir,0777,true);
+        }
             if (preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64, $result)){
-                $name = date('Y/m/d', time());
-                $dir = FCPATH . '/upload/'.$folder.'/' . $name . '/';
-                if(!is_dir($dir)){
-                    mkdir($dir,0777,true);
-                }
+
                 $img_name = $this->getRandChar(24).'.jpg';
                 $img = base64_decode(str_replace($result[1], '', $base64));
                 file_put_contents($dir.$img_name, $img);//返回的是字节数
