@@ -144,8 +144,22 @@
 		</div>
 
 		<div class="am-form-group am-form-icon" style="margin-top: -5px;">
-			<i class="am-icon-building" style="font-size: 18px;"></i>
-			<input type="text" id="bank"  name="bank" class="am-form-field" placeholder="请输入开户银行" value="{{$data.withdraw_info.bank|default:''}}" style="height: 50px;" required />
+			<select name="bank" style="height: 50px;" required>
+				<option value="">-请选择银行-</option>
+				<option value="中国农业银行" {{if $data.withdraw_info.bank == '中国农业银行'}}selected='selected'{{/if}}>中国农业银行</option>
+				<option value="中国银行" {{if $data.withdraw_info.bank == '中国银行'}}selected='selected'{{/if}}>中国银行</option>
+				<option value="中国建设银行" {{if $data.withdraw_info.bank == '中国建设银行'}}selected='selected'{{/if}}>中国建设银行</option>
+				<option value="交通银行" {{if $data.withdraw_info.bank == '交通银行'}}selected='selected'{{/if}}>交通银行</option>
+				<option value="中国邮政储蓄银行" {{if $data.withdraw_info.bank == '中国邮政储蓄银行'}}selected='selected'{{/if}}>中国邮政储蓄银行</option>
+				<option value="中信银行" {{if $data.withdraw_info.bank == '中信银行'}}selected='selected'{{/if}}>中信银行</option>
+				<option value="中国光大银行" {{if $data.withdraw_info.bank == '中国光大银行'}}selected='selected'{{/if}}>中国光大银行</option>
+				<option value="华夏银行" {{if $data.withdraw_info.bank == '华夏银行'}}selected='selected'{{/if}}>华夏银行</option>
+				<option value="中国民生银行" {{if $data.withdraw_info.bank == '中国民生银行'}}selected='selected'{{/if}}>中国民生银行</option>
+				<option value="广发银行股份有限公司" {{if $data.withdraw_info.bank == '广发银行股份有限公司'}}selected='selected'{{/if}}>广发银行股份有限公司</option>
+				<option value="平安银行" {{if $data.withdraw_info.bank == '平安银行'}}selected='selected'{{/if}}>平安银行</option>
+				<option value="招商银行" {{if $data.withdraw_info.bank == '招商银行'}}selected='selected'{{/if}}>招商银行</option>
+
+			</select>
 		</div>
 
 		<div class="am-form-group am-form-icon" style="margin-top: -5px;">
