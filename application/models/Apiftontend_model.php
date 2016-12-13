@@ -186,4 +186,89 @@ class Apiftontend_model extends MY_Model{
         else
             return -1;
     }
+
+    public function show_information()
+    {
+        $this->db->select();
+        $this->db->from('settlement');
+        $this->db->where('date <= now()');
+        $this->db->order_by('date','desc');
+        $row = $this->db->get()->row_array();
+        //var_dump($row);
+        return $row;
+    }
+
+    public function yesterday_info()
+    {
+        $this->db->select('sum(a.total) total')->from('order a');
+        $this->db->join('shop b','a.shop_id = b.id','left');
+        $this->db->where(array(
+            'a.adate >=' => date("Y-m-d",strtotime("-1 day")),
+            'a.adate <' => date("Y-m-d"),
+            'a.status'=>3,
+            'b.percent'=>'6'
+        ));
+        $per['per6'] = $this->db->get()->row_array();
+
+        $this->db->select('sum(a.total) total')->from('order a');
+        $this->db->join('shop b','a.shop_id = b.id','left');
+        $this->db->where(array(
+            'a.adate >=' => date("Y-m-d",strtotime("-1 day")),
+            'a.adate <' => date("Y-m-d"),
+            'a.status'=>3,
+            'b.percent'=>'12'
+        ));
+        $per['per12'] = $this->db->get()->row_array();
+
+        $this->db->select('sum(a.total) total')->from('order a');
+        $this->db->join('shop b','a.shop_id = b.id','left');
+        $this->db->where(array(
+            'a.adate >=' => date("Y-m-d",strtotime("-1 day")),
+            'a.adate <' => date("Y-m-d"),
+            'a.status'=>3,
+            'b.percent'=>'24'
+        ));
+        $per['per24'] = $this->db->get()->row_array();
+        //var_dump($this->db->last_query());
+        return $per;
+    }
+
+    public function jukuan(){
+        $data['djk'] = $this->db->select('sum(total) total')->from('commonweal')->where('status',1)->get()->row_array();
+        $data['zjjk'] = $this->db->select('total,date')->from('commonweal')
+            ->where('status',2)->order_by('date','desc')->get()->row_array();
+        $data['zjk'] = $this->db->select('sum(total) total')->from('commonweal')
+            ->where('status',2)->get()->row_array();
+        return $data;
+    }
+
+    public function phang_city(){
+        $this->db->select('sum(a.total) alltotal,p.name p_name,c.name c_name')->from('shop a');
+        $this->db->join('province p','p.code = a.province_code','left');
+        $this->db->join('city c','c.code = a.city_code','left');
+        $this->db->group_by('a.city_code');
+        $this->db->where('a.total >',0);
+        $this->db->order_by('alltotal','desc');
+        $this->db->limit(8, 0);
+        //var_dump($this->db->last_query());
+        return $this->db->get()->result_array();
+    }
+
+    public function phang_company(){
+        $this->db->select('a.shop_name,p.name p_name,c.name c_name,total')->from('shop a');
+        $this->db->join('province p','p.code = a.province_code','left');
+        $this->db->join('city c','c.code = a.city_code','left');
+        $this->db->where('a.total >',0);
+        $this->db->order_by('a.total','desc');
+        $this->db->limit(8, 0);
+        //var_dump($this->db->last_query());
+        return $this->db->get()->result_array();
+    }
+
+    public function lminfo(){
+        $data['lm_total'] = $this->db->select('sum(total) alltotal')->from('shop')->get()->row_array();
+        $data['lm_users'] = $this->db->select('count(1) num')->from('users')->get()->row_array();
+        $data['lm_shops'] = $this->db->select('count(1) num')->from('shop')->where('status',2)->get()->row_array();
+        return $data;
+    }
 }
