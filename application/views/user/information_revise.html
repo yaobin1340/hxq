@@ -6,14 +6,15 @@
     <a href="javascript:window.history.go(-1);"><span class="am-icon-chevron-left register_header_back"></span></a>
 </header>
 <section>
-    <form id="save_form" class="am-form" data-am-validator action="/frontend/save_register_shop" method="post">
+    <div class="am-g">
+      <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+        <form id="save_form" class="am-form-inline am-form" method="post" action="{{site_url url='user/save_information_revise'}}" data-am-validator>
         <input type="hidden" id="bd_lat" name="baidu_lat" value="{{if $shop}}{{$shop.baidu_lat}}{{/if}}">
         <input type="hidden" id="bd_lng"  name="baidu_lng" value="{{if $shop}}{{$shop.baidu_lng}}{{/if}}">
         <div class="am-form-group am-form-file upload_img_all">
             <input id="file" type="file" accept="image/*" capture=camera"/>
             <div class="upload_img_div1">
                 <div class="upload_img_div2">
-                    <!--<img id="previewResult" src="{{if $user_info.face}}{{$base_url}}upload/face/{{$user_info.face}}{{else}}{{$base_url}}statics/images/registered_avatar@2x.png{{/if}}"/>-->
                     <img src="{{$base_url}}upload/face/{{$user_info.face}}" id="previewResult">
                 </div>
                 <button id="btn_file" type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
@@ -47,43 +48,56 @@
             </select>
         </div>
         <div class="merchants_settled_shop_information_btn">
-            <button type="submit" class="am-btn am-btn-default am-btn-block login_form_btn" data-am-modal="{target: '#my-popup'}">修改密码</button>
-            <div class="am-popup" id="my-popup">
-                <div class="am-popup-inner">
-                    <div class="am-popup-hd">
-                        <h4 class="am-popup-title">修改密码</h4>
-                        <span data-am-modal-close class="am-close">&times;</span>
-                    </div>
-                    <div class="am-popup-bd" style="background: #ffffff;">
-                        <div class="am-g">
-                            <br class="am-u-lg-6 am-u-md-8 am-u-sm-centered"><br><br><br>
-                                <form id="edit_pwd_form" method="post" class="am-form " action="{{site_url url='user/update_pwd'}}" data-am-validator>
-                                    <div class="am-form-group am-form-icon">
-                                        <i class="am-icon-lock"></i>
-                                        <input type="password" id="pwd_pass"  name="password" class="am-form-field am-form-mobile" placeholder="请输入您的旧密码" style="height: 50px;border-radius: 10px;" required />
-                                    </div>
-                                    <div class="am-form-group am-form-icon">
-                                        <i class="am-icon-lock"></i>
-                                        <input type="password" id="pwd_new_one"  name="new_password" class="am-form-field js-pattern-number am-form-mobile" placeholder="请输入新密码" style="height: 50px;border-radius: 10px;" required />
-                                    </div>
-                                    <div class="am-form-group am-form-icon">
-                                        <i class="am-icon-lock"></i>
-                                        <input type="password" id="pwd_new_two"  name="new_password2" class="am-form-field js-pattern-number am-form-mobile" placeholder="请确认新密码" style="height: 50px;border-radius: 10px;" required />
-                                    </div>
-                                    <button id="edit_pwd_btn" type="button" class="am-btn am-btn-secondary am-btn-default am-btn-block am-btn-next" style="margin-top: 20px;border-radius: 10px;">修改</button>
-                                </form>
-                            </div>
+            <button type="button" class="am-btn am-btn-default am-btn-block login_form_btn" data-am-modal="{target: '#my-popup'}">修改密码</button>
+        </div>
+         <div style="margin-top: 10px;">
+            <input id="save_btn" class="am-btn am-btn-secondary am-btn-block" style="width: 96%;border-radius: 10px;margin: 0 auto;" type="button" value="确认">
+         </div>
+         <div style="margin-top: 10px;">
+            <a class="am-btn am-btn-default am-btn-block" style="width: 96%;border-radius: 10px;margin: 0 auto;" href="{{site_url url='user'}}">返回</a>
+          </div>
+    </form>
+    <div class="am-popup" id="my-popup">
+        <div class="am-popup-inner">
+            <div class="am-popup-hd">
+                <h4 class="am-popup-title">修改密码</h4>
+                <span data-am-modal-close class="am-close">&times;</span>
+            </div>
+            <div class="am-popup-bd" style="background: #ffffff;">
+                <div class="am-g">
+                    <br class="am-u-lg-6 am-u-md-8 am-u-sm-centered"><br><br><br>
+                    <form id="edit_pwd_form" method="post" class="am-form " action="{{site_url url='user/update_pwd'}}" data-am-validator>
+                        <div class="am-form-group am-form-icon">
+                            <i class="am-icon-lock"></i>
+                            <input type="password" id="pwd_pass"  name="password" class="am-form-field am-form-mobile" placeholder="请输入您的旧密码" style="height: 50px;border-radius: 10px;" required />
                         </div>
+                        <div class="am-form-group am-form-icon">
+                            <i class="am-icon-lock"></i>
+                            <input type="password" id="pwd_new_one"  name="new_password" class="am-form-field js-pattern-number am-form-mobile" placeholder="请输入新密码" style="height: 50px;border-radius: 10px;" required />
+                        </div>
+                        <div class="am-form-group am-form-icon">
+                            <i class="am-icon-lock"></i>
+                            <input type="password" id="pwd_new_two"  name="new_password2" class="am-form-field js-pattern-number am-form-mobile" placeholder="请确认新密码" style="height: 50px;border-radius: 10px;" required />
+                        </div>
+                        <button id="edit_pwd_btn" type="button" class="am-btn am-btn-secondary am-btn-default am-btn-block am-btn-next" style="margin-top: 20px;border-radius: 10px;">修改</button>
+                    </form>
                 </div>
             </div>
         </div>
-        <button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block login_form_btn1">确认
-            </button>
-        <button type="submit" class="am-btn am-btn-default am-btn-block login_form_btn1">返回</button>
-    </form>
+    </div>
+</div>
+</div>
 </section>
 <script src="{{$base_url}}statics/js/localResizeIMG.js"></script>
 <script src="{{$base_url}}statics/js/mobileBUGFix.mini.js"></script>
+<script>
+    $('#previewResult')
+            .load(function(){
+            })
+            .error(function(){
+                $('#previewResult').attr('src',"{{$base_url}}statics/images/registered_avatar@2x.png")
+            });
+</script>
 <script>
     function get_yzm(){
         $.get("{{site_url url='/frontend/get_yzm'}}/"+$("[name='mobile']").val(),function(data){
@@ -99,14 +113,6 @@
             $("#previewResult").attr('src',result.base64)
         }
     });
-</script>
-<script>
-    $('#previewResult')
-            .load(function(){
-            })
-            .error(function(){
-                $('#previewResult').attr('src',"{{$base_url}}statics/images/registered_avatar@2x.png")
-            });
 </script>
 <script type="text/javascript">
     //    $().ready(function(){
