@@ -19,8 +19,7 @@ class Apiftontend extends MY_APIcontroller {
 	 */
 	private $token;
 	private $app_uid=0;
-	public function __construct()
-	{
+	public function __construct(){
 
 		parent::__construct();
 		$this->load->model('Apiftontend_model');
@@ -320,6 +319,7 @@ class Apiftontend extends MY_APIcontroller {
 		echo json_encode($rs);
 		die();
 	}
+
 	public function nearcity($lat=0,$lng=0){
 		$default = array(
 			'code'=>'310101',
@@ -339,5 +339,22 @@ class Apiftontend extends MY_APIcontroller {
 			return $default;
 		}
 
+	}
+
+	public function change_pwd(){
+		$re = $this->frontend_model->change_pwd();
+		if($re == 1){
+			$rs = array(
+				'success'=>true,
+				'error_msg'=>''
+			);
+		}else{
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'修改密码失败!'
+			);
+		}
+		echo json_encode($rs);
+		die();
 	}
 }

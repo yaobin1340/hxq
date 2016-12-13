@@ -177,4 +177,13 @@ class Apiftontend_model extends MY_Model{
     public function nearcity($area_name){
         return $this->db->select('name,code')->from('area')->where('name',$area_name)->get()->row_array();
     }
+
+    public function change_pwd(){
+        $this->db->where('mobile',$this->input->post('mobile'));
+        $rs = $this->db->update('users',array('password' => sha1($this->input->post('password'))));
+        if($rs)
+            return 1;
+        else
+            return -1;
+    }
 }
