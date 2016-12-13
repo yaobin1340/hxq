@@ -121,4 +121,19 @@ class Apiuser extends MY_APIcontroller {
 			die();
 		}
 	}
+
+	public function list_orders_loaddata(){
+		try{
+			$page = $this->input->post('page')?$this->input->post('page'):1;
+			$data = $this->apiuser_model->list_orders($page,$this->app_uid);
+			$this->rs['order_list']=$data;
+			echo json_encode($this->rs);
+			die();
+		}catch (Exception $e) {
+			$this->err_rs['error_msg']='操作失败!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+
+	}
 }

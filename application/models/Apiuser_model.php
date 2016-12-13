@@ -91,12 +91,12 @@ class Apiuser_model extends MY_Model
 
     }
 
-    public function list_orders($page)
+    public function list_orders($page,$app_uid=0)
     {
         $data['limit'] = $this->limit;
         //获取总记录数
         $this->db->select('count(1) num')->from('order_list');
-        $this->db->where('uid',$this->session->userdata('uid'));
+        $this->db->where('uid',$app_uid);
 
         if($this->input->post('s_date')){
             $this->db->where("cdate >=",$this->input->post('s_date'));
@@ -118,7 +118,7 @@ class Apiuser_model extends MY_Model
         $this->db->join('users b','a.uid=b.id','left');
         $this->db->join('shop c','a.shop_id=c.id','left');
 
-        $this->db->where('a.uid',$this->session->userdata('uid'));
+        $this->db->where('a.uid',$app_uid);
 
         if($this->input->post('s_date')){
             $this->db->where("a.cdate >=",$this->input->post('s_date'));
