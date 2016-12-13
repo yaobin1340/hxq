@@ -360,7 +360,6 @@ class Apiftontend extends MY_APIcontroller {
 
 	public function show_information()
 	{
-		$this->assign('header_name', '数据中心');
 		$data = $this->Apiftontend_model->show_information();
 		$ysday = $this->Apiftontend_model->yesterday_info();
 		$jukuan = $this->Apiftontend_model->jukuan();
