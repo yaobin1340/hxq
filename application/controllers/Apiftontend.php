@@ -357,4 +357,23 @@ class Apiftontend extends MY_APIcontroller {
 		echo json_encode($rs);
 		die();
 	}
+
+	public function show_information()
+	{
+		$this->assign('header_name', '数据中心');
+		$data = $this->Apiftontend_model->show_information();
+		$ysday = $this->Apiftontend_model->yesterday_info();
+		$jukuan = $this->Apiftontend_model->jukuan();
+		$phangcity= $this->Apiftontend_model->phang_city();
+		$phangcompany= $this->Apiftontend_model->phang_company();
+		$lminfo = $this->Apiftontend_model->lminfo();
+		$this->assign('lminfo', $lminfo);
+		$this->assign('phangcity', $phangcity);
+		$this->assign('phangcompany', $phangcompany);
+		$this->assign('jukuan', $jukuan);
+		$this->assign('data', $data);
+		$this->assign('ysday', $ysday);
+		$this->assign('footer_flag', 5);
+		$this->display('frontend/show_information.html');
+	}
 }
