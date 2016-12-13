@@ -10,8 +10,8 @@
         <img src="../../statics/images/userimg.png">
         <div class="header_photo">
             <div class="header_photo_user">
-                <img src="../../statics/images/user.jpg">
-                <!--<img {{if $user_info.face}}src="{{$base_url}}upload/face/{{$user_info.face}}"{{else}}src="{{$base_url}}statics/images/user.jpg"{{/if}}">-->
+                <!--<img src="../../statics/images/user.jpg">-->
+                <img src="{{$base_url}}upload/face/{{$user_info.face}}" id="image1">
             </div>
             <div class="user_center_user_id">
                 {{$user_info.rel_name}}<span>(ID:{{$user_info.id}})</span>
@@ -45,9 +45,11 @@
             </td>
             <td class="td_border">
                 <a href="{{site_url url='frontend/register_shop'}}">
-                    {{if $user_info.shop_id < 1}}
                     <span><img src="../../statics/images/personalcenter_icons_merchant.png"></span><br>
+                    {{if $user_info.shop_id < 1}}
                     <span>成为商家</span>
+                    {{else}}
+                    <span>我的商家</span>
                     {{/if}}
                 </a>
             </td>
@@ -94,3 +96,11 @@
     <a href="{{site_url url='frontend/logout'}}"><button class="shop_index_section_btn">退出登录</button></a>
 </section>
 {{include file="../public/footer.html"}}
+<script>
+    $('#image1')
+        .load(function(){
+        })
+        .error(function(){
+            $('#image1').attr('src',"{{$base_url}}statics/images/user.jpg")
+        });
+</script>
