@@ -81,7 +81,12 @@ class Withdraw extends MY_Controller {
 		for ($i = 4;$i <= count($data) + 3;$i++) {
 			$j = 0;
 			foreach ($data[$i - 4] as $key=>$value) {
-				$excel->getActiveSheet()->setCellValue("$letter[$j]$i",' '."$value");
+				if($key==2){
+					$excel->getActiveSheet()->setCellValue("$letter[$j]$i",' '."$value");
+				}else{
+					$excel->getActiveSheet()->setCellValue("$letter[$j]$i","$value");
+				}
+
 				$j++;
 			}
 		}
