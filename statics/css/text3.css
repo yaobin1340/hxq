@@ -4,14 +4,14 @@ body{
     overflow-y:hidden;
 }
 .beijing{
-    background: url("../../statics/images/shujubeijing.png") repeat;
-
+    background: url("../../statics/images/shujubeijing.png");
+    background-size: cover;
 }
 .am-slider-a1 .am-control-nav{
  display: none;
 }
 .am-slider {
-    /*height:740px;*/
+    height:700px;
 }
 /*第一个 datacontent1*/
 .main{
@@ -153,14 +153,14 @@ p{
     /*padding-bottom: 350px;*/
 
 }
-table{
+.show_information{
     margin:50px auto;
     width: 280px;
     text-align: center;
     background: rgba(255,255,255,0.3);
     line-height: 30px;
 }
-table thead{
+.show_information thead{
     line-height: 40px;
     padding-left: 20px;
     font-size: 2.0rem;

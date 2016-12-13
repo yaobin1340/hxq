@@ -9,11 +9,14 @@
     </header>
     <section>
         <form id="save_form" class="am-form" data-am-validator action="/frontend/save_register_shop" method="post">
+            <input type="hidden" id="bd_lat" name="baidu_lat" value="{{if $shop}}{{$shop.baidu_lat}}{{/if}}">
+            <input type="hidden" id="bd_lng"  name="baidu_lng" value="{{if $shop}}{{$shop.baidu_lng}}{{/if}}">
             <div class="am-form-group am-form-file upload_img_all">
                 <input id="file" type="file" accept="image/*" capture=camera"/>
                 <div class="upload_img_div1">
                     <div class="upload_img_div2">
-                        <img id="previewResult" src="../../statics/images/registered_avatar@2x.png"/>
+                        <!--<img id="previewResult" src="../../statics/images/registered_avatar@2x.png"/>-->
+                        <img id="previewResult" {{if $shop}}src="{{$base_url}}upload/logo/{{$shop.logo}}"{{/if}}/>
                     </div>
                     <button id="btn_file" type="button" class="am-btn am-btn-danger am-btn-sm upload_img_btn">
                         <i class="am-icon-cloud-upload"></i> 上传logo
