@@ -342,7 +342,7 @@ class Apiftontend extends MY_APIcontroller {
 	}
 
 	public function change_pwd(){
-		$re = $this->frontend_model->change_pwd();
+		$re = $this->Apiftontend_model->change_pwd();
 		if($re == 1){
 			$rs = array(
 				'success'=>true,
