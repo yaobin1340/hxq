@@ -123,6 +123,7 @@ class Apiuser extends MY_APIcontroller {
 	}
 
 	public function list_orders_loaddata(){
+		unset($this->rs['user_info']);
 		try{
 			$page = $this->input->post('page')?$this->input->post('page'):1;
 			$data = $this->apiuser_model->list_orders($page,$this->app_uid);
