@@ -123,7 +123,7 @@ class Apiuser extends MY_APIcontroller {
 	}
 
 	public function list_orders(){
-		$alltotal = $this->rs['user_info']['total6']+$this->rs['user_info']['total6']+$this->rs['user_info']['total6'];
+		$alltotal = $this->rs['user_info']['total6']+$this->rs['user_info']['total12']+$this->rs['user_info']['total24'];
 		unset($this->rs['user_info']);
 		$this->rs['all_total']=$alltotal;
 		echo json_encode($this->rs);
