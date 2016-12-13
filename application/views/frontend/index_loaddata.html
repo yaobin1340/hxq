@@ -9,7 +9,15 @@
 			</div>
 
 			<div style="position: absolute;">
+				{{if $row.percent == '24'}}
 				<img src="{{$base_url}}statics/images/series24.png" alt="" style=" width: 35px; height: 38px;"/>
+				{{/if}}
+				{{if $row.percent == '12'}}
+				<img src="{{$base_url}}statics/images/series12.png" alt="" style=" width: 35px; height: 38px;"/>
+				{{/if}}
+				{{if $row.percent == '6'}}
+				<img src="{{$base_url}}statics/images/series6.png" alt="" style=" width: 35px; height: 38px;"/>
+				{{/if}}
 			</div>
 
 			<div class=" am-u-sm-8 am-list-main">
