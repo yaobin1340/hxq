@@ -127,7 +127,7 @@ class Apiuser extends MY_APIcontroller {
 		try{
 			$page = $this->input->post('page')?$this->input->post('page'):1;
 			$data = $this->apiuser_model->list_orders($page,$this->app_uid);
-			$this->rs['order_list']=$data;
+			$this->rs['order_list']=$data['items'];
 			echo json_encode($this->rs);
 			die();
 		}catch (Exception $e) {
