@@ -189,4 +189,8 @@ class Shop extends MY_Controller {
 		}
 	}
 
+	public function mall_index(){
+        $this->display('shop/mall_index.html');
+    }
+
 }
