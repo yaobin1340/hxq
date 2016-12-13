@@ -3,6 +3,9 @@ body,h1,h2,h3,p,ul,ol,form,fieldset,figure{
     margin: 0;
     padding: 0;
 }
+body{
+    padding-bottom: 80px;
+}
 .register_one_header{
     height: 50px;width: 100%;text-align: center;background: #01a2f2;
 }
@@ -12,9 +15,12 @@ body,h1,h2,h3,p,ul,ol,form,fieldset,figure{
 .register_header_back{
     line-height: 50px;font-size: 20px;float: left;margin-left:5px ;
 }
-.rewrite_pwd_input,.rewrite_pwd_input_again,.rewrite_pwd_btn{
-    height: 50px;
+.upload_img_all{
+    margin-top: 40px;
 }
-.rewrite_pwd_btn{
-    border-radius: 10px;
+.user_informatio{
+    margin-left: 25%;
+}
+.login_form_btn{
+    background: #dc514c;border: 1px solid #ffffff;color: #ffffff;
 }

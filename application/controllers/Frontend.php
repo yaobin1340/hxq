@@ -422,5 +422,9 @@ class Frontend extends MY_Controller {
         }*/
 
     }
+    public function mall_index(){
+        $this->assign('footer_flag', 3);
+        $this->display('frontend/mall_index.html');
+    }
 
 }
