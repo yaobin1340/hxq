@@ -47,6 +47,7 @@
                     <th>商家名称</th>
                     <th>总金额</th>
                     <th>需支付</th>
+                    <th>系列</th>
                     <th>订单数</th>
                     {{if $data.status != 1}}<th>审核时间</th>{{/if}}
                     <th>状态</th>
@@ -60,6 +61,7 @@
                     <td><a>{{$item.shop_name}}</a></td>
                     <td><a>{{$item.total/100}}</a></td>
                     <td><a>{{$item.total*$item.percent/10000}}</a></td>
+                    <td><a>{{$item.percent}}</a></td>
                     <td><a>{{$item.num}}</a></td>
 
                     {{if $data.status != 1}}<td><a>{{$item.adate}}</a></td>{{/if}}
