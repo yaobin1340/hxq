@@ -5,6 +5,9 @@
 html{
     font-size: 62.5%;
 }
+.user_center_body_all{
+    padding-bottom: 80px;
+}
 .register_one_header{
     width: 100%;text-align: center;background: #01a2f2;
 }
@@ -43,7 +46,7 @@ html{
     margin: 0;
 }
 .row-two{
-    padding: 12px 10px 0;
+    padding: 12px 20px 0;
     /*background: #89d7ff;*/
     font-weight: 200;
 }
@@ -56,15 +59,16 @@ html{
     padding: 0;
 }
 .row-phone .am-u-sm-4{
-
+    padding-left: 0;
     /*background: #c7254e;*/
     height: 50px;
 }
 .am-btn{
+    padding: 0;
+    width: 90%;
     height: 48px;
     margin-top: 12px;
     border-radius: 10px;
-    padding-right: 10px;
 }
 .tishi{
     margin-top: 20px;
