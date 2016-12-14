@@ -255,11 +255,11 @@ class Apiuser_model extends MY_Model
         }
     }
 
-    public function list_withdraw_loaddata($page = 1){
+    public function list_withdraw_loaddata($page = 1,$app_uid){
         $data['limit'] = $this->limit;
         //获取总记录数
         $this->db->select('count(1) num')->from('withdraw a');
-        $this->db->where('a.uid',$this->session->userdata('uid'));
+        $this->db->where('a.uid',$app_uid);
 //        $this->db->where('shop_id',1); //TODO
         $num = $this->db->get()->row();
         $data['total'] = $num->num;
@@ -268,7 +268,7 @@ class Apiuser_model extends MY_Model
 
         //获取详细列
         $this->db->select('a.*')->from('withdraw a');
-        $this->db->where('a.uid',$this->session->userdata('uid'));
+        $this->db->where('a.uid',$app_uid);
         $this->db->limit($data['limit'], $offset = ($page - 1) * $data['limit']);
         $this->db->order_by('a.id','desc');
         $data['items'] = $this->db->get()->result_array();

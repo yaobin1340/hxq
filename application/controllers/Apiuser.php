@@ -194,4 +194,33 @@ class Apiuser extends MY_APIcontroller {
 			die();
 		}
 	}
+
+	public function sendsms()
+	{
+		$mobile = $this->input->post('mobile');
+		$yzm = rand(100000,999999);
+		//$yzm     = 123456;
+		$text = '您的短信验证码是:'.$yzm;
+		$rs = file_get_contents("http://sms-api.luosimao.com/v1/http_get/send/json?key=e3829a670f2c515ab8befa5096dd135c&mobile={$mobile}&message={$text}【三客柚】");
+		$obj=json_decode($rs);
+		if($obj->error !=0){
+			$rs=$this->sendsms_curl($mobile,$text);
+		}
+		$obj=json_decode($rs);
+		if($obj->error !=0){
+			$this->err_rs['error_msg']='获取验证码失败！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$this->rs['yzm']=$yzm;
+		echo json_encode($this->rs);
+		die();
+	}
+
+	public function list_withdraw_loaddata($page = 1){
+		$data = $this->apiuser_model->list_withdraw_loaddata($page,$this->app_uid);
+		$this->rs['withdraw_list']=$data['items'];
+		echo json_encode($this->rs);
+		die();
+	}
 }
