@@ -284,19 +284,43 @@ class Apiuser extends MY_APIcontroller {
 
 	public function user_heart_loaddata(){
 		unset($this->rs['user_info']);
-		$page = $this->input->post('page')?$this->input->post('page'):1;
-		$data = $this->apiuser_model->user_heart_loaddata($page,$this->app_uid);
-		$this->rs['user_heart_list']=$data['items'];
-		echo json_encode($this->rs);
-		die();
+		try{
+			if(!$this->input->post('tab_type')){
+				$this->err_rs['error_msg']='获取向日葵系列类型参数不能为空!';
+				echo json_encode($this->err_rs);
+				die();
+			}
+			$page = $this->input->post('page')?$this->input->post('page'):1;
+			$data = $this->apiuser_model->user_heart_loaddata($page,$this->app_uid);
+			$this->rs['user_heart_list']=$data['items'];
+			echo json_encode($this->rs);
+			die();
+		}catch (Exception $e) {
+			$this->err_rs['error_msg']='操作失败!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+
 	}
 
 	public function shop_heart_loaddata(){
 		unset($this->rs['user_info']);
-		$page = $this->input->post('page')?$this->input->post('page'):1;
-		$data = $this->apiuser_model->shop_heart_loaddata($page,$this->app_uid);
-		$this->rs['shop_heart_list']=$data['items'];
-		echo json_encode($this->rs);
-		die();
+		try{
+			if(!$this->input->post('tab_type')){
+				$this->err_rs['error_msg']='获取向日葵系列类型参数不能为空!';
+				echo json_encode($this->err_rs);
+				die();
+			}
+			$page = $this->input->post('page')?$this->input->post('page'):1;
+			$data = $this->apiuser_model->shop_heart_loaddata($page,$this->app_uid);
+			$this->rs['shop_heart_list']=$data['items'];
+			echo json_encode($this->rs);
+			die();
+		}catch (Exception $e) {
+			$this->err_rs['error_msg']='操作失败!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+
 	}
 }
