@@ -25,8 +25,7 @@ body{
 /*第一个 datacontent1*/
 .main{
     /*background: url("../img/shujubeijing.png") no-repeat;*/
-    /*width: 100%;*/
-    height: 100%;
+    width: 100%;
     height: 100%;
     overflow: hidden;
 }
@@ -34,10 +33,7 @@ body{
     margin:30% auto 30px;
     background: url("../../statics/images/shujutou1.png ") no-repeat ;
     background-size: 100% 100%;
-    /*margin-top: 50px;*/
-    /*width:  80%;*/
-    height: 85px;
-    width: 80%;
+    height: 80px;
 }
 .top-one{
     margin-left: 14%;
@@ -112,9 +108,9 @@ p{
     height: 100px;
 }
 .top-one-data2{
-    margin-left: 14%;
-    padding-top: 16px;
-    font-size: 1.3rem;
+    margin-left:22%;
+    padding-top: 10px;
+    font-size: 1.8rem;
     color: #fff;
 }
 p{
@@ -122,8 +118,12 @@ p{
 }
 .top-two-data2{
     margin-left: 20%;
-    margin-top: 12px;
     font-size: 1.6rem;
+    color: #fff;
+}
+.top-three-data2{
+    margin-left: 22%;
+    font-size: 1.4rem;
     color: #fff;
 }
 .center-data2{
