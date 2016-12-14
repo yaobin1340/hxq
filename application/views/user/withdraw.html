@@ -146,6 +146,7 @@
 		<div class="am-form-group am-form-icon" style="margin-top: -5px;">
 			<select name="bank" style="height: 50px;" required>
 				<option value="">-请选择银行-</option>
+				<option value="中国工商银行" {{if $data.withdraw_info.bank == '中国工商银行'}}selected='selected'{{/if}}>中国工商银行</option>
 				<option value="中国农业银行" {{if $data.withdraw_info.bank == '中国农业银行'}}selected='selected'{{/if}}>中国农业银行</option>
 				<option value="中国银行" {{if $data.withdraw_info.bank == '中国银行'}}selected='selected'{{/if}}>中国银行</option>
 				<option value="中国建设银行" {{if $data.withdraw_info.bank == '中国建设银行'}}selected='selected'{{/if}}>中国建设银行</option>
