@@ -151,6 +151,7 @@ class Apiuser extends MY_APIcontroller {
 	}
 
 	public function save_withdraw(){
+		unset($this->rs['user_info']);
 		if((int)$this->input->post('money') < 100){
 			$this->err_rs['error_msg']='提现金额不能小于要求最小值！';
 			echo json_encode($this->err_rs);
