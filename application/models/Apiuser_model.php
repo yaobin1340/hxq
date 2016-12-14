@@ -211,6 +211,7 @@ class Apiuser_model extends MY_Model
         $data = $this->db->select()
             ->from('withdraw')
             ->where('uid',$app_uid)
+            ->where('flag',1)
             ->order_by('id','desc')
             ->get()->row_array();
         return $data;
