@@ -1,0 +1,19 @@
+{{include file="./header.html"}}
+<div class="am-g rewrite_pwd_all">
+    <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
+        <br>
+        <form method="post" class="am-form " action="{{site_url url='frontend/change_pwd'}}" data-am-validator>
+           <div class="rewrite_pwd_all_zhong">
+               <div class="am-form-group am-form-icon rewrite_pwd_new_pwd">
+                   <i class="am-icon-lock"></i>
+                   <input type="password" id="doc-vld-pwd-1"  name="password" class="am-form-field" placeholder="请输入新密码" required />
+               </div>
+               <div class="am-form-group am-form-icon rewrite_pwd_sure_pwd">
+                    <i class="am-icon-lock"></i>
+                    <input type="password" id="doc-vld-pwd-2" data-equal-to="#doc-vld-pwd-1" name="mobile" class="am-form-field" placeholder="请确认新密码"  required />
+               </div>
+            </div>
+            <button type="submit" class="am-btn am-btn-secondary am-btn-default am-btn-block rewrite_pwd_btn">提交</button>
+        </form>
+        </div>
+    </div>
