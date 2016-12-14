@@ -85,10 +85,7 @@ class Apiuser extends MY_APIcontroller {
 
 	public function save_information_revise(){
 		unset($this->rs['user_info']);
-		$img = null;
-		if($this->input->post('img_input')){
-			$img = $this->upload();
-		}
+		$img = $this->upload();
 		$rs = $this->apiuser_model->save_information_revise($img,$this->app_uid);
 		if($rs == 1){
 			echo json_encode($this->rs);
