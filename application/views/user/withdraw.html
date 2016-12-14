@@ -1,1 +1,72 @@
-aaaaaaaaaaaaaa
+{{include file="../public/header.html"}}
+<link rel="stylesheet" href="../../statics/css/withdraw.css">
+<body class="user_center_body_all">
+<header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
+    <span class="register_header_title">申请提现</span>
+    <a href="javascript:window.history.go(-1);"><span class="am-icon-chevron-left register_header_back"></span></a>
+</header>
+<section>
+    <table class="table1" border="0">
+        <tr>
+            <td class="td1"><a href="{{site_url url='user/money_log_list'}}" onclick="money_record()" id="money_record">资金日志</a></td>
+            <td class="td1"><a href="{{site_url url='user/withdraw_list'}}" onclick="cash_record()" id="cash_record">提现日志</a></td>
+            <td class="td1"><a href="{{site_url url='user/withdraw'}}" onclick="application_record()" id="application_record">申请提现</a></td>
+        </tr>
+    </table>
+    <div class="am-g row-one">
+        <div class="am-u-sm-6">您好：李宁</div>
+        <div class="am-u-sm-6">可提现余额：0元</div>
+    </div>
+    <div class="row-two">
+        <div class="am-form-group am-form-icon ">
+            <i class="am-icon-cny"></i>
+            <input type="number" class="am-form-field js-pattern-mobile" placeholder="请输入提现金额 单笔最少100元" required />
+        </div>
+    </div>
+    <div class="row-two">
+        <div class="am-form-group am-form-icon ">
+            <i class="am-icon-cny"></i>
+            <input type="number" class="am-form-field js-pattern-mobile" placeholder="请输入支付宝账号" required />
+        </div>
+    </div>
+    <div class="row-two">
+        <div class="am-form-group am-form-icon ">
+            <i class="am-icon-user"></i>
+            <input type="text" name="mobile" class="am-form-field js-pattern-mobile" placeholder="请输入真实姓名" required />
+        </div>
+    </div>
+    <div class="am-g row-phone">
+        <div class="am-u-sm-8">
+            <div class="row-two">
+                <div class="am-form-group am-form-icon login_form_mobile">
+                    <i class="am-icon-mobile-phone"></i>
+                    <input type="number" id="doc-vld-mima-4"  name="mobile" class="am-form-field js-pattern-mobile" placeholder="请输入手机号" required />
+                </div>
+             </div>
+         </div>
+         <div class="am-u-sm-4">
+            <button type="button" class="am-btn am-btn-primary">获取验证码</button>
+        </div>
+    </div>
+    <div class="row-two">
+        <div class="am-form-group am-form-icon ">
+            <i class="am-icon-mobile-phone"></i>
+                <input type="number" class="am-form-field js-pattern-mobile" placeholder="请输入验证码" required />
+        </div>
+    </div>
+    <div class="tishi">
+        <span>小提示：</span>请您认真填写！
+    </div>
+    <div class="tishi-next">
+        (您的提现金额会在两个工作日之内到账)
+    </div>
+    <div class="yue">
+        您的余额不足
+    </div>
+</section>
+
+
+
+
+
+</body>
