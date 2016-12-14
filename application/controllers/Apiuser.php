@@ -323,4 +323,13 @@ class Apiuser extends MY_APIcontroller {
 		}
 
 	}
+
+	public function my_income_loaddata(){
+		unset($this->rs['user_info']);
+		$page = $this->input->post('page')?$this->input->post('page'):1;
+		$data = $this->user_model->my_income_loaddata($this->app_uid,$page);
+		$this->rs['my_income_list']=$data['items'];
+		echo json_encode($this->rs);
+		die();
+	}
 }

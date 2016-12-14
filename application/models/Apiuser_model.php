@@ -414,11 +414,11 @@ class Apiuser_model extends MY_Model
         return $row['num'];
     }
 
-    public function my_income_loaddata($page){
+    public function my_income_loaddata($app_uid,$page=1){
         $data['limit'] = $this->limit;
         //获取总记录数
         $this->db->select('count(1) num')->from('money_log a');
-        $this->db->where('a.uid',$this->session->userdata('uid'));
+        $this->db->where('a.uid',$app_uid);
         $this->db->where('a.type <>',1);
 //        $this->db->where('shop_id',1); //TODO
         $num = $this->db->get()->row();
@@ -427,7 +427,7 @@ class Apiuser_model extends MY_Model
         //搜索条件
         //获取详细列
         $this->db->select('a.*')->from('money_log a');
-        $this->db->where('a.uid',$this->session->userdata('uid'));
+        $this->db->where('a.uid',$app_uid);
         $this->db->where('a.type <>',1);
         $this->db->limit($data['limit'], $offset = ($page - 1) * $data['limit']);
         $this->db->order_by('a.id','desc');
