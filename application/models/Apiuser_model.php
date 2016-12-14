@@ -277,11 +277,11 @@ class Apiuser_model extends MY_Model
         return $data;
     }
 
-    public function money_log_list_loaddata($page = 1){
+    public function money_log_list_loaddata($page = 1,$app_uid){
         $data['limit'] = $this->limit;
         //获取总记录数
         $this->db->select('count(1) num')->from('money_log a');
-        $this->db->where('a.uid',$this->session->userdata('uid'));
+        $this->db->where('a.uid',$app_uid);
         if($this->input->post('s_date')){
             $this->db->where("a.cdate >=",$this->input->post('s_date'));
         }
@@ -298,7 +298,7 @@ class Apiuser_model extends MY_Model
         $data['s_date'] = $this->input->post('s_date')?$this->input->post('s_date'):null;
         //获取详细列
         $this->db->select('a.*')->from('money_log a');
-        $this->db->where('a.uid',$this->session->userdata('uid'));
+        $this->db->where('a.uid',$app_uid);
         if($this->input->post('s_date')){
             $this->db->where("a.cdate >=",$this->input->post('s_date'));
         }
@@ -475,11 +475,11 @@ class Apiuser_model extends MY_Model
         }
     }
 
-    public function my_team_user_loaddata($page=1){
+    public function my_team_user_loaddata($page=1,$app_uid){
         $data['limit'] = $this->limit;
         //获取总记录数
         $this->db->select('count(1) num')->from('users a');
-        $this->db->where('a.parent_id',$this->session->userdata('uid'));
+        $this->db->where('a.parent_id',$app_uid);
 //        $this->db->where('shop_id',1); //TODO
         $num = $this->db->get()->row();
         $data['total'] = $num->num;
@@ -487,7 +487,7 @@ class Apiuser_model extends MY_Model
         //搜索条件
         //获取详细列
         $this->db->select('a.id,a.rel_name,a.mobile,(a.total6 + a.total12 + a.total24) team_total')->from('users a');
-        $this->db->where('a.parent_id',$this->session->userdata('uid'));
+        $this->db->where('a.parent_id',$app_uid);
         $this->db->limit($data['limit'], $offset = ($page - 1) * $data['limit']);
         $this->db->order_by('a.id','desc');
         $data['items'] = $this->db->get()->result_array();
@@ -495,13 +495,13 @@ class Apiuser_model extends MY_Model
         return $data;
     }
 
-    public function my_team_shop_loaddata($page=1){
+    public function my_team_shop_loaddata($page=1,$app_uid){
         $data['limit'] = $this->limit;
         //获取总记录数
         $this->db->select('count(1) num')->from('shop a');
         $this->db->join('users b','b.id = a.parent_uid','left');
         $this->db->join('shop_type c','c.id = a.type','left');
-        $this->db->where('a.parent_uid',$this->session->userdata('uid'));
+        $this->db->where('a.parent_uid',$app_uid);
         $this->db->where('a.status',2);
 //        $this->db->where('shop_id',1); //TODO
         $num = $this->db->get()->row();
@@ -512,7 +512,7 @@ class Apiuser_model extends MY_Model
         $this->db->select('a.shop_name,b.rel_name,c.name,total')->from('shop a');
         $this->db->join('users b','b.id = a.parent_uid','left');
         $this->db->join('shop_type c','c.id = a.type','left');
-        $this->db->where('a.parent_uid',$this->session->userdata('uid'));
+        $this->db->where('a.parent_uid',$app_uid);
         $this->db->where('a.status',2);
         $this->db->limit($data['limit'], $offset = ($page - 1) * $data['limit']);
         $this->db->order_by('a.id','desc');
@@ -521,13 +521,13 @@ class Apiuser_model extends MY_Model
         return $data;
     }
 
-    public function my_team_shop2_loaddata($page=1){
+    public function my_team_shop2_loaddata($page=1,$app_uid){
         $data['limit'] = $this->limit;
         //获取总记录数
         $this->db->select('count(1) num')->from('shop a');
         $this->db->join('users b',"b.id = a.parent_uid",'left');
         $this->db->join('shop_type c','c.id = a.type','left');
-        $this->db->where('b.parent_id',$this->session->userdata('uid'));
+        $this->db->where('b.parent_id',$app_uid);
         $this->db->where('a.status',2);
 //        $this->db->where('shop_id',1); //TODO
         $num = $this->db->get()->row();
@@ -538,7 +538,7 @@ class Apiuser_model extends MY_Model
         $this->db->select('a.shop_name,b.rel_name,c.name,total')->from('shop a');
         $this->db->join('users b',"b.id = a.parent_uid",'left');
         $this->db->join('shop_type c','c.id = a.type','left');
-        $this->db->where('b.parent_id',$this->session->userdata('uid'));
+        $this->db->where('b.parent_id',$app_uid);
         $this->db->where('a.status',2);
         $this->db->limit($data['limit'], $offset = ($page - 1) * $data['limit']);
         $this->db->order_by('a.id','desc');
