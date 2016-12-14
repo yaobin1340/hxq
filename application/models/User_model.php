@@ -228,6 +228,7 @@ class User_model extends MY_Model
         $data = array(
             'uid'=>$this->session->userdata('uid'),
             'money' => (int)$this->input->post('money')*100,
+            'sxf'=>500,
             'bank' => trim($this->input->post('bank')),
             'bank_no' => trim($this->input->post('bank_no')),
             'bank_branch' => trim($this->input->post('bank_branch')),
