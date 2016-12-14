@@ -1,6 +1,14 @@
 {{include file="../public/header.html"}}
 <link rel="stylesheet" href="/statics/css/merchantssettled.css">
 <link rel="stylesheet" href="/statics/css/informationrevise.css">
+<style>
+   .information_revise_btn_confirm{
+       margin-top: 10px;
+   }
+    .information_revise_btn_confirm_back{
+        width: 96%;border-radius: 10px;margin: 0 auto;
+    }
+</style>
 <header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
     <span class="register_header_title">账户管理</span>
     <a href="javascript:window.history.go(-1);"><span class="am-icon-chevron-left register_header_back"></span></a>
@@ -50,11 +58,11 @@
         <div class="merchants_settled_shop_information_btn">
             <button type="button" class="am-btn am-btn-default am-btn-block login_form_btn" data-am-modal="{target: '#my-popup'}">修改密码</button>
         </div>
-         <div style="margin-top: 10px;">
-            <input id="save_btn" class="am-btn am-btn-secondary am-btn-block" style="width: 96%;border-radius: 10px;margin: 0 auto;" type="button" value="确认">
+         <div class="information_revise_btn_confirm">
+            <input id="save_btn" class="am-btn am-btn-secondary am-btn-block information_revise_btn_confirm_back" type="button" value="确认">
          </div>
-         <div style="margin-top: 10px;">
-            <a class="am-btn am-btn-default am-btn-block" style="width: 96%;border-radius: 10px;margin: 0 auto;" href="{{site_url url='user'}}">返回</a>
+         <div class="information_revise_btn_confirm">
+            <a class="am-btn am-btn-default am-btn-block information_revise_btn_confirm_back" href="{{site_url url='user'}}">返回</a>
           </div>
     </form>
     <div class="am-popup" id="my-popup">
@@ -63,7 +71,7 @@
                 <h4 class="am-popup-title">修改密码</h4>
                 <span data-am-modal-close class="am-close">&times;</span>
             </div>
-            <div class="am-popup-bd" style="background: #ffffff;">
+            <div class="am-popup-bd information_revise_layer" style="background: #ffffff;">
                 <div class="am-g">
                     <br class="am-u-lg-6 am-u-md-8 am-u-sm-centered"><br><br><br>
                     <form id="edit_pwd_form" method="post" class="am-form " action="{{site_url url='user/update_pwd'}}" data-am-validator>
