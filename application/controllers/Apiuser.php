@@ -237,24 +237,25 @@ class Apiuser extends MY_APIcontroller {
 		die();
 	}
 
-	public function my_team_loaddata(){
-		unset($this->rs['user_info']);
+	public function my_team_user(){
 		$page = $this->input->post('page')?$this->input->post('page'):1;
-		switch ($this->input->post('type')){
-			case 1:
-				$data = $this->apiuser_model->my_team_user_loaddata($page,$this->app_uid);
-				break;
-			case 2:
-				$data = $this->apiuser_model->my_team_shop_loaddata($page,$this->app_uid);
-				break;
-			case 3:
-				$data = $this->apiuser_model->my_team_shop2_loaddata($page,$this->app_uid);
-				break;
-			default:
-				$this->err_rs['error_msg']='获取信息失败！';
-				echo json_encode($this->err_rs);
-				die();
-		}
+		$data = $this->apiuser_model->my_team_user_loaddata($page,$this->app_uid);
+		$this->rs['my_team_list']=$data['items'];
+		echo json_encode($this->rs);
+		die();
+	}
+
+	public function my_team_shop(){
+		$page = $this->input->post('page')?$this->input->post('page'):1;
+		$data = $this->apiuser_model->my_team_shop_loaddata($page,$this->app_uid);
+		$this->rs['my_team_list']=$data['items'];
+		echo json_encode($this->rs);
+		die();
+	}
+
+	public function my_team_shop2(){
+		$page = $this->input->post('page')?$this->input->post('page'):1;
+		$data = $this->apiuser_model->my_team_shop2_loaddata($page,$this->app_uid);
 		$this->rs['my_team_list']=$data['items'];
 		echo json_encode($this->rs);
 		die();
