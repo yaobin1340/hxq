@@ -1,14 +1,6 @@
 {{include file="../public/header.html"}}
 <link rel="stylesheet" href="/statics/css/merchantssettled.css">
 <link rel="stylesheet" href="/statics/css/informationrevise.css">
-<style>
-   .information_revise_btn_confirm{
-       margin-top: 10px;
-   }
-    .information_revise_btn_confirm_back{
-        width: 96%;border-radius: 10px;margin: 0 auto;
-    }
-</style>
 <header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
     <span class="register_header_title">账户管理</span>
     <a href="javascript:window.history.go(-1);"><span class="am-icon-chevron-left register_header_back"></span></a>
@@ -63,31 +55,31 @@
          </div>
          <div class="information_revise_btn_confirm">
             <a class="am-btn am-btn-default am-btn-block information_revise_btn_confirm_back" href="{{site_url url='user'}}">返回</a>
-          </div>
+         </div>
     </form>
     <div class="am-popup" id="my-popup">
         <div class="am-popup-inner">
             <div class="am-popup-hd">
                 <h4 class="am-popup-title">修改密码</h4>
-                <span data-am-modal-close class="am-close">&times;</span>
+                <span data-am-modal-close class="am-close" style="color: #3bb4f2;">&times;</span>
             </div>
-            <div class="am-popup-bd information_revise_layer" style="background: #ffffff;">
+            <div class="am-popup-bd information_revise_layer">
                 <div class="am-g">
                     <br class="am-u-lg-6 am-u-md-8 am-u-sm-centered"><br><br><br>
                     <form id="edit_pwd_form" method="post" class="am-form " action="{{site_url url='user/update_pwd'}}" data-am-validator>
                         <div class="am-form-group am-form-icon">
                             <i class="am-icon-lock"></i>
-                            <input type="password" id="pwd_pass"  name="password" class="am-form-field am-form-mobile" placeholder="请输入您的旧密码" style="height: 50px;border-radius: 10px;" required />
+                            <input type="password" id="pwd_pass"  name="password" class="am-form-field am-form-mobile" placeholder="请输入您的旧密码" required />
                         </div>
                         <div class="am-form-group am-form-icon">
                             <i class="am-icon-lock"></i>
-                            <input type="password" id="pwd_new_one"  name="new_password" class="am-form-field js-pattern-number am-form-mobile" placeholder="请输入新密码" style="height: 50px;border-radius: 10px;" required />
+                            <input type="password" id="pwd_new_one"  name="new_password" class="am-form-field am-form-mobile" placeholder="请输入新密码" required />
                         </div>
                         <div class="am-form-group am-form-icon">
                             <i class="am-icon-lock"></i>
-                            <input type="password" id="pwd_new_two"  name="new_password2" class="am-form-field js-pattern-number am-form-mobile" placeholder="请确认新密码" style="height: 50px;border-radius: 10px;" required />
+                            <input type="password" id="pwd_new_two"  name="new_password2" class="am-form-field am-form-mobile" placeholder="请确认新密码" required />
                         </div>
-                        <button id="edit_pwd_btn" type="button" class="am-btn am-btn-secondary am-btn-default am-btn-block am-btn-next" style="margin-top: 20px;border-radius: 10px;">修改</button>
+                        <button id="edit_pwd_btn" type="button" class="am-btn am-btn-secondary am-btn-default am-btn-block am-btn-next">修改</button>
                     </form>
                 </div>
             </div>
