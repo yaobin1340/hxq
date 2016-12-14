@@ -263,4 +263,21 @@ class Apiuser extends MY_APIcontroller {
 		echo json_encode($this->rs);
 		die();
 	}
+
+	public function user_heart(){
+		$user_count6 = $this->apiuser_model->get_count_heart(1,false,$this->app_uid);
+		$user_count12 = $this->apiuser_model->get_count_heart(2,false,$this->app_uid);
+		$user_count24 = $this->apiuser_model->get_count_heart(3,false,$this->app_uid);
+		$shop_count6 = $this->apiuser_model->get_count_heart(1,true,$this->app_uid);
+		$shop_count12 = $this->apiuser_model->get_count_heart(2,true,$this->app_uid);
+		$shop_count24 = $this->apiuser_model->get_count_heart(3,true,$this->app_uid);
+		$this->rs['user_count6']=$user_count6;
+		$this->rs['user_count12']=$user_count12;
+		$this->rs['user_count24']=$user_count24;
+		$this->rs['shop_count6']=$shop_count6;
+		$this->rs['shop_count12']=$shop_count12;
+		$this->rs['shop_count24']=$shop_count24;
+		echo json_encode($this->rs);
+		die();
+	}
 }

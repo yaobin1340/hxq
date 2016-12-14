@@ -436,11 +436,11 @@ class Apiuser_model extends MY_Model
         return $data;
     }
 
-    public function get_count_heart($type,$is_shop = true){
+    public function get_count_heart($type,$is_shop = true,$app_uid){
         if($is_shop){
             $this->db->select('count(1) num')->from('sunflower_shop a');
             $this->db->join('users b','b.shop_id = a.shop_id','left');
-            $this->db->where('b.id',$this->session->userdata('uid'));
+            $this->db->where('b.id',$app_uid);
             switch($type){
                 case 1:
                     $this->db->where("a.percent",6);
@@ -457,7 +457,7 @@ class Apiuser_model extends MY_Model
             return $num->num;
         }else{
             $this->db->select('count(1) num')->from('sunflower');
-            $this->db->where('uid',$this->session->userdata('uid'));
+            $this->db->where('uid',$app_uid);
             switch($type){
                 case 1:
                     $this->db->where("percent",6);
