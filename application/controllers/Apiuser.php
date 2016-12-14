@@ -198,6 +198,7 @@ class Apiuser extends MY_APIcontroller {
 
 	public function sendsms()
 	{
+		unset($this->rs['user_info']);
 		$mobile = $this->input->post('mobile');
 		$yzm = rand(100000,999999);
 		//$yzm     = 123456;
@@ -219,6 +220,7 @@ class Apiuser extends MY_APIcontroller {
 	}
 
 	public function list_withdraw_loaddata($page = 1){
+		unset($this->rs['user_info']);
 		$data = $this->apiuser_model->list_withdraw_loaddata($page,$this->app_uid);
 		$this->rs['withdraw_list']=$data['items'];
 		echo json_encode($this->rs);
