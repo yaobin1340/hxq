@@ -98,7 +98,13 @@ class Order_model extends MY_Model
 		$this->db->trans_start();//--------开始事务
 
 		if($this->input->post('status') == 3){
-
+			$p = 1;
+			if($shop_info['percent'] == 12){
+				$p = 0.5;
+			}
+			if($shop_info['percent'] == 6){
+				$p = 0.25;
+			}
 
 			foreach($order_list as $k=>$v){
 				//会员累加金额,结算爱心
@@ -127,7 +133,7 @@ class Order_model extends MY_Model
 
 				//会员的推荐人获得0.6的返利
 				if($user_info['parent_id']){
-					$this->money_log($v['price']*0.006,3,'推荐客户奖励',$user_info['parent_id']);
+					$this->money_log($v['price']*0.006*$p,3,'推荐客户奖励',$user_info['parent_id']);
 				}
 			}
 
@@ -154,13 +160,7 @@ class Order_model extends MY_Model
 				$this->db->insert_batch('sunflower_shop', $insert_array);
 			}
 
-			$p = 1;
-			if($shop_info['percent'] == 12){
-				$p = 0.5;
-			}
-			if($shop_info['percent'] == 6){
-				$p = 0.25;
-			}
+
 
 			//商家上级获得分红
 			if($shop_info['parent_uid'] > 0){
