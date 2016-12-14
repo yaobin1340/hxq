@@ -142,4 +142,11 @@ class Apiuser extends MY_APIcontroller {
 		}
 
 	}
+
+	public function withdraw(){
+		$data = $this->apiuser_model->withdraw($this->app_uid);
+		$this->rs['withdraw_info']=$data;
+		echo json_encode($this->rs);
+		die();
+	}
 }
