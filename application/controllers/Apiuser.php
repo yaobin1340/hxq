@@ -238,6 +238,7 @@ class Apiuser extends MY_APIcontroller {
 	}
 
 	public function my_team_user(){
+		unset($this->rs['user_info']);
 		$page = $this->input->post('page')?$this->input->post('page'):1;
 		$data = $this->apiuser_model->my_team_user_loaddata($page,$this->app_uid);
 		$this->rs['my_team_list']=$data['items'];
@@ -246,6 +247,7 @@ class Apiuser extends MY_APIcontroller {
 	}
 
 	public function my_team_shop(){
+		unset($this->rs['user_info']);
 		$page = $this->input->post('page')?$this->input->post('page'):1;
 		$data = $this->apiuser_model->my_team_shop_loaddata($page,$this->app_uid);
 		$this->rs['my_team_list']=$data['items'];
@@ -254,6 +256,7 @@ class Apiuser extends MY_APIcontroller {
 	}
 
 	public function my_team_shop2(){
+		unset($this->rs['user_info']);
 		$page = $this->input->post('page')?$this->input->post('page'):1;
 		$data = $this->apiuser_model->my_team_shop2_loaddata($page,$this->app_uid);
 		$this->rs['my_team_list']=$data['items'];
