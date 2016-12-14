@@ -313,11 +313,11 @@ class Apiuser_model extends MY_Model
         return $data;
     }
 
-    public function user_heart_loaddata($page=1){
+    public function user_heart_loaddata($page=1,$app_uid){
         $data['limit'] = $this->limit;
         //获取总记录数
         $this->db->select('count(1) num')->from('sunflower a');
-        $this->db->where('a.uid',$this->session->userdata('uid'));
+        $this->db->where('a.uid',$app_uid);
         switch($this->input->post('tab_type')){
             case 1:
                 $this->db->where("a.percent",6);
@@ -338,7 +338,7 @@ class Apiuser_model extends MY_Model
         $data['tab_type'] = $this->input->post('tab_type')?$this->input->post('tab_type'):null;
         //获取详细列
         $this->db->select('a.*')->from('sunflower a');
-        $this->db->where('a.uid',$this->session->userdata('uid'));
+        $this->db->where('a.uid',$app_uid);
         switch($this->input->post('tab_type')){
             case 1:
                 $this->db->where("a.percent",6);
@@ -358,12 +358,12 @@ class Apiuser_model extends MY_Model
         return $data;
     }
 
-    public function shop_heart_loaddata($page=1){
+    public function shop_heart_loaddata($page=1,$app_uid){
         $data['limit'] = $this->limit;
         //获取总记录数
         $this->db->select('count(1) num')->from('sunflower_shop a');
         $this->db->join('users b','b.shop_id = a.shop_id','left');
-        $this->db->where('b.id',$this->session->userdata('uid'));
+        $this->db->where('b.id',$app_uid);
         switch($this->input->post('tab_type')){
             case 1:
                 $this->db->where("a.percent",6);
@@ -385,7 +385,7 @@ class Apiuser_model extends MY_Model
         //获取详细列
         $this->db->select('a.*')->from('sunflower_shop a');
         $this->db->join('users b','b.shop_id = a.shop_id','left');
-        $this->db->where('b.id',$this->session->userdata('uid'));
+        $this->db->where('b.id',$app_uid);
         switch($this->input->post('tab_type')){
             case 1:
                 $this->db->where("a.percent",6);

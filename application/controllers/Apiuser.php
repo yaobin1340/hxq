@@ -264,7 +264,8 @@ class Apiuser extends MY_APIcontroller {
 		die();
 	}
 
-	public function user_heart(){
+	public function heart_count(){
+		unset($this->rs['user_info']);
 		$user_count6 = $this->apiuser_model->get_count_heart(1,false,$this->app_uid);
 		$user_count12 = $this->apiuser_model->get_count_heart(2,false,$this->app_uid);
 		$user_count24 = $this->apiuser_model->get_count_heart(3,false,$this->app_uid);
@@ -277,6 +278,24 @@ class Apiuser extends MY_APIcontroller {
 		$this->rs['shop_count6']=$shop_count6;
 		$this->rs['shop_count12']=$shop_count12;
 		$this->rs['shop_count24']=$shop_count24;
+		echo json_encode($this->rs);
+		die();
+	}
+
+	public function user_heart_loaddata(){
+		unset($this->rs['user_info']);
+		$page = $this->input->post('page')?$this->input->post('page'):1;
+		$data = $this->apiuser_model->user_heart_loaddata($page,$this->app_uid);
+		$this->rs['user_heart_list']=$data['items'];
+		echo json_encode($this->rs);
+		die();
+	}
+
+	public function shop_heart_loaddata(){
+		unset($this->rs['user_info']);
+		$page = $this->input->post('page')?$this->input->post('page'):1;
+		$data = $this->apiuser_model->shop_heart_loaddata($page,$this->app_uid);
+		$this->rs['shop_heart_list']=$data['items'];
 		echo json_encode($this->rs);
 		die();
 	}
