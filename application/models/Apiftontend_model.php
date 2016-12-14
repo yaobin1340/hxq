@@ -271,4 +271,15 @@ class Apiftontend_model extends MY_Model{
         $data['lm_shops'] = $this->db->select('count(1) num')->from('shop')->where('status',2)->get()->row_array();
         return $data;
     }
+
+    public function shop_details($id){
+        $this->db->select('a.*,p.name p_name,c.name c_name,ar.name ar_name,st.name type_name')->from('shop a');
+        $this->db->join('province p','a.province_code = p.code','left');
+        $this->db->join('city c','a.city_code = c.code','left');
+        $this->db->join('area ar','a.area_code = ar.code','left');
+        $this->db->join('shop_type st','a.type = st.id','left');
+        $this->db->where('a.id',$id);
+        $row = $this->db->get()->row_array();
+        return $row;
+    }
 }
