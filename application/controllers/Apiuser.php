@@ -149,4 +149,49 @@ class Apiuser extends MY_APIcontroller {
 		echo json_encode($this->rs);
 		die();
 	}
+
+	public function save_withdraw(){
+		if((int)$this->input->post('money') < 100){
+			$this->err_rs['error_msg']='提现金额不能小于要求最小值！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('bank'))){
+			$this->err_rs['error_msg']='开户银行不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('bank_no'))){
+			$this->err_rs['error_msg']='银行账号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('bank_branch'))){
+			$this->err_rs['error_msg']='具体支行不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('rel_name'))){
+			$this->err_rs['error_msg']='开户名不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$rs = $this->apiuser_model->save_withdraw($this->app_uid);
+		if($rs == 1){
+			echo json_encode($this->rs);
+			die();
+		}else if($rs == -1){
+			$this->err_rs['error_msg']='未登陆！';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($rs == -2){
+			$this->err_rs['error_msg']='积分不足！';
+			echo json_encode($this->err_rs);
+			die();
+		}else{
+			$this->err_rs['error_msg']='操作失败！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+	}
 }

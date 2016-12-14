@@ -207,10 +207,11 @@ class User_model extends MY_Model
         }
     }
 
-    public function withdraw($app_uid){
-        $data = $this->db->select()
+    public function withdraw(){
+        $data['user_info'] = $this->db->select()->from('users')->where('id',$this->session->userdata('uid'))->get()->row_array();
+        $data['withdraw_info'] = $this->db->select()
             ->from('withdraw')
-            ->where('uid',$app_uid)
+            ->where('uid',$this->session->userdata('uid'))
             ->order_by('id','desc')
             ->get()->row_array();
         return $data;

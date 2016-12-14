@@ -207,26 +207,25 @@ class Apiuser_model extends MY_Model
         }
     }
 
-    public function withdraw(){
-        $data['user_info'] = $this->db->select()->from('users')->where('id',$this->session->userdata('uid'))->get()->row_array();
-        $data['withdraw_info'] = $this->db->select()
+    public function withdraw($app_uid){
+        $data = $this->db->select()
             ->from('withdraw')
-            ->where('uid',$this->session->userdata('uid'))
+            ->where('uid',$app_uid)
             ->order_by('id','desc')
             ->get()->row_array();
         return $data;
     }
 
-    public function save_withdraw(){
-        if(!($uid = $this->session->userdata('uid'))){
+    public function save_withdraw($app_uid){
+        if(!$app_uid){
             return -1;
         }
-        $user_info = $this->db->select()->from('users')->where('id',$this->session->userdata('uid'))->get()->row_array();
+        $user_info = $this->db->select()->from('users')->where('id',$app_uid)->get()->row_array();
         if((int)$this->input->post('money') > $user_info['integral']/100){
             return -2;
         }
         $data = array(
-            'uid'=>$this->session->userdata('uid'),
+            'uid'=>$app_uid,
             'money' => (int)$this->input->post('money')*100,
             'bank' => trim($this->input->post('bank')),
             'bank_no' => trim($this->input->post('bank_no')),
@@ -237,11 +236,11 @@ class Apiuser_model extends MY_Model
         );
         $this->db->trans_start();//--------开始事务
         $this->db->insert('withdraw',$data);
-        $this->db->where('id',$this->session->userdata('uid'));
+        $this->db->where('id',$app_uid);
         $this->db->set('integral',"integral - {$data['money']}",false);
         $this->db->update('users');
             $this->db->insert('money_log',array(
-                'uid'=>$this->session->userdata('uid'),
+                'uid'=>$app_uid,
                 'cdate' => date('Y-m-d H:i:s'),
                 'type'=>1,
                 'remark'=>'用户提现',
