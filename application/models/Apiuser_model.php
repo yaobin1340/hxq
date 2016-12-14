@@ -114,7 +114,7 @@ class Apiuser_model extends MY_Model
         $data['s_date'] = $this->input->post('s_date')?$this->input->post('s_date'):null;
 
         //获取详细列
-        $this->db->select('a.*,shop_name,address')->from('order_list a');
+        $this->db->select('a.*,shop_name,address,c.phone')->from('order_list a');
         $this->db->join('users b','a.uid=b.id','left');
         $this->db->join('shop c','a.shop_id=c.id','left');
 
