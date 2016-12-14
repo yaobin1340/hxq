@@ -42,16 +42,16 @@
                     <i class="am-icon-mobile-phone"></i>
                     <input type="number" id="doc-vld-mima-4"  name="mobile" class="am-form-field js-pattern-mobile" placeholder="请输入手机号" required />
                 </div>
-             </div>
-         </div>
-         <div class="am-u-sm-4">
+            </div>
+        </div>
+        <div class="am-u-sm-4">
             <button type="button" class="am-btn am-btn-primary">获取验证码</button>
         </div>
     </div>
     <div class="row-two">
         <div class="am-form-group am-form-icon ">
             <i class="am-icon-mobile-phone"></i>
-                <input type="number" class="am-form-field js-pattern-mobile" placeholder="请输入验证码" required />
+            <input type="number" class="am-form-field js-pattern-mobile" placeholder="请输入验证码" required />
         </div>
     </div>
     <div class="tishi">
@@ -64,9 +64,57 @@
         您的余额不足
     </div>
 </section>
+{{include file="../public/footer.html"}}
+<script type="text/javascript">
+    var mobile_timeout;
+    var mobile_count = 100;
+    var mobile_lock = 0;
+    $("#jq_send").click(function () {
+        if (mobile_lock == 0) {
+            $.ajax({
+                url: "{{site_url url='user/sendsms'}}",
+                data: 'mobile=' + $("#mobile").val(),
+                type: 'post'
+            });
+            mobile_count = 100;
+            BtnCount();
+            mobile_lock = 1;
+        }
+    });
+    $(function () {
 
+    });
+    BtnCount = function () {
+        if (mobile_count == 0) {
+            $('#jq_send').html("重新发送");
+            mobile_lock = 0;
+            clearTimeout(mobile_timeout);
+        }
+        else {
+            mobile_count--;
+            $('#jq_send').html("重新发送(" + mobile_count.toString() + ")秒");
+            mobile_timeout = setTimeout(BtnCount, 1000);
+        }
+    };
 
+    window.onload=function(){
+        application_record();
+    }
 
-
-
+    function money_record() {
+        $("#money_record").css("color","#3ab5f3");
+        $("#cash_record").css("color","#7c7c7c");
+        $("#application_record").css("color","#7c7c7c");
+    }
+    function cash_record() {
+        $("#money_record").css("color","#7c7c7c");
+        $("#cash_record").css("color","#3ab5f3");
+        $("#application_record").css("color","#7c7c7c");
+    }
+    function application_record() {
+        $("#money_record").css("color","#7c7c7c");
+        $("#cash_record").css("color","#7c7c7c");
+        $("#application_record").css("color","#3ab5f3");
+    }
+</script>
 </body>

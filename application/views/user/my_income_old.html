@@ -1,33 +1,45 @@
-{{include file="../public/header.html"}}
-<link rel="stylesheet" href="../../statics/css/myincome.css">
-<body>
-    <header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
-        <span class="register_header_title">我的收益</span>
-         <a href="javascript:window.history.go(-1);"><span class="am-icon-chevron-left register_header_back"></span></a>
-    </header>
-    <div class="sky_my_income">
-        <table class="table" border="0">
-         <thead>
-            <tr>
-                <td class="td">金额</td>
-                <td class="td">来源</td>
-                <td class="td">日期</td>
-            </tr>
-          </thead>
-             <tbody id="accordion">
+{{include file="./header.html"}}
 
-            </tbody>
-        </table>
-        <p id="is_end">已到最后一页</p>
-        <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
-             <div class="am-modal-dialog">
-                 <div class="am-modal-hd">正在加载...</div>
-                 <div class="am-modal-bd">
-                    <span class="am-icon-spinner am-icon-spin"></span>
-                </div>
-             </div>
+<style>
+    .table{
+
+
+        width: 100%; height: 50px; border-collapse:collapse;color: #bfbfbf;margin-left: 5px;
+    }
+    .table tr{
+        font-size: 14px; height: 50px; text-align: center;color: #999999;
+    }
+    .td{
+        border-bottom:1px solid #e5e5e5;
+    }
+</style>
+<body style="background: #FFFFFF;overflow-x: hidden;">
+<div style="padding-bottom: 80px;overflow-x: hidden;">
+<table class="table" border="0">
+    <thead>
+    <tr style="color: #343434;font-weight: bold;">
+        <td class="td" style="width: 17%;">金额</td>
+        <td class="td" style="width: 35%;">来源</td>
+        <td class="td" style="width: 48%;">日期</td>
+    </tr>
+    </thead>
+    <tbody id="accordion">
+
+    </tbody>
+
+</table>
+<p id="is_end" style="text-align: center;font-size: 12px;margin-top: 10px;">已到最后一页</p>
+
+<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">正在加载...</div>
+        <div class="am-modal-bd">
+            <span class="am-icon-spinner am-icon-spin"></span>
         </div>
     </div>
+</div>
+
+</div>
 {{include file="../public/footer.html"}}
 </body>
 <script>
@@ -47,6 +59,7 @@
             }
         }
     });
+
     function get_data(){
         $.post("{{site_url url='user/my_income_loaddata'}}/"+window.page,{},function(data){
             if(data){
@@ -70,6 +83,7 @@
                 $("#is_end").show()
                 window.is_end = true
             }
+
         });
     }
     get_data()

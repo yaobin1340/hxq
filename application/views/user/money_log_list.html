@@ -1,95 +1,66 @@
-{{include file="./header.html"}}
+{{include file="../public/header.html"}}
+<link rel="stylesheet" href="../../statics/css/moneyloglist.css">
 <input type="hidden" id="s_date" value="{{$s_date}}">
 <input type="hidden" id="e_date" value="{{$e_date}}">
 <body>
-<link rel="stylesheet" href="/static/default/wap/css/housekeeping.css"/>  
-<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet" />
-<style>
-ul { padding-left: 0px;}
-.layui-layer-molv .layui-layer-title {background-color: #F8F8F8;border-bottom: 1px solid #eee;color: #333;}
-
-.table1{
-	width: 100%; height: 45px; border-collapse:collapse;color: #bfbfbf; cursor:pointer;
-}
-.table1 tr{
-	font-size: 14px;text-align: center;color: #999999;
-}
-.td1{
-	border-bottom:1px solid #e5e5e5;
-}
-.td1 a{
-	color: #777777;
-}
-
-	.table{
-		width: 100%; height: 50px; border-collapse:collapse;color: #bfbfbf;margin-left: 5px;
-	}
-	.table tr{
-		font-size: 14px; height: 50px; text-align: center;color: #999999;
-	}
-	.td{
-		border-bottom:1px solid #e5e5e5;
-	}
-</style>
-
-<body style="background: #ffffff;">
-<div style="overflow-x: hidden;padding-bottom: 100px;">
-<table class="table1" border="0">
-	<tr>
-		<td class="td1"><a href="{{site_url url='user/money_log_list'}}" onclick="money_record()" id="money_record">资金日志</a></td>
-		<td class="td1"><a href="{{site_url url='user/withdraw_list'}}" onclick="cash_record()" id="cash_record">提现日志</a></td>
-		<td class="td1"><a href="{{site_url url='user/withdraw'}}" onclick="application_record()" id="application_record">申请提现</a></td>
-	</tr>
-</table>
-
-<div class="am-modal-actions" style="height: 20em" id="my-actions-search">
-	<form class="am-form-inline" role="form" action="{{site_url url='user/money_log_list'}}" method="post">
-		<div class="am-modal-actions-group">
-			<ul class="am-list">
-				<div class="am-form-group input_start_time">
-					<input type="datetime" class="am-form-field" data-am-datepicker readonly name="s_date" value="{{$s_date}}" placeholder="开始时间">
+	<header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
+	<span class="register_header_title">资金日志</span>
+	<a href="javascript:window.history.go(-1);"><span class="am-icon-chevron-left register_header_back"></span></a>
+</header>
+	<section>
+		<div class="money_log_list_div_all">
+			<table class="table1" border="0">
+			<tr>
+				<td class="td1"><a href="{{site_url url='user/money_log_list'}}" onclick="money_record()" id="money_record">资金日志</a></td>
+				<td class="td1"><a href="{{site_url url='user/withdraw_list'}}" onclick="cash_record()" id="cash_record">提现日志</a></td>
+				<td class="td1"><a href="{{site_url url='user/withdraw'}}" onclick="application_record()" id="application_record">申请提现</a></td>
+			</tr>
+		</table>
+			<div class="am-modal-actions" style="height: 20em" id="my-actions-search">
+			<form class="am-form-inline" role="form" action="{{site_url url='user/money_log_list'}}" method="post">
+				<div class="am-modal-actions-group">
+					<ul class="am-list">
+						<div class="am-form-group input_start_time">
+							<input type="datetime" class="am-form-field" data-am-datepicker readonly name="s_date" value="{{$s_date}}" placeholder="开始时间">
+						</div>
+						<div class="am-form-group input_end_time">
+							<input type="datetime" class="am-form-field" data-am-datepicker readonly name="e_date" value="{{$e_date}}" placeholder="结束时间">
+						</div>
+					</ul>
 				</div>
-				<div class="am-form-group input_end_time">
-					<input type="datetime" class="am-form-field" data-am-datepicker readonly name="e_date" value="{{$e_date}}" placeholder="结束时间">
+				<div class="am-modal-actions-group div_search_btn">
+					<button class="am-btn am-btn-warning am-btn-block">搜索</button>
+					<button class="am-btn am-btn-secondary am-btn-block" data-am-modal-close>取消</button>
 				</div>
-			</ul>
+			</form>
 		</div>
-		<div class="am-modal-actions-group div_search_btn">
-			<button class="am-btn am-btn-warning am-btn-block">搜索</button>
-			<button class="am-btn am-btn-secondary am-btn-block" data-am-modal-close>取消</button>
+			<table class="table" border="0">
+				<thead>
+					<tr>
+						<td class="td">金额变化</td>
+						<td class="td">日期</td>
+						<td class="td">详情</td>
+					</tr>
+				</thead>
+				<tbody id="accordion">
+
+				</tbody>
+			</table>
+			<p id="is_end">已到最后一页</p>
+			<div class="xuanfu_plus">
+			 	<a class="am-icon-btn am-icon-search xuanfu_icon_search" data-am-modal="{target: '#my-actions-search'}"></a>
+			</div>
+			<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+			<div class="am-modal-dialog">
+				<div class="am-modal-hd">正在加载...</div>
+				<div class="am-modal-bd">
+					<span class="am-icon-spinner am-icon-spin"></span>
+				</div>
+			</div>
 		</div>
-	</form>
-</div>
-
-<table class="table" border="0">
-
-	<thead>
-	<tr style="color: #343434;font-weight: bold;">
-		<td class="td">ID</td>
-		<td class="td">金额变化</td>
-		<td class="td">日期</td>
-	</tr>
-	</thead>
-	<tbody id="accordion">
-
-	</tbody>
-</table>
-<p id="is_end" style="text-align: center;font-size: 12px;">已到最后一页</p>
-<div class="xuanfu_plus">
-	<a href="#" class="am-icon-btn am-icon-search xuanfu_icon_search" data-am-modal="{target: '#my-actions-search'}"></a>
-</div>
-
-<div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
-	<div class="am-modal-dialog">
-		<div class="am-modal-hd">正在加载...</div>
-		<div class="am-modal-bd">
-			<span class="am-icon-spinner am-icon-spin"></span>
 		</div>
-	</div>
-</div>
-</div>
+	</section>
 </body>
-
 {{include file="../public/footer.html"}}
 <script>
 	window.is_end = false

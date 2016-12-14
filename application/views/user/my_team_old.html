@@ -1,11 +1,38 @@
-{{include file="../public/header.html"}}
-<link rel="stylesheet" href="../../statics/css/myteam.css">
-<body>
-<header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
-    <span class="register_header_title">我的团队</span>
-    <a href="javascript:window.history.go(-1);"><span class="am-icon-chevron-left register_header_back"></span></a>
-</header>
-   <div class="my_team_div_all">
+{{include file="./header.html"}}
+
+<style>
+    .table1{
+        width: 100%; height: 45px; border-collapse:collapse;color: #bfbfbf;
+    }
+    .table1 tr{
+        font-size: 14px;text-align: center;color: #999999;
+    }
+    .td1{
+        border-bottom:1px solid #e5e5e5;
+    }
+    .td1 a{
+        color: #777777;
+    }
+    .table{
+        width: 100%; height: 50px; border-collapse:collapse;color: #bfbfbf;
+    }
+    .table tr{
+        font-size: 13px; height: 50px; text-align: center;color: #999999;
+    }
+    .td{
+        border-bottom:1px solid #e5e5e5;
+    }
+    .table .my_team_title{
+        color: #343434;font-weight: bold;font-size: 15px;
+    }
+    .table .my_team_title_content{
+        color: #676767; font-size: 14px;
+    }
+</style>
+
+<body style="background: #ffffff;">
+
+   <div style="padding-bottom: 100px;">
        <input type="hidden" id="type" value="{{$type}}">
        <table class="table1" border="0">
            <tr>
@@ -55,11 +82,13 @@
                </tr>
                {{/if}}
                </thead>
+
                <tbody id="accordion">
 
                </tbody>
+
            </table>
-           <p id="is_end">已到最后一页</p>
+           <p id="is_end" style="text-align: center;font-size: 12px;margin-top: 20px;">已到最后一页</p>
        </div>
        <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
            <div class="am-modal-dialog">
@@ -70,8 +99,35 @@
            </div>
        </div>
    </div>
-{{include file="../public/footer.html"}}
+    <script>
+
+        /*function my_vip() {
+            $("#my_vip").css("color","#3ab5f3");
+            $("#my_shop").css("color","#7c7c7c");
+            $("#my_XXX").css("color","#7c7c7c");
+            $("#my_vip_content").css("display","block");
+            $("#my_shop_content").css("display","none");
+            $("#my_XXX_content").css("display","none");
+        }
+        function my_shop() {
+            $("#my_vip").css("color","#7c7c7c");
+            $("#my_shop").css("color","#3ab5f3");
+            $("#my_XXX").css("color","#7c7c7c");
+            $("#my_vip_content").css("display","none");
+            $("#my_shop_content").css("display","block");
+            $("#my_XXX_content").css("display","none");
+        }
+        function my_XXX() {
+            $("#my_vip").css("color","#7c7c7c");
+            $("#my_shop").css("color","#7c7c7c");
+            $("#my_XXX").css("color","#3ab5f3");
+            $("#my_vip_content").css("display","none");
+            $("#my_shop_content").css("display","none");
+            $("#my_XXX_content").css("display","block");
+        }*/
+    </script>
 </body>
+{{include file="../public/footer.html"}}
 <script>
     window.is_end = false
     window.page = 1
@@ -89,6 +145,7 @@
             }
         }
     });
+
     function get_data(){
         type = $('#type').val()
         $.post("{{site_url url='user/my_team_loaddata'}}/"+window.page,{type:type},function(data){
@@ -120,4 +177,6 @@
     $(function() {
 
     });
+
+
 </script>
