@@ -379,4 +379,22 @@ class Apiftontend extends MY_APIcontroller {
 		echo json_encode($rs);
 		die();
 	}
+
+	public function shop_detail($id){
+		$data = $this->Apiftontend_model->shop_details($id);
+		if($data){
+			$rs = array(
+				'success'=>true,
+				'error_msg'=>'',
+				'shop_detail'=>$data
+			);
+		}else{
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'未找到商铺信息!'
+			);
+		}
+		echo json_encode($rs);
+		die();
+	}
 }
