@@ -104,3 +104,15 @@ footer{
 .footer_span_2{
     font-size: 15px; font-family: '宋体';color: #808080;
 }
+.am-btn-primary{
+    font-size: 14px;
+}
+.merchants_settled_shop_information_btn{
+    margin-top: 30px;
+}
+.login_form_btn{
+    margin: 0 auto;
+}
+.withdraw_bank_select{
+    width: 88%;height:50px;margin: 0 auto;margin-top: 10px;border-radius: 10px;
+}

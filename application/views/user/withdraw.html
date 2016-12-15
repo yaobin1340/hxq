@@ -14,25 +14,44 @@
         </tr>
     </table>
     <div class="am-g row-one">
-        <div class="am-u-sm-6">您好：李宁</div>
-        <div class="am-u-sm-6">可提现余额：0元</div>
+        <div class="am-u-sm-6">您好：{{$data.user_info.rel_name}}</div>
+        <div class="am-u-sm-6">可提现余额：{{$data.user_info.integral/100}}元</div>
     </div>
+<form class="am-form" data-am-validator action="/user/save_withdraw" method="post">
     <div class="row-two">
         <div class="am-form-group am-form-icon ">
             <i class="am-icon-cny"></i>
-            <input type="number" class="am-form-field js-pattern-mobile" placeholder="请输入提现金额 单笔最少100元" required />
+            <input type="text" id="money"  name="money" class="am-form-field" placeholder="请输入提现金额 单笔最少100元" required style="height: 50px;border-radius: 10px;" />
         </div>
     </div>
-    <div class="row-two">
-        <div class="am-form-group am-form-icon ">
-            <i class="am-icon-cny"></i>
-            <input type="number" class="am-form-field js-pattern-mobile" placeholder="请输入支付宝账号" required />
-        </div>
+    <div class="am-form-group withdraw_bank_select">
+        <select name="" onchange="changeSelect(this)" required />
+            <option value="">-请选择银行-</option>
+            <option value="">中国工商银行</option>
+            <option value="">中国农业银行</option>
+            <option value="">中国银行</option>
+            <option value="">中国建设银行</option>
+            <option value="">交通银行</option>
+            <option value="">中国邮政储蓄银行</option>
+            <option value="">中信银行</option>
+            <option value="">中国光大银行</option>
+            <option value="">华夏银行</option>
+            <option value="">中国民生银行</option>
+            <option value="">广发银行股份有限公司</option>
+            <option value="">平安银行</option>
+            <option value="">招商银行</option>
+        </select>
     </div>
+    <!--<div class="row-two">-->
+        <!--<div class="am-form-group am-form-icon ">-->
+            <!--<i class="am-icon-cny"></i>-->
+            <!--<input type="number" class="am-form-field js-pattern-mobile" placeholder="请输入支付宝账号" required  style="height: 50px;border-radius: 10px;"/>-->
+        <!--</div>-->
+    <!--</div>-->
     <div class="row-two">
         <div class="am-form-group am-form-icon ">
             <i class="am-icon-user"></i>
-            <input type="text" name="mobile" class="am-form-field js-pattern-mobile" placeholder="请输入真实姓名" required />
+            <input type="text" id="rel_name"  name="rel_name" class="am-form-field" value="{{$data.withdraw_info.rel_name|default:''}}" placeholder="请输入真实姓名" required  style="height: 50px;border-radius: 10px;"/>
         </div>
     </div>
     <div class="am-g row-phone">
@@ -40,28 +59,33 @@
             <div class="row-two">
                 <div class="am-form-group am-form-icon login_form_mobile">
                     <i class="am-icon-mobile-phone"></i>
-                    <input type="number" id="doc-vld-mima-4"  name="mobile" class="am-form-field js-pattern-mobile" placeholder="请输入手机号" required />
+                    <input type="text" id="mobile"  name="mobile" class="am-form-field js-pattern-mobile" value="{{$data.user_info.mobile}}" disabled="disabled" required style="height: 50px;border-radius: 10px;" />
                 </div>
             </div>
         </div>
         <div class="am-u-sm-4">
-            <button type="button" class="am-btn am-btn-primary">获取验证码</button>
+            <button type="button" class="am-btn am-btn-primary" id="jq_send" href="javascript:void(0);" style="height: 45px;border-radius: 10px;">获取验证码</button>
         </div>
     </div>
     <div class="row-two">
         <div class="am-form-group am-form-icon ">
-            <i class="am-icon-mobile-phone"></i>
-            <input type="number" class="am-form-field js-pattern-mobile" placeholder="请输入验证码" required />
+            <i class="am-icon-tag"></i>
+            <input type="number" id="yzm"  name="yzm" class="am-form-field js-pattern-mobile" placeholder="请输入验证码" required style="height: 50px;border-radius: 10px;"/>
         </div>
     </div>
+</form>
     <div class="tishi">
         <span>小提示：</span>请您认真填写！
     </div>
     <div class="tishi-next">
         (您的提现金额会在两个工作日之内到账)
     </div>
-    <div class="yue">
-        您的余额不足
+    <div class="merchants_settled_shop_information_btn">
+        {{if $data.user_info.integral <=10000}}
+        <button type="button" class="am-btn am-btn-default am-btn-block login_form_btn">您的余额不足</button>
+        {{else}}
+        <button type="button" class="am-btn am-btn-secondary am-btn-block login_form_btn">确认申请</button>
+        {{/if}}
     </div>
 </section>
 {{include file="../public/footer.html"}}
@@ -92,7 +116,7 @@
         }
         else {
             mobile_count--;
-            $('#jq_send').html("重新发送(" + mobile_count.toString() + ")秒");
+            $('#jq_send').html("重新发送(" + mobile_count.toString() + ")");
             mobile_timeout = setTimeout(BtnCount, 1000);
         }
     };
