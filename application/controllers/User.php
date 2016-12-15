@@ -281,5 +281,14 @@ class User extends MY_Controller {
 	public function my_shop_order(){
         $this->display('user/my_shop_order.html');
     }
+    public function receive_management_address(){
+        $this->display('user/receive_management_address.html');
+    }
+    public function cashier_desk(){
+        $this->display('user/cashier_desk.html');
+    }
+    public function confirmation_order(){
+        $this->display('user/confirmation_order.html');
+    }
 
 }
