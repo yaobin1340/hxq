@@ -384,7 +384,7 @@ class Apiftontend extends MY_APIcontroller {
 		if(!$this->input->post('shop_id')){
 			$rs = array(
 				'success'=>false,
-				'error_msg'=>'未找到商铺信息!'
+				'error_msg'=>'商铺编号不能为空!'
 			);
 			echo json_encode($rs);
 			die();
