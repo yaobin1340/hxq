@@ -1,38 +1,66 @@
-{{include file="../public/header.html"}}
-<link rel="stylesheet" href="../../statics/css/withdrawlist.css">
-<link rel="stylesheet" href="/static/default/wap/css/housekeeping.css"/>
-<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet" />
+{{include file="./header.html"}}
 <body>
-	<div style="overflow-x: hidden;padding-bottom: 60px;">
-		<header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
-			<span class="register_header_title">资金日志</span>
-			<a href="javascript:window.history.go(-1);"><span class="am-icon-chevron-left register_header_back"></span></a>
-		</header>
-		<table class="table1" border="0">
-			<tr>
-				<td class="td1"><a href="{{site_url url='user/money_log_list'}}" onclick="money_record()" id="money_record">资金日志</a></td>
-				<td class="td1"><a href="{{site_url url='user/withdraw_list'}}" onclick="cash_record()" id="cash_record">提现日志</a></td>
-				<td class="td1"><a href="{{site_url url='user/withdraw'}}" onclick="application_record()" id="application_record">申请提现</a></td>
-			</tr>
-		</table>
-		<form class="am-form" data-am-validator action="" method="post">
-			<table class="table" border="0">
-				<thead>
-					<tr style="color: #343434;font-weight: bold;">
-						<td class="td">金额变化</td>
-						<td class="td">日   期</td>
-						<td class="td">状   态</td>
-					</tr>
-				</thead>
-				<tbody id="accordion">
+<link rel="stylesheet" href="/static/default/wap/css/housekeeping.css"/>  
+	<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet" />
+<style>
 
-				</tbody>
-			</table>
-			<p id="is_end">已到最后一页</p>
-		</form>
+.layui-layer-molv .layui-layer-title {background-color: #F8F8F8;border-bottom: 1px solid #eee;color: #333;}
+
+.table1{
+	width: 100%; height: 45px; border-collapse:collapse;color: #bfbfbf; cursor:pointer;
+}
+.table1 tr{
+	font-size: 14px;text-align: center;color: #999999;
+}
+.td1{
+	border-bottom:1px solid #e5e5e5;
+}
+.td1 a{
+	color: #777777;
+}
+.table{
+	width: 100%; height: 50px; border-collapse:collapse;color: #bfbfbf;margin-left: 5px;
+}
+.table tr{
+	font-size: 14px; height: 50px; text-align: center;color: #999999;
+}
+.td{
+	border-bottom:1px solid #e5e5e5;
+}
+</style>
+
+<body style="background: #ffffff;overflow-x: hidden;">
+
+<div style="overflow-x: hidden;padding-bottom: 60px;">
+<table class="table1" border="0">
+	<tr>
+		<td class="td1"><a href="{{site_url url='user/money_log_list'}}" onclick="money_record()" id="money_record">资金日志</a></td>
+		<td class="td1"><a href="{{site_url url='user/withdraw_list'}}" onclick="cash_record()" id="cash_record">提现日志</a></td>
+		<td class="td1"><a href="{{site_url url='user/withdraw'}}" onclick="application_record()" id="application_record">申请提现</a></td>
+	</tr>
+</table>
+<form class="am-form" data-am-validator action="" method="post">
+
+	<table class="table" border="0">
+		<thead>
+		<tr style="color: #343434;font-weight: bold;">
+			<td class="td">ID</td>
+			<td class="td">金额</td>
+			<td class="td">日期</td>
+			<td class="td">状态</td>
+		</tr>
+		</thead>
+		<tbody id="accordion">
+
+		</tbody>
+	</table>
+	<p id="is_end" style="text-align: center;font-size: 12px;margin-top: 10px;">已到最后一页</p>
+
+</form>
 	</div>
 </body>
 {{include file="../public/footer.html"}}
+
 <script>
 	window.is_end = false
 	window.page = 1

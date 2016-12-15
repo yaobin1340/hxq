@@ -31,19 +31,19 @@
             <select id="province_code" name="province_code" onchange="changeSelect(this)">
                 <option value="">-请选择省份-</option>
                 {{foreach from=$provinces item=row}}
-                <option value="{{$row.code}}" {{if $row.code eq $user_info.province_code}}selected="selected"{{/if}}>{{$row.name}}</option>
+                <option value="{{$row.code}}" {{if $row.code eq $user_info.province_code}}selected="selected"{{/if}}>-{{$row.name}}-</option>
                 {{/foreach}}
             </select>
             <select id="city_code" name="city_code" onchange="changeSelectCity(this)">
                 <option value="">-请选择城市-</option>
                 {{foreach from=$city item=row}}
-                <option value="{{$row.code}}" {{if $row.code eq $user_info.city_code}}selected="selected"{{/if}}>{{$row.name}}</option>
+                <option value="{{$row.code}}" {{if $row.code eq $user_info.city_code}}selected="selected"{{/if}}>-{{$row.name}}-</option>
                 {{/foreach}}
             </select>
             <select id="area_code" name="area_code">
                 <option value="">-请选择区域-</option>
                 {{foreach from=$area item=row}}
-                <option value="{{$row.code}}" {{if $row.code eq $user_info.area_code}}selected="selected"{{/if}}>{{$row.name}}</option>
+                <option value="{{$row.code}}" {{if $row.code eq $user_info.area_code}}selected="selected"{{/if}}>-{{$row.name}}-</option>
                 {{/foreach}}
             </select>
         </div>

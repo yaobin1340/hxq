@@ -1,17 +1,6 @@
-{{include file="../public/header.html"}}
+{{include file="./header.html"}}
 <style>
-    .register_one_header{
-        width: 100%;text-align: center;background: #01a2f2;
-    }
-    .register_header_title{
-        text-align: center;line-height: 50px;font-size: 20px;font-family: '宋体';
-    }
-    .register_header_back{
-        line-height: 50px;font-size: 20px;float: left;margin-left:5px ;
-    }
-    .register_one_header{
-        border-color: #01a2f2;
-    }
+
     a{
         color:#c7c7c7;
         background: #fff;
@@ -76,30 +65,12 @@
     .td1 a{
         color: #777777;
     }
-    .footer{
-        width: 100%;height: 60px; position:fixed; bottom:0;background-color: #ffffff;z-index: 555;border-top:1px solid #e9e9e9;color: #696969;
-    }
-    .footer_tab{
-        text-align: center;
-    }
-    .footer_tab td{
-        width: 20%;
-    }
-    .footer_tab img{
-        width: 20px;height: 20px;margin: 0 auto;margin-top: 8px;
-    }
-    .footer_span_2{
-        font-size: 15px; font-family: '宋体';color: #808080;
-    }
 </style>
+
+
 <body style="background: #ffffff;">
 <div style="padding-bottom: 50px;z-index: 22;">
-    <input type="hidden" name="tab_type" id="tab_type" value="{{$type}}">
-    <header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
-        <span class="register_header_title">申请提现</span>
-        <a href="javascript:window.history.go(-1);"><span class="am-icon-chevron-left register_header_back"></span></a>
-    </header>
-
+<input type="hidden" name="tab_type" id="tab_type" value="{{$type}}">
 
 <table class="table1" border="0">
     <tr>
@@ -120,7 +91,7 @@
 <div id="shop_record" data-am-widget="tabs"     class="am-tabs-d2" style="width: 100%; margin: 0;margin-top: -10px;">
     <div class="am-tabs-bd" style="margin-top:5px;">
         <div class="am-tab-panel am-active">
-            <img src="{{$base_url}}statics/images/sunflower_foto_user.png">
+            <img src="{{$base_url}}statics/images/shop.png"  width="100%" height="170px">
             <ul class="am-tabs-nav am-cf" style="background: red;width: 100%;">
                 <li class="{{if $type==1}}am-active{{/if}}"><a href="{{site_url url='user/shop_heart/1'}}">6%激励</a></li>
                 <li class="{{if $type==2}}am-active{{/if}}"><a href="{{site_url url='user/shop_heart/2'}}">12%激励</a></li>
