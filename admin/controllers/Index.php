@@ -33,8 +33,12 @@ class Index extends MY_Controller {
 	public function main(){
 		$index_data = $this->index_model->index_data();
 		$sett_info = $this->index_model->get_sett_info();
+		$ywy = $this->index_model->ywy();
+
 		//var_dump($sett_info);
 		$this->assign('index_data', $index_data);
+		$this->assign('ywy', $ywy);
+		$this->assign('yesday', date("Y-m-d",strtotime("-1 day")));
 		$this->assign('sett_info', $sett_info);
 		$this->show('index');
 	}

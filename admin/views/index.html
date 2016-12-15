@@ -1,5 +1,6 @@
 <script src="/statics/js/highcharts.js"></script>
 <script src="/statics/js/exporting.js"></script>
+<script src="/statics/js/highcharts-more.js"></script>
 <style>
     .table1{
         width: 100%; height: 80px; border-collapse:collapse;color: #bfbfbf;
@@ -84,7 +85,12 @@
   <div class="link_user_shop" style="margin-top: 10px">
     <div id="container3" style="min-width:500px;height:300px" class="link_user_shop_title">联盟营业额</div>
   </div>
-
+  <div class="link_user_shop" style="margin-top: 10px">
+    <div id="container4" style="min-width:500px;height:300px" class="link_user_shop_title">联盟营业额</div>
+    <button id="plain">Plain</button>
+    <button id="inverted">inverted</button>
+    <button id="polar">polar</button>
+  </div>
 </div><br><br>
 <script>
   $(function () {
@@ -266,6 +272,75 @@
     }
     ]
   });
+
+    var chart = Highcharts.chart('container4', {
+
+      title: {
+        text: '业务员 推荐人消费额排名({{$yesday}})'
+      },
+
+      subtitle: {
+        text: '消费额'
+      },
+
+      xAxis: {
+        categories: [
+          {{foreach from=$ywy key=k item=item}}
+    {{if $k!=0}},{{/if}}'{{$item.rel_name}}({{$item.parent_id}})'
+    {{/foreach}}
+    ]
+      },
+
+      series: [{
+        type: 'column',
+        colorByPoint: true,
+        data: [
+          {{foreach from=$ywy key=k item=item}}
+    {{if $k!=0}},{{/if}}{{$item.allprice/100}}
+    {{/foreach}}
+        ],
+        showInLegend: true
+      }]
+
+    });
+
+    $('#plain').click(function () {
+      chart.update({
+        chart: {
+          inverted: false,
+          polar: false
+        },
+        subtitle: {
+          text: '消费额'
+        }
+      });
+    });
+
+    $('#inverted').click(function () {
+      chart.update({
+        chart: {
+          inverted: true,
+          polar: false
+        },
+        subtitle: {
+          text: '消费额'
+        }
+      });
+    });
+
+    $('#polar').click(function () {
+      chart.update({
+        chart: {
+          inverted: false,
+          polar: true
+        },
+        subtitle: {
+          text: '消费额'
+        }
+      });
+    });
+
+    $("#inverted").click();
   });
 
 </script>
