@@ -62,5 +62,5 @@ ul {
     padding-bottom: 100px;
 }
 .xuanfu_plus{
-    z-index: 222;position: absolute;right: 6%;bottom:130px;
+    z-index: 222;position: fixed;right: 6%;bottom:130px;
 }

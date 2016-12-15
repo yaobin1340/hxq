@@ -277,4 +277,9 @@ class User extends MY_Controller {
 		$this->assign('data', $data);
 		$this->display('user/my_team_shop_loaddata.html');
 	}
+
+	public function my_shop_order(){
+        $this->display('user/my_shop_order.html');
+    }
+
 }
