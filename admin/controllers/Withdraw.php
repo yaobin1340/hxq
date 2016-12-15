@@ -88,7 +88,7 @@ class Withdraw extends MY_Controller {
 			$j = 0;
 			foreach ($data[$i - 4] as $key=>$value) {
 				if($key==2){
-					$excel->getActiveSheet()->setCellValue("$letter[$j]$i",' '."$value");
+					$excel->getActiveSheet()->setCellValueExplicit("$letter[$j]$i","$value",PHPExcel_Cell_DataType::TYPE_STRING);
 				}else{
 					$excel->getActiveSheet()->setCellValue("$letter[$j]$i","$value");
 				}
