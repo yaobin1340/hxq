@@ -1,11 +1,25 @@
     {{foreach from=$data.items item=row}}
-    <tr style="color: #343434;">
-        <td class="td">{{$row.id}}</td>
+    <tr style="color: #343434;font-weight: normal;">
+        <!--<td class="td">{{$row.id}}</td>-->
         <td class="td">
             <!--{{if $row.type==1}}-{{else}}+{{/if}}-->
            {{$row.money/100}}元</td>
        <td class="td">{{$row.cdate}}</td>
        <!--<td class="td">{{$row.remark}}</td>-->
+        <td class="td" style="color: #01a2f3;" data-am-modal="{target: '#my-alert'}">
+            查看详情
+            <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+                <div class="am-modal-dialog">
+                    <div class="am-modal-bd">
+                        {{$row.remark}}
+                    </div>
+                    <div class="am-modal-footer">
+                        <span class="am-modal-btn">确定</span>
+                    </div>
+                </div>
+            </div>
+        </td>
+
     </tr>
     {{/foreach}}
 
