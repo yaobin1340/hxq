@@ -128,6 +128,15 @@ class Withdraw_model extends MY_Model
 		return $rs;
 	}
 
+	public function audit_withdraw_get($id){
+		$rs = $this->db->where('id',$id)->update('withdraw',array('status'=>2,'adate'=>date('Y-m-d H:i:s',time())));
+		if($rs){
+			return 1;
+		}else{
+			return -1;
+		}
+	}
+
 
 
 }
