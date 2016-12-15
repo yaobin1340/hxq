@@ -32,6 +32,19 @@ class Index_model extends MY_Model
         return $rs;
     }
 
+    public function ywy(){
+        $ysday = date("Y-m-d",strtotime("-1 day"));
+        $sql = "select SUM(a.price) allprice,c.parent_id,d.rel_name from order_list a
+left join users c on a.uid = c.id
+left join `order` b on b.id = a.oid
+left join users d on d.id = c.parent_id
+where a.`status`=3
+and DATE_FORMAT(b.adate,'%Y-%m-%d') = '{$ysday}'
+GROUP BY c.parent_id order by allprice desc limit 5";
+        $rs = $this->db->query($sql)->result_array();
+        return $rs;
+    }
+
     public function index_data(){
         $data = array();
         $data['users_num']=$this->db->select('count(1) num')->from('users')->get()->row()->num;
