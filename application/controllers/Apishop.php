@@ -85,4 +85,63 @@ class Apishop extends MY_APIcontroller {
 		echo json_encode($this->rs);
 		die();
 	}
+
+	public function list_order_audit_loaddata(){
+		unset($this->rs['user_info']);
+		unset($this->rs['shop_info']);
+		$page = $this->input->post('page')?$this->input->post('page'):1;
+		$data = $this->apishop_model->list_order_audit($this->app_uid,$page);
+		$this->rs['orders']=$data['items'];
+		echo json_encode($this->rs);
+		die();
+	}
+
+	public function order_detail($order_id){
+		$data = $this->apishop_model->order_detail($order_id);
+		if($data == -1){
+			$this->err_rs['error_msg']='订单不存在';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($data == -2){
+			$this->err_rs['error_msg']='不能看别人的订单';
+			echo json_encode($this->err_rs);
+			die();
+		}else{
+			$order_list = $this->apishop_model->order_byoid($order_id);
+			$this->rs['order_list']=$order_list;
+			$this->rs['order']=$data;
+			echo json_encode($this->rs);
+			die();
+		}
+
+	}
+
+	public function tijiao_order($order_id){
+		$order_Pic = $this->upload('order_pic','pic');
+		$rs = $this->apishop_model->tijiao_order($this->app_uid,$order_id,$order_Pic);
+		if($rs == 1){
+			echo json_encode($this->rs);
+			die();
+		}else if($rs == -1){
+			$this->err_rs['error_msg']='订单不存在';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($rs == -2){
+			$this->err_rs['error_msg']='不能操作别人的订单';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($rs == -3){
+			$this->err_rs['error_msg']='未登陆';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($rs == -4){
+			$this->err_rs['error_msg']='提交失败';
+			echo json_encode($this->err_rs);
+			die();
+		}else{
+			$this->err_rs['error_msg']='操作失败';
+			echo json_encode($this->err_rs);
+			die();
+		}
+	}
 }

@@ -106,13 +106,13 @@ class Apishop_model extends MY_Model
         return $data;
     }
 
-    public function list_order_audit($page){
+    public function list_order_audit($app_uid,$page){
         $data['limit'] = $this->limit;
         //获取总记录数
         $this->db->select('count(1) num')->from('order b');
         $this->db->join('shop c','c.id = b.shop_id','left');
         $this->db->join('users d','d.id = c.uid','left');
-        $this->db->where('d.id =',$this->session->userdata('uid'));
+        $this->db->where('d.id =',$app_uid);
         if($this->input->post('s_date')){
             $this->db->where("b.cdate >=",$this->input->post('s_date'));
         }
@@ -132,7 +132,7 @@ class Apishop_model extends MY_Model
         $this->db->select('b.*')->from('order b');
         $this->db->join('shop c','c.id = b.shop_id','left');
         $this->db->join('users d','d.id = c.uid','left');
-        $this->db->where('d.id =',$this->session->userdata('uid'));
+        $this->db->where('d.id =',$app_uid);
         if($this->input->post('s_date')){
             $this->db->where("b.cdate >=",$this->input->post('s_date'));
         }
@@ -252,8 +252,8 @@ class Apishop_model extends MY_Model
         return $row;
     }
 
-    public function tijiao_order($order_id,$order_pic){
-        if(!($uid = $this->session->userdata('uid'))){
+    public function tijiao_order($app_uid,$order_id,$order_pic){
+        if(!($uid = $app_uid)){
             return -3;
         }
         $row = $this->db->select()->from('order')->where('id',$order_id)->get()->row_array();
@@ -262,7 +262,7 @@ class Apishop_model extends MY_Model
         }
         $check = $this->db->select()->from('shop')->where(array(
             'id'=>$row['shop_id'],
-            'uid'=>$this->session->userdata('uid'),
+            'uid'=>$app_uid,
         ))->get()->row();
         if(!$check){
             return -2;
