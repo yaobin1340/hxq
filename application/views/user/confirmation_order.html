@@ -1,28 +1,65 @@
 {{include file="../public/header.html"}}
-<style>
-    .register_one_header{
-        width: 100%;text-align: center;background: #01a2f2;
-    }
-    .register_header_title{
-        text-align: center;line-height: 50px;font-size: 20px;font-family: '宋体';
-    }
-    .register_header_back{
-        line-height: 50px;font-size: 20px;float: left;margin-left:5px ;
-    }
-    .register_one_header{
-        border-color: #01a2f2;
-    }
-</style>
-<body>
+<link rel="stylesheet" href="/statics/css/confirmationorder.css">
+<body class="confirmation_order_body_all">
     <header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
         <span class="register_header_title">确认订单</span>
         <a href="javascript:window.history.go(-1);"><span class="am-icon-chevron-left register_header_back"></span></a>
     </header>
     <section>
-        <div style="width: 100%;">
-            <div style="width: 96%;margin: 0 auto;padding: 10px;">周小婷<span>15850293624</span></div>
-            <div style="width: 96%;margin: 0 auto;padding-left: 10px;margin-top: -5px;">江苏省 苏州市 昆山市 学院路 999 号美居客电商产业园4楼 405室</div>
-            <div style="margin-top: -5px;"><img src="../../statics/images/mall_icon_envelope.png"></div>
+    <div class="confirmation_order_name_address">
+       <div class="confirmation_order_name">周小婷<span>15850293624</span></div>
+        <div class="confirmation_order_address">江苏省 苏州市 昆山市 学院路 999 号美居客</div>
+    </div>
+     <div class="confirmation_order_image_fenge"><img src="../../statics/images/mall_icon_envelope.png"></div>
+    <div>
+        <div class="confirmation_order_goods_information">
+            <div class="confirmation_order_goods_information_img_name">
+                <img src="../../statics/images/mall_icon_shop.png">
+                <span>沃若玩具乐器专营店</span>
+            </div>
+            <div class="confirmation_order_goods_information_all">
+                <div class="confirmation_order_goods_information_img"><img src="../../statics/images/shop.jpg"></div>
+                <div class="confirmation_order_goods_information_all_name">沃若 圣诞装饰品圣诞花环挂件诞</div>
+                <div class="confirmation_order_goods_information_all_size">颜色：大红色 尺码：40cm</div>
+                <div class="confirmation_order_goods_information_all_price">￥39.00<span>x3</span></div>
+            </div>
+        </div>
+
+        <div class="confirmation_order_goods_information">
+            <div class="confirmation_order_goods_information_img_name">
+                <img src="../../statics/images/mall_icon_shop.png">
+                <span>沃若玩具乐器专营店</span>
+            </div>
+            <div class="confirmation_order_goods_information_all">
+                <div class="confirmation_order_goods_information_img"><img src="../../statics/images/shop.jpg"></div>
+                <div class="confirmation_order_goods_information_all_name">沃若 圣诞装饰品圣诞花环挂件诞</div>
+                <div class="confirmation_order_goods_information_all_size">颜色：大红色 尺码：40cm</div>
+                <div class="confirmation_order_goods_information_all_price">￥39.00<span>x3</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="confirmation_order_goods_pay_way_all">
+        <div class="confirmation_order_goods_pay">支付配送</div>
+        <div class="confirmation_order_goods_way">
+            <div>在线支付</div>
+            <div>快递运输</div>
+            <div>工作日，双休日与节假日均可送货</div>
+        </div>
+    </div>
+        <div class="confirmation_order_goods_pay_way_all">
+            <div class="confirmation_order_goods_pay">账户余额</div>
+            <div class="confirmation_order_goods_price_all">
+                葵花籽&nbsp;&nbsp;共
+                <span class="confirmation_order_goods_price">￥44&nbsp;&nbsp;支付￥44</span>
+                <span class="confirmation_order_goods_price_btn"><img src="../statics/images/mall_icon_opened.png"></span>
+            </div>
+        </div>
+        <div class="confirmation_order_goods_user_advice">
+            <textarea placeholder="选填：给商家留言(45字)以内"></textarea>
+        </div>
+        <div class="confirmation_order_goods_pay_price">
+            <div class="confirmation_order_goods_pay">实时付款</div>
+            <div style="margin-top: -5px;padding-left: 20px;color:#fe5f91;">实付款：￥44.00<span style="float: right;margin-right: 5%;margin-top: -10px;"><img src="../../statics/images/mall_icon_buyimmediately.png"></span></div>
         </div>
     </section>
 </body>
