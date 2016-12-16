@@ -102,7 +102,7 @@ class Apishop extends MY_APIcontroller {
 			echo json_encode($this->err_rs);
 			die();
 		}
-		$data = $this->apishop_model->order_detail($this->input->post('order_id'));
+		$data = $this->apishop_model->order_detail($this->input->post('order_id'),$this->app_uid);
 		if($data == -1){
 			$this->err_rs['error_msg']='订单不存在';
 			echo json_encode($this->err_rs);

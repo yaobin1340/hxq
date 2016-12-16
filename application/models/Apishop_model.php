@@ -235,14 +235,14 @@ class Apishop_model extends MY_Model
         }
     }
 
-    public function order_detail($order_id){
+    public function order_detail($order_id,$app_uid){
         $row = $this->db->select()->from('order')->where('id',$order_id)->get()->row_array();
         if(!$row){
             return -1;
         }
         $check = $this->db->select()->from('shop')->where(array(
             'id'=>$row['shop_id'],
-            'uid'=>$this->session->userdata('uid'),
+            'uid'=>$app_uid,
         ))->get()->row_array();
         if(!$check){
             return -2;
