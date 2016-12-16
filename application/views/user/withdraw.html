@@ -14,8 +14,8 @@
         </tr>
     </table>
     <div class="am-g row-one">
-        <div class="am-u-sm-6">您好：{{$data.user_info.rel_name}}</div>
-        <div class="am-u-sm-6">可提现余额：{{$data.user_info.integral/100}}元</div>
+        <span class="withdraw_welcome_user">您好：{{$data.user_info.rel_name}}</span>
+        <span class="">&nbsp;&nbsp;可提现余额：{{$data.user_info.integral/100}}元</span>
     </div>
 <form class="am-form" data-am-validator action="/user/save_withdraw" method="post">
     <div class="row-two">
@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="am-form-group withdraw_bank_select">
-        <select name="" onchange="changeSelect(this)" required />
+        <select>
             <option value="">-请选择银行-</option>
             <option value="">中国工商银行</option>
             <option value="">中国农业银行</option>

@@ -33,7 +33,6 @@ html{
     color: #777777;
 }
 .row-one{
-    text-align: center;
     height: 51px;
     line-height: 51px;
     /*background: #89d7ff;*/
@@ -41,6 +40,9 @@ html{
 }
 .row-one .am-u-sm-4:active{
     color:#01a2f2;
+}
+.withdraw_welcome_user{
+    margin-left: 8%;
 }
 .am-form-group{
     margin: 0;
@@ -114,5 +116,8 @@ footer{
     margin: 0 auto;
 }
 .withdraw_bank_select{
+    width: 100%;
+}
+.withdraw_bank_select select{
     width: 88%;height:50px;margin: 0 auto;margin-top: 10px;border-radius: 10px;
 }

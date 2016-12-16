@@ -202,7 +202,6 @@ class User extends MY_Controller {
     public function user_heart($type=3){
 		$count = $this->user_model->get_count_heart($type,false);
 		$this->assign('header_name', '我的向日葵');
-		$this->assign('footer_flag', 3);
 		$this->assign('type', $type);
 		$this->assign('count', $count);
         $this->display('user/user_heart.html');
@@ -218,7 +217,6 @@ class User extends MY_Controller {
 	public function shop_heart($type=3){
 		$count = $this->user_model->get_count_heart($type);
 		$this->assign('header_name', '我的向日葵');
-		$this->assign('footer_flag', 3);
 		$this->assign('type', $type);
 		$this->assign('count', $count);
 		$this->display('user/shop_heart.html');
@@ -279,4 +277,18 @@ class User extends MY_Controller {
 		$this->assign('data', $data);
 		$this->display('user/my_team_shop_loaddata.html');
 	}
+
+	public function my_shop_order(){
+        $this->display('user/my_shop_order.html');
+    }
+    public function receive_management_address(){
+        $this->display('user/receive_management_address.html');
+    }
+    public function cashier_desk(){
+        $this->display('user/cashier_desk.html');
+    }
+    public function confirmation_order(){
+        $this->display('user/confirmation_order.html');
+    }
+
 }
