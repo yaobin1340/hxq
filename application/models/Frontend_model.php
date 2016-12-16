@@ -297,6 +297,7 @@ class Frontend_model extends MY_Model
         $this->db->select();
         $this->db->from('settlement');
         $this->db->where('date <= now()');
+        $this->db->where('status',2);
         $this->db->order_by('date','desc');
         $row = $this->db->get()->row_array();
         //var_dump($row);
