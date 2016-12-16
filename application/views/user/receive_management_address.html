@@ -1,35 +1,6 @@
 {{include file="../public/header.html"}}
 <link rel="stylesheet" href="../../statics/css/receiveaddress.css">
-<style>
-    .register_one_header{
-        width: 100%;text-align: center;background: #01a2f2;
-    }
-    .register_header_title{
-        text-align: center;line-height: 50px;font-size: 20px;font-family: '宋体';
-    }
-    .register_header_back{
-        line-height: 50px;font-size: 20px;float: left;margin-left:5px ;
-    }
-    .register_one_header{
-        border-color: #01a2f2;
-    }
-    .footer{
-        width: 100%;height: 60px; position:fixed; bottom:0;background-color: #ffffff;z-index: 555;border-top:1px solid #e9e9e9;color: #696969;
-    }
-    .footer_tab{
-        text-align: center;
-    }
-    .footer_tab td{
-        width: 20%;
-    }
-    .footer_tab img{
-        width: 20px;height: 20px;margin: 0 auto;margin-top: 8px;
-    }
-    .footer_span_2{
-        font-size: 15px; font-family: '宋体';color: #808080;
-    }
-</style>
-<body>
+<body class="receive_management_address_body_all">
     <header class="am-topbar am-topbar-inverse am-topbar-fixed-top register_one_header">
         <span class="register_header_title">收货地址管理</span>
         <a href="javascript:window.history.go(-1);"><span class="am-icon-chevron-left register_header_back"></span></a>
@@ -43,11 +14,11 @@
         <div class="row-two">
             <div class="am-g">
                 <div class="am-u-sm-5">
-                    <img src="../../statics/images/mall_icon_default@3x.png" alt="">
+                    <img src="../../statics/images/mall_icon_default.png" alt="">
                     <span id="row-two-choice">默认地址</span>
                 </div>
                 <div class="am-u-sm-7" style="text-align: center">
-                    <img src="../../statics/images/mall_icon_edit@3x.png" alt="">
+                    <img src="../../statics/images/mall_icon_edit.png" alt="">
                     <span>编辑</span>
                     <img src="../../statics/images/mall_icon_delete.png" alt="">
                     <span>删除</span>
@@ -75,5 +46,31 @@
             </div>
         </div>
     </section>
-    {{include file="../public/footer.html"}}
+    <footer>
+        <img src="../../statics/images/mall_icon_newlybuild.png" data-am-modal="{target: '#my-alert'}">
+        <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">添加收货地址</div>
+                <span data-am-modal-close class="am-close">&times;</span>
+                <div class="am-modal-bd">
+                    <form class="am-form" data-am-validator action="" method="post">
+                    <div class="am-form-group am-form-icon">
+                        <i class="am-icon-user"></i>
+                        <input type="text" style="border-radius: 10px;" id=""  name="name" class="am-form-field am-form-mobile sky_register_border" placeholder="收货人" required />
+                    </div>
+                    <div class="am-form-group am-form-icon">
+                        <i class="am-icon-mobile-phone"></i>
+                        <input type="number" style="border-radius: 10px;" id="doc-vld-phone-2"  name="mobile" class="am-form-field  am-form-mobile sky_register_border" placeholder="请输入你的手机号(11位)" required />
+                    </div>
+                    <div class="am-form-group am-form-icon">
+                        <i class="am-icon-home"></i>
+                        <input type="text" style="border-radius: 10px;" name="address" class="am-form-field am-form-mobile sky_register_border" placeholder="收货地址" required />
+                    </div>
+                        <button type="submit" class="am-btn am-btn-block am-btn-next">保存收货地址</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--{{include file="../public/footer.html"}}-->
 </body>
