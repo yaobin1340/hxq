@@ -332,4 +332,126 @@ class Apiuser extends MY_APIcontroller {
 		echo json_encode($this->rs);
 		die();
 	}
+
+	/*public function register_shop(){
+
+		$shop_type = $this->frontend_model->get_shop_type();
+
+		$this->assign('shop_type', $shop_type);
+		$sessionUser = $this->frontend_model->getSessionUser($uid);
+		$this->load->model('user_model');
+		$user_info = $this->user_model->find($this->session->userdata('uid'));
+		$this->assign('user_info', $user_info);
+		$this->assign('sessionUser', $sessionUser);
+		$this->load->model('shop_model');
+		$conditionFields = array();
+		$conditionFields['uid'] = $uid;
+		$userShop = $this->shop_model->queryContent($conditionFields);
+		if($userShop){
+			$userShop = $userShop[0];
+			$this->assign('shop', $userShop);
+		}else{
+			$this->assign('shop',array());
+		}
+		$this->display('frontend/register_shop.html');
+		die;
+		if($uid = $this->session->userdata('uid')){
+			$sessionUser = $this->frontend_model->getSessionUser($uid);
+			$this->load->model('user_model');
+			$user_info = $this->user_model->find($this->session->userdata('uid'));
+			$this->assign('user_info', $user_info);
+			$this->assign('sessionUser', $sessionUser);
+			$this->load->model('shop_model');
+			$conditionFields = array();
+			$conditionFields['uid'] = $uid;
+			$userShop = $this->shop_model->queryContent($conditionFields);
+			if($userShop){
+				$userShop = $userShop[0];
+				$this->assign('shop', $userShop);
+			}else{
+				$this->assign('shop',array());
+			}
+			$this->display('frontend/register_shop.html');
+		}else{
+			$this->show_message('请先登陆~',site_url('/frontend/login'));
+		}
+	}
+
+	public function save_register_shop(){
+		if(!trim($this->input->post('shop_name'))){
+			$this->show_message('商铺名称不能为空！');
+			die();
+		}
+		if(!trim($this->input->post('parent_flag'))){
+			$this->show_message('邀请人不能为空！');
+			die();
+		}
+		if(!trim($this->input->post('type'))){
+			$this->show_message('商铺类型不能为空！');
+			die();
+		}
+		if(!trim($this->input->post('province_code'))){
+			$this->show_message('省份不能为空！');
+			die();
+		}
+		if(!trim($this->input->post('city_code'))){
+			$this->show_message('城市不能为空！');
+			die();
+		}
+		if(!trim($this->input->post('area_code'))){
+			$this->show_message('区域不能为空！');
+			die();
+		}
+		if(!trim($this->input->post('address'))){
+			$this->show_message('地址不能为空！');
+			die();
+		}
+		if(!trim($this->input->post('person'))){
+			$this->show_message('联系人不能为空！');
+			die();
+		}
+
+		if(!trim($this->input->post('phone'))){
+			$this->show_message('联系电话不能为空！');
+			die();
+		}
+		if(!trim($this->input->post('business_time'))){
+			$this->show_message('营业时间不能为空！');
+			die();
+		}
+		if(!trim($this->input->post('lng')) || !trim($this->input->post('lat'))){
+			$this->show_message('经纬度不能为空！');
+			die();
+		}
+		if(!trim($this->input->post('percent'))){
+			$this->show_message('分销类型不能为空！');
+			die();
+		}
+		if(!trim($this->input->post('desc'))){
+			$this->show_message('商铺介绍不能为空！');
+			die();
+		}
+		$img = $this->upload('logo');
+		$license = $this->upload('license','license');
+		$cns1 = $this->upload('cns','cns1');
+//        $cns2 = $this->upload('cns','cns2');
+		$sfz1 = $this->upload('sfz','sfz1');
+//        $sfz2 = $this->upload('sfz','sfz2');
+		$imgs = array(
+			'logo'=>$img,
+			'license'=>$license,
+			'cns1'=>$cns1,
+//            'cns2'=>$cns2,
+			'sfz1'=>$sfz1,
+//            'sfz2'=>$sfz2,
+		);
+		$rs = $this->frontend_model->save_register_shop($imgs);
+		if($rs == 1){
+			$this->show_message('申请成功');
+		}else if($rs == -2){
+			$this->show_message('推荐人不可为自己！');
+		}else{
+			$this->show_message('申请失败');
+		}
+	}*/
 }

@@ -81,7 +81,7 @@ class Apishop extends MY_APIcontroller {
 		unset($this->rs['shop_info']);
 		$page = $this->input->post('page')?$this->input->post('page'):1;
 		$data = $this->apishop_model->list_orders($this->app_uid,$page);
-		$this->rs['shop_info']=$data['items'];
+		$this->rs['list_orders']=$data['items'];
 		echo json_encode($this->rs);
 		die();
 	}
