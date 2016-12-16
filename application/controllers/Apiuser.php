@@ -44,6 +44,7 @@ class Apiuser extends MY_APIcontroller {
 					unset($user_info['password']);
 					unset($user_info['s_password']);
 					unset($user_info['openid']);
+
 					$this->rs['user_info']=$user_info;
 				}else{
 					$this->err_rs['error_msg']='未找到相关用户信息';
@@ -60,6 +61,8 @@ class Apiuser extends MY_APIcontroller {
 
 	public function index()
 	{
+		$shop_flag = $this->apiuser_model->get_shop_flag($this->app_uid);
+		$this->rs['shop_flag'] = $shop_flag;
 		$sum_count = $this->apiuser_model->sum_count($this->app_uid);
 		$this->rs['sum_count'] = $sum_count;
 		echo json_encode($this->rs);

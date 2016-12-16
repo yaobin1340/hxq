@@ -11,7 +11,16 @@ class Apiuser_model extends MY_Model
     {
     	parent::__construct();
     }
-    
+
+    public function get_shop_flag($app_uid){
+        $rs = $this->db->select('*')->from('shop')->where('uid',$app_uid)->where('status',2)->get()->row_array();
+        if($rs){
+            return 1;
+        }else{
+            return 2;
+        }
+    }
+
     public function get_user_info($app_uid){
         $this->db->select('a.*,b.name province_name,c.name city_name,d.name area_name')->from('users a');
         $this->db->join('province b','a.province_code = b.code','left');
