@@ -12,13 +12,15 @@ class Apishop_model extends MY_Model
     	parent::__construct();
     }
     
-    public function get_shop_info($app_uid){
+    public function get_shop_info($app_uid,$flag=true){
         $this->db->select('a.*,b.name province_name,c.name city_name,d.name area_name')->from('shop a');
         $this->db->join('province b','a.province_code = b.code','left');
         $this->db->join('city c','a.city_code = c.code','left');
         $this->db->join('area d','a.area_code = d.code','left');
         $this->db->where('uid',$app_uid);
-        $this->db->where('a.status',2);
+        if($flag){
+            $this->db->where('a.status',2);
+        }
         return $this->db->get()->row_array();
     }
 

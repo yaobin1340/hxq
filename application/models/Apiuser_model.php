@@ -546,4 +546,75 @@ class Apiuser_model extends MY_Model
 
         return $data;
     }
+
+    public function save_register_shop($app_uid,$imgs){
+        if(!($uid = $app_uid)){
+            return -1;
+        }
+        $data = array(
+            'uid'=>$app_uid,
+            'province_code'=>$this->input->post('province_code'),
+            'city_code'=>$this->input->post('city_code'),
+            'area_code'=>$this->input->post('area_code'),
+            'shop_name'=>$this->input->post('shop_name'),
+            'parent_uid'=>$this->input->post('parent_uid'),
+            'type'=>$this->input->post('type'),
+            'address'=>$this->input->post('address'),
+            'phone'=>$this->input->post('phone'),
+            'person'=>$this->input->post('person'),
+            'lat'=>$this->input->post('lat'),
+            'lng'=>$this->input->post('lng'),
+            'baidu_lat'=>$this->input->post('baidu_lat')?$this->input->post('baidu_lat'):$this->input->post('lat'),
+            'baidu_lng'=>$this->input->post('baidu_lng')?$this->input->post('baidu_lng'):$this->input->post('lng'),
+            'desc'=>$this->input->post('desc'),
+            'business_time'=>$this->input->post('business_time'),
+            'license'=>$imgs['license']?$imgs['license']:'',
+            'cdate'=>date('Y-m-d H:i:s',time()),
+            'logo'=>$imgs['logo']?$imgs['logo']:'',
+            'cns1'=>$imgs['cns1']?$imgs['cns1']:'',
+//            'cns2'=>$imgs['cns2']?$imgs['cns2']:'',
+            'sfz1'=>$imgs['sfz1']?$imgs['sfz1']:'',
+//            'sfz2'=>$imgs['sfz2']?$imgs['sfz2']:'',
+            'status'=>1,//待审核
+            'percent'=>$this->input->post('percent'),
+        );
+        if(!$imgs['logo'])unset($data['logo']);
+        if(!$imgs['license'])unset($data['license']);
+        if(!$imgs['cns1'])unset($data['cns1']);
+        if(!$imgs['cns2'])unset($data['cns2']);
+        if(!$imgs['sfz1'])unset($data['sfz1']);
+        if(!$imgs['sfz2'])unset($data['sfz2']);
+
+        //邀请人
+        $parent_flag = $this->input->post('parent_flag');
+        if($parent_flag){
+            $parent_user = $this->db->select('id,mobile')->from('users')
+                ->where('id',$parent_flag)
+                ->or_where('mobile',$parent_flag)
+                ->get()->row();
+            if($parent_user){
+                $data['parent_uid'] = $parent_user->id;
+                $data['parent_mobile'] = $parent_user->mobile;
+            }
+        }
+
+        if($data['parent_uid']==$app_uid){
+            return -2;
+        }
+
+        $shop = $this->db->select()->from('shop')->where("uid = $uid")->get()->row_array();
+        if($shop){
+            if($this->db->where(array('id'=>$shop['id']))->update('shop',$data)){
+                return 1;
+            }else{
+                return -1;
+            }
+        }else{
+            if($this->db->insert('shop',$data)){
+                return 1;
+            }else{
+                return -1;
+            }
+        }
+    }
 }

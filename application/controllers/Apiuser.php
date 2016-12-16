@@ -333,51 +333,22 @@ class Apiuser extends MY_APIcontroller {
 		die();
 	}
 
-	/*public function register_shop(){
-
-		$shop_type = $this->frontend_model->get_shop_type();
-
-		$this->assign('shop_type', $shop_type);
-		$sessionUser = $this->frontend_model->getSessionUser($uid);
-		$this->load->model('user_model');
-		$user_info = $this->user_model->find($this->session->userdata('uid'));
-		$this->assign('user_info', $user_info);
-		$this->assign('sessionUser', $sessionUser);
-		$this->load->model('shop_model');
-		$conditionFields = array();
-		$conditionFields['uid'] = $uid;
-		$userShop = $this->shop_model->queryContent($conditionFields);
-		if($userShop){
-			$userShop = $userShop[0];
-			$this->assign('shop', $userShop);
+	public function register_shop(){
+		$this->load->model('apishop_model');
+		$shop_info = $this->apishop_model->get_shop_info($this->app_uid,false);
+		if($shop_info){
+			$this->rs['shop_info']=$shop_info;
+			echo json_encode($this->rs);
+			die();
 		}else{
-			$this->assign('shop',array());
-		}
-		$this->display('frontend/register_shop.html');
-		die;
-		if($uid = $this->session->userdata('uid')){
-			$sessionUser = $this->frontend_model->getSessionUser($uid);
-			$this->load->model('user_model');
-			$user_info = $this->user_model->find($this->session->userdata('uid'));
-			$this->assign('user_info', $user_info);
-			$this->assign('sessionUser', $sessionUser);
-			$this->load->model('shop_model');
-			$conditionFields = array();
-			$conditionFields['uid'] = $uid;
-			$userShop = $this->shop_model->queryContent($conditionFields);
-			if($userShop){
-				$userShop = $userShop[0];
-				$this->assign('shop', $userShop);
-			}else{
-				$this->assign('shop',array());
-			}
-			$this->display('frontend/register_shop.html');
-		}else{
-			$this->show_message('请先登陆~',site_url('/frontend/login'));
+			$this->rs['shop_info']=array();
+			echo json_encode($this->rs);
+			die();
 		}
 	}
 
 	public function save_register_shop(){
+		unset($this->rs['user_info']);
 		if(!trim($this->input->post('shop_name'))){
 			$this->show_message('商铺名称不能为空！');
 			die();
@@ -445,13 +416,18 @@ class Apiuser extends MY_APIcontroller {
 			'sfz1'=>$sfz1,
 //            'sfz2'=>$sfz2,
 		);
-		$rs = $this->frontend_model->save_register_shop($imgs);
+		$rs = $this->apiuser_model->save_register_shop($this->app_uid,$imgs);
 		if($rs == 1){
-			$this->show_message('申请成功');
+			echo json_encode($this->rs);
+			die();
 		}else if($rs == -2){
-			$this->show_message('推荐人不可为自己！');
+			$this->err_rs['error_msg']='推荐人不可为自己!';
+			echo json_encode($this->err_rs);
+			die();
 		}else{
-			$this->show_message('申请失败');
+			$this->err_rs['error_msg']='申请失败!';
+			echo json_encode($this->err_rs);
+			die();
 		}
-	}*/
+	}
 }

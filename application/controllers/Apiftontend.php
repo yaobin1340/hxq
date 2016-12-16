@@ -406,4 +406,15 @@ class Apiftontend extends MY_APIcontroller {
 		echo json_encode($rs);
 		die();
 	}
+
+	public function get_shop_type(){
+		$rs = array(
+			'success'=>true,
+			'error_msg'=>''
+		);
+		$shop_type = $this->Apiftontend_model->get_shop_type();
+		$rs['shop_type_list']=$shop_type;
+		echo json_encode($rs);
+		die();
+	}
 }
