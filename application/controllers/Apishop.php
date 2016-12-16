@@ -96,8 +96,13 @@ class Apishop extends MY_APIcontroller {
 		die();
 	}
 
-	public function order_detail($order_id){
-		$data = $this->apishop_model->order_detail($order_id);
+	public function order_detail(){
+		if(!$this->input->post('order_id')){
+			$this->err_rs['error_msg']='订单编号不能为空!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$data = $this->apishop_model->order_detail($this->input->post('order_id'));
 		if($data == -1){
 			$this->err_rs['error_msg']='订单不存在';
 			echo json_encode($this->err_rs);
@@ -107,7 +112,7 @@ class Apishop extends MY_APIcontroller {
 			echo json_encode($this->err_rs);
 			die();
 		}else{
-			$order_list = $this->apishop_model->order_byoid($order_id);
+			$order_list = $this->apishop_model->order_byoid($this->input->post('order_id'));
 			$this->rs['order_list']=$order_list;
 			$this->rs['order']=$data;
 			echo json_encode($this->rs);
