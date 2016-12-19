@@ -182,7 +182,7 @@ class Apishop_model extends MY_Model
         }
     }
 
-    public function save_order(){
+    public function save_order($app_uid,$shop_id){
         $user_flag = $this->input->post('user_flag');
         $price = $this->input->post('price')*100;
 
@@ -192,10 +192,10 @@ class Apishop_model extends MY_Model
 
         if(!$user_info)
             return -2;//用户不存在
-        if($user_info->id==$this->session->userdata('uid'))
+        if($user_info->id==$app_uid)
             return -3;//用户不存在
         $rs = $this->db->select('id')->from('order')
-            ->where('shop_id',$this->session->userdata('shop_id'))
+            ->where('shop_id',$shop_id)
             ->where('status',1)
             ->get()->row();
 
@@ -212,7 +212,7 @@ class Apishop_model extends MY_Model
                 'total'=>$price,
                 'status'=>1,
                 'cdate'=>date('Y-m-d H:i:s',time()),
-                'shop_id'=>$this->session->userdata('shop_id')
+                'shop_id'=>$shop_id
             ));
             $oid = $this->db->insert_id();
         }
@@ -221,7 +221,7 @@ class Apishop_model extends MY_Model
             'uid'=>$user_info->id,
             'mobile'=>$user_info->mobile,
             'price'=>$price,
-            'shop_id'=>$this->session->userdata('shop_id'),
+            'shop_id'=>$shop_id,
             'status'=>1,
             'oid'=>$oid,
             'cdate'=>date('Y-m-d H:i:s',time())

@@ -188,5 +188,23 @@ class Apishop extends MY_APIcontroller {
 		}
 	}
 
-
+	public function save_order(){
+		$rs = $this->apishop_model->save_order($this->app_uid,$this->shop_id);
+		if($rs == 1){
+			echo json_encode($this->rs);
+			die();
+		}else if($rs == -2){
+			$this->err_rs['error_msg']='用户不存在';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($rs == -3){
+			$this->err_rs['error_msg']='订单不能填写自己';
+			echo json_encode($this->err_rs);
+			die();
+		}else{
+			$this->err_rs['error_msg']='操作失败';
+			echo json_encode($this->err_rs);
+			die();
+		}
+	}
 }
