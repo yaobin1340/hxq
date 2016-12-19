@@ -318,12 +318,12 @@ class Apishop_model extends MY_Model
         return $user[0];
     }
 
-    public function save_shop_info($imgs){
-        if(!($uid = $this->session->userdata('uid'))){
+    public function save_shop_info($imgs,$app_uid){
+        if(!($uid = $app_uid)){
             return -1;
         }
         $data = array(
-            'uid'=>$this->session->userdata('uid'),
+            'uid'=>$app_uid,
             'province_code'=>$this->input->post('province_code'),
             'city_code'=>$this->input->post('city_code'),
             'area_code'=>$this->input->post('area_code'),
