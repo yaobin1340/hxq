@@ -123,7 +123,13 @@ class Apishop extends MY_APIcontroller {
 
 	}
 
-	public function tijiao_order($order_id){
+	public function tijiao_order(){
+		if(!$this->input->post('order_id')){
+			$this->err_rs['error_msg']='订单编号不能为空!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$order_id = $this->input->post('order_id');
 		$order_Pic = $this->upload('order_pic','pic');
 		$rs = $this->apishop_model->tijiao_order($this->app_uid,$order_id,$order_Pic);
 		if($rs == 1){
@@ -179,4 +185,6 @@ class Apishop extends MY_APIcontroller {
 			die();
 		}
 	}
+
+
 }
