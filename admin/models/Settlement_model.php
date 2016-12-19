@@ -390,7 +390,8 @@ class Settlement_model extends MY_Model
 			'status'=>2
 		));
 
-		$commonweal_total = ($data->total6 + $data->total12 + $data->total24)*0.01;
+//		$commonweal_total = ($data->total6 + $data->total12 + $data->total24)*0.01;
+		$commonweal_total = $data->total6*0.0025 + $data->total12*0.005 + $data->total24*0.01;
 		$this->db->insert('commonweal',array(
 			'date'=>$data->date,
 			'total'=>$commonweal_total,
