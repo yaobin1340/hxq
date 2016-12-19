@@ -45,6 +45,13 @@
                     <td><a>{{if $item.status == 1}}<font color="red">待审核</font>{{else}}<font color="green">已完成</font>{{/if}}</a></td>
                     <td>
                         <div class="am-btn-toolbar">
+                            {{if $item.status == 1}}
+                            <div class="am-btn-group am-btn-group-xs">
+                                <a type="button" class="am-btn am-btn-default" href="{{site_url url='settlement/change_settlement'}}/{{$item.id}}/2">
+                                    <span class="am-icon-pencil-square-o"></span> 调价
+                                </a>
+                            </div>
+                            {{/if}}
                             <div class="am-btn-group am-btn-group-xs">
                                 <a type="button" class="am-btn am-btn-danger" href="{{site_url url='settlement/settlement_detail'}}/{{$item.id}}/2">
                                     <span class="am-icon-pencil-square-o"></span> 详情

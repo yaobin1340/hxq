@@ -1,0 +1,217 @@
+<script type="text/javascript" charset="utf-8" src="/statics/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/statics/ueditor/ueditor.all.min.js"></script>
+<!-- content start -->
+<div class="admin-content">
+    <div class="am-cf am-padding">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">调价</strong> /
+            <small>Change Settlement</small>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="am-g">
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">日期</label>
+            <div class="am-u-sm-8">
+                {{$data.date}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label"><font color="red">6系会员向日葵单价</font></label>
+            <div class="am-u-sm-8">
+                <input type="text" name="ax6_price" required value="{{$data.ax6_price/100}}" onblur="change_settlement()">
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label"><font color="red">12系会员向日葵单价</font></label>
+            <div class="am-u-sm-8">
+                <input type="text" name="ax12_price" required value="{{$data.ax12_price/100}}" onblur="change_settlement()">
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label"><font color="red">24系会员向日葵单价</font></label>
+            <div class="am-u-sm-8">
+                <input type="text" name="ax24_price" required value="{{$data.ax24_price/100}}" onblur="change_settlement()">
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label"><font color="red">6系商家向日葵单价</font></label>
+            <div class="am-u-sm-8">
+                <input type="number" name="shop_ax6_price" required disabled value="{{$data.shop_ax6_price/100}}" onblur="change_settlement()">
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label"><font color="red">12系商家向日葵单价</font></label>
+            <div class="am-u-sm-8">
+                <input type="number" name="shop_ax12_price" required disabled value="{{$data.shop_ax12_price/100}}" onblur="change_settlement()">
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label"><font color="red">24系商家向日葵单价</font></label>
+            <div class="am-u-sm-8">
+                <input type="number" name="shop_ax24_price" required disabled value="{{$data.shop_ax24_price/100}}" onblur="change_settlement()">
+            </div>
+        </div>
+
+        <br><br>
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label"><font color="red">盈亏</font></label>
+            <div class="am-u-sm-8" id="yingkui">
+                0
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">6系总营业额</label>
+            <div class="am-u-sm-8">
+                {{$data.total6/100}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">12系总营业额</label>
+            <div class="am-u-sm-8">
+                {{$data.total12/100}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">24系总营业额</label>
+            <div class="am-u-sm-8">
+                {{$data.total24/100}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">6系会员向日葵总数</label>
+            <div class="am-u-sm-8">
+                {{$data.ax6}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">12系会员向日葵总数</label>
+            <div class="am-u-sm-8">
+                {{$data.ax12}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">24系会员向日葵总数</label>
+            <div class="am-u-sm-8">
+                {{$data.ax24}}
+            </div>
+        </div>
+
+
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">6系商家向日葵总数</label>
+            <div class="am-u-sm-8">
+                {{$data.shop_ax6}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">12系商家向日葵总数</label>
+            <div class="am-u-sm-8">
+                {{$data.shop_ax12}}
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <label class="am-u-sm-4 am-form-label">24系商家向日葵总数</label>
+            <div class="am-u-sm-8">
+                {{$data.shop_ax24}}
+            </div>
+        </div>
+
+
+
+
+        <div class="am-form-group">
+            <div class="am-u-sm-9 am-u-sm-push-3">
+                <!--{{if $data.status == 1}}-->
+                <!--<button class="am-btn am-btn-danger" id="doc-confirm-toggle">审核</button>-->
+                <!--{{/if}}-->
+                <a class="am-btn am-btn-default" href="{{site_url url='user/list_users'}}">返回</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function() {
+        $('#doc-confirm-toggle').
+        on('click', function() {
+            $('#my-confirm').modal({
+                relatedTarget: this,
+                onConfirm: function(options) {
+                    $.get("{{site_url url='settlement/audit_settlement'}}/{{$data.id}}",function(rs){
+                        if(rs == 1){
+                            alert('审核成功');
+                            window.location.reload();
+                        }
+                    });
+                },
+                // closeOnConfirm: false,
+                onCancel: function() {
+
+                }
+            });
+        });
+    });
+
+    function change_settlement(){
+        ax24 = {{$data.ax24}};
+        ax12 = {{$data.ax12}};
+        ax6 = {{$data.ax6}};
+        ax24_shop = {{$data.shop_ax24}};
+        ax12_shop = {{$data.shop_ax12}};
+        ax6_shop = {{$data.shop_ax6}};
+        //可分配总额
+        total = {{$data.total6/100*0.05 + $data.total12/100*0.1 + $data.total24/100*0.2}};
+
+        ax6_price = $("[name='ax6_price']").val()
+        ax12_price = $("[name='ax12_price']").val()
+        ax24_price = $("[name='ax24_price']").val()
+        shop_ax6_price = ($("[name='ax6_price']").val()/4.55).toFixed(3)
+        shop_ax12_price = ($("[name='ax12_price']").val()/4.55).toFixed(3)
+        shop_ax24_price = ($("[name='ax24_price']").val()/4.55).toFixed(3)
+
+        shop_ax6_price = shop_ax6_price.substring(0,shop_ax6_price.lastIndexOf('.')+3)
+        shop_ax12_price = shop_ax12_price.substring(0,shop_ax12_price.lastIndexOf('.')+3)
+        shop_ax24_price = shop_ax24_price.substring(0,shop_ax24_price.lastIndexOf('.')+3)
+
+        $("[name='shop_ax6_price']").val(shop_ax6_price)
+        $("[name='shop_ax12_price']").val(shop_ax12_price)
+        $("[name='shop_ax24_price']").val(shop_ax24_price)
+        console.log(shop_ax6_price+'/'+shop_ax12_price+'/'+shop_ax24_price)
+
+        total_pay = ax6_price*ax6 + ax12_price*ax12 + ax24_price*ax24 + shop_ax6_price*ax6_shop + shop_ax12_price*ax12_shop + shop_ax24_price*ax24_shop;
+        $("#yingkui").html((total-total_pay).toFixed(2))
+    }
+</script>
+
+
+<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">提示</div>
+        <div class="am-modal-bd">
+            你，确定要审核吗？
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+        </div>
+    </div>
+</div>
+<!-- content end -->

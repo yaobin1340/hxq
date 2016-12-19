@@ -34,6 +34,12 @@ class Settlement extends MY_Controller {
 		echo $rs;
 	}
 
+	public function change_settlement($id){
+		$data = $this->settlement_model->settlement_detail($id);
+		$this->assign('data', $data);
+		$this->show('settlement/change_settlement');
+	}
+
 
 	
 
