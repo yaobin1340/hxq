@@ -29,16 +29,20 @@ class Index extends MY_Controller {
 		$this->display('layout/index.html');
 
 	}
-	
+
 	public function main(){
 		$index_data = $this->index_model->index_data();
 		$sett_info = $this->index_model->get_sett_info();
 		$ywy = $this->index_model->ywy();
-
-		//var_dump($sett_info);
+		$shop2_yey = $this->index_model->shop2_yey();
+		$shop_month_yey = $this->index_model->shop_month_yey();
+		//var_dump(date("Y-m"));
 		$this->assign('index_data', $index_data);
 		$this->assign('ywy', $ywy);
+		$this->assign('shop2_yey', $shop2_yey);
+		$this->assign('shop_month_yey', $shop_month_yey);
 		$this->assign('yesday', date("Y-m-d",strtotime("-1 day")));
+		$this->assign('now_month', date("Y-m"));
 		$this->assign('sett_info', $sett_info);
 		$this->show('index');
 	}
