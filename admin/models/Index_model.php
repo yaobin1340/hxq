@@ -78,5 +78,41 @@ GROUP BY c.parent_id order by allprice desc limit 5";
             return -1;
         }
     }
- 
+
+    //前一天 商家营业额 前五
+    public function shop_yey(){
+        $ysday = date("Y-m-d",strtotime("-1 day"));
+        $sql = "select sum(a.total) alltotal,shop_id,shop_name from `order` a
+left join shop b on a.shop_id = b.id
+where a.`status` = 3
+and DATE_FORMAT(a.adate,'%Y-%m-%d') = '{$ysday}'
+GROUP BY a.shop_id ORDER BY alltotal desc LIMIT 5";
+        $rs = $this->db->query($sql)->result_array();
+        return $rs;
+    }
+
+    //前一天 下级商家营业额 前五
+    public function shop2_yey(){
+        $ysday = date("Y-m-d",strtotime("-1 day"));
+        $sql = "select sum(a.total) alltotal,c.id,c.rel_name from `order` a
+left join shop b on a.shop_id = b.id
+left join users c on c.id = b.parent_uid
+where a.`status` = 3
+and DATE_FORMAT(a.adate,'%Y-%m-%d') = '{$ysday}'
+GROUP BY b.parent_uid ORDER BY alltotal desc LIMIT 5";
+        $rs = $this->db->query($sql)->result_array();
+        return $rs;
+    }
+
+    //前一天 商家当月营业额 前五
+    public function shop_month_yey(){
+        $ysday = date("Y-m");
+        $sql = "select sum(a.total) alltotal,shop_id,shop_name from `order` a
+left join shop b on a.shop_id = b.id
+where a.`status` = 3
+and DATE_FORMAT(a.adate,'%Y-%m') = '{$ysday}'
+GROUP BY a.shop_id ORDER BY alltotal desc LIMIT 5";
+        $rs = $this->db->query($sql)->result_array();
+        return $rs;
+    }
 }
