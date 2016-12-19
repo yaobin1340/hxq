@@ -323,7 +323,7 @@ class Apishop_model extends MY_Model
             return -1;
         }
         $data = array(
-            'uid'=>$app_uid,
+            //'uid'=>$app_uid,
             'province_code'=>$this->input->post('province_code'),
             'city_code'=>$this->input->post('city_code'),
             'area_code'=>$this->input->post('area_code'),
@@ -338,20 +338,10 @@ class Apishop_model extends MY_Model
             'baidu_lng'=>$this->input->post('baidu_lng')?$this->input->post('baidu_lng'):$this->input->post('lng'),
             'desc'=>$this->input->post('desc'),
             'business_time'=>$this->input->post('business_time'),
-            'license'=>$imgs['license']?$imgs['license']:'',
-            'cdate'=>date('Y-m-d H:i:s',time()),
-            'logo'=>$imgs['logo']?$imgs['logo']:'',
-            'cns1'=>$imgs['cns1']?$imgs['cns1']:'',
-//            'cns2'=>$imgs['cns2']?$imgs['cns2']:'',
-            'sfz1'=>$imgs['sfz1']?$imgs['sfz1']:'',
-//            'sfz2'=>$imgs['sfz2']?$imgs['sfz2']:'',
+           // 'cdate'=>date('Y-m-d H:i:s',time()),
+            'logo'=>$imgs['logo']?$imgs['logo']:''
         );
         if(!$imgs['logo'])unset($data['logo']);
-        if(!$imgs['license'])unset($data['license']);
-        if(!$imgs['cns1'])unset($data['cns1']);
-//        if(!$imgs['cns2'])unset($data['cns2']);
-        if(!$imgs['sfz1'])unset($data['sfz1']);
-//        if(!$imgs['sfz2'])unset($data['sfz2']);
 
         $shop = $this->db->select()->from('shop')->where("uid = $uid")->get()->row_array();
         if($shop){

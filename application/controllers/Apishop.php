@@ -153,18 +153,20 @@ class Apishop extends MY_APIcontroller {
 	}
 
 	public function save_shop_info(){
+		unset($this->rs['user_info']);
+		unset($this->rs['shop_info']);
 		$img = $this->upload('logo');
-		$license = $this->upload('license','license');
-		$cns1 = $this->upload('cns','cns1');
+		//$license = $this->upload('license','license');
+		//$cns1 = $this->upload('cns','cns1');
 		//$cns2 = $this->upload('cns','cns2');
-		$sfz1 = $this->upload('sfz','sfz1');
+		//$sfz1 = $this->upload('sfz','sfz1');
 		//$sfz2 = $this->upload('sfz','sfz2');
 		$imgs = array(
 			'logo'=>$img,
-			'license'=>$license,
-			'cns1'=>$cns1,
+			//'license'=>$license,
+			//'cns1'=>$cns1,
 			//'cns2'=>$cns2,
-			'sfz1'=>$sfz1,
+			//'sfz1'=>$sfz1,
 			//'sfz2'=>$sfz2,
 		);
 		$rs = $this->apishop_model->save_shop_info($imgs,$this->app_uid);
