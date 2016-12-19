@@ -167,7 +167,7 @@ class Apishop extends MY_APIcontroller {
 			'sfz1'=>$sfz1,
 			//'sfz2'=>$sfz2,
 		);
-		$rs = $this->apishop_model->save_shop_info($imgs);
+		$rs = $this->apishop_model->save_shop_info($imgs,$this->app_uid);
 		if($rs == 1){
 			echo json_encode($this->rs);
 			die();
