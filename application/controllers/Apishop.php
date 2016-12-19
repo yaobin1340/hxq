@@ -189,6 +189,8 @@ class Apishop extends MY_APIcontroller {
 	}
 
 	public function save_order(){
+		unset($this->rs['user_info']);
+		unset($this->rs['shop_info']);
 		$rs = $this->apishop_model->save_order($this->app_uid,$this->shop_id);
 		if($rs == 1){
 			echo json_encode($this->rs);
