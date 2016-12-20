@@ -29,7 +29,8 @@ class Settlement_model extends MY_Model
     }
 
 	public function settlement(){
-		$date = date("Y-m-d");
+		$rs = $this->db->select('max(date) date')->from('settlement')->get()->row();
+		$date = date("Y-m-d",strtotime("$rs->date +1 day"));
 		$rs = $this->db->select()->from('settlement')->where('date',$date)->get()->row();
 		if($rs)//已经结算过了,不能重复结算
 			return -2;
@@ -403,8 +404,34 @@ class Settlement_model extends MY_Model
 		} else {
 			return 1;
 		}
+	}
 
+	public function save_change_settlement(){
+		$id = $this->input->post('id');
+		$data = array(
+			'ax6_price'=>$this->input->post('ax6_price')*100,
+			'ax12_price'=>$this->input->post('ax12_price')*100,
+			'ax24_price'=>$this->input->post('ax24_price')*100,
+			'shop_ax6_price'=>$this->input->post('shop_ax6_price')*100,
+			'shop_ax12_price'=>$this->input->post('shop_ax12_price')*100,
+			'shop_ax24_price'=>$this->input->post('shop_ax24_price')*100
+		);
+		$rs = $this->db->where('id',$id)->update('settlement',$data);
+		if($rs)
+			return 1;
+		else
+			return -1;
+	}
 
+	public function delete_settlement($id){
+		$rs = $this->db->select()->from('settlement')->where('id',$id)->where('status',2)->get()->row();
+		if($rs)
+			return -1;
+		$rs = $this->db->where('id',$id)->delete('settlement');
+		if($rs)
+			return 1;
+		else
+			return -1;
 	}
 
 

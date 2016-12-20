@@ -40,6 +40,20 @@ class Settlement extends MY_Controller {
 		$this->show('settlement/change_settlement');
 	}
 
+	public function save_change_settlement(){
+		$rs = $this->settlement_model->save_change_settlement();
+		if($rs == 1){
+			$this->show_message('保存成功',site_url('order/list_settlements'));
+		}else{
+			$this->show_message('保存失败');
+		}
+	}
+
+	public function delete_settlement($id){
+		$rs = $this->settlement_model->delete_settlement($id);
+		echo $rs;
+	}
+
 
 	
 
