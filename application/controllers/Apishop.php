@@ -57,12 +57,14 @@ class Apishop extends MY_APIcontroller {
 						$this->rs['shop_info']=$shop_info;
 					}
 				}else{
+					header('status: 401');
 					$this->err_rs['error_msg']='未找到相关用户信息';
 					echo json_encode($this->err_rs);
 					die();
 				}
 			}
 		}else{
+			header('status: 401');
 			$this->err_rs['error_msg']='未登陆';
 			echo json_encode($this->err_rs);
 			die();
