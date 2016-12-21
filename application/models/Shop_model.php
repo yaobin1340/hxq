@@ -164,6 +164,14 @@ class Shop_model extends MY_Model
         if(!$rs){
             return -1;
         }
+        $rs1 = $this->db->select()->from('order_list a')
+            ->join('order b','a.oid = b.id','inner')
+            ->join('shop c','b.shop_id = c.id','inner')
+            ->where('a.id',$id)
+            ->where('c.uid',$this->session->userdata('uid'))->get()->row();
+        if(!$rs1){
+            return -2;
+        }
         $this->db->trans_start();//--------开始事务
         $this->db->where('id',$rs->oid);
         $this->db->set('num', 'num-1', FALSE);
