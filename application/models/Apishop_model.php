@@ -161,10 +161,18 @@ class Apishop_model extends MY_Model
     }
 
 
-    public function del_order($id){
+    public function del_order($id,$app_uid){
         $rs = $this->db->select('price,oid')->from('order_list')->where('id',$id)->where('status',1)->get()->row();
         if(!$rs){
             return -1;
+        }
+        $rs1 = $this->db->select()->from('order_list a')
+            ->join('order b','a.oid = b.id','inner')
+            ->join('shop c','b.shop_id = c.id','inner')
+            ->where('a.id',$id)
+            ->where('c.uid',$app_uid)->get()->row();
+        if(!$rs1){
+            return -2;
         }
         $this->db->trans_start();//--------开始事务
         $this->db->where('id',$rs->oid);
@@ -176,7 +184,7 @@ class Apishop_model extends MY_Model
         $this->db->delete('order_list');
         $this->db->trans_complete();//------结束事务
         if ($this->db->trans_status() === FALSE) {
-            return -1;
+            return -3;
         } else {
             return 1;
         }

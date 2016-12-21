@@ -211,4 +211,32 @@ class Apishop extends MY_APIcontroller {
 			die();
 		}
 	}
+
+	public function del_order(){
+		unset($this->rs['user_info']);
+		unset($this->rs['shop_info']);
+		if(!$this->input->post('order_id')){
+			$this->err_rs['error_msg']='订单编号不能为空!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$order_id = $this->input->post('order_id');
+		$rs = $this->apishop_model->del_order($order_id,$this->app_uid);
+		if($rs == 1){
+			echo json_encode($this->rs);
+			die();
+		}else if($rs == -1){
+			$this->err_rs['error_msg']='订单已提交,不可删除1';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($rs == -2){
+			$this->err_rs['error_msg']='不可操作非自己店铺的订单2';
+			echo json_encode($this->err_rs);
+			die();
+		}else{
+			$this->err_rs['error_msg']='操作失败3';
+			echo json_encode($this->err_rs);
+			die();
+		}
+	}
 }
