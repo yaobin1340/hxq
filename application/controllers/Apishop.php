@@ -226,15 +226,15 @@ class Apishop extends MY_APIcontroller {
 			echo json_encode($this->rs);
 			die();
 		}else if($rs == -1){
-			$this->err_rs['error_msg']='订单已提交,不可删除1';
+			$this->err_rs['error_msg']='订单已提交,不可删除';
 			echo json_encode($this->err_rs);
 			die();
 		}else if($rs == -2){
-			$this->err_rs['error_msg']='不可操作非自己店铺的订单2';
+			$this->err_rs['error_msg']='不可操作非自己店铺的订单';
 			echo json_encode($this->err_rs);
 			die();
 		}else{
-			$this->err_rs['error_msg']='操作失败3';
+			$this->err_rs['error_msg']='操作失败';
 			echo json_encode($this->err_rs);
 			die();
 		}
