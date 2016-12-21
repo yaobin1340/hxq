@@ -48,7 +48,7 @@ class User_model extends MY_Model
 			$this->db->or_like('a.mobile',$this->input->post('keyword'));
 		}
 		$this->db->where('a.is_dl',$type);
-		$this->db->order_by('a.id','asc');
+		$this->db->order_by('a.cdate','asc');
 		$this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
 		$data['items'] = $this->db->get()->result_array();
 
