@@ -417,4 +417,19 @@ class Apiftontend extends MY_APIcontroller {
 		echo json_encode($rs);
 		die();
 	}
+
+	public function get_turns_imgs(){
+		$img_list = array();
+		$img_list[]='statics/images/banner.jpg';
+		$img_list[]='statics/images/banner1.jpg';
+		$img_list[]='statics/images/banner2.jpg';
+		$rs = array(
+			'success'=>true,
+			'img_list'=>$img_list,
+			'error_msg'=>''
+		);
+		echo json_encode($rs);
+		die();
+
+	}
 }
