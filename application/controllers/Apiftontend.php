@@ -420,16 +420,25 @@ class Apiftontend extends MY_APIcontroller {
 
 	public function get_turns_imgs(){
 		$img_list = array();
-		if(file_exists(dirname(__FILE__).'statics/images/banner.jpg')){
+		if(file_exists(dirname(SELF).'/statics/images/banner.jpg')){
 			$img_list[]='statics/images/banner.jpg';
 		}
-		$img_list[]='statics/images/banner1.jpg';
-		$img_list[]='statics/images/banner2.jpg';
+		if(file_exists(dirname(SELF).'/statics/images/banner1.jpg')){
+			$img_list[]='statics/images/banner1.jpg';
+		}
+		if(file_exists(dirname(SELF).'/statics/images/banner2.jpg')){
+			$img_list[]='statics/images/banner2.jpg';
+		}
+
 		$rs = array(
 			'success'=>true,
-			'img_list'=>$img_list,
 			'error_msg'=>''
 		);
+		if($img_list){
+			$rs['img_list']=$img_list;
+		}else{
+			$rs['img_list']=(object)array();
+		}
 		echo json_encode($rs);
 		die();
 
