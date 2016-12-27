@@ -201,7 +201,7 @@ class User extends MY_Controller {
 	}
 
     public function user_heart($type=3){
-		die('数据对接中。。暂时无法打开,预计12.27号15:00恢复,给您带来不便深表歉意。');
+//		die('数据对接中。。暂时无法打开,预计12.27号15:00恢复,给您带来不便深表歉意。');
 		$count = $this->user_model->get_count_heart($type,false);
 		$this->assign('header_name', '我的向日葵');
 		$this->assign('footer_flag', 3);
