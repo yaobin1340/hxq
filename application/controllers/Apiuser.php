@@ -51,7 +51,6 @@ class Apiuser extends MY_APIcontroller {
 				}else{
 					if($_SERVER['REQUEST_METHOD'] != 'OPTIONS')
 						header('HTTP/1.1 401 Unauthorized');
-					header('HTTP/1.1 401 Unauthorized');
 					$this->err_rs['error_msg']='未找到相关用户信息';
 					echo json_encode($this->err_rs);
 					die();
@@ -60,7 +59,6 @@ class Apiuser extends MY_APIcontroller {
 		}else{
 			if($_SERVER['REQUEST_METHOD'] != 'OPTIONS')
 				header('HTTP/1.1 401 Unauthorized');
-			header('HTTP/1.1 401 Unauthorized');
 			$this->err_rs['error_msg']='未登陆';
 			echo json_encode($this->err_rs);
 			die();
