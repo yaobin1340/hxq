@@ -37,6 +37,7 @@ class Withdraw_model extends MY_Model
 			$this->db->where('id',$this->input->post('id'));
 			$this->db->update('withdraw',$data);
 		}
+
 		$this->db->trans_complete();//------结束事务
 		if ($this->db->trans_status() === FALSE) {
 			return -1;
@@ -126,6 +127,16 @@ class Withdraw_model extends MY_Model
 		$rs = $this->db->get()->result_array();
 		return $rs;
 	}
+
+	public function audit_withdraw_get($id){
+		$rs = $this->db->where('id',$id)->update('withdraw',array('status'=>2,'adate'=>date('Y-m-d H:i:s',time())));
+		if($rs){
+			return 1;
+		}else{
+			return -1;
+		}
+	}
+
 
 
 }

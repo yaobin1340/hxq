@@ -37,6 +37,12 @@ class Withdraw extends MY_Controller {
 			$this->show_message('审核失败');
 		}
 	}
+
+	public function audit_withdraw_get($id){
+		$rs = $this->withdraw_model->audit_withdraw_get($id);
+		echo $rs;
+	}
+
 	public function down_excel(){
 		$data_res = $this->withdraw_model->down_excel();
 		if(!$data_res){

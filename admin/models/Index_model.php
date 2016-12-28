@@ -116,4 +116,5 @@ GROUP BY a.shop_id ORDER BY alltotal desc LIMIT 5";
         $rs = $this->db->query($sql)->result_array();
         return $rs;
     }
+ 
 }
