@@ -35,6 +35,7 @@ class Apiuser extends MY_APIcontroller {
 		if($this->token){
 			$this->app_uid=$this->get_token_uid($this->token);
 			if($this->app_uid <= 0){
+				header('HTTP/1.1 401 Unauthorized');
 				$this->err_rs['error_msg'] = '用户编号获取失败';
 				echo json_encode($this->err_rs);
 				die();
