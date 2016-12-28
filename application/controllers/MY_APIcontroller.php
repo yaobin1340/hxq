@@ -13,7 +13,7 @@ class MY_APIcontroller extends CI_Controller
     {
         parent::__construct();
         ini_set('date.timezone','Asia/Shanghai');
-
+        header("Access-Control-Allow-Headers: *");
     }
 
     public function get_token(){
