@@ -47,14 +47,16 @@ class Apiuser extends MY_APIcontroller {
 
 					$this->rs['user_info']=$user_info;
 				}else{
-					header('status: 401');
+//					header('status: 401');
+					header('HTTP/1.1 401 Unauthorized');
 					$this->err_rs['error_msg']='未找到相关用户信息';
 					echo json_encode($this->err_rs);
 					die();
 				}
 			}
 		}else{
-			header('status: 401');
+//			header('status: 401');
+			header('HTTP/1.1 401 Unauthorized');
 			$this->err_rs['error_msg']='未登陆';
 			echo json_encode($this->err_rs);
 			die();
