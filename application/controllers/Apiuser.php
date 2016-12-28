@@ -35,7 +35,8 @@ class Apiuser extends MY_APIcontroller {
 		if($this->token){
 			$this->app_uid=$this->get_token_uid($this->token);
 			if($this->app_uid <= 0){
-				header('HTTP/1.1 401 Unauthorized');
+				if($_SERVER['REQUEST_METHOD'] != 'OPTIONS')
+					header('HTTP/1.1 401 Unauthorized');
 				$this->err_rs['error_msg'] = '用户编号获取失败';
 				echo json_encode($this->err_rs);
 				die();
@@ -48,7 +49,8 @@ class Apiuser extends MY_APIcontroller {
 
 					$this->rs['user_info']=$user_info;
 				}else{
-//					header('status: 401');
+					if($_SERVER['REQUEST_METHOD'] != 'OPTIONS')
+						header('HTTP/1.1 401 Unauthorized');
 					header('HTTP/1.1 401 Unauthorized');
 					$this->err_rs['error_msg']='未找到相关用户信息';
 					echo json_encode($this->err_rs);
@@ -56,7 +58,8 @@ class Apiuser extends MY_APIcontroller {
 				}
 			}
 		}else{
-//			header('status: 401');
+			if($_SERVER['REQUEST_METHOD'] != 'OPTIONS')
+				header('HTTP/1.1 401 Unauthorized');
 			header('HTTP/1.1 401 Unauthorized');
 			$this->err_rs['error_msg']='未登陆';
 			echo json_encode($this->err_rs);
