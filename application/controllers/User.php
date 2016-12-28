@@ -20,6 +20,7 @@ class User extends MY_Controller {
 	{
 		parent::__construct();
 		if(!$this->session->userdata('uid')){
+			header('HTTP/1.1 401 Unauthorized');
 			$this->show_message('请先登陆~',site_url('/frontend/login'));
 		}
 		$this->load->model('user_model');
