@@ -70,15 +70,15 @@ class Goods_model extends MY_Model
 		$data = array(
 			'good_name'=>$this->input->post('good_name'),
 			'logo'=>$this->input->post('logo'),
-			'price'=>(int)$this->input->post('price')*100,
-			'old_price'=>(int)$this->input->post('old_price')*100,
+			//'price'=>(int)$this->input->post('price')*100,
+			//'old_price'=>(int)$this->input->post('old_price')*100,
 			'type_id'=>$this->input->post('type_id'),
-			'gg'=>$this->input->post('gg'),
 			'unit'=>$this->input->post('unit'),
 			'percent'=>$this->input->post('percent'),
 			'gmxz'=>$this->input->post('gmxz'),
 			'kc'=>$this->input->post('kc'),
 			'flag'=>$this->input->post('flag'),
+			'demo'=>$this->input->post('demo',true),
 			'cdate'=>date('Y-m-d H:i:s',time())
 		);
 		$this->db->trans_start();//--------开始事务
@@ -87,6 +87,7 @@ class Goods_model extends MY_Model
 			$this->db->where('id',$this->input->post('good_id'))->update('goods',$data);
 			$g_id = $this->input->post('good_id');
 			$this->db->delete('goods_pic', array('good_id' => $g_id));
+			$this->db->where('good_id',$g_id)->where_not_in('id',$this->input->post('gg_id'))->delete('goods_gg');
 		}else{
 			$this->db->insert('goods',$data);
 			$g_id = $this->db->insert_id();
@@ -94,14 +95,33 @@ class Goods_model extends MY_Model
 
 		$pic_short = $this->input->post('pic_short');
 		$folder = $this->input->post('folder');
-		foreach($pic_short as $idx => $pic) {
-			$goods_pic = array(
+		if($pic_short){
+			foreach($pic_short as $idx => $pic) {
+				$goods_pic = array(
+					'good_id' => $g_id,
+					'folder' => $folder[$idx],
+					'pic' => str_replace('_thumb', '', $pic),
+					'm_pic' => $pic
+				);
+				$this->db->insert('goods_pic', $goods_pic);
+			}
+		}
+		$arr_gg = $this->input->post('gg');
+		$arr_gg_id = $this->input->post('gg_id');
+		$arr_gg_price = $this->input->post('gg_price');
+		$arr_gg_old_price = $this->input->post('gg_old_price');
+		foreach($arr_gg as $idx => $pic) {
+			$goods_gg = array(
 				'good_id' => $g_id,
-				'folder' => $folder[$idx],
-				'pic' => str_replace('_thumb', '', $pic),
-				'm_pic' => $pic
+				'gg_name' => $pic,
+				'gg_price'=>((float)$arr_gg_price[$idx])*100,
+				'gg_old_price'=>((float)$arr_gg_old_price[$idx])*100
 			);
-			$this->db->insert('goods_pic', $goods_pic);
+			if($arr_gg_id[$idx]){
+				$this->db->where('id',$arr_gg_id[$idx])->update('goods_gg',$goods_gg);
+			}else{
+				$this->db->insert('goods_gg', $goods_gg);
+			}
 		}
 		$this->db->trans_complete();//------结束事务
 		if ($this->db->trans_status() === FALSE) {
@@ -132,6 +152,12 @@ class Goods_model extends MY_Model
 		$this->db->join('goods_type b','a.type_id = b.id','left');
 		$this->db->where('a.id',$id);
 		return $this->db->get()->row_array();
+	}
+
+	public function get_good_gg($id){
+		$this->db->select('*')->from('goods_gg');
+		$this->db->where('good_id',$id);
+		return $this->db->get()->result_array();
 	}
 
 	public function get_good_pic($id){

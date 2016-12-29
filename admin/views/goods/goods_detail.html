@@ -2,6 +2,17 @@
 <script type="text/javascript" charset="utf-8" src="/statics/ueditor/ueditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="/statics/ueditor/ueditor.all.min.js"></script>
 <link href="/statics/css/yy_style.css" rel="stylesheet" type="text/css">
+<style>
+.yy_div{
+    margin-top: 1px;
+}
+
+    .yy_div ul li{
+        list-style: none;
+        float: left;
+    }
+
+</style>
 <!-- content start -->
 <div class="admin-content">
     <div class="am-cf am-padding">
@@ -59,9 +70,52 @@
                 </div>
 
                 <div class="am-form-group">
-                    <label class="am-u-sm-2 am-form-label">商品规格</label>
+                    <label class="am-u-sm-2 am-form-label">
+                        <button id="add_gg_btn" style="margin-left: 10px;height: 40px;" type="button" class="am-btn am-btn-primary">新增规格</button>
+                    </label>
                     <div class="am-u-sm-10">
-                        <input type="text" id="gg" name="gg" value="{{$detail.gg|default:''}}">
+                        <div>
+                            <div class="yy_div" >
+                                <div style="float: left">
+                                    <ul>
+                                        <li style="width: 200px">规格</li>
+                                        <li style="width: 100px">原价</li>
+                                        <li style="width: 100px">售价</li>
+                                        <li style="width: 50px">操作</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="gg_list">
+                            {{if !empty($goods_gg) }}
+                            {{foreach from=$goods_gg item=item}}
+                            <div class="yy_div" >
+                                <div style="float: left">
+                                    <ul>
+                                        <li><input required style="width: 200px" type="text" name="gg[]" value="{{$item.gg_name}}"></li>
+                                        <li><input required style="width: 100px" type="text" name="gg_old_price[]" value="{{($item.gg_old_price|default:0)/100}}"></li>
+                                        <li><input required style="width: 100px" type="text" name="gg_price[]" value="{{($item.gg_price|default:0)/100}}"></li>
+                                    </ul>
+                                </div>
+                                <input type="hidden" name="gg_id[]" value="{{$item.id}}">
+                                <button name="del_btn" style="margin-left: 10px;height: 40px;" type="button" class="am-btn am-btn-default">删除</button>
+                            </div>
+                            {{/foreach}}
+                            {{else}}
+                            <div class="yy_div" >
+                                <div style="float: left">
+                                    <ul>
+                                        <li><input required style="width: 200px" type="text" name="gg[]"></li>
+                                        <li><input required style="width: 100px" type="text" name="gg_old_price[]" ></li>
+                                        <li><input required style="width: 100px" type="text" name="gg_price[]" ></li>
+                                    </ul>
+                                </div>
+                                <input type="hidden" name="gg_id[]">
+                                <button name="del_btn" style="margin-left: 10px;height: 40px;" type="button" class="am-btn am-btn-default">删除</button>
+                            </div>
+                            {{/if}}
+
+                        </div>
                     </div>
                 </div>
 
@@ -69,6 +123,13 @@
                     <label class="am-u-sm-2 am-form-label">购买须知</label>
                     <div class="am-u-sm-10">
                         <input type="text" id="gmxz" name="gmxz" value="{{$detail.gmxz|default:''}}">
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label class="am-u-sm-2 am-form-label">商品详情</label>
+                    <div class="am-u-sm-10">
+                        <textarea name="demo" rows="2" cols="3" class="sce-remarks" placeholder="">{{$detail.demo|default:''}}</textarea>
                     </div>
                 </div>
 
@@ -82,7 +143,7 @@
                 <div class="am-form-group">
                     <label class="am-u-sm-2 am-form-label">商品库存</label>
                     <div class="am-u-sm-10">
-                        <input type="text" id="kc" name="kc" value="{{$detail.kc|default:''}}">
+                        <input type="text" id="kc" name="kc" onkeyup="this.value=this.value.replace(/\D/g,'')" onblur = "this.value = this.value.replace(/\D+/g, '')" value="{{$detail.kc|default:''}}">
                     </div>
                 </div>
 
@@ -98,19 +159,6 @@
                     </div>
                 </div>
 
-                <div class="am-form-group">
-                    <label class="am-u-sm-2 am-form-label">商品原价</label>
-                    <div class="am-u-sm-10">
-                        <input type="text" id="old_price" name="old_price" value="{{if !empty($detail) }}{{($detail.old_price|default:0)/100}}{{/if}}">
-                    </div>
-                </div>
-
-                <div class="am-form-group">
-                    <label class="am-u-sm-2 am-form-label">商品售价</label>
-                    <div class="am-u-sm-10">
-                        <input type="text" id="price" name="price" value="{{if !empty($detail) }}{{($detail.price|default:0)/100}}{{/if}}">
-                    </div>
-                </div>
 
                 <div class="am-form-group">
                     <label class="am-u-sm-2 am-form-label">商品状态</label>
@@ -211,6 +259,15 @@
 <script>
     window.onload = function() {
         init();  //初始化
+
+        $("#gg_list").find("button").on('click',function () {
+            if($('#gg_list').children('div').length <= 1){
+                layer.msg('需至少保留一条‘规格’信息');
+            }
+            else{
+                $(this).parent().remove();
+            }
+        })
     }
 
     //初始化
@@ -297,23 +354,22 @@
         });
     }
 
-    $("#kc").keyup(function () {
+    $("[name='gg_price[]']").keyup(function () {
+    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+    }).blur(function(){
         $(this).val($(this).val().replace(/[^0-9.]/g, ''));
     }).bind("paste", function () {  //CTR+V事件处理
         $(this).val($(this).val().replace(/[^0-9.]/g, ''));
     }).css("ime-mode", "disabled"); //CSS设置输入法不可用
 
-    $("#old_price").keyup(function () {
+    $("[name='gg_old_price[]']").keyup(function () {
+        $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+    }).blur(function(){
         $(this).val($(this).val().replace(/[^0-9.]/g, ''));
     }).bind("paste", function () {  //CTR+V事件处理
         $(this).val($(this).val().replace(/[^0-9.]/g, ''));
     }).css("ime-mode", "disabled"); //CSS设置输入法不可用
 
-    $("#price").keyup(function () {
-        $(this).val($(this).val().replace(/[^0-9.]/g, ''));
-    }).bind("paste", function () {  //CTR+V事件处理
-        $(this).val($(this).val().replace(/[^0-9.]/g, ''));
-    }).css("ime-mode", "disabled"); //CSS设置输入法不可用
 
     function uploadFile() {
         if ($('#uploader').plupload('getFiles').length < 1) {
@@ -366,10 +422,6 @@
             layer.alert('商品类别不能为空!', {skin: 'layui-layer-lan',closeBtn: 0,shift: 4 });
             return false;
         }
-        if($.trim($("#gg").val())==""){
-            layer.alert('商品规格不能为空!', {skin: 'layui-layer-lan',closeBtn: 0,shift: 4 });
-            return false;
-        }
         if($.trim($("#gmxz").val())==""){
             layer.alert('商品购买须知不能为空!', {skin: 'layui-layer-lan',closeBtn: 0,shift: 4 });
             return false;
@@ -386,15 +438,75 @@
             layer.alert('商品分销类别不能为空!', {skin: 'layui-layer-lan',closeBtn: 0,shift: 4 });
             return false;
         }
-        if($.trim($("#old_price").val())==""){
-            layer.alert('商品原价不能为空!', {skin: 'layui-layer-lan',closeBtn: 0,shift: 4 });
-            return false;
-        }
-        if($.trim($("#price").val())==""){
-            layer.alert('商品售价不能为空!', {skin: 'layui-layer-lan',closeBtn: 0,shift: 4 });
-            return false;
-        }
+        var flag=0;
+        $("[name='gg_price[]']").each(function(){
+            if ($.trim($(this).val())==""){
+                layer.msg('存在未设置的售价!');
+                flag=1;
+                return false;
+            }
+        });
+        $("[name='gg_old_price[]']").each(function(){
+            if ($.trim($(this).val())==""){
+                layer.msg('存在未设置的原价!');
+                flag=1;
+                return false;
+            }
+        });
+        $("[name='gg[]']").each(function(){
+            if ($.trim($(this).val())==''){
+                layer.msg('存在规格是空!');
+                flag=1;
+                return false;
+            }
+        });
 
-        $("#save_form").submit();
+
+        if (flag !=1){
+            $('#save_form').submit();
+        }
+    })
+
+    $("#add_gg_btn").click(function(){
+        //解绑事件
+        $("#gg_list").find("button").off('click');
+        $("[name='gg_price[]']").off('keyup').off('blur').off('paste');
+        $("[name='gg_old_price[]']").off('keyup').off('blur').off('paste');
+        //divbox=$("#gg_list").children().html();
+        //divbox.find("input").eq(0).val('');
+        divbox =" <div style='float: left'><ul>" +
+                "<li><input required style='width: 200px' type='text' name='gg[]'></li> " +
+                "<li><input required style='width: 100px' type='text' name='gg_old_price[]' ></li>" +
+                "<li><input required style='width: 100px' type='text' name='gg_price[]' ></li>"+
+                "</ul></div>"
+        divbox +="<input type='hidden' name='gg_id[]'>"
+        divbox +="<button name='del_btn' style='margin-left: 10px;height: 40px;' type='button' class='am-btn am-btn-default'>删除</button>"
+        divbox="<div class='yy_div'>"+divbox+"</div>"
+        $('#gg_list').append(divbox);
+        //绑定事件
+        $("#gg_list").find("button").on('click',function () {
+            if($('#gg_list').children('div').length <= 1){
+                layer.msg('需至少保留一条‘规格’信息');
+            }
+            else{
+                $(this).parent().remove();
+            }
+        })
+
+        $("[name='gg_price[]']").keyup(function () {
+            $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+        }).blur(function(){
+            $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+        }).bind("paste", function () {  //CTR+V事件处理
+            $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+        }).css("ime-mode", "disabled"); //CSS设置输入法不可用
+
+        $("[name='gg_old_price[]']").keyup(function () {
+            $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+        }).blur(function(){
+            $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+        }).bind("paste", function () {  //CTR+V事件处理
+            $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+        }).css("ime-mode", "disabled"); //CSS设置输入法不可用
     })
 </script>
