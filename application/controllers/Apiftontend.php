@@ -451,12 +451,7 @@ class Apiftontend extends MY_APIcontroller {
 			'success'=>true,
 			'error_msg'=>''
 		);
-		//$rs['goods_list']=$good_list;
-		if($good_list){
-			$rs['goods_list']=$good_list;
-		}else{
-			$rs['goods_list']=array();
-		}
+		$rs['goods_list']=$good_list;
 		echo json_encode($rs);
 		die();
 	}
