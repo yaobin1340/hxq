@@ -157,7 +157,7 @@ class Apiuser extends MY_APIcontroller {
 		if($data){
 			$this->rs['withdraw_info']=$data;
 		}else{
-			$this->rs['withdraw_info']=array();
+			$this->rs['withdraw_info']=(object)array();
 		}
 
 		echo json_encode($this->rs);
