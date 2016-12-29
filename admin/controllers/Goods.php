@@ -58,12 +58,12 @@ class Goods extends MY_Controller {
 		if(!$this->input->post('unit')){
 			$this->show_message('商品单位不能为空!');
 		}
-		if(!$this->input->post('price')){
+		/*if(!$this->input->post('price')){
 			$this->show_message('商品售价不能为空!');
 		}
 		if(!$this->input->post('old_price')){
 			$this->show_message('商品原价不能为空!');
-		}
+		}*/
 		if(!$this->input->post('kc')){
 			$this->show_message('商品库存不能为空!');
 		}
@@ -87,7 +87,9 @@ class Goods extends MY_Controller {
 		if($id){
 			$detail = $this->goods_model->get_good_detail($id);
 			$goods_pics = $this->goods_model->get_good_pic($id);
+			$goods_gg = $this->goods_model->get_good_gg($id);
 			$this->assign('detail', $detail);
+			$this->assign('goods_gg', $goods_gg);
 			$this->assign('goods_pics', $goods_pics);
 		}
 		$this->show('goods/goods_detail');
