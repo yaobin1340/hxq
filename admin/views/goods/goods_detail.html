@@ -188,7 +188,7 @@
                                                 <li>
                                                     <img src="{{$base_url}}upload/goods_pic/{{$item->folder}}/{{$item->pic}}" alert="" width="100" height="80" />
                                                     <span class="delete-this" onclick="del_pic(this);"><i></i></span>
-                                                    <input type="hidden" name="pic_short[]" class="pic_short" value="{{$item->pic}}">
+                                                    <input type="hidden" name="pic_short[]" class="pic_short" value="{{$item->m_pic}}">
                                                     <input type="hidden" name="folder[]" value="{{$item->folder}}">
                                                 </li>
                                                 {{/foreach}}
