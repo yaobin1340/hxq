@@ -295,15 +295,14 @@ class Apiftontend_model extends MY_Model{
         $num = $this->db->get()->row();
         $data['total'] = $num->num;
 
-        $this->db->select('a.*,b.type_name')->from('goods a');
+        $this->db->distinct('a.id');
+        $this->db->select('a.*,b.type_name,c.gg_name,c.gg_old_price,c.gg_price')->from('goods a');
         $this->db->join('goods_type b','a.type_id = b.id','left');
+        $this->db->join('goods_gg c','c.good_id = g.id','left');
         if($this->input->post('keyword')){
             $this->db->like('a.good_name',$this->input->post('keyword'));
         }
-
-        if($this->input->post('flag')){
-            $this->db->where("a.flag",$this->input->post('flag'));
-        }
+        $this->db->where("a.flag",1);
         $this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
         $data = $this->db->order_by('a.id','desc');
         return $data;
