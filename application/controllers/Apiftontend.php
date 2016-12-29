@@ -459,4 +459,33 @@ class Apiftontend extends MY_APIcontroller {
 		echo json_encode($rs);
 		die();
 	}
+
+	public function good_detail(){
+		if(!$this->input->post('good_id')){
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'商品编号不能为空!'
+			);
+			echo json_encode($rs);
+			die();
+		}
+		$good_id = $this->input->post('good_id');
+		$data = $this->Apiftontend_model->good_detail($good_id);
+		$good_gg = $this->Apiftontend_model->good_gg($good_id);
+		if($data){
+			$rs = array(
+				'success'=>true,
+				'error_msg'=>'',
+				'good_detail'=>$data,
+				'gg_list'=>$good_gg
+			);
+		}else{
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'未找到商品信息!'
+			);
+		}
+		echo json_encode($rs);
+		die();
+	}
 }

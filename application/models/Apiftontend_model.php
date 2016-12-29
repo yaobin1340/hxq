@@ -309,4 +309,19 @@ class Apiftontend_model extends MY_Model{
         $data = $this->db->get()->result_array();
         return $data;
     }
+
+    public function good_detail($good_id){
+        $this->db->select('a.*,b.type_name')->from('goods a');
+        $this->db->join('goods_type b','a.type_id = b.id','left');
+        $this->db->where("a.flag",1);
+        $this->db->where('a.id',$good_id);
+        return $this->db->get()->row_array();
+    }
+
+    public function good_gg($good_id){
+        $this->db->select('*')->from('goods_gg');
+        $this->db->where('good_id',$good_id);
+        $this->db->order_by('gg_price','asc');
+        return $this->db->get()->result_array();
+    }
 }
