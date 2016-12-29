@@ -298,7 +298,7 @@ class Apiftontend_model extends MY_Model{
         $this->db->distinct('a.id');
         $this->db->select('a.*,b.type_name,c.gg_name,c.gg_old_price,c.gg_price')->from('goods a');
         $this->db->join('goods_type b','a.type_id = b.id','left');
-        $this->db->join('goods_gg c','c.good_id = g.id','left');
+        $this->db->join('goods_gg c','c.good_id = a.id','left');
         if($this->input->post('keyword')){
             $this->db->like('a.good_name',$this->input->post('keyword'));
         }
