@@ -282,4 +282,30 @@ class Apiftontend_model extends MY_Model{
         $row = $this->db->get()->row_array();
         return $row;
     }
+
+    public function get_goods_list($page){
+        $data['limit'] = $this->limit;
+        //获取总记录数
+        $this->db->select('count(1) num')->from('goods a');
+        $this->db->join('goods_type b','a.type_id = b.id','left');
+        if($this->input->post('keyword')){
+            $this->db->like('a.good_name',$this->input->post('keyword'));
+        }
+        $this->db->where("a.flag",1);
+        $num = $this->db->get()->row();
+        $data['total'] = $num->num;
+
+        $this->db->select('a.*,b.type_name')->from('goods a');
+        $this->db->join('goods_type b','a.type_id = b.id','left');
+        if($this->input->post('keyword')){
+            $this->db->like('a.good_name',$this->input->post('keyword'));
+        }
+
+        if($this->input->post('flag')){
+            $this->db->where("a.flag",$this->input->post('flag'));
+        }
+        $this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
+        $data = $this->db->order_by('a.id','desc');
+        return $data;
+    }
 }

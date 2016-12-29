@@ -443,4 +443,20 @@ class Apiftontend extends MY_APIcontroller {
 		die();
 
 	}
+
+	public function get_goods_list(){
+		$page = $this->input->post('page')?$this->input->post('page'):1;
+		$good_list = $this->Apiftontend_model->get_goods_list($page);
+		$rs = array(
+			'success'=>true,
+			'error_msg'=>''
+		);
+		if($good_list){
+			$rs['goods_list']=$good_list;
+		}else{
+			$rs['goods_list']=(object)array();
+		}
+		echo json_encode($rs);
+		die();
+	}
 }
