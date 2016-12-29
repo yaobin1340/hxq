@@ -304,7 +304,7 @@ class Apiftontend_model extends MY_Model{
         }
         $this->db->where("a.flag",1);
         $this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
-        $data = $this->db->order_by('a.id','desc');
+        $data = $this->db->order_by('a.id','desc')->get()->result_array();
         return $data;
     }
 }
