@@ -454,7 +454,7 @@ class Apiftontend extends MY_APIcontroller {
 		if($good_list){
 			$rs['goods_list']=$good_list;
 		}else{
-			$rs['goods_list']=(object)array();
+			$rs['goods_list']=array();
 		}
 		echo json_encode($rs);
 		die();
@@ -482,12 +482,12 @@ class Apiftontend extends MY_APIcontroller {
 			if($good_gg){
 				$rs['gg_list']=$good_gg;
 			}else{
-				$rs['gg_list']=(object)array();
+				$rs['gg_list']=array();
 			}
 			if($good_pic){
 				$rs['pic_list']=$good_pic;
 			}else{
-				$rs['pic_list']=(object)array();
+				$rs['pic_list']=array();
 			}
 		}else{
 			$rs = array(
