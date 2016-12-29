@@ -157,7 +157,7 @@ class Apiuser extends MY_APIcontroller {
 		if($data){
 			$this->rs['withdraw_info']=$data;
 		}else{
-			$this->rs['withdraw_info']=(object)array();
+			$this->rs['withdraw_info']=array();
 		}
 
 		echo json_encode($this->rs);
@@ -355,7 +355,7 @@ class Apiuser extends MY_APIcontroller {
 			echo json_encode($this->rs);
 			die();
 		}else{
-			$this->rs['shop_info']=(object)array();
+			$this->rs['shop_info']=array();
 			echo json_encode($this->rs);
 			die();
 		}

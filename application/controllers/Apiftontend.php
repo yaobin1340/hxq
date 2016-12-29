@@ -437,7 +437,7 @@ class Apiftontend extends MY_APIcontroller {
 		if($img_list){
 			$rs['img_list']=$img_list;
 		}else{
-			$rs['img_list']=(object)array();
+			$rs['img_list']=array();
 		}
 		echo json_encode($rs);
 		die();
@@ -451,11 +451,12 @@ class Apiftontend extends MY_APIcontroller {
 			'success'=>true,
 			'error_msg'=>''
 		);
-		if($good_list){
+		$rs['goods_list']=$good_list;
+		/*if($good_list){
 			$rs['goods_list']=$good_list;
 		}else{
 			$rs['goods_list']=array();
-		}
+		}*/
 		echo json_encode($rs);
 		die();
 	}
