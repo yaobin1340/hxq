@@ -324,4 +324,11 @@ class Apiftontend_model extends MY_Model{
         $this->db->order_by('gg_price','asc');
         return $this->db->get()->result_array();
     }
+
+    public function good_pic($good_id){
+        $this->db->select('*')->from('goods_pic');
+        $this->db->where('good_id',$good_id);
+        $this->db->order_by('id','asc');
+        return $this->db->get()->result_array();
+    }
 }

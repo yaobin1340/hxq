@@ -472,13 +472,23 @@ class Apiftontend extends MY_APIcontroller {
 		$good_id = $this->input->post('good_id');
 		$data = $this->Apiftontend_model->good_detail($good_id);
 		$good_gg = $this->Apiftontend_model->good_gg($good_id);
+		$good_pic = $this->Apiftontend_model->good_pic($good_id);
 		if($data){
 			$rs = array(
 				'success'=>true,
 				'error_msg'=>'',
-				'good_detail'=>$data,
-				'gg_list'=>$good_gg
+				'good_detail'=>$data
 			);
+			if($good_gg){
+				$rs['gg_list']=$good_gg;
+			}else{
+				$rs['gg_list']=(object)array();
+			}
+			if($good_pic){
+				$rs['pic_list']=$good_pic;
+			}else{
+				$rs['pic_list']=(object)array();
+			}
 		}else{
 			$rs = array(
 				'success'=>false,
