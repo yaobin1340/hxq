@@ -64,9 +64,9 @@ class Goods extends MY_Controller {
 		if(!$this->input->post('old_price')){
 			$this->show_message('商品原价不能为空!');
 		}*/
-		if(!$this->input->post('kc')){
+		/*if(!$this->input->post('kc')){
 			$this->show_message('商品库存不能为空!');
-		}
+		}*/
 		if(!$this->input->post('percent')){
 			$this->show_message('商品分销类型不能为空!');
 		}
