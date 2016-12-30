@@ -76,7 +76,7 @@ class Goods_model extends MY_Model
 			'unit'=>$this->input->post('unit'),
 			'percent'=>$this->input->post('percent'),
 			'gmxz'=>$this->input->post('gmxz'),
-			'kc'=>$this->input->post('kc'),
+			//'kc'=>$this->input->post('kc'),
 			'flag'=>$this->input->post('flag'),
 			'demo'=>$this->input->post('demo',true),
 			'cdate'=>date('Y-m-d H:i:s',time())
@@ -110,12 +110,14 @@ class Goods_model extends MY_Model
 		$arr_gg_id = $this->input->post('gg_id');
 		$arr_gg_price = $this->input->post('gg_price');
 		$arr_gg_old_price = $this->input->post('gg_old_price');
+		$arr_gg_kc = $this->input->post('gg_kc');
 		foreach($arr_gg as $idx => $pic) {
 			$goods_gg = array(
 				'good_id' => $g_id,
 				'gg_name' => $pic,
 				'gg_price'=>((float)$arr_gg_price[$idx])*100,
-				'gg_old_price'=>((float)$arr_gg_old_price[$idx])*100
+				'gg_old_price'=>((float)$arr_gg_old_price[$idx])*100,
+				'gg_kc'=>$arr_gg_kc[$idx]
 			);
 			if($arr_gg_id[$idx]){
 				$this->db->where('id',$arr_gg_id[$idx])->update('goods_gg',$goods_gg);

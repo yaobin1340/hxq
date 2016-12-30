@@ -5,6 +5,8 @@
 <style>
 .yy_div{
     margin-top: 1px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
     .yy_div ul li{
@@ -71,9 +73,9 @@
 
                 <div class="am-form-group">
                     <label class="am-u-sm-2 am-form-label">
-                        <button id="add_gg_btn" style="margin-left: 10px;height: 40px;" type="button" class="am-btn am-btn-primary">新增规格</button>
+                        <button id="add_gg_btn" style="height: 40px;width: 100px" type="button" class="am-btn am-btn-primary">新增规格</button>
                     </label>
-                    <div class="am-u-sm-10">
+                    <div class="am-u-sm-12">
                         <div>
                             <div class="yy_div" >
                                 <div style="float: left">
@@ -81,6 +83,7 @@
                                         <li style="width: 200px">规格</li>
                                         <li style="width: 100px">原价</li>
                                         <li style="width: 100px">售价</li>
+                                        <li style="width: 100px">库存</li>
                                         <li style="width: 50px">操作</li>
                                     </ul>
                                 </div>
@@ -95,6 +98,7 @@
                                         <li><input required style="width: 200px" type="text" name="gg[]" value="{{$item.gg_name}}"></li>
                                         <li><input required style="width: 100px" type="text" name="gg_old_price[]" value="{{($item.gg_old_price|default:0)/100}}"></li>
                                         <li><input required style="width: 100px" type="text" name="gg_price[]" value="{{($item.gg_price|default:0)/100}}"></li>
+                                        <li><input required style="width: 100px" type="text" name="gg_kc[]" value="{{$item.gg_kc|default:0}}"></li>
                                     </ul>
                                 </div>
                                 <input type="hidden" name="gg_id[]" value="{{$item.id}}">
@@ -108,6 +112,7 @@
                                         <li><input required style="width: 200px" type="text" name="gg[]"></li>
                                         <li><input required style="width: 100px" type="text" name="gg_old_price[]" ></li>
                                         <li><input required style="width: 100px" type="text" name="gg_price[]" ></li>
+                                        <li><input required style="width: 100px" type="text" name="gg_kc[]"></li>
                                     </ul>
                                 </div>
                                 <input type="hidden" name="gg_id[]">
@@ -140,12 +145,12 @@
                     </div>
                 </div>
 
-                <div class="am-form-group">
+               <!-- <div class="am-form-group">
                     <label class="am-u-sm-2 am-form-label">商品库存</label>
                     <div class="am-u-sm-10">
                         <input type="text" id="kc" name="kc" onkeyup="this.value=this.value.replace(/\D/g,'')" onblur = "this.value = this.value.replace(/\D+/g, '')" value="{{$detail.kc|default:''}}">
                     </div>
-                </div>
+                </div>-->
 
                 <div class="am-form-group">
                     <label class="am-u-sm-2 am-form-label">分销类别</label>
@@ -370,6 +375,13 @@
         $(this).val($(this).val().replace(/[^0-9.]/g, ''));
     }).css("ime-mode", "disabled"); //CSS设置输入法不可用
 
+    $("[name='gg_kc[]']").keyup(function () {
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    }).blur(function(){
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    }).bind("paste", function () {  //CTR+V事件处理
+        $(this).val($(this).val().replace(/[^0-9]/g, ''));
+    }).css("ime-mode", "disabled"); //CSS设置输入法不可用
 
     function uploadFile() {
         if ($('#uploader').plupload('getFiles').length < 1) {
@@ -430,15 +442,22 @@
             layer.alert('商品单位不能为空!', {skin: 'layui-layer-lan',closeBtn: 0,shift: 4 });
             return false;
         }
-        if($.trim($("#kc").val())==""){
+        /*if($.trim($("#kc").val())==""){
             layer.alert('商品库存不能为空!', {skin: 'layui-layer-lan',closeBtn: 0,shift: 4 });
             return false;
-        }
+        }*/
         if($.trim($("#percent").val())==""){
             layer.alert('商品分销类别不能为空!', {skin: 'layui-layer-lan',closeBtn: 0,shift: 4 });
             return false;
         }
         var flag=0;
+        $("[name='gg_kc[]']").each(function(){
+            if ($.trim($(this).val())==''){
+                layer.msg('存在规格库存是空!');
+                flag=1;
+                return false;
+            }
+        });
         $("[name='gg_price[]']").each(function(){
             if ($.trim($(this).val())==""){
                 layer.msg('存在未设置的售价!');
@@ -472,12 +491,14 @@
         $("#gg_list").find("button").off('click');
         $("[name='gg_price[]']").off('keyup').off('blur').off('paste');
         $("[name='gg_old_price[]']").off('keyup').off('blur').off('paste');
+        $("[name='gg_kc[]']").off('keyup').off('blur').off('paste');
         //divbox=$("#gg_list").children().html();
         //divbox.find("input").eq(0).val('');
         divbox =" <div style='float: left'><ul>" +
                 "<li><input required style='width: 200px' type='text' name='gg[]'></li> " +
                 "<li><input required style='width: 100px' type='text' name='gg_old_price[]' ></li>" +
                 "<li><input required style='width: 100px' type='text' name='gg_price[]' ></li>"+
+                "<li><input required style='width: 100px' type='text' name='gg_kc[]' ></li>"+
                 "</ul></div>"
         divbox +="<input type='hidden' name='gg_id[]'>"
         divbox +="<button name='del_btn' style='margin-left: 10px;height: 40px;' type='button' class='am-btn am-btn-default'>删除</button>"
@@ -507,6 +528,14 @@
             $(this).val($(this).val().replace(/[^0-9.]/g, ''));
         }).bind("paste", function () {  //CTR+V事件处理
             $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+        }).css("ime-mode", "disabled"); //CSS设置输入法不可用
+
+        $("[name='gg_kc[]']").keyup(function () {
+            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        }).blur(function(){
+            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        }).bind("paste", function () {  //CTR+V事件处理
+            $(this).val($(this).val().replace(/[^0-9]/g, ''));
         }).css("ime-mode", "disabled"); //CSS设置输入法不可用
     })
 </script>
