@@ -85,6 +85,17 @@
         </li>
         {{/if}}
 
+        {{if 'f'|in_array:$permission}}
+        <li class="admin-parent">
+            <a class="am-cf" data-am-collapse="{parent: '#menuDiv', target: '#collapse-nav8'}">
+                <span class="am-icon-file"></span> 商品管理 <span class="am-icon-angle-right am-fr am-margin-right"></span>
+            </a>
+            <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav8">
+                <li><a href="javascript:open_content('/admin.php/goods/list_goods');" class="am-cf menu"><span class="am-icon-check"></span> 商品列表</a></li>
+            </ul>
+        </li>
+        {{/if}}
+
         {{if $user_info.username == 'admin'}}
         <li class="admin-parent">
             <a class="am-cf" data-am-collapse="{parent: '#menuDiv', target: '#collapse-nav7'}">
