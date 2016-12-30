@@ -355,7 +355,7 @@ class Apiuser extends MY_APIcontroller {
 			echo json_encode($this->rs);
 			die();
 		}else{
-			$this->rs['shop_info']=array();
+			$this->rs['shop_info']=(object)array();
 			echo json_encode($this->rs);
 			die();
 		}
