@@ -494,6 +494,7 @@ class User_model extends MY_Model
             $this->db->select('count(1) num')->from('sunflower_shop a');
             $this->db->join('users b','b.shop_id = a.shop_id','left');
             $this->db->where('b.id',$this->session->userdata('uid'));
+            $this->db->where('a.status',1);
             switch($type){
                 case 1:
                     $this->db->where("a.percent",6);
@@ -511,6 +512,7 @@ class User_model extends MY_Model
         }else{
             $this->db->select('count(1) num')->from('sunflower');
             $this->db->where('uid',$this->session->userdata('uid'));
+            $this->db->where('status',1);
             switch($type){
                 case 1:
                     $this->db->where("percent",6);
