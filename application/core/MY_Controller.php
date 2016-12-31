@@ -35,6 +35,7 @@ class MY_Controller extends CI_Controller
 //					$openid=$a_access_token["openid"];
 //					$this->sys_model->get_uid_byopenid($openid);
 //					$this->session->set_userdata('openid', $openid);
+
 //				}
 //			}else{
 //				$this->sys_model->get_uid_byopenid($this->session->userdata('openid'));
