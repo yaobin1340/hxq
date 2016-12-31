@@ -704,9 +704,6 @@ class Apiuser_model extends MY_Model
 
     public function add_address($app_uid){
         $data=array(
-            'province_code'=>$this->input->post('province_code'),
-            'city_code'=>$this->input->post('city_code'),
-            'area_code'=>$this->input->post('area_code'),
             'address'=>$this->input->post('address'),
             'person'=>$this->input->post('person'),
             'phone'=>$this->input->post('phone'),
@@ -727,9 +724,6 @@ class Apiuser_model extends MY_Model
 
     public function edit_address($app_uid,$address_id){
         $data=array(
-            'province_code'=>$this->input->post('province_code'),
-            'city_code'=>$this->input->post('city_code'),
-            'area_code'=>$this->input->post('area_code'),
             'address'=>$this->input->post('address'),
             'person'=>$this->input->post('person'),
             'phone'=>$this->input->post('phone'),
@@ -789,19 +783,13 @@ class Apiuser_model extends MY_Model
         $data['limit'] = $this->limit;
         //获取总记录数
         $this->db->select('count(1) num')->from('user_address a');
-        $this->db->join('province b','a.province_code = b.code','left');
-        $this->db->join('city c','a.city_code = c.code','left');
-        $this->db->join('area d','a.area_code = d.code','left');
         $this->db->where('a.uid',$app_uid);
         $num = $this->db->get()->row();
         $data['total'] = $num->num;
 
         //搜索条件
         //获取详细列
-        $this->db->select('a.*,b.name province_name,c.name city_name,d.name area_name')->from('user_address a');
-        $this->db->join('province b','a.province_code = b.code','left');
-        $this->db->join('city c','a.city_code = c.code','left');
-        $this->db->join('area d','a.area_code = d.code','left');
+        $this->db->select('a.*')->from('user_address a');
         $this->db->where('a.uid',$app_uid);
         $this->db->limit($data['limit'], $offset = ($page - 1) * $data['limit']);
         $this->db->order_by('a.id','desc');
@@ -811,10 +799,13 @@ class Apiuser_model extends MY_Model
     }
 
     public function address_info($address_id){
-        $this->db->select('a.*,b.name province_name,c.name city_name,d.name area_name')->from('user_address a');
+        /*$this->db->select('a.*,b.name province_name,c.name city_name,d.name area_name')->from('user_address a');
         $this->db->join('province b','a.province_code = b.code','left');
         $this->db->join('city c','a.city_code = c.code','left');
         $this->db->join('area d','a.area_code = d.code','left');
+        $this->db->where('a.id',$address_id);
+        return $this->db->get()->row_array();*/
+        $this->db->select()->from('user_address a');
         $this->db->where('a.id',$address_id);
         return $this->db->get()->row_array();
     }

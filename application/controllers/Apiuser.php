@@ -582,23 +582,8 @@ class Apiuser extends MY_APIcontroller {
 
 	public function add_address(){
 		unset($this->rs['user_info']);
-		if(!trim($this->input->post('province_code'))){
-			$this->err_rs['error_msg']='省份编号不能为空！';
-			echo json_encode($this->err_rs);
-			die();
-		}
-		if(!trim($this->input->post('city_code'))){
-			$this->err_rs['error_msg']='商品编号不能为空！';
-			echo json_encode($this->err_rs);
-			die();
-		}
-		if(!trim($this->input->post('area_code'))){
-			$this->err_rs['error_msg']='区域编号不能为空！';
-			echo json_encode($this->err_rs);
-			die();
-		}
 		if(!trim($this->input->post('address'))){
-			$this->err_rs['error_msg']='街道地址不能为空！';
+			$this->err_rs['error_msg']='详细地址不能为空！';
 			echo json_encode($this->err_rs);
 			die();
 		}
@@ -641,23 +626,8 @@ class Apiuser extends MY_APIcontroller {
 			echo json_encode($this->err_rs);
 			die();
 		}
-		if(!trim($this->input->post('province_code'))){
-			$this->err_rs['error_msg']='省份编号不能为空！';
-			echo json_encode($this->err_rs);
-			die();
-		}
-		if(!trim($this->input->post('city_code'))){
-			$this->err_rs['error_msg']='商品编号不能为空！';
-			echo json_encode($this->err_rs);
-			die();
-		}
-		if(!trim($this->input->post('area_code'))){
-			$this->err_rs['error_msg']='区域编号不能为空！';
-			echo json_encode($this->err_rs);
-			die();
-		}
 		if(!trim($this->input->post('address'))){
-			$this->err_rs['error_msg']='街道地址不能为空！';
+			$this->err_rs['error_msg']='详细地址不能为空！';
 			echo json_encode($this->err_rs);
 			die();
 		}
@@ -770,6 +740,31 @@ class Apiuser extends MY_APIcontroller {
 		$this->rs['address_info']=$address_info;
 		echo json_encode($this->rs);
 		die();
+
+	}
+
+	public function save_orderByCart(){
+		unset($this->rs['user_info']);
+		if(!trim($this->input->post('address_id'))){
+			$this->err_rs['error_msg']='地址编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('cart_ids'))){
+			$this->err_rs['error_msg']='地址编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+
+		$res = $this->apiuser_model->save_orderByCart($this->app_uid);
+		if($res == 1){
+			echo json_encode($this->rs);
+			die();
+		}else{
+			$this->err_rs['error_msg']='操作失败！';
+			echo json_encode($this->err_rs);
+			die();
+		}
 
 	}
 
