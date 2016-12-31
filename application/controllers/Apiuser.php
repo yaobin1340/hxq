@@ -457,4 +457,126 @@ class Apiuser extends MY_APIcontroller {
 			die();
 		}
 	}
+
+	public function add_cart(){
+		unset($this->rs['user_info']);
+		if(!trim($this->input->post('good_id'))){
+			$this->err_rs['error_msg']='商品编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$good_info = $this->apiuser_model->find_yy('goods',$this->input->post('good_id'));
+		if(!$good_info){
+			$this->err_rs['error_msg']='商品不存在!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if($good_info['flag'] != 1){
+			$this->err_rs['error_msg']='商品已下架！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('gg_id'))){
+			$this->err_rs['error_msg']='商品规格不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$gg_info = $this->apiuser_model->find_yy('goods_gg',$this->input->post('gg_id'));
+		if(!$gg_info){
+			$this->err_rs['error_msg']='商品规格不存在！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if($gg_info['good_id'] != $this->input->post('good_id')){
+			$this->err_rs['error_msg']='商品规格不存在';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$res = $this->apiuser_model->add_cart($this->app_uid);
+		if($res == 1){
+			echo json_encode($this->rs);
+			die();
+		}else if($res == -2){
+			$this->err_rs['error_msg']='商品已添加！';
+			echo json_encode($this->err_rs);
+			die();
+		}else{
+			$this->err_rs['error_msg']='操作失败！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+	}
+
+	public function list_cart(){
+		unset($this->rs['user_info']);
+		$page = $this->input->post('page')?$this->input->post('page'):1;
+		$data = $this->apiuser_model->list_cart($this->app_uid,$page);
+		$this->rs['list_cart']=$data['items'];
+		echo json_encode($this->rs);
+		die();
+	}
+
+	public function change_cart(){
+		unset($this->rs['user_info']);
+		if(!trim($this->input->post('cart_id'))){
+			$this->err_rs['error_msg']='购物车编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$cart_info = $this->apiuser_model->find_yy('user_cart',$this->input->post('cart_id'));
+		if(!$cart_info){
+			$this->err_rs['error_msg']='购物车信息不存在！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if($cart_info['uid'] != $this->app_uid){
+			$this->err_rs['error_msg']='只可操作自己的购物车信息!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$num = (int)$this->input->post('num');
+		if(!$num){
+			$this->err_rs['error_msg']='商品数量不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$res = $this->apiuser_model->change_cart($this->app_uid,$this->input->post('cart_id'),$num);
+		if($res == 1){
+			echo json_encode($this->rs);
+			die();
+		}else{
+			$this->err_rs['error_msg']='操作失败！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+	}
+
+	public function delete_cart(){
+		unset($this->rs['user_info']);
+		if(!trim($this->input->post('cart_id'))){
+			$this->err_rs['error_msg']='购物车编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$cart_info = $this->apiuser_model->find_yy('user_cart',$this->input->post('cart_id'));
+		if(!$cart_info){
+			$this->err_rs['error_msg']='购物车信息不存在！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if($cart_info['uid'] != $this->app_uid){
+			$this->err_rs['error_msg']='只可操作自己的购物车信息!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$res = $this->apiuser_model->delete_cart($this->app_uid,$this->input->post('cart_id'));
+		if($res == 1){
+			echo json_encode($this->rs);
+			die();
+		}else{
+			$this->err_rs['error_msg']='操作失败！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+	}
 }

@@ -12,6 +12,11 @@ class Apiuser_model extends MY_Model
     	parent::__construct();
     }
 
+    public function find_yy($table,$id)
+    {
+        return $this->db->get_where($table, array('id' => $id))->row_array();
+    }
+
     public function get_shop_flag($app_uid){
         $rs = $this->db->select('*')->from('shop')->where('uid',$app_uid)->where('status',2)->get()->row_array();
         if($rs){
@@ -626,4 +631,75 @@ class Apiuser_model extends MY_Model
             }
         }
     }
+
+    public function add_cart($app_uid){
+        $data = array(
+            'good_id'=>$this->input->post('good_id'),
+            'gg_id'=>$this->input->post('gg_id'),
+            'uid'=>$app_uid
+        );
+        $row = $this->db->select()->from('user_cart')->where($data)->get()->row_array();
+        if($row){
+            return -2;
+        }
+        $data['cdate']=date('Y-m-d H:i:s');
+        $data['num']=1;
+        $res = $this->db->insert('user_cart',$data);
+        if($res){
+            return 1;
+        }else{
+            return -1;
+        }
+    }
+
+    public function list_cart($app_uid,$page){
+        $data['limit'] = $this->limit;
+        //获取总记录数
+        $this->db->select('count(1) num')->from('user_cart a');
+        $this->db->join('goods b',"b.id = a.good_id",'inner');
+        $this->db->join('goods_gg c','c.id = a.gg_id','inner');
+        $this->db->where('b.flag',1);
+        $this->db->where('a.uid',$app_uid);
+        $num = $this->db->get()->row();
+        $data['total'] = $num->num;
+
+        //搜索条件
+        //获取详细列
+        $this->db->select('a.id cart_id,a.num,a.cdate cart_cdate,b.*,c.gg_name,c.gg_kc,c.gg_old_price,c.gg_price')->from('user_cart a');
+        $this->db->join('goods b',"b.id = a.good_id",'inner');
+        $this->db->join('goods_gg c','c.id = a.gg_id','inner');
+        $this->db->where('b.flag',1);
+        $this->db->where('a.uid',$app_uid);
+        $this->db->limit($data['limit'], $offset = ($page - 1) * $data['limit']);
+        $this->db->order_by('a.id','desc');
+        $data['items'] = $this->db->get()->result_array();
+
+        return $data;
+    }
+
+    public function change_cart($app_uid,$cart_id,$num){
+        $res = $this->db->where(array(
+            'uid'=>$app_uid,
+            'id'=>$cart_id,
+        ))->update('user_cart',array('num'=>$num));
+        if($res){
+            return 1;
+        }else{
+            return -1;
+        }
+
+    }
+
+    public function delete_cart($app_uid,$cart_id){
+        $res = $this->db->where(array(
+            'uid'=>$app_uid,
+            'id'=>$cart_id,
+        ))->delete('user_cart');
+        if($res){
+            return 1;
+        }else{
+            return -1;
+        }
+    }
+
 }
