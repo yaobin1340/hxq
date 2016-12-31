@@ -369,6 +369,7 @@ class User_model extends MY_Model
         //获取总记录数
         $this->db->select('count(1) num')->from('sunflower a');
         $this->db->where('a.uid',$this->session->userdata('uid'));
+        $this->db->where('status',1);
         switch($this->input->post('tab_type')){
             case 1:
                 $this->db->where("a.percent",6);
@@ -390,6 +391,7 @@ class User_model extends MY_Model
         //获取详细列
         $this->db->select('a.*')->from('sunflower a');
         $this->db->where('a.uid',$this->session->userdata('uid'));
+        $this->db->where('a.status',1);
         switch($this->input->post('tab_type')){
             case 1:
                 $this->db->where("a.percent",6);
@@ -492,6 +494,7 @@ class User_model extends MY_Model
             $this->db->select('count(1) num')->from('sunflower_shop a');
             $this->db->join('users b','b.shop_id = a.shop_id','left');
             $this->db->where('b.id',$this->session->userdata('uid'));
+            $this->db->where('a.status',1);
             switch($type){
                 case 1:
                     $this->db->where("a.percent",6);
@@ -509,6 +512,7 @@ class User_model extends MY_Model
         }else{
             $this->db->select('count(1) num')->from('sunflower');
             $this->db->where('uid',$this->session->userdata('uid'));
+            $this->db->where('status',1);
             switch($type){
                 case 1:
                     $this->db->where("percent",6);
