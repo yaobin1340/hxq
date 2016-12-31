@@ -750,22 +750,86 @@ class Apiuser extends MY_APIcontroller {
 			echo json_encode($this->err_rs);
 			die();
 		}
-		if(!trim($this->input->post('cart_ids'))){
-			$this->err_rs['error_msg']='地址编号不能为空！';
+		//die(var_dump($this->input->post('cart_ids')));
+		if(!$this->input->post('cart_ids')){
+			$this->err_rs['error_msg']='购物车编号不能为空！';
 			echo json_encode($this->err_rs);
 			die();
 		}
 
 		$res = $this->apiuser_model->save_orderByCart($this->app_uid);
-		if($res == 1){
-			echo json_encode($this->rs);
+		if($res == -4){
+			$this->err_rs['error_msg']='2订单异常!';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($res == -2){
+			$this->err_rs['error_msg']='3选择的收货地址异常!';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($res == -3){
+			$this->err_rs['error_msg']='4购物车信息不规范!';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($res <= 0){
+			$this->err_rs['error_msg']='操作异常!';
+			echo json_encode($this->err_rs);
 			die();
 		}else{
-			$this->err_rs['error_msg']='操作失败！';
-			echo json_encode($this->err_rs);
+			$this->rs['user_order_id']=$res;
+			echo json_encode($this->rs);
 			die();
 		}
 
+	}
+
+	public function save_orderByGood(){
+		unset($this->rs['user_info']);
+		if(!trim($this->input->post('address_id'))){
+			$this->err_rs['error_msg']='地址编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('good_id'))){
+			$this->err_rs['error_msg']='商品编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('gg_id'))){
+			$this->err_rs['error_msg']='商品规格不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!((int)$this->input->post('num'))){
+			$this->err_rs['error_msg']='购买数量不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$res = $this->apiuser_model->save_orderByGood($this->app_uid);
+		if($res == -5){
+			$this->err_rs['error_msg']='订单异常!';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($res == -2){
+			$this->err_rs['error_msg']='选择的收货地址异常!';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($res == -3){
+			$this->err_rs['error_msg']='商品不存在!';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($res == -4){
+			$this->err_rs['error_msg']='商品库存不足!';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($res <= 0){
+			$this->err_rs['error_msg']='操作异常!';
+			echo json_encode($this->err_rs);
+			die();
+		}else{
+			$this->rs['user_order_id']=$res;
+			echo json_encode($this->rs);
+			die();
+		}
 	}
 
 }

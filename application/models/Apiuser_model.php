@@ -810,4 +810,161 @@ class Apiuser_model extends MY_Model
         return $this->db->get()->row_array();
     }
 
+    public function save_orderByCart($app_uid){
+        $address = $this->db->select()->from('user_address')->where(array(
+            'id'=>$this->input->post('address_id'),
+            'uid'=>$app_uid
+        ))->get()->row_array();
+        if(!$address){
+            return -2;
+        }
+        $cart_ids = $this->input->post('cart_ids');
+        if(!is_array($cart_ids)){
+            return -3;
+        }
+
+        $this->db->trans_start();
+        //先建立主订单
+        $data = array(
+            'uid'=>$app_uid,
+            'cdate'=>date('Y-m-d H:i:s'),
+            'remark'=>$this->input->post('remark',true)
+        );
+        $this->db->insert('user_order',$data);
+        $order_id = $this->db->insert_id();
+        //保存订单地址
+        $this->db->insert('user_order_address',array(
+           'uo_id'=>$order_id,
+            'address'=>$address['address'],
+            'zip'=>$address['zip'],
+            'person'=>$address['person'],
+            'phone'=>$address['phone']
+        ));
+        $total_price = 0;
+        //处理商品
+        foreach ($cart_ids as $key => $val) {
+            $good_info = $this->db->select('b.*,a.num cart_num,c.id gg_id,c.gg_name,c.gg_price')->from('user_cart a')
+                ->join('goods b','a.good_id = b.id','inner')
+                ->join('goods_gg c','a.gg_id = c.id','inner')
+                ->where('a.uid',$app_uid)
+                ->where('c.gg_kc >',0)
+                ->where('a.id',$val)->get()->row_array();
+
+            if($good_info){
+                $order_detail = array(
+                    'uo_id'=>$order_id,
+                    'good_name'=>$good_info['good_name'],
+                    'good_id'=>$good_info['id'],
+                    'gg_id'=>$good_info['gg_id'],
+                    'gg_name'=>$good_info['gg_name'],
+                    'good_unit'=>$good_info['unit'],
+                    'good_demo'=>$good_info['demo'],
+                    'good_gmxz'=>$good_info['gmxz'],
+                    'good_price'=>$good_info['gg_price'],
+                    'good_num'=>$good_info['cart_num'],
+                );
+                $detail_res = $this->db->insert('user_order_detail',$order_detail);
+                if($detail_res){
+                    $total_price+=(int)$good_info['gg_price']*(int)$good_info['cart_num'];
+                }
+                $this->db->where(array(
+                    'uid'=>$app_uid,
+                    'id'=>$val
+                ))->delete('user_cart');//删除购物车信息
+            }
+        }
+
+        //最后保存主订单需要支付的金额,且 如果金额为0 则将订单状态改为-1
+        if($total_price==0){
+            $this->db->where(array(
+                'id'=>$order_id,
+                'uid'=>$app_uid
+            ))->update('user_order',array(
+                'status'=>-1
+            ));
+        }else{
+            $this->db->where(array(
+                'id'=>$order_id,
+                'uid'=>$app_uid
+            ))->update('user_order',array(
+                'total_price'=>$total_price,
+                'need_pay'=>$total_price
+            ));
+        }
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            if($total_price==0){
+                return -4;
+            }
+            return $order_id;
+        }
+
+    }
+
+    public function save_orderByGood($app_uid){
+        $address = $this->db->select()->from('user_address')->where(array(
+            'id'=>$this->input->post('address_id'),
+            'uid'=>$app_uid
+        ))->get()->row_array();
+        if(!$address){
+            return -2;
+        }
+        $good_info = $this->db->select('a.*,c.id gg_id,c.gg_name,c.gg_price,c.gg_kc')->from('goods a')
+            ->join('goods_gg c','a.id = c.good_id','inner')
+            ->where('a.id',$this->input->post('good_id'))
+            ->where('c.id',$this->input->post('gg_id'))->get()->row_array();
+        if(!$good_info){
+            return -3;
+        }
+        if($good_info['gg_kc'] <=0){
+            return -4;
+        }
+        $total_price = $good_info['gg_price']*$this->input->post('num');
+        if($total_price<=0){
+            return -5;
+        }
+        $this->db->trans_start();
+        //先建立主订单
+
+        $data = array(
+            'uid'=>$app_uid,
+            'cdate'=>date('Y-m-d H:i:s'),
+            'remark'=>$this->input->post('remark',true),
+            'total_price'=>$total_price,
+            'need_pay'=>$total_price
+        );
+        $this->db->insert('user_order',$data);
+        $order_id = $this->db->insert_id();
+        //保存订单地址
+        $this->db->insert('user_order_address',array(
+            'uo_id'=>$order_id,
+            'address'=>$address['address'],
+            'zip'=>$address['zip'],
+            'person'=>$address['person'],
+            'phone'=>$address['phone']
+        ));
+        $order_detail = array(
+            'uo_id'=>$order_id,
+            'good_name'=>$good_info['good_name'],
+            'good_id'=>$good_info['id'],
+            'gg_id'=>$good_info['gg_id'],
+            'gg_name'=>$good_info['gg_name'],
+            'good_unit'=>$good_info['unit'],
+            'good_demo'=>$good_info['demo'],
+            'good_gmxz'=>$good_info['gmxz'],
+            'good_price'=>$good_info['gg_price'],
+            'good_num'=>$this->input->post('num'),
+        );
+        $this->db->insert('user_order_detail',$order_detail);
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            return $order_id;
+        }
+
+    }
+
 }
