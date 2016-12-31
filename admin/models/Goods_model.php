@@ -88,6 +88,7 @@ class Goods_model extends MY_Model
 			$g_id = $this->input->post('good_id');
 			$this->db->delete('goods_pic', array('good_id' => $g_id));
 			$this->db->where('good_id',$g_id)->where_not_in('id',$this->input->post('gg_id'))->delete('goods_gg');
+			$this->db->where('good_id',$g_id)->where_not_in('id',$this->input->post('gg_id'))->delete('user_cart');
 		}else{
 			$this->db->insert('goods',$data);
 			$g_id = $this->db->insert_id();
