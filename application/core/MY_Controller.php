@@ -39,6 +39,7 @@ class MY_Controller extends CI_Controller
 			}else{
 				$this->sys_model->get_uid_byopenid($this->session->userdata('openid'));
 			}
+
 		//}
 	}
 
