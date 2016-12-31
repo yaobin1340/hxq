@@ -579,4 +579,198 @@ class Apiuser extends MY_APIcontroller {
 			die();
 		}
 	}
+
+	public function add_address(){
+		unset($this->rs['user_info']);
+		if(!trim($this->input->post('province_code'))){
+			$this->err_rs['error_msg']='省份编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('city_code'))){
+			$this->err_rs['error_msg']='商品编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('area_code'))){
+			$this->err_rs['error_msg']='区域编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('address'))){
+			$this->err_rs['error_msg']='街道地址不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('person'))){
+			$this->err_rs['error_msg']='联系人不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('phone'))){
+			$this->err_rs['error_msg']='联系电话不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$res = $this->apiuser_model->add_address($this->app_uid);
+		if($res == 1){
+			echo json_encode($this->rs);
+			die();
+		}else{
+			$this->err_rs['error_msg']='操作失败！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+	}
+
+	public function edit_address(){
+		unset($this->rs['user_info']);
+		if(!trim($this->input->post('address_id'))){
+			$this->err_rs['error_msg']='地址编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$address_info = $this->apiuser_model->find_yy('user_address',$this->input->post('address_id'));
+		if(!$address_info){
+			$this->err_rs['error_msg']='地址信息不存在！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if($address_info['uid'] != $this->app_uid){
+			$this->err_rs['error_msg']='只可操作自己的地址信息!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('province_code'))){
+			$this->err_rs['error_msg']='省份编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('city_code'))){
+			$this->err_rs['error_msg']='商品编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('area_code'))){
+			$this->err_rs['error_msg']='区域编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('address'))){
+			$this->err_rs['error_msg']='街道地址不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('person'))){
+			$this->err_rs['error_msg']='联系人不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('phone'))){
+			$this->err_rs['error_msg']='联系电话不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$res = $this->apiuser_model->edit_address($this->app_uid,$this->input->post('address_id'));
+		if($res == 1){
+			echo json_encode($this->rs);
+			die();
+		}else{
+			$this->err_rs['error_msg']='操作失败！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+	}
+
+	public function delete_address(){
+		unset($this->rs['user_info']);
+		if(!trim($this->input->post('address_id'))){
+			$this->err_rs['error_msg']='地址编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$address_info = $this->apiuser_model->find_yy('user_address',$this->input->post('address_id'));
+		if(!$address_info){
+			$this->err_rs['error_msg']='地址信息不存在！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if($address_info['uid'] != $this->app_uid){
+			$this->err_rs['error_msg']='只可操作自己的地址信息!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$res = $this->apiuser_model->delete_address($this->app_uid,$this->input->post('address_id'));
+		if($res == 1){
+			echo json_encode($this->rs);
+			die();
+		}else{
+			$this->err_rs['error_msg']='操作失败！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+	}
+
+	public function default_address(){
+		unset($this->rs['user_info']);
+		if(!trim($this->input->post('address_id'))){
+			$this->err_rs['error_msg']='地址编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$address_info = $this->apiuser_model->find_yy('user_address',$this->input->post('address_id'));
+		if(!$address_info){
+			$this->err_rs['error_msg']='地址信息不存在！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if($address_info['uid'] != $this->app_uid){
+			$this->err_rs['error_msg']='只可操作自己的地址信息!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$res = $this->apiuser_model->default_address($this->app_uid,$this->input->post('address_id'));
+		if($res == 1){
+			echo json_encode($this->rs);
+			die();
+		}else{
+			$this->err_rs['error_msg']='操作失败！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+	}
+
+	public function list_address(){
+		unset($this->rs['user_info']);
+		$page = $this->input->post('page')?$this->input->post('page'):1;
+		$data = $this->apiuser_model->list_address($this->app_uid,$page);
+		$this->rs['list_address']=$data['items'];
+		echo json_encode($this->rs);
+		die();
+	}
+
+	public function address_info(){
+		unset($this->rs['user_info']);
+		if(!trim($this->input->post('address_id'))){
+			$this->err_rs['error_msg']='地址编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$address_info = $this->apiuser_model->address_info($this->input->post('address_id'));
+		if(!$address_info){
+			$this->err_rs['error_msg']='地址信息不存在！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if($address_info['uid'] != $this->app_uid){
+			$this->err_rs['error_msg']='只可操作自己的地址信息!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$this->rs['address_info']=$address_info;
+		echo json_encode($this->rs);
+		die();
+
+	}
+
 }
