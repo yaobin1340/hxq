@@ -999,7 +999,7 @@ class Apiuser_model extends MY_Model
         }
 
         //最后保存主订单需要支付的金额,且 如果金额为0 则将订单状态改为-1
-        if($new_total_price==0){
+        if($new_total_price <= 0){
             $this->db->where(array(
                 'id'=>$order_id,
                 'uid'=>$app_uid
