@@ -6,8 +6,8 @@ class Wxjssdk {
     private $wxjssdk_config_file_path;
 
     public function __construct(){
-        $this->appId = "wxa6a2f25241f8bc87";
-        $this->appSecret = "3cbf8a0ea011dd71a2fbc95124858804";
+        $this->appId = "wx2d80ea0f220b6bf5";
+        $this->appSecret = "7631f33bca93efa90cf68a98cc4a98e0";
         $this->wxjssdk_config_file_path = '/var/www/html/hxq';
     }
 
