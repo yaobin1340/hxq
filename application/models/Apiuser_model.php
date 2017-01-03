@@ -895,8 +895,9 @@ class Apiuser_model extends MY_Model
             if(!$user_info){
                 return -1;
             }
-            $use_integral = (int)$this->input->post('use_integral');
+            $use_integral = $this->input->post('use_integral');
             $use_integral = $use_integral ? $use_integral : 0;
+            $use_integral = (int)($use_integral*100);
             if($use_integral >=$total_price){
                 $use_integral = $total_price;
             }
@@ -970,8 +971,9 @@ class Apiuser_model extends MY_Model
             return -5;
         }
 
-        $use_integral = (int)$this->input->post('use_integral');
+        $use_integral = $this->input->post('use_integral');
         $use_integral = $use_integral ? $use_integral : 0;
+        $use_integral = (int)($use_integral*100);
         if($use_integral >=$total_price){
             $use_integral = $total_price;
         }
