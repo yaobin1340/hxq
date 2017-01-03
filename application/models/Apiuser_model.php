@@ -839,14 +839,6 @@ class Apiuser_model extends MY_Model
         );
         $this->db->insert('user_order',$data);
         $order_id = $this->db->insert_id();
-        //保存订单地址
-       /* $this->db->insert('user_order_address',array(
-           'uo_id'=>$order_id,
-            'address'=>$address['address'],
-            'zip'=>$address['zip'],
-            'person'=>$address['person'],
-            'phone'=>$address['phone']
-        ));*/
         $total_price = 0;
         //处理商品
         foreach ($cart_ids as $key => $val) {
@@ -893,7 +885,7 @@ class Apiuser_model extends MY_Model
         }else{
             $update_data=array(
                 'total_price' => $total_price,
-                'need_price' => $total_price,
+                'need_pay' => $total_price,
                 'use_integral' => 0
             );
             $this->db->where(array(
