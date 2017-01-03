@@ -818,13 +818,13 @@ class Apiuser_model extends MY_Model
     }
 
     public function save_orderByCart($app_uid){
-        $address = $this->db->select()->from('user_address')->where(array(
+       /* $address = $this->db->select()->from('user_address')->where(array(
             'id'=>$this->input->post('address_id'),
             'uid'=>$app_uid
         ))->get()->row_array();
         if(!$address){
             return -2;
-        }
+        }*/
         $cart_ids = $this->input->post('cart_ids');
         if(!is_array($cart_ids)){
             return -3;
@@ -840,13 +840,13 @@ class Apiuser_model extends MY_Model
         $this->db->insert('user_order',$data);
         $order_id = $this->db->insert_id();
         //保存订单地址
-        $this->db->insert('user_order_address',array(
+       /* $this->db->insert('user_order_address',array(
            'uo_id'=>$order_id,
             'address'=>$address['address'],
             'zip'=>$address['zip'],
             'person'=>$address['person'],
             'phone'=>$address['phone']
-        ));
+        ));*/
         $total_price = 0;
         //处理商品
         foreach ($cart_ids as $key => $val) {
@@ -861,6 +861,7 @@ class Apiuser_model extends MY_Model
                 $order_detail = array(
                     'uo_id'=>$order_id,
                     'good_name'=>$good_info['good_name'],
+                    'good_logo'=>$good_info['logo'],
                     'good_id'=>$good_info['id'],
                     'gg_id'=>$good_info['gg_id'],
                     'gg_name'=>$good_info['gg_name'],
@@ -890,47 +891,11 @@ class Apiuser_model extends MY_Model
                 'status'=>-1
             ));
         }else{
-            $update_data=array();
-            $user_info = $this->db->select('integral')->from("users")->where("id",$app_uid)->get()->row_array();
-            if(!$user_info){
-                return -1;
-            }
-            $use_integral = $this->input->post('use_integral');
-            $use_integral = $use_integral ? $use_integral : 0;
-            $use_integral = (int)($use_integral*100);
-            if($use_integral >=$total_price){
-                $use_integral = $total_price;
-            }
-            if($user_info['integral']>=$use_integral){
-                $this->db->where('id',$app_uid);
-                $this->db->set('integral',"integral - {$use_integral}",false);
-                $this->db->update('users');
-                $this->db->insert('money_log',array(
-                    'remark'=>'向日葵激励(会员)',
-                    'money'=>$use_integral,
-                    'type'=>11,
-                    'uid'=>$app_uid,
-                    'cdate' => date('Y-m-d H:i:s')
-                ));
-                $update_data['use_integral']=$use_integral;
-                $update_data['need_pay']=$total_price - $use_integral;
-            }else{
-                $this->db->where('id',$app_uid);
-                $this->db->set('integral',"integral - {$user_info['integral']}",false);
-                $this->db->update('users');
-                $this->db->insert('money_log',array(
-                    'remark'=>'向日葵激励(会员)',
-                    'money'=>$user_info['integral'],
-                    'type'=>11,
-                    'uid'=>$app_uid,
-                    'cdate' => date('Y-m-d H:i:s')
-                ));
-                $update_data['use_integral']=$user_info['integral'];
-                $update_data['need_pay']=$total_price - $user_info['integral'];
-            }
-            if($update_data['need_pay'] == 0){
-                $update_data['status']=2;
-            }
+            $update_data=array(
+                'total_price' => $total_price,
+                'need_price' => $total_price,
+                'use_integral' => 0
+            );
             $this->db->where(array(
                 'id'=>$order_id,
                 'uid'=>$app_uid
@@ -946,6 +911,187 @@ class Apiuser_model extends MY_Model
             return $order_id;
         }
 
+    }
+
+    public function get_orderGoods($order_id){
+        $this->db->select()->from('user_order_detail');
+        $this->db->where('uo_id',$order_id);
+        return $this->db->get()->result_array();
+    }
+
+    public function get_orderAddress($order_id){
+        $this->db->select()->from('user_order_address');
+        $this->db->where('uo_id',$order_id);
+        return $this->db->get()->row_array();
+    }
+
+    public function save_orderByPay($app_uid){
+        $address = $this->db->select()->from('user_address')->where(array(
+                    'id'=>$this->input->post('address_id'),
+                    'uid'=>$app_uid
+                ))->get()->row_array();
+        if(!$address){
+            return -2;
+        }
+
+        $order_info = $this->db->select()->from('user_order')->where(array(
+            'id'=>$this->input->post('order_id'),
+            'uid'=>$app_uid
+        ))->get()->result_array();
+        if(!$order_info){
+            return -4;
+        }
+        if(!$order_info['status']!=1){
+            return -5;
+        }
+        $old_total_price = $order_info['total_price'];
+        $old_total_integral = $order_info['user_integral'];
+        $new_total_price = 0;
+        $update_data = array(
+            'remark'=>$this->input->post('remark',true)
+        );
+        $order_id = $this->input->post('order_id');
+        //校验是否 商品都不存在
+        $this->db->select('a.*')->from('user_order_detail a');
+        $this->db->join('goods_gg b','b.id = a.gg_id','inner');
+        $this->db->join('goods c','c.id = b.good_id','inner');
+        $this->db->where(array(
+            'a.uo_id'=>$order_id,
+            'b.gg_kc >'=>0
+        ));
+        $goods_list = $this->db->get()->result_array();
+        if(!$goods_list){
+            $this->db->where(array(
+                'id'=>$order_id,
+                'uid'=>$app_uid
+            ))->update('user_order',array(
+                'status'=>-1
+            ));
+            $this->db->where('id',$app_uid);
+            $this->db->set('integral',"integral + {$old_total_integral}",false);
+            $this->db->update('users');
+            $this->db->insert('money_log',array(
+                'remark'=>'订单失败返回 葵花籽',
+                'money'=>$old_total_integral,
+                'type'=>12,
+                'uid'=>$app_uid,
+                'cdate' => date('Y-m-d H:i:s')
+            ));
+            return -3;
+        }
+
+        $this->db->trans_start();
+        //先建立主订单
+
+        //保存订单地址
+         $this->db->insert('user_order_address',array(
+            'uo_id'=>$order_id,
+             'address'=>$address['address'],
+             'zip'=>$address['zip'],
+             'person'=>$address['person'],
+             'phone'=>$address['phone']
+         ));
+
+
+        //处理商品
+        foreach ($goods_list as $key => $val) {
+            $new_total_price+=(int)$val['gg_price']*(int)$val['cart_num'];
+        }
+
+        //最后保存主订单需要支付的金额,且 如果金额为0 则将订单状态改为-1
+        if($new_total_price==0){
+            $this->db->where(array(
+                'id'=>$order_id,
+                'uid'=>$app_uid
+            ))->update('user_order',array(
+                'status'=>-1
+            ));
+            $this->db->where('id',$app_uid);
+            $this->db->set('integral',"integral + {$old_total_integral}",false);
+            $this->db->update('users');
+            $this->db->insert('money_log',array(
+                'remark'=>'订单返回 葵花籽',
+                'money'=>$old_total_integral,
+                'type'=>12,
+                'uid'=>$app_uid,
+                'cdate' => date('Y-m-d H:i:s')
+            ));
+        }else{
+            //这里判断金额
+            $user_info = $this->db->select('integral')->from("users")->where("id",$app_uid)->get()->row_array();
+            if(!$user_info){
+                return -1;
+            }
+
+            if($old_total_integral==0){
+                $use_integral = $this->input->post('use_integral');
+                $use_integral = $use_integral ? $use_integral : 0;
+                $use_integral = (int)($use_integral*100);
+                if($user_info['integral']>=$use_integral){
+                    $this->db->where('id',$app_uid);
+                    $this->db->set('integral',"integral - {$use_integral}",false);
+                    $this->db->update('users');
+                    $this->db->insert('money_log',array(
+                        'remark'=>'线上商城购物 扣除葵花籽',
+                        'money'=>$use_integral,
+                        'type'=>11,
+                        'uid'=>$app_uid,
+                        'cdate' => date('Y-m-d H:i:s')
+                    ));
+                    $update_data['use_integral']=$use_integral;
+                    $update_data['need_pay']=$new_total_price - $use_integral;
+                }else{
+                    $this->db->where('id',$app_uid);
+                    $this->db->set('integral',"integral - {$user_info['integral']}",false);
+                    $this->db->update('users');
+                    $this->db->insert('money_log',array(
+                        'remark'=>'线上商城购物 扣除葵花籽',
+                        'money'=>$user_info['integral'],
+                        'type'=>11,
+                        'uid'=>$app_uid,
+                        'cdate' => date('Y-m-d H:i:s')
+                    ));
+                    $update_data['use_integral']=$user_info['integral'];
+                    $update_data['need_pay']=$new_total_price - $user_info['integral'];
+                }
+            }else{
+                $use_integral = $old_total_integral;
+                if($use_integral > $new_total_price){
+                    $tuihuan = $use_integral - $old_total_price;
+                    $this->db->where('id',$app_uid);
+                    $this->db->set('integral',"integral - {$tuihuan}",false);
+                    $this->db->update('users');
+                    $this->db->insert('money_log',array(
+                        'remark'=>'订单返回 葵花籽',
+                        'money'=>$tuihuan,
+                        'type'=>12,
+                        'uid'=>$app_uid,
+                        'cdate' => date('Y-m-d H:i:s')
+                    ));
+                    $use_integral = $new_total_price;
+                }
+                $update_data['total_price'] = $new_total_price;
+                $update_data['use_integral']=$use_integral;
+                $update_data['need_pay']=$new_total_price - $use_integral;
+            }
+
+            if($update_data['need_pay'] == 0){
+                $update_data['status']=2;
+            }
+            $this->db->where(array(
+                'id'=>$order_id,
+                'uid'=>$app_uid
+            ))->update('user_order',$update_data);
+        }
+        $this->db->trans_complete();//------结束事务
+        if ($this->db->trans_status() === FALSE) {
+            return -1;
+        } else {
+            if($new_total_price==0){
+                return -4;
+            }
+            return $order_id;
+        }
     }
 
     public function save_orderByGood($app_uid){
@@ -1035,6 +1181,7 @@ class Apiuser_model extends MY_Model
         $order_detail = array(
             'uo_id'=>$order_id,
             'good_name'=>$good_info['good_name'],
+            'good_logo'=>$good_info['logo'],
             'good_id'=>$good_info['id'],
             'gg_id'=>$good_info['gg_id'],
             'gg_name'=>$good_info['gg_name'],
