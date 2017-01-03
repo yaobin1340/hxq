@@ -766,12 +766,11 @@ class Apiuser extends MY_APIcontroller {
 
 	public function save_orderByCart(){
 		unset($this->rs['user_info']);
-		if(!trim($this->input->post('address_id'))){
+		/*if(!trim($this->input->post('address_id'))){
 			$this->err_rs['error_msg']='地址编号不能为空！';
 			echo json_encode($this->err_rs);
 			die();
-		}
-		//die(var_dump($this->input->post('cart_ids')));
+		}*/
 		if(!$this->input->post('cart_ids')){
 			$this->err_rs['error_msg']='购物车编号不能为空！';
 			echo json_encode($this->err_rs);
@@ -800,6 +799,37 @@ class Apiuser extends MY_APIcontroller {
 			echo json_encode($this->rs);
 			die();
 		}
+
+	}
+
+	public function get_orderinfo(){
+		if(!trim($this->input->post('order_id'))){
+			$this->err_rs['error_msg']='主订单编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$order_info = $this->apiuser_model->find_yy('user_order',$this->input->post('order_id'));
+		if(!$order_info){
+			$this->err_rs['error_msg']='订单不存在!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if($order_info['uid'] != $this->app_uid){
+			$this->err_rs['error_msg']='订单不属于自己!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$this->rs['order_info']=$order_info;
+		$goods_list = $this->apiuser_model->get_orderGoods($this->input->post('order_id'));
+		$this->rs['goods_list']=$goods_list;
+		$address_info = $this->apiuser_model->get_orderAddress($this->input->post('order_id'));
+		if($address_info){
+			$this->rs['address_info']=$address_info;
+		}else{
+			$this->rs['address_info']=(object)array();
+		}
+		echo json_encode($this->rs);
+		die();
 
 	}
 
@@ -851,6 +881,64 @@ class Apiuser extends MY_APIcontroller {
 			echo json_encode($this->rs);
 			die();
 		}
+	}
+
+	public function order_pay(){
+		if(!trim($this->input->post('address_id'))){
+			$this->err_rs['error_msg']='地址编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$pay_code = $this->input->post('pay_code');
+		if($pay_code != 'wechatpay' && $pay_code != 'alipay'){
+			$this->err_rs['error_msg']='支付类型不存在!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('order_id'))){
+			$this->err_rs['error_msg']='主订单编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$order_info = $this->apiuser_model->find_yy('user_order',$this->input->post('order_id'));
+		if(!$order_info){
+			$this->err_rs['error_msg']='订单不存在!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if($order_info['uid'] != $this->app_uid){
+			$this->err_rs['error_msg']='订单不属于自己!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+
+		$res = $this->apiuser_model->save_orderByPay($this->app_uid);
+		if($res == -4){
+			$this->err_rs['error_msg']='订单不存在!';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($res == -2){
+			$this->err_rs['error_msg']='选择的收货地址异常!';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($res == -3){
+			$this->err_rs['error_msg']='订单内商品均已下架后售完!';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($res == -5){
+			$this->err_rs['error_msg']='订单状态不为 待付款状态!';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($res <= 0){
+			$this->err_rs['error_msg']='操作异常!';
+			echo json_encode($this->err_rs);
+			die();
+		}else{
+			$this->rs['user_order_id']=$res;
+			echo json_encode($this->rs);
+			die();
+		}
+
 	}
 
 }
