@@ -597,6 +597,11 @@ class Apiuser extends MY_APIcontroller {
 			echo json_encode($this->err_rs);
 			die();
 		}
+		if(!trim($this->input->post('zip'))){
+			$this->err_rs['error_msg']='邮编号码不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
 		$res = $this->apiuser_model->add_address($this->app_uid);
 		if($res == 1){
 			echo json_encode($this->rs);
@@ -628,6 +633,11 @@ class Apiuser extends MY_APIcontroller {
 		}
 		if(!trim($this->input->post('address'))){
 			$this->err_rs['error_msg']='详细地址不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('zip'))){
+			$this->err_rs['error_msg']='邮编号码不能为空！';
 			echo json_encode($this->err_rs);
 			die();
 		}
