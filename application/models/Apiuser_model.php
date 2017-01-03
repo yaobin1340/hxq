@@ -890,13 +890,50 @@ class Apiuser_model extends MY_Model
                 'status'=>-1
             ));
         }else{
+            $update_data=array();
+            $user_info = $this->db->select('integral')->from("users")->where("id",$app_uid)->get()->row_array();
+            if(!$user_info){
+                return -1;
+            }
+            $use_integral = (int)$this->input->post('use_integral');
+            $use_integral = $use_integral ? $use_integral : 0;
+            if($use_integral >=$total_price){
+                $use_integral = $total_price;
+            }
+            if($user_info['integral']>=$use_integral){
+                $this->db->where('id',$app_uid);
+                $this->db->set('integral',"integral - {$use_integral}",false);
+                $this->db->update('users');
+                $this->db->insert('money_log',array(
+                    'remark'=>'向日葵激励(会员)',
+                    'money'=>$use_integral,
+                    'type'=>11,
+                    'uid'=>$app_uid,
+                    'cdate' => date('Y-m-d H:i:s')
+                ));
+                $update_data['use_integral']=$use_integral;
+                $update_data['need_pay']=$total_price - $use_integral;
+            }else{
+                $this->db->where('id',$app_uid);
+                $this->db->set('integral',"integral - {$user_info['integral']}",false);
+                $this->db->update('users');
+                $this->db->insert('money_log',array(
+                    'remark'=>'向日葵激励(会员)',
+                    'money'=>$user_info['integral'],
+                    'type'=>11,
+                    'uid'=>$app_uid,
+                    'cdate' => date('Y-m-d H:i:s')
+                ));
+                $update_data['use_integral']=$user_info['integral'];
+                $update_data['need_pay']=$total_price - $user_info['integral'];
+            }
+            if($update_data['need_pay'] == 0){
+                $update_data['status']=2;
+            }
             $this->db->where(array(
                 'id'=>$order_id,
                 'uid'=>$app_uid
-            ))->update('user_order',array(
-                'total_price'=>$total_price,
-                'need_pay'=>$total_price
-            ));
+            ))->update('user_order',$update_data);
         }
         $this->db->trans_complete();//------结束事务
         if ($this->db->trans_status() === FALSE) {
@@ -932,9 +969,14 @@ class Apiuser_model extends MY_Model
         if($total_price<=0){
             return -5;
         }
-        $this->db->trans_start();
-        //先建立主订单
 
+        $use_integral = (int)$this->input->post('use_integral');
+        $use_integral = $use_integral ? $use_integral : 0;
+        if($use_integral >=$total_price){
+            $use_integral = $total_price;
+        }
+        $this->db->trans_start();
+        //一,先建立主订单
         $data = array(
             'uid'=>$app_uid,
             'cdate'=>date('Y-m-d H:i:s'),
@@ -942,6 +984,42 @@ class Apiuser_model extends MY_Model
             'total_price'=>$total_price,
             'need_pay'=>$total_price
         );
+        //1,获取需要第三方支付的费用
+        $user_info = $this->db->select('integral')->from("users")->where("id",$app_uid)->get()->row_array();
+        if(!$user_info){
+            return -1;
+        }
+        if($user_info['integral']>=$use_integral){
+            $this->db->where('id',$app_uid);
+            $this->db->set('integral',"integral - {$use_integral}",false);
+            $this->db->update('users');
+            $this->db->insert('money_log',array(
+                'remark'=>'向日葵激励(会员)',
+                'money'=>$use_integral,
+                'type'=>11,
+                'uid'=>$app_uid,
+                'cdate' => date('Y-m-d H:i:s')
+            ));
+            $data['use_integral']=$use_integral;
+            $data['need_pay']=$total_price - $use_integral;
+        }else{
+            $this->db->where('id',$app_uid);
+            $this->db->set('integral',"integral - {$user_info['integral']}",false);
+            $this->db->update('users');
+            $this->db->insert('money_log',array(
+                'remark'=>'向日葵激励(会员)',
+                'money'=>$user_info['integral'],
+                'type'=>11,
+                'uid'=>$app_uid,
+                'cdate' => date('Y-m-d H:i:s')
+            ));
+            $data['use_integral']=$user_info['integral'];
+            $data['need_pay']=$total_price - $user_info['integral'];
+        }
+        if($data['need_pay'] == 0){
+            $data['status']=2;
+        }
+        //2,保存主订单
         $this->db->insert('user_order',$data);
         $order_id = $this->db->insert_id();
         //保存订单地址
@@ -973,5 +1051,4 @@ class Apiuser_model extends MY_Model
         }
 
     }
-
 }
