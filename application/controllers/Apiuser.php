@@ -710,6 +710,17 @@ class Apiuser extends MY_APIcontroller {
 		}
 	}
 
+	public function get_default_address(){
+		$address_info = $this->apiuser_model->get_def_address($this->app_uid);
+		if($address_info){
+			$this->rs['default_address']=$address_info;
+		}else{
+			$this->rs['default_address']=(object)array();
+		}
+		echo json_encode($this->rs);
+		die();
+	}
+
 	public function list_address(){
 		unset($this->rs['user_info']);
 		$page = $this->input->post('page')?$this->input->post('page'):1;
@@ -759,15 +770,15 @@ class Apiuser extends MY_APIcontroller {
 
 		$res = $this->apiuser_model->save_orderByCart($this->app_uid);
 		if($res == -4){
-			$this->err_rs['error_msg']='2订单异常!';
+			$this->err_rs['error_msg']='订单异常!';
 			echo json_encode($this->err_rs);
 			die();
 		}else if($res == -2){
-			$this->err_rs['error_msg']='3选择的收货地址异常!';
+			$this->err_rs['error_msg']='选择的收货地址异常!';
 			echo json_encode($this->err_rs);
 			die();
 		}else if($res == -3){
-			$this->err_rs['error_msg']='4购物车信息不规范!';
+			$this->err_rs['error_msg']='购物车信息不规范!';
 			echo json_encode($this->err_rs);
 			die();
 		}else if($res <= 0){

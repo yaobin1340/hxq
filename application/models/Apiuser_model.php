@@ -798,6 +798,13 @@ class Apiuser_model extends MY_Model
         return $data;
     }
 
+    public function get_def_address($app_uid){
+        $this->db->select()->from('user_address');
+        $this->db->where('uid',$app_uid);
+        $this->db->where('default',1);
+        return $this->db->get()->row_array();
+    }
+
     public function address_info($address_id){
         /*$this->db->select('a.*,b.name province_name,c.name city_name,d.name area_name')->from('user_address a');
         $this->db->join('province b','a.province_code = b.code','left');
