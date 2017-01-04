@@ -502,7 +502,7 @@ class Apiftontend extends MY_APIcontroller {
 		$obj=json_decode($res);
 
 		if($obj->status=='0'){
-			$data = $this->frontend_model->nearcity($obj->result->ad_info->adcode);
+			$data = $obj->result->ad_info->adcode;
 			if($data){
 				echo json_encode($data);
 			}else{
