@@ -177,11 +177,11 @@ class Apiwxpay extends MY_APIcontroller {
             '三客柚',
             $pay_id,
             $res_order['need_pay'],
-            base_url()."/Apiwxpay/notify",
+            base_url()."Apiwxpay/notify",
             $pay_id
         );
         if($result){
-           var_dump(base_url()."/Apiwxpay/notify");
+           var_dump($result);
             die();
         }else{
             $rs = array(
