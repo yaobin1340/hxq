@@ -190,7 +190,7 @@ class Apishop_model extends MY_Model
         }
     }
 
-    public function save_order($app_uid,$shop_id){
+    public function save_order($app_uid,$shop_id,$order_GW){
         $user_flag = $this->input->post('user_flag');
         $price = $this->input->post('price')*100;
 
