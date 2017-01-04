@@ -889,11 +889,6 @@ class Apiuser extends MY_APIcontroller {
 	}
 
 	public function order_pay(){
-		if(!trim($this->input->post('address_id'))){
-			$this->err_rs['error_msg']='1地址编号不能为空！';
-			echo json_encode($this->err_rs);
-			die();
-		}
 		$pay_code = $this->input->post('pay_code');
 		if($pay_code != 'wechatpay' && $pay_code != 'alipay' && $pay_code != 'wechatCodePay'){
 			$this->err_rs['error_msg']='2支付类型不存在!';
@@ -920,6 +915,10 @@ class Apiuser extends MY_APIcontroller {
 		$res = $this->apiuser_model->save_orderByPay($this->app_uid);
 		if($res == -4){
 			$this->err_rs['error_msg']='6订单不存在!';
+			echo json_encode($this->err_rs);
+			die();
+		}else if($res == -6){
+			$this->err_rs['error_msg']='8收货地址编号为空!';
 			echo json_encode($this->err_rs);
 			die();
 		}else if($res == -2){

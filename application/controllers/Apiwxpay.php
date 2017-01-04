@@ -146,7 +146,7 @@ class Apiwxpay extends MY_APIcontroller {
             echo json_encode($rs);
             die();
         }
-        $this->load->config('wxpay_config');
+        //$this->load->config('wxpay_config');
         $wxconfig['appid']=$this->config->item('appid');
         $wxconfig['mch_id']=$this->config->item('mch_id');
         $wxconfig['apikey']=$this->config->item('apikey');

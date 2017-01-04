@@ -924,13 +924,46 @@ class Apiuser_model extends MY_Model
     }
 
     public function save_orderByPay($app_uid){
-        $address = $this->db->select()->from('user_address')->where(array(
+        $order_address = $this->db->select()->from('user_order_address')->where(array(
+            'uo_id'=>$this->input->post('order_id')
+        ))->get()->row_array();
+        if(!$order_address){
+            if(!trim($this->input->post('address_id'))){
+               return -6;
+            }
+            $address = $this->db->select()->from('user_address')->where(array(
+                'id'=>$this->input->post('address_id'),
+                'uid'=>$app_uid
+            ))->get()->row_array();
+            if(!$address){
+                return -2;
+            }
+            $this->db->insert('user_order_address',array(
+                'uo_id'=>$this->input->post('order_id'),
+                'address'=>$address['address'],
+                'zip'=>$address['zip'],
+                'person'=>$address['person'],
+                'phone'=>$address['phone']
+            ));
+        }else{
+            if($this->input->post('address_id')){
+                $address = $this->db->select()->from('user_address')->where(array(
                     'id'=>$this->input->post('address_id'),
                     'uid'=>$app_uid
                 ))->get()->row_array();
-        if(!$address){
-            return -2;
+                if($address){
+                    $this->db->where('uo_id',$this->input->post('order_id'))->delete('user_order_address');
+                    $this->db->insert('user_order_address',array(
+                        'uo_id'=>$this->input->post('order_id'),
+                        'address'=>$address['address'],
+                        'zip'=>$address['zip'],
+                        'person'=>$address['person'],
+                        'phone'=>$address['phone']
+                    ));
+                }
+            }
         }
+
         $order_info = $this->db->select()->from('user_order')->where(array(
             'id'=>$this->input->post('order_id'),
             'uid'=>$app_uid
@@ -980,13 +1013,8 @@ class Apiuser_model extends MY_Model
         //先建立主订单
 
         //保存订单地址
-         $this->db->insert('user_order_address',array(
-            'uo_id'=>$order_id,
-             'address'=>$address['address'],
-             'zip'=>$address['zip'],
-             'person'=>$address['person'],
-             'phone'=>$address['phone']
-         ));
+        //$order_address = $this->db->select()->from('user_order_address')
+
 
 
         //处理商品
@@ -1059,7 +1087,7 @@ class Apiuser_model extends MY_Model
                 if($use_integral > $new_total_price){
                     $tuihuan = $use_integral - $old_total_price;
                     $this->db->where('id',$app_uid);
-                    $this->db->set('integral',"integral - {$tuihuan}",false);
+                    $this->db->set('integral',"integral + {$tuihuan}",false);
                     $this->db->update('users');
                     $this->db->insert('money_log',array(
                         'remark'=>'订单返回 葵花籽',
