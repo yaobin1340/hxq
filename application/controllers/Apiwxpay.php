@@ -181,7 +181,7 @@ class Apiwxpay extends MY_APIcontroller {
             $pay_id
         );
         if($result){
-           var_dump($result);
+           var_dump(base_url()."/Apiwxpay/notify");
             die();
         }else{
             $rs = array(
