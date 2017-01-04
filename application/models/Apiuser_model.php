@@ -1023,6 +1023,9 @@ class Apiuser_model extends MY_Model
                 $use_integral = $this->input->post('use_integral');
                 $use_integral = $use_integral ? $use_integral : 0;
                 $use_integral = (int)($use_integral*100);
+                if($new_total_price < $use_integral){
+                    $use_integral = $new_total_price;
+                }
                 if($user_info['integral']>=$use_integral){
                     $this->db->where('id',$app_uid);
                     $this->db->set('integral',"integral - {$use_integral}",false);
