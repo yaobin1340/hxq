@@ -46,7 +46,11 @@ class Apiwxpay extends MY_APIcontroller {
 
     public function test1($order_id){
 
-
+        if($this->Apiwxpay_model->change_order($order_id)){
+            return 'SUCCESS';
+        }else{
+            return 'FAIL';
+        }
     }
 
     public function JSAPI_wxpay($order_id){
