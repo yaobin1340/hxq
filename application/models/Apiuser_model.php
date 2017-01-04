@@ -852,7 +852,7 @@ class Apiuser_model extends MY_Model
                 ->join('goods_gg c','a.gg_id = c.id','inner')
                 ->where('a.uid',$app_uid)
                 ->where('c.gg_kc >',0)
-                ->where('a.id',$val)->get()->row_array();
+                ->where('a.id',(int)$val)->get()->row_array();
 
             if($good_info){
                 $order_detail = array(
@@ -874,7 +874,7 @@ class Apiuser_model extends MY_Model
                 }
                 $this->db->where(array(
                     'uid'=>$app_uid,
-                    'id'=>$val
+                    'id'=>(int)$val
                 ))->delete('user_cart');//删除购物车信息
             }
         }
