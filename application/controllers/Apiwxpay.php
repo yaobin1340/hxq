@@ -55,7 +55,7 @@ class Apiwxpay extends MY_APIcontroller {
         die();
     }
 
-    public function APP_wxpay($order_id){
+    public function JSAPI_wxpay($order_id){
 
         $this->load->library('wxpay/Wechatpay',$this->wxconfig);
         $res_order = $this->Apiwxpay_model->get_order($order_id);
@@ -78,14 +78,52 @@ class Apiwxpay extends MY_APIcontroller {
         $param["time_expire"] = date("YmdHis", time() + 600);
         $param["goods_tag"] = "三客柚线上商城";
         $param["notify_url"] = base_url()."/Apiwxpay/notify";
-        $param["trade_type"] = "APP";
-
+        $param["trade_type"] = "JSAPI";
+        $param["openid"] = $this->session->userdata('openid');
         //统一下单，获取结果，结果是为了构造jsapi调用微信支付组件所需参数
         $result = $this->wechatpay->unifiedOrder($param);
 
         //如果结果是成功的我们才能构造所需参数，首要判断预支付id
 
+        if (isset($result["prepay_id"]) && !empty($result["prepay_id"])) {
+            //调用支付类里的get_package方法，得到构造的参数
+            $data['parameters'] = json_encode($this->wechatpay->get_package($result['prepay_id']));
+            $data['notifyurl'] = $param["notify_url"];
+            $data['fee'] = 1;
+            $data['pubid'] = $res_order;
+            $data['orderid'] = $res_order;
+            $this->load->view('wxhtml/jsapi', $data);
+        }
+    }
+
+    public function APP_wxpay($order_id){
+        $this->load->library('wxpay/Wechatpay',$this->wxconfig);
+        $res_order = $this->Apiwxpay_model->get_order($order_id);
+        if($res_order == -1){
+            $rs = array(
+                'success'=>false,
+                'error_msg'=>'订单支付失败',
+                'order_id'=>$order_id
+            );
+            echo json_encode($rs);
+            die();
+        }
+        $param['body'] = '三客柚';
+        $param['attach'] = 'attach';
+        $param['detail'] = "三客柚线上商城——微信支付";
+        $param['out_trade_no'] = $res_order['id'];
+        $param['total_fee'] = 1;
+        $param["spbill_create_ip"] = $_SERVER['REMOTE_ADDR'];
+        $param["time_start"] = date("YmdHis");
+        $param["time_expire"] = date("YmdHis", time() + 600);
+        $param["goods_tag"] = "三客柚线上商城";
+        $param["notify_url"] = base_url()."/Apiwxpay/notify";
+        $param["trade_type"] = "APP";
+        //统一下单，获取结果，结果是为了构造jsapi调用微信支付组件所需参数
+        $result = $this->wechatpay->unifiedOrder($param);
         die(var_dump($result));
+        //如果结果是成功的我们才能构造所需参数，首要判断预支付id
+
         if (isset($result["prepay_id"]) && !empty($result["prepay_id"])) {
             //调用支付类里的get_package方法，得到构造的参数
             $data['parameters'] = json_encode($this->wechatpay->get_package($result['prepay_id']));
