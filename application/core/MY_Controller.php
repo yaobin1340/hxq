@@ -21,7 +21,6 @@ class MY_Controller extends CI_Controller
 		$this->cismarty->assign('footer_flag','');//初始化
 		$this->load->model('sys_model');
 		//if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
-
 			if(!$this->session->userdata('openid')){
 				$appid="wxa6a2f25241f8bc87";
 				$secret="3cbf8a0ea011dd71a2fbc95124858804";
