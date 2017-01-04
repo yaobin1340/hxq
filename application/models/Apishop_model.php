@@ -230,6 +230,7 @@ class Apishop_model extends MY_Model
             'mobile'=>$user_info->mobile,
             'price'=>$price,
             'shop_id'=>$shop_id,
+            'GW'=>$order_GW,
             'status'=>1,
             'oid'=>$oid,
             'cdate'=>date('Y-m-d H:i:s',time())
