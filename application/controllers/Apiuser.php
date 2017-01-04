@@ -766,7 +766,7 @@ class Apiuser extends MY_APIcontroller {
 
 	public function save_orderByCart(){
 		$dataall = $this->_post();
-		$dataall['app_uid']=$this->app_uid;
+		//$dataall['app_uid']=$this->app_uid;
        $open=fopen('/var/yy.txt',"a" );
        fwrite($open,var_export($dataall,true));
        fclose($open);
