@@ -93,7 +93,11 @@ class Shop extends MY_Controller {
 			//主要用于解决回退所产生的表单重复提交的问题
 			$this->redirect(site_url('/shop'));
 		}
-		$rs = $this->shop_model->save_order();
+		$order_GW = $this->upload('order_GW','GW');
+		if(!$order_GW){
+			$this->show_message('购物凭证未上传成功！');
+		}
+		$rs = $this->shop_model->save_order($order_GW);
 		if($rs == 1){
 			$this->show_message('添加成功！',site_url('shop/list_orders'));
 		}else if($rs == -2){
