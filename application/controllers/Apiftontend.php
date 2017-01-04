@@ -506,10 +506,10 @@ class Apiftontend extends MY_APIcontroller {
 			if($data){
 				echo json_encode($data);
 			}else{
-				echo json_encode(0);
+				echo json_encode(-1);
 			}
 		}else{
-			echo json_encode(0);
+			echo json_encode(-1);
 		}
 	}
 }
