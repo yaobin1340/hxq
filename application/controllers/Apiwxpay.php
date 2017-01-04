@@ -156,6 +156,15 @@ class Apiwxpay extends MY_APIcontroller {
             die();
         }
         $pay_id = $this->Apiwxpay_model->save_pay_log($order_id);
+        if($pay_id<=0){
+            $rs = array(
+                'success'=>false,
+                'error_msg'=>'1订单支付失败',
+                'order_id'=>$order_id
+            );
+            echo json_encode($rs);
+            die();
+        }
         //$this->load->config('wxpay_config');
         $wxconfig['appid']=$this->config->item('appid');
         $wxconfig['mch_id']=$this->config->item('mch_id');
