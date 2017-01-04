@@ -46,13 +46,11 @@ class Apiwxpay extends MY_APIcontroller {
 
     public function test1($order_id){
 
-        $rs = array(
-            'success'=>false,
-            'error_msg'=>'t11',
-            'order_id'=>$order_id
-        );
-        echo json_encode($rs);
-        die();
+       if($this->wxserver_model->change_order($order_id)){
+           echo 1;
+       }else{
+           echo 2;
+       }
     }
 
     public function JSAPI_wxpay($order_id){
@@ -205,4 +203,5 @@ class Apiwxpay extends MY_APIcontroller {
             }
         }
     }
+
 }
