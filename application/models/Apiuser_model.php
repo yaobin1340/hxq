@@ -978,7 +978,8 @@ class Apiuser_model extends MY_Model
         $old_total_integral = (int)$order_info['user_integral'];
         $new_total_price = 0;
         $update_data = array(
-            'remark'=>$this->input->post('remark',true)
+            'remark'=>$this->input->post('remark',true),
+            'pay_code'=>$this->input->post('pay_code')
         );
         $order_id = $this->input->post('order_id');
         //校验是否 商品都不存在
