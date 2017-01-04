@@ -502,9 +502,9 @@ class Apiftontend extends MY_APIcontroller {
 		$obj=json_decode($res);
 
 		if($obj->status=='0'){
-			$data = $obj->result->ad_info->adcode;
+			$data = (int)$obj->result->ad_info->adcode;
 			if($data){
-				echo json_encode($data);
+				echo json_encode((int)$data);
 			}else{
 				echo json_encode(-1);
 			}
