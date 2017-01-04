@@ -40,7 +40,7 @@ class Apiwxpay_model extends MY_Model
                 $this->db->update('user_order',array('status',2));
                 return -2;
             }else{
-                $this->db->insert('pay_code',array(
+                $this->db->insert('pay_log',array(
                     'pay_price'=>$row['need_pay'],
                     'uo_id'=>$order_id,
                     'pay_code'=>$row['pay_code'],
