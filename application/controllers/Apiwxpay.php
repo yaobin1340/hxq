@@ -22,7 +22,9 @@ class Apiwxpay extends MY_APIcontroller {
      * map to /index.php/welcome/<method_name>
      * @see http://codeigniter.com/user_guide/general/urls.html
      */
-
+    protected $wxconfig = array();
+    private $token;
+    private $app_uid;
     public function __construct(){
 
         parent::__construct();
@@ -32,6 +34,14 @@ class Apiwxpay extends MY_APIcontroller {
         }else{
             $this->app_uid=0;
         }
+        $this->load->model('Apiwxpay_model');
+        $this->load->config('wxpay_config');
+        $this->wxconfig['appid']=$this->config->item('appid');
+        $this->wxconfig['mch_id']=$this->config->item('mch_id');
+        $this->wxconfig['apikey']=$this->config->item('apikey');
+        $this->wxconfig['appsecret']=$this->config->item('appsecret');
+        $this->wxconfig['sslcertPath']=$this->config->item('sslcertPath');
+        $this->wxconfig['sslkeyPath']=$this->config->item('sslkeyPath');
     }
 
     public function test1($order_id){
@@ -43,5 +53,59 @@ class Apiwxpay extends MY_APIcontroller {
         );
         echo json_encode($rs);
         die();
+    }
+
+    public function APP_wxpay($order_id){
+
+        $this->load->library('wxpay/Wechatpay',$this->wxconfig);
+        $res_order = $this->Apiwxpay_model->get_order($order_id);
+        if($res_order == -1){
+            $rs = array(
+                'success'=>false,
+                'error_msg'=>'订单支付失败',
+                'order_id'=>$order_id
+            );
+            echo json_encode($rs);
+            die();
+        }
+        $param['body'] = '三客柚';
+        $param['attach'] = 'attach';
+        $param['detail'] = "三客柚线上商城——微信支付";
+        $param['out_trade_no'] = $res_order['id'];
+        $param['total_fee'] = 1;
+        $param["spbill_create_ip"] = $_SERVER['REMOTE_ADDR'];
+        $param["time_start"] = date("YmdHis");
+        $param["time_expire"] = date("YmdHis", time() + 600);
+        $param["goods_tag"] = "三客柚线上商城";
+        $param["notify_url"] = base_url()."/Apiwxpay/notify";
+        $param["trade_type"] = "APP";
+
+        //统一下单，获取结果，结果是为了构造jsapi调用微信支付组件所需参数
+        $result = $this->wechatpay->unifiedOrder($param);
+
+        //如果结果是成功的我们才能构造所需参数，首要判断预支付id
+
+        die(var_dump($result));
+        if (isset($result["prepay_id"]) && !empty($result["prepay_id"])) {
+            //调用支付类里的get_package方法，得到构造的参数
+            $data['parameters'] = json_encode($this->wechatpay->get_package($result['prepay_id']));
+            $data['notifyurl'] = $param["notify_url"];
+            $data['fee'] = 1;
+            $data['pubid'] = $res_order;
+            $data['orderid'] = $res_order;
+            $this->load->view('wxhtml/jsapi', $data);
+        }
+    }
+
+    public function notify(){
+        $this->load->library('wxpay/Wechatpay',$this->wxconfig);
+        $data_array = $this->wechatpay->get_back_data();
+        if($data_array['result_code']=='SUCCESS' && $data_array['return_code']=='SUCCESS'){
+            if($this->wxserver_model->change_order($data_array['out_trade_no'],'23')==-2){
+                return 'FAIL';
+            }else{
+                return 'SUCCESS';
+            }
+        }
     }
 }

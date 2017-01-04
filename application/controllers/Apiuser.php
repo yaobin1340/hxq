@@ -890,52 +890,52 @@ class Apiuser extends MY_APIcontroller {
 
 	public function order_pay(){
 		if(!trim($this->input->post('address_id'))){
-			$this->err_rs['error_msg']='1地址编号不能为空！';
+			$this->err_rs['error_msg']='地址编号不能为空！';
 			echo json_encode($this->err_rs);
 			die();
 		}
 		$pay_code = $this->input->post('pay_code');
 		if($pay_code != 'wechatpay' && $pay_code != 'alipay'){
-			$this->err_rs['error_msg']='2支付类型不存在!';
+			$this->err_rs['error_msg']='支付类型不存在!';
 			echo json_encode($this->err_rs);
 			die();
 		}
 		if(!trim($this->input->post('order_id'))){
-			$this->err_rs['error_msg']='3主订单编号不能为空！';
+			$this->err_rs['error_msg']='主订单编号不能为空！';
 			echo json_encode($this->err_rs);
 			die();
 		}
 		$order_info = $this->apiuser_model->find_yy('user_order',$this->input->post('order_id'));
 		if(!$order_info){
-			$this->err_rs['error_msg']='4订单不存在!';
+			$this->err_rs['error_msg']='订单不存在!';
 			echo json_encode($this->err_rs);
 			die();
 		}
 		if($order_info['uid'] != $this->app_uid){
-			$this->err_rs['error_msg']='5订单不属于自己!';
+			$this->err_rs['error_msg']='订单不属于自己!';
 			echo json_encode($this->err_rs);
 			die();
 		}
 
 		$res = $this->apiuser_model->save_orderByPay($this->app_uid);
 		if($res == -4){
-			$this->err_rs['error_msg']='6订单不存在!';
+			$this->err_rs['error_msg']='订单不存在!';
 			echo json_encode($this->err_rs);
 			die();
 		}else if($res == -2){
-			$this->err_rs['error_msg']='7选择的收货地址异常!';
+			$this->err_rs['error_msg']='选择的收货地址异常!';
 			echo json_encode($this->err_rs);
 			die();
 		}else if($res == -3){
-			$this->err_rs['error_msg']='8订单内商品均已下架后售完!';
+			$this->err_rs['error_msg']='订单内商品均已下架后售完!';
 			echo json_encode($this->err_rs);
 			die();
 		}else if($res == -5){
-			$this->err_rs['error_msg']='9订单状态不为 待付款状态!';
+			$this->err_rs['error_msg']='订单状态不为 待付款状态!';
 			echo json_encode($this->err_rs);
 			die();
 		}else if($res <= 0){
-			$this->err_rs['error_msg']='0操作异常!';
+			$this->err_rs['error_msg']='操作异常!';
 			echo json_encode($this->err_rs);
 			die();
 		}else{
@@ -947,9 +947,13 @@ class Apiuser extends MY_APIcontroller {
 				die();
 			}else{
 				if($pay_code == 'wechatpay'){
-					$this->redirect(site_url('/Apiwxpay/test1/').$this->input->post('order_id'));
+					redirect(site_url("Apiwxpay/APP_wxpay/{$this->input->post('order_id')}"));
 				}
-
+				if($pay_code == 'alipay'){
+					$this->err_rs['error_msg']='alipay 还在开发!';
+					echo json_encode($this->err_rs);
+					die();
+				}
 			}
 		}
 

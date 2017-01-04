@@ -931,7 +931,6 @@ class Apiuser_model extends MY_Model
         if(!$address){
             return -2;
         }
-
         $order_info = $this->db->select()->from('user_order')->where(array(
             'id'=>$this->input->post('order_id'),
             'uid'=>$app_uid
@@ -977,7 +976,6 @@ class Apiuser_model extends MY_Model
             ));
             return -3;
         }
-
         $this->db->trans_start();
         //先建立主订单
 
@@ -993,7 +991,7 @@ class Apiuser_model extends MY_Model
 
         //处理商品
         foreach ($goods_list as $key => $val) {
-            $new_total_price+=(int)$val['gg_price']*(int)$val['cart_num'];
+            $new_total_price+=(int)$val['good_price']*(int)$val['good_num'];
         }
 
         //最后保存主订单需要支付的金额,且 如果金额为0 则将订单状态改为-1
@@ -1052,6 +1050,7 @@ class Apiuser_model extends MY_Model
                     $update_data['use_integral']=$user_info['integral'];
                     $update_data['need_pay']=$new_total_price - $user_info['integral'];
                 }
+
             }else{
                 $use_integral = $old_total_integral;
                 if($use_integral > $new_total_price){
@@ -1080,6 +1079,7 @@ class Apiuser_model extends MY_Model
                 'id'=>$order_id,
                 'uid'=>$app_uid
             ))->update('user_order',$update_data);
+
         }
         $this->db->trans_complete();//------结束事务
         if ($this->db->trans_status() === FALSE) {
