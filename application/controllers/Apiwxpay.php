@@ -68,7 +68,7 @@ class Apiwxpay extends MY_APIcontroller {
             echo json_encode($rs);
             die();
         }
-        $param['body'] = '三客柚';
+        $param['body'] = '三客柚--在线支付';
         $param['attach'] = 'attach';
         $param['detail'] = "三客柚线上商城——微信支付";
         $param['out_trade_no'] = $res_order['id'];
