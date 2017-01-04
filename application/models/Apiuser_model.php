@@ -826,10 +826,15 @@ class Apiuser_model extends MY_Model
             return -2;
         }*/
         $cart_ids = $this->input->post('cart_ids');
-        if(!is_array($cart_ids)){
-            return -3;
-        }
 
+        if(!is_array($cart_ids)){
+            $arr = explode(",",$cart_ids);
+            if(!is_array($arr)){
+                return -3;
+            }else{
+                $cart_ids = $arr;
+            }
+        }
         $this->db->trans_start();
         //先建立主订单
         $data = array(
