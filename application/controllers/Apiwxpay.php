@@ -46,11 +46,7 @@ class Apiwxpay extends MY_APIcontroller {
 
     public function test1($order_id){
 
-       if($this->wxserver_model->change_order($order_id)){
-           echo 1;
-       }else{
-           echo 2;
-       }
+
     }
 
     public function JSAPI_wxpay($order_id){
@@ -196,7 +192,7 @@ class Apiwxpay extends MY_APIcontroller {
         $this->load->library('wxpay/Wechatpay',$this->wxconfig);
         $data_array = $this->wechatpay->get_back_data();
         if($data_array['result_code']=='SUCCESS' && $data_array['return_code']=='SUCCESS'){
-            if($this->wxserver_model->change_order($data_array['out_trade_no'])){
+            if($this->Apiwxpay_model->change_order($data_array['out_trade_no'])){
                 return 'SUCCESS';
             }else{
                 return 'FAIL';
