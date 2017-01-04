@@ -939,9 +939,18 @@ class Apiuser extends MY_APIcontroller {
 			echo json_encode($this->err_rs);
 			die();
 		}else{
-			$this->rs['user_order_id']=$res;
-			echo json_encode($this->rs);
-			die();
+			$order_info = $this->apiuser_model->find_yy('user_order',$this->input->post('order_id'));
+			if($order_info['status']==2){
+				$this->rs['status']=$order_info['status'];
+				$this->rs['user_order_id']=$res;
+				echo json_encode($this->rs);
+				die();
+			}else{
+				if($pay_code == 'wechatpay'){
+					$this->redirect(site_url('/Apiwxpay/test1/').$this->input->post('order_id'));
+				}
+
+			}
 		}
 
 	}
