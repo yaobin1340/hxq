@@ -895,7 +895,7 @@ class Apiuser extends MY_APIcontroller {
 			die();
 		}
 		$pay_code = $this->input->post('pay_code');
-		if($pay_code != 'wechatpay' && $pay_code != 'alipay'){
+		if($pay_code != 'wechatpay' && $pay_code != 'alipay' && $pay_code != 'wechatCodePay'){
 			$this->err_rs['error_msg']='2支付类型不存在!';
 			echo json_encode($this->err_rs);
 			die();
@@ -948,6 +948,9 @@ class Apiuser extends MY_APIcontroller {
 			}else{
 				if($pay_code == 'wechatpay'){
 					redirect(site_url("Apiwxpay/APP_wxpay/{$this->input->post('order_id')}"));
+				}
+				if($pay_code=='wechatCodePay'){
+					redirect(site_url("Apiwxpay/Code_wxpay/{$this->input->post('order_id')}"));
 				}
 				if($pay_code == 'alipay'){
 					$this->err_rs['error_msg']='alipay 还在开发!';

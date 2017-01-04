@@ -22,5 +22,10 @@ class Apiwxpay_model extends MY_Model
             return -1;
         }
     }
+
+    public function change_order($order_id){
+        $res = $this->db->where('id',$order_id)->update('user_order',array('status'=>2));
+        return $res;
+    }
  
 }

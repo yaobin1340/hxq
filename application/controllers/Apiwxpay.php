@@ -135,14 +135,54 @@ class Apiwxpay extends MY_APIcontroller {
         }
     }
 
+    public function Code_wxpay($order_id){
+        $res_order = $this->Apiwxpay_model->get_order($order_id);
+        if($res_order == -1){
+            $rs = array(
+                'success'=>false,
+                'error_msg'=>'订单支付失败',
+                'order_id'=>$order_id
+            );
+            echo json_encode($rs);
+            die();
+        }
+        $this->load->config('wxpay_config');
+        $wxconfig['appid']=$this->config->item('appid');
+        $wxconfig['mch_id']=$this->config->item('mch_id');
+        $wxconfig['apikey']=$this->config->item('apikey');
+        $wxconfig['appsecret']=$this->config->item('appsecret');
+        $wxconfig['sslcertPath']=$this->config->item('sslcertPath');
+        $wxconfig['sslkeyPath']=$this->config->item('sslkeyPath');
+        $this->load->library('wxpay/Wechatpay',$wxconfig);
+        $result = $this->wechatpay->getCodeUrl(
+            '三客柚',
+            $res_order['id'],
+            $res_order['need_pay'],
+            base_url()."/Apiwxpay/notify",
+            $res_order['id']
+        );
+        if($result){
+           var_dump($result);
+            die();
+        }else{
+            $rs = array(
+                'success'=>false,
+                'error_msg'=>'二维码创建失败',
+                'order_id'=>$order_id
+            );
+            echo json_encode($rs);
+            die();
+        }
+    }
+
     public function notify(){
         $this->load->library('wxpay/Wechatpay',$this->wxconfig);
         $data_array = $this->wechatpay->get_back_data();
         if($data_array['result_code']=='SUCCESS' && $data_array['return_code']=='SUCCESS'){
-            if($this->wxserver_model->change_order($data_array['out_trade_no'],'23')==-2){
-                return 'FAIL';
-            }else{
+            if($this->wxserver_model->change_order($data_array['out_trade_no'])){
                 return 'SUCCESS';
+            }else{
+                return 'FAIL';
             }
         }
     }
