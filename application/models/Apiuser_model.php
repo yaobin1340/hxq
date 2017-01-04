@@ -941,8 +941,8 @@ class Apiuser_model extends MY_Model
         if(!$order_info['status']!=1){
             return -5;
         }
-        $old_total_price = $order_info['total_price'];
-        $old_total_integral = $order_info['user_integral'];
+        $old_total_price = (int)$order_info['total_price'];
+        $old_total_integral = (int)$order_info['user_integral'];
         $new_total_price = 0;
         $update_data = array(
             'remark'=>$this->input->post('remark',true)

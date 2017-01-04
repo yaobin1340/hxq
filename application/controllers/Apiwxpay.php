@@ -140,7 +140,7 @@ class Apiwxpay extends MY_APIcontroller {
         if($res_order == -1){
             $rs = array(
                 'success'=>false,
-                'error_msg'=>'订单支付失败',
+                'error_msg'=>'1订单支付失败',
                 'order_id'=>$order_id
             );
             echo json_encode($rs);
@@ -167,7 +167,7 @@ class Apiwxpay extends MY_APIcontroller {
         }else{
             $rs = array(
                 'success'=>false,
-                'error_msg'=>'二维码创建失败',
+                'error_msg'=>'2二维码创建失败',
                 'order_id'=>$order_id
             );
             echo json_encode($rs);
