@@ -146,6 +146,16 @@ class Apiwxpay extends MY_APIcontroller {
             echo json_encode($rs);
             die();
         }
+        if($res_order == -2){
+            $rs = array(
+                'success'=>false,
+                'error_msg'=>'3订单已支付',
+                'order_id'=>$order_id
+            );
+            echo json_encode($rs);
+            die();
+        }
+        $pay_id = $this->Apiwxpay_model->save_pay_log($order_id);
         //$this->load->config('wxpay_config');
         $wxconfig['appid']=$this->config->item('appid');
         $wxconfig['mch_id']=$this->config->item('mch_id');
@@ -156,10 +166,10 @@ class Apiwxpay extends MY_APIcontroller {
         $this->load->library('wxpay/Wechatpay',$wxconfig);
         $result = $this->wechatpay->getCodeUrl(
             '三客柚',
-            $res_order['id'],
+            $pay_id,
             $res_order['need_pay'],
             base_url()."/Apiwxpay/notify",
-            $res_order['id']
+            $pay_id
         );
         if($result){
            var_dump($result);
