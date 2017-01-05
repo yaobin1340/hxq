@@ -94,6 +94,16 @@
             </ul>
         </li>
         {{/if}}
+        {{if 'f'|in_array:$permission}}
+        <li class="admin-parent">
+            <a class="am-cf" data-am-collapse="{parent: '#menuDiv', target: '#collapse-nav9'}">
+                <span class="am-icon-file"></span> 商城订单 <span class="am-icon-angle-right am-fr am-margin-right"></span>
+            </a>
+            <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav9">
+                <li><a href="javascript:open_content('/admin.php/user_order/list_orders');" class="am-cf menu"><span class="am-icon-check"></span> 订单列表</a></li>
+            </ul>
+        </li>
+        {{/if}}
         {{if $user_info.username == 'admin'}}
         <li class="admin-parent">
             <a class="am-cf" data-am-collapse="{parent: '#menuDiv', target: '#collapse-nav7'}">
