@@ -23,6 +23,7 @@ class Wxjssdk {
         if($_GET['shop_id'])
             $url = $url.'?shop_id='.$_GET['shop_id'];
 //        die($url);
+        $url = $_SERVER['HTTP_REFERER'];
         $timestamp = time();
         $nonceStr = $this->wxcreateNonceStr();
 
