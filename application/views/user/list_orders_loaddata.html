@@ -39,6 +39,11 @@
             <!--<p class="list_all_information"><span class="am-icon-map-marker list_all_information_name"></span>&nbsp;&nbsp;地址：{{$row.address}}</p>-->
 
             <p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;时间：{{$row.cdate}}</p>
+            <p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;购物凭证：</p>
+            <p class="list_all_information">
+                <img style="width: 200px;height: 200px;"
+                     {{if $row.GW}}src="{{$base_url}}upload/order_GW/{{$row.GW}}"{{/if}}>
+            </p>
             <p class="list_all_information" style="margin-left:-15px;">&nbsp;&nbsp;
                 {{if $row.status==1}}
                 <span class="am-icon-clock-o" style="color: #e57c76;font-size: 10px;">&nbsp;&nbsp;待提交</span>

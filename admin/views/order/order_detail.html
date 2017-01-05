@@ -144,6 +144,11 @@
                             <td>￥{{$row.price/100}}</td>
                             <td>{{$row.cdate}}</td>
                         </tr>
+                    <tr>
+                        <td colspan="4"><img style="width: 300px;height: 300px;"
+                        {{if $row.GW}}src="{{$base_url}}upload/order_GW/{{$row.GW}}"{{/if}}
+                        ></td>
+                    </tr>
                     {{/foreach}}
                 </tbody>
             </table>

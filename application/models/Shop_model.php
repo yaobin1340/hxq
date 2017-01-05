@@ -188,7 +188,7 @@ class Shop_model extends MY_Model
         }
     }
 
-    public function save_order(){
+    public function save_order($order_GW){
         $user_flag = $this->input->post('user_flag');
         $price = $this->input->post('price')*100;
 
@@ -228,6 +228,7 @@ class Shop_model extends MY_Model
             'mobile'=>$user_info->mobile,
             'price'=>$price,
             'shop_id'=>$this->session->userdata('shop_id'),
+            'GW'=>$order_GW,
             'status'=>1,
             'oid'=>$oid,
             'cdate'=>date('Y-m-d H:i:s',time())

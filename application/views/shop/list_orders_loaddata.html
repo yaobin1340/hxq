@@ -35,6 +35,11 @@
             <p class="list_all_information"><span class="am-icon-phone list_all_information_mobile"></span>&nbsp;&nbsp;手机：{{$row.mobile}}</p>
             <p class="list_all_information"><span class="am-icon-user list_all_information_name"></span>&nbsp;&nbsp;姓名：{{$row.rel_name}}</p>
             <p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;时间：{{$row.cdate}}</p>
+            <p class="list_all_information"><span class="am-icon-clock-o list_all_information_time"></span>&nbsp;&nbsp;购物凭证：</p>
+            <p class="list_all_information">
+                <img style="width: 200px;height: 200px;"
+                     {{if $row.GW}}src="{{$base_url}}upload/order_GW/{{$row.GW}}"{{/if}}>
+            </p>
             <p class="list_all_information">&nbsp;&nbsp;
                 {{if $row.status==1}}
                 <span style="color: red">待提交</span>
