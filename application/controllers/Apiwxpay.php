@@ -119,7 +119,6 @@ class Apiwxpay extends MY_APIcontroller {
         $param["trade_type"] = "APP";
         //统一下单，获取结果，结果是为了构造jsapi调用微信支付组件所需参数
         $result = $this->wechatpay->unifiedOrder($param);
-        die(var_dump($result));
         //如果结果是成功的我们才能构造所需参数，首要判断预支付id
 
         if (isset($result["prepay_id"]) && !empty($result["prepay_id"])) {
@@ -130,6 +129,13 @@ class Apiwxpay extends MY_APIcontroller {
             $data['pubid'] = $res_order;
             $data['orderid'] = $res_order;
             $this->load->view('wxhtml/jsapi', $data);
+        }else{
+            $rs = array(
+                'success'=>false,
+                'error_msg'=>$result
+            );
+            echo json_encode($rs);
+            die();
         }
     }
 
@@ -138,7 +144,7 @@ class Apiwxpay extends MY_APIcontroller {
         if($res_order == -1){
             $rs = array(
                 'success'=>false,
-                'error_msg'=>'1订单支付失败',
+                'error_msg'=>'订单支付失败',
                 'order_id'=>$order_id
             );
             echo json_encode($rs);
@@ -147,7 +153,7 @@ class Apiwxpay extends MY_APIcontroller {
         if($res_order == -2){
             $rs = array(
                 'success'=>false,
-                'error_msg'=>'3订单已支付',
+                'error_msg'=>'订单已支付',
                 'order_id'=>$order_id
             );
             echo json_encode($rs);
@@ -157,7 +163,7 @@ class Apiwxpay extends MY_APIcontroller {
         if($pay_id<=0){
             $rs = array(
                 'success'=>false,
-                'error_msg'=>'1订单支付失败',
+                'error_msg'=>'订单支付失败',
                 'order_id'=>$order_id
             );
             echo json_encode($rs);
@@ -179,12 +185,17 @@ class Apiwxpay extends MY_APIcontroller {
             $pay_id
         );
         if($result){
-           var_dump($result);
+            $rs = array(
+                'success'=>true,
+                'error_msg'=>'',
+                'pay_info'=>$result
+            );
+            echo json_encode($rs);
             die();
         }else{
             $rs = array(
                 'success'=>false,
-                'error_msg'=>'2二维码创建失败',
+                'error_msg'=>'二维码创建失败',
                 'order_id'=>$order_id
             );
             echo json_encode($rs);
