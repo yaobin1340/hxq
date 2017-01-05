@@ -27,8 +27,8 @@ class Apiweixin extends MY_APIcontroller {
 		}
 	}
 
-	public function buildWxData(){
-		$signPackage = $this->wxjssdk->wxgetSignPackage();
+	public function buildWxData($suffix){
+		$signPackage = $this->wxjssdk->wxgetSignPackage($suffix);
 		//变量
 		$data = array(
 			'success'=>true,
