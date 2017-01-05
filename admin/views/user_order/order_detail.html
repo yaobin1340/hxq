@@ -1,0 +1,192 @@
+<script type="text/javascript" charset="utf-8" src="/statics/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/statics/ueditor/ueditor.all.min.js"></script>
+<!-- content start -->
+<div class="admin-content">
+    <div class="am-cf am-padding">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">订单详情</strong> /
+            <small>User_order</small>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="am-g">
+
+        <div class="am-u-sm-12 am-u-md-4 am-u-md-push-8">
+
+        </div>
+        <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
+            <form class="am-form am-form-horizontal" method="post" action="{{site_url url='user_order/save_order'}}">
+                <label class="am-u-sm-2 am-form-label">用户名称</label>
+                <div class="am-form-group">
+                    <div class="am-u-sm-10">
+                        {{$data.head.rel_name}}
+                        <input type="hidden" name="id" value="{{$data.head.id}}">
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label class="am-u-sm-2 am-form-label">总金额</label>
+                    <div class="am-u-sm-10">
+                        {{$data.head.total_price/100}}元
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label class="am-u-sm-2 am-form-label">用葵花籽</label>
+                    <div class="am-u-sm-10">
+                        {{$data.head.use_integral/100}}元
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label class="am-u-sm-2 am-form-label">需支付</label>
+                    <div class="am-u-sm-10">
+                        {{$data.head.total_price/100}}元
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label class="am-u-sm-2 am-form-label">购买商品</label>
+                    <div class="am-u-sm-10">
+                        <button type="button" class="am-btn am-btn-danger am-btn-xs" data-am-modal="{target: '#my-popup'}">
+                            明细
+                        </button>
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label class="am-u-sm-2 am-form-label">买家留言</label>
+                    <div class="am-u-sm-10">
+                        {{$data.head.remark}}
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label class="am-u-sm-2 am-form-label">地址信息</label>
+                    <div class="am-u-sm-10">
+                        {{if !empty($data.address_info) }}
+                        收货地址:{{$data.address_info.address}}<br/>
+                        收件人:{{$data.address_info.person}}<br/>
+                        联系电话:{{$data.address_info.phone}}<br/>
+                        邮编:{{$data.address_info.zip}}<br/>
+                        {{/if}}
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label class="am-u-sm-2 am-form-label">创建时间</label>
+                    <div class="am-u-sm-10">
+                        {{$data.head.cdate}}
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label class="am-u-sm-2 am-form-label">付款时间</label>
+                    <div class="am-u-sm-10">
+                        {{$data.head.pay_date}}
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label class="am-u-sm-2 am-form-label">发货时间</label>
+                    <div class="am-u-sm-10">
+                        {{$data.head.fahou_date}}
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label class="am-u-sm-2 am-form-label">收货时间</label>
+                    <div class="am-u-sm-10">
+                        {{$data.head.sh_date}}
+                    </div>
+                </div>
+
+
+                <div class="am-form-group">
+                    <label class="am-u-sm-2 am-form-label">状态</label>
+                    <div class="am-u-sm-10">
+                        {{if $data.head.status ==1}}
+                            <font color="red">待付款</font>
+                        {{else if $data.head.status ==2}}
+                            <font color="green">待发货</font>
+                        {{else if $data.head.status ==3}}
+                        <font color="green">带收货</font>
+                        {{else if $data.head.status ==4}}
+                        <font color="green">带评论</font>
+                        {{else if $data.head.status ==5}}
+                        <font color="green">订单完成</font>
+                        {{else}}
+                            <font color="red">订单异常</font>
+                        {{/if}}
+                    </div>
+                </div>
+
+                {{if $data.head.status ==2}}
+                <div class="am-form-group">
+                    <label class="am-u-sm-2 am-form-label">快递单号</label>
+                    <div class="am-u-sm-10">
+
+                    </div>
+                </div>
+                {{/if}}
+                <div class="am-form-group">
+                    <div class="am-u-sm-9 am-u-sm-push-3">
+                        <button type="submit" class="am-btn am-btn-danger" id="doc-confirm-toggle">提交</button>
+                        <a class="am-btn am-btn-default" href="{{site_url url='order/list_orders'}}/{{$page}}">返回</a>
+                    </div>
+                </div>
+
+            </form>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="am-popup" id="my-popup">
+    <div class="am-popup-inner">
+        <div class="am-popup-hd">
+            <h4 class="am-popup-title">订单明细</h4>
+            <span data-am-modal-close class="am-close">&times;</span>
+        </div>
+        <div class="am-popup-bd">
+            <table class="am-table am-table-striped am-table-hover table-main">
+                {{if !empty($data.list) }}
+                {{foreach from=$data.list item=row}}
+                <tr style="color: #00CC00;font-size: large">
+                    <td>商品名称</td>
+                    <td>商品规格</td>
+                    <td>购买数量</td>
+                    <td>商品单位</td>
+                    <td>商品单价</td>
+                </tr>
+                <tr>
+                    <td>{{$row.good_name}}</td>
+                    <td>{{$row.gg_name}}</td>
+                    <td>{{$row.good_num}}</td>
+                    <td>{{$row.good_unit}}</td>
+                    <td>￥{{$row.good_price/100}}</td>
+                </tr>
+                <tr style="color: #00CC00;font-size: large">
+                    <td>商品购买须知</td>
+                    <td colspan="4">商品介绍</td>
+                </tr>
+                <tr>
+                    <td>{{$row.good_gmxz}}</td>
+                    <td colspan="4">{{$row.good_demo}}</td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <img style="width: 300px" {{if !empty($row.good_logo) }} src="/upload/goods_logo/{{$row.good_logo}}"{{/if}}>
+                    </td>
+                </tr>
+                {{/foreach}}
+                {{/if}}
+            </table>
+        </div>
+    </div>
+</div>
+
