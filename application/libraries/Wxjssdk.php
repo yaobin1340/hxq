@@ -22,7 +22,7 @@ class Wxjssdk {
             $url = $url.'/'.$suffix;
         if($_GET['shop_id'])
             $url = $url.'?shop_id='.$_GET['shop_id'];
-        die($url);
+//        die($url);
         $timestamp = time();
         $nonceStr = $this->wxcreateNonceStr();
 
