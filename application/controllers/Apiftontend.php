@@ -494,4 +494,22 @@ class Apiftontend extends MY_APIcontroller {
 		echo json_encode($rs);
 		die();
 	}
+
+	public function use_QQmap(){
+		$lat = $this->input->post('lat');
+		$lng = $this->input->post('lng');
+		$res = file_get_contents("http://apis.map.qq.com/ws/geocoder/v1/?location={$lat},{$lng}&get_poi=1&key=JFOBZ-HYWWW-T3XR3-OA5ZK-BYBP3-2JF2F");//百度API
+		$obj=json_decode($res);
+
+		if($obj->status=='0'){
+			$data = (int)$obj->result->ad_info->adcode;
+			if($data){
+				echo json_encode((int)$data);
+			}else{
+				echo json_encode(-1);
+			}
+		}else{
+			echo json_encode(-1);
+		}
+	}
 }

@@ -826,15 +826,21 @@ class Apiuser_model extends MY_Model
             return -2;
         }*/
         $cart_ids = $this->input->post('cart_ids');
-        if(!is_array($cart_ids)){
-            return -3;
-        }
 
+        if(!is_array($cart_ids)){
+            $arr = explode(",",$cart_ids);
+            if(!is_array($arr)){
+                return -3;
+            }else{
+                $cart_ids = $arr;
+            }
+        }
         $this->db->trans_start();
         //先建立主订单
         $data = array(
             'uid'=>$app_uid,
             'cdate'=>date('Y-m-d H:i:s'),
+            'pay_code'=>$this->input->post('pay_code'),
             'remark'=>$this->input->post('remark',true)
         );
         $this->db->insert('user_order',$data);
@@ -847,7 +853,7 @@ class Apiuser_model extends MY_Model
                 ->join('goods_gg c','a.gg_id = c.id','inner')
                 ->where('a.uid',$app_uid)
                 ->where('c.gg_kc >',0)
-                ->where('a.id',$val)->get()->row_array();
+                ->where('a.id',(int)$val)->get()->row_array();
 
             if($good_info){
                 $order_detail = array(
@@ -869,7 +875,7 @@ class Apiuser_model extends MY_Model
                 }
                 $this->db->where(array(
                     'uid'=>$app_uid,
-                    'id'=>$val
+                    'id'=>(int)$val
                 ))->delete('user_cart');//删除购物车信息
             }
         }
@@ -918,12 +924,44 @@ class Apiuser_model extends MY_Model
     }
 
     public function save_orderByPay($app_uid){
-        $address = $this->db->select()->from('user_address')->where(array(
+        $order_address = $this->db->select()->from('user_order_address')->where(array(
+            'uo_id'=>$this->input->post('order_id')
+        ))->get()->row_array();
+        if(!$order_address){
+            if(!trim($this->input->post('address_id'))){
+               return -6;
+            }
+            $address = $this->db->select()->from('user_address')->where(array(
+                'id'=>$this->input->post('address_id'),
+                'uid'=>$app_uid
+            ))->get()->row_array();
+            if(!$address){
+                return -2;
+            }
+            $this->db->insert('user_order_address',array(
+                'uo_id'=>$this->input->post('order_id'),
+                'address'=>$address['address'],
+                'zip'=>$address['zip'],
+                'person'=>$address['person'],
+                'phone'=>$address['phone']
+            ));
+        }else{
+            if($this->input->post('address_id')){
+                $address = $this->db->select()->from('user_address')->where(array(
                     'id'=>$this->input->post('address_id'),
                     'uid'=>$app_uid
                 ))->get()->row_array();
-        if(!$address){
-            return -2;
+                if($address){
+                    $this->db->where('uo_id',$this->input->post('order_id'))->delete('user_order_address');
+                    $this->db->insert('user_order_address',array(
+                        'uo_id'=>$this->input->post('order_id'),
+                        'address'=>$address['address'],
+                        'zip'=>$address['zip'],
+                        'person'=>$address['person'],
+                        'phone'=>$address['phone']
+                    ));
+                }
+            }
         }
 
         $order_info = $this->db->select()->from('user_order')->where(array(
@@ -936,11 +974,12 @@ class Apiuser_model extends MY_Model
         if(!$order_info['status']!=1){
             return -5;
         }
-        $old_total_price = $order_info['total_price'];
-        $old_total_integral = $order_info['user_integral'];
+        $old_total_price = (int)$order_info['total_price'];
+        $old_total_integral = (int)$order_info['user_integral'];
         $new_total_price = 0;
         $update_data = array(
-            'remark'=>$this->input->post('remark',true)
+            'remark'=>$this->input->post('remark',true),
+            'pay_code'=>$this->input->post('pay_code')
         );
         $order_id = $this->input->post('order_id');
         //校验是否 商品都不存在
@@ -971,23 +1010,17 @@ class Apiuser_model extends MY_Model
             ));
             return -3;
         }
-
         $this->db->trans_start();
         //先建立主订单
 
         //保存订单地址
-         $this->db->insert('user_order_address',array(
-            'uo_id'=>$order_id,
-             'address'=>$address['address'],
-             'zip'=>$address['zip'],
-             'person'=>$address['person'],
-             'phone'=>$address['phone']
-         ));
+        //$order_address = $this->db->select()->from('user_order_address')
+
 
 
         //处理商品
         foreach ($goods_list as $key => $val) {
-            $new_total_price+=(int)$val['gg_price']*(int)$val['cart_num'];
+            $new_total_price+=(int)$val['good_price']*(int)$val['good_num'];
         }
 
         //最后保存主订单需要支付的金额,且 如果金额为0 则将订单状态改为-1
@@ -1019,6 +1052,9 @@ class Apiuser_model extends MY_Model
                 $use_integral = $this->input->post('use_integral');
                 $use_integral = $use_integral ? $use_integral : 0;
                 $use_integral = (int)($use_integral*100);
+                if($new_total_price < $use_integral){
+                    $use_integral = $new_total_price;
+                }
                 if($user_info['integral']>=$use_integral){
                     $this->db->where('id',$app_uid);
                     $this->db->set('integral',"integral - {$use_integral}",false);
@@ -1046,12 +1082,13 @@ class Apiuser_model extends MY_Model
                     $update_data['use_integral']=$user_info['integral'];
                     $update_data['need_pay']=$new_total_price - $user_info['integral'];
                 }
+
             }else{
                 $use_integral = $old_total_integral;
                 if($use_integral > $new_total_price){
                     $tuihuan = $use_integral - $old_total_price;
                     $this->db->where('id',$app_uid);
-                    $this->db->set('integral',"integral - {$tuihuan}",false);
+                    $this->db->set('integral',"integral + {$tuihuan}",false);
                     $this->db->update('users');
                     $this->db->insert('money_log',array(
                         'remark'=>'订单返回 葵花籽',
@@ -1074,6 +1111,7 @@ class Apiuser_model extends MY_Model
                 'id'=>$order_id,
                 'uid'=>$app_uid
             ))->update('user_order',$update_data);
+
         }
         $this->db->trans_complete();//------结束事务
         if ($this->db->trans_status() === FALSE) {

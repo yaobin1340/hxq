@@ -193,7 +193,13 @@ class Apishop extends MY_APIcontroller {
 	public function save_order(){
 		unset($this->rs['user_info']);
 		unset($this->rs['shop_info']);
-		$rs = $this->apishop_model->save_order($this->app_uid,$this->shop_id);
+		$order_GW = $this->upload('order_GW','GW');
+		if(!$order_GW){
+			$this->err_rs['error_msg']='购物凭证未上传!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$rs = $this->apishop_model->save_order($this->app_uid,$this->shop_id,$order_GW);
 		if($rs == 1){
 			echo json_encode($this->rs);
 			die();
