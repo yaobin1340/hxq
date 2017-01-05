@@ -20,6 +20,7 @@ class Wxjssdk {
         $url = $_SERVER['HTTP_REFERER'];
         if($suffix)
             $url = $url.'/'.$suffix;
+        die($url);
         $timestamp = time();
         $nonceStr = $this->wxcreateNonceStr();
 
