@@ -17,7 +17,7 @@ class Wxjssdk {
 
         // 注意 URL 一定要动态获取，不能 hardcode.
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-        $url = "http://fd.jiangsuwxw.com/".$suffix;
+        $url = "http://fd.jiangsuwxw.com/".$suffix."?shop_id=59";
 
         $timestamp = time();
         $nonceStr = $this->wxcreateNonceStr();
