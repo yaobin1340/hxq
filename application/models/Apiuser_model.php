@@ -1242,6 +1242,23 @@ class Apiuser_model extends MY_Model
         //获取总记录数
         $this->db->select('count(distinct(a.id)) as num')->from('user_order a');
         $this->db->join('user_order_detail b',"b.uo_id = a.id",'inner');
+        switch ($this->input->post('flag'))
+        {
+            case 1:
+                $this->db->where_in('a.status',array(1,2));
+                break;
+            case 3:
+                $this->db->where('a.status',3);
+                break;
+            case 4:
+                $this->db->where('a.status',4);
+                break;
+            case 5:
+                $this->db->where('a.status',5);
+                break;
+            default:
+                $this->db->where('a.status >',0);
+        }
         $this->db->where('a.status >',0);
         $this->db->where('a.uid',$app_uid);
         $num = $this->db->get()->row();
@@ -1253,6 +1270,23 @@ class Apiuser_model extends MY_Model
         $this->db->join('user_order_detail b',"b.uo_id = a.id",'inner');
         $this->db->where('a.status >',0);
         $this->db->where('a.uid',$app_uid);
+        switch ($this->input->post('flag'))
+        {
+            case 1:
+                $this->db->where_in('a.status',array(1,2));
+                break;
+            case 3:
+                $this->db->where('a.status',3);
+                break;
+            case 4:
+                $this->db->where('a.status',4);
+                break;
+            case 5:
+                $this->db->where('a.status',5);
+                break;
+            default:
+                $this->db->where('a.status >',0);
+        }
         $this->db->limit($data['limit'], $offset = ($page - 1) * $data['limit']);
         $this->db->group_by('a.id');
         $this->db->order_by('a.id','desc');
