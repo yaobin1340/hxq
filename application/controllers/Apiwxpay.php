@@ -128,7 +128,7 @@ class Apiwxpay extends MY_APIcontroller {
     }
 
     public function APP_wxpay($order_id=null){
-        if($order_id){
+        if(!$order_id){
             $order_id=$this->input->post('order_id');
         }
         $this->load->library('wxpay/Wechatpay',$this->wxconfig);
@@ -250,6 +250,37 @@ class Apiwxpay extends MY_APIcontroller {
                 return 'SUCCESS';
             }else{
                 return 'FAIL';
+            }
+        }
+    }
+
+    protected function refund($id="")
+    {
+        if ($id == "") {
+            //方便我手动调用退单
+            $id = $this->uri->segment(3);
+        }
+        if (isset($id) && $id != "") {
+            //1、取消订单可以退款。2、失败订单可以退款
+            $pub = $this->wxserver_model->order_info($id);
+            if ($pub) {
+                $listno = $id;
+                $fee = $pub['qty'];
+                $this->load->library('wxpay/Wechatpay',$this->wxconfig);
+                if (isset($listno) && $listno != "") {
+                    $out_trade_no = $listno;
+                    $total_fee = $fee * 100;
+                    $refund_fee = $fee * 100;
+                    //自定义商户退单号
+                    $out_refund_no = $this->wxconfig['mch_id'] . date("YmdHis");
+                    $result = $this->wechatpay->refund($out_trade_no, $out_refund_no, $total_fee, $refund_fee, $this->wxconfig['mch_id']);
+                    //log::DEBUG(json_encode($result));
+                    if (isset($result["return_code"]) && $result["return_code"] = "SUCCESS" && isset($result["result_code"]) && $result["result_code"] = "SUCCESS") {
+                        echo 'YES';
+                    }else{
+                        echo 'NG';
+                    }
+                }
             }
         }
     }
