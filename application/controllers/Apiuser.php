@@ -889,12 +889,12 @@ class Apiuser extends MY_APIcontroller {
 	}
 
 	public function order_pay(){
-		$pay_code = $this->input->post('pay_code');
+		/*$pay_code = $this->input->post('pay_code');
 		if($pay_code != 'wechatpay' && $pay_code != 'alipay' && $pay_code != 'wechatCodePay'){
 			$this->err_rs['error_msg']='支付类型不存在!';
 			echo json_encode($this->err_rs);
 			die();
-		}
+		}*/
 		if(!trim($this->input->post('order_id'))){
 			$this->err_rs['error_msg']='主订单编号不能为空！';
 			echo json_encode($this->err_rs);
@@ -939,11 +939,12 @@ class Apiuser extends MY_APIcontroller {
 			die();
 		}else{
 			$order_info = $this->apiuser_model->find_yy('user_order',$this->input->post('order_id'));
-			if($order_info['status']==2){
-				$this->rs['status']=$order_info['status'];
-				$this->rs['user_order_id']=$res;
-				echo json_encode($this->rs);
-				die();
+			$this->rs['status']=$order_info['status'];
+			$this->rs['user_order_id']=$res;
+			echo json_encode($this->rs);
+			die();
+			/*if($order_info['status']==2){
+
 			}else{
 				if($pay_code == 'wechatpay'){
 					redirect(site_url("Apiwxpay/APP_wxpay/{$this->input->post('order_id')}"));
@@ -956,9 +957,45 @@ class Apiuser extends MY_APIcontroller {
 					echo json_encode($this->err_rs);
 					die();
 				}
-			}
+			}*/
 		}
 
+	}
+
+	public function order_pay2(){
+		$pay_code = $this->input->post('pay_code');
+		if($pay_code != 'wechatpay' && $pay_code != 'alipay' && $pay_code != 'wechatCodePay'){
+			$this->err_rs['error_msg']='支付类型不存在!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if(!trim($this->input->post('order_id'))){
+			$this->err_rs['error_msg']='主订单编号不能为空！';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		$order_info = $this->apiuser_model->find_yy('user_order',$this->input->post('order_id'));
+		if(!$order_info){
+			$this->err_rs['error_msg']='订单不存在!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if($order_info['uid'] != $this->app_uid){
+			$this->err_rs['error_msg']='订单不属于自己!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if($pay_code == 'wechatpay'){
+			redirect(site_url("Apiwxpay/APP_wxpay/{$this->input->post('order_id')}"));
+		}
+		if($pay_code=='wechatCodePay'){
+			redirect(site_url("Apiwxpay/Code_wxpay/{$this->input->post('order_id')}"));
+		}
+		if($pay_code == 'alipay'){
+			$this->err_rs['error_msg']='alipay 还在开发!';
+			echo json_encode($this->err_rs);
+			die();
+		}
 	}
 
 }

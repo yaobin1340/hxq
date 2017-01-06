@@ -32,12 +32,12 @@ class Apiwxpay_model extends MY_Model
     public function save_pay_log($order_id){
         $this->db->select()->from('user_order');
         $this->db->where('id',$order_id);
-        $this->db->where('status',1);
+        $this->db->where('status',2);
         $row = $this->db->get()->row_array();
         if($row){
             if($row['need_pay']<=0){
                 $this->db->where('id',$order_id);
-                $this->db->update('user_order',array('status',2));
+                $this->db->update('user_order',array('status',3));
                 return -2;
             }else{
                 $this->db->insert('pay_log',array(
@@ -60,7 +60,7 @@ class Apiwxpay_model extends MY_Model
         }
         $this->db->trans_start();
         $this->db->where('id',$order_id)->update('pay_log',array('flag'=>1));
-        $this->db->where('id',$pay_log['uo_id'])->update('user_order',array('status'=>2));
+        $this->db->where('id',$pay_log['uo_id'])->update('user_order',array('status'=>3));
         $this->db->trans_complete();//------结束事务
         if ($this->db->trans_status() === FALSE) {
             return false;

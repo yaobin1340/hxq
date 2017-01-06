@@ -1105,6 +1105,12 @@ class Apiuser_model extends MY_Model
             }
 
             if($update_data['need_pay'] == 0){
+                $update_data['status']=3;
+            }
+            if($update_data['need_pay'] < 0){
+                $update_data['status']=-1;
+            }
+            if($update_data['need_pay'] > 0){
                 $update_data['status']=2;
             }
             $this->db->where(array(

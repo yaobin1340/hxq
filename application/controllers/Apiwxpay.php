@@ -139,7 +139,7 @@ class Apiwxpay extends MY_APIcontroller {
         }
     }
 
-    public function Code_wxpay($order_id){
+    public function Code_wxpay($order_id,$pay_code='wechatCodePay'){
         $res_order = $this->Apiwxpay_model->get_order($order_id);
         if($res_order == -1){
             $rs = array(
@@ -188,6 +188,7 @@ class Apiwxpay extends MY_APIcontroller {
             $rs = array(
                 'success'=>true,
                 'error_msg'=>'',
+                'pay_code'=>$pay_code,
                 'pay_info'=>$result
             );
             echo json_encode($rs);
@@ -196,7 +197,6 @@ class Apiwxpay extends MY_APIcontroller {
             $rs = array(
                 'success'=>false,
                 'error_msg'=>'二维码创建失败',
-                'order_id'=>$order_id
             );
             echo json_encode($rs);
             die();
