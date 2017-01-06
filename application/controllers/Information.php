@@ -29,6 +29,6 @@ class Information extends CI_Controller
         $this->cismarty->assign('data', $data);
         $this->cismarty->assign('ysday', $ysday);
         $this->cismarty->assign('footer_flag', 5);
-        $this->cismarty->display('frontend/show_information.html');
+        $this->cismarty->display('frontend/show_information_public.html');
     }
 }
