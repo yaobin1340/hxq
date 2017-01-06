@@ -364,7 +364,7 @@ class Frontend extends MY_Controller {
         $this->assign('data', $data);
         $this->assign('ysday', $ysday);
         $this->assign('footer_flag', 5);
-        $this->display('frontend/show_information.html');
+        $this->display('frontend/show_information_public.html');
     }
 
     public function test(){
