@@ -176,7 +176,7 @@ class Apiwxpay extends MY_APIcontroller {
     }
 
     public function Code_wxpay($order_id=null,$pay_code='wechatCodePay'){
-        if($order_id){
+        if(!$order_id){
             $order_id=$this->input->post('order_id');
         }
         $res_order = $this->Apiwxpay_model->get_order($order_id);
