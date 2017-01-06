@@ -1236,4 +1236,8 @@ class Apiuser_model extends MY_Model
         }
 
     }
+
+    public function user_order_list($app_uid,$page){
+
+    }
 }

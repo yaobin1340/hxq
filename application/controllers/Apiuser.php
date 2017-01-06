@@ -998,4 +998,12 @@ class Apiuser extends MY_APIcontroller {
 		}
 	}
 
+	public function get_user_order(){
+		$page = $this->input->post('page')?$this->input->post('page'):1;
+		$data = $this->apiuser_model->user_order_list($this->app_uid,$page);
+		$this->rs['order_list']=$data['items'];
+		echo json_encode($this->rs);
+		die();
+	}
+
 }

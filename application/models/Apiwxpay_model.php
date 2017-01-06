@@ -14,12 +14,12 @@ class Apiwxpay_model extends MY_Model
     public function get_order($order_id){
         $this->db->select()->from('user_order');
         $this->db->where('id',$order_id);
-        $this->db->where('status',1);
+        $this->db->where('status',2);
         $row = $this->db->get()->row_array();
         if($row){
             if($row['need_pay']<=0){
                 $this->db->where('id',$order_id);
-                $this->db->update('user_order',array('status',2));
+                $this->db->update('user_order',array('status',3));
                 return -2;
             }else{
                 return $row;
