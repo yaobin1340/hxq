@@ -16,28 +16,19 @@ class Information extends CI_Controller
 
     public function index()
     {
-        echo '1';
         $data = $this->frontend_model->show_information();
-        echo '2';
         $ysday = $this->frontend_model->yesterday_info();
-        echo '3';
         $jukuan = $this->frontend_model->jukuan();
-        echo '4';
         $phangcity= $this->frontend_model->phang_city();
-        echo '5';
         $phangcompany= $this->frontend_model->phang_company();
-        echo '6';
         $lminfo = $this->frontend_model->lminfo();
-        echo '7';
-        $this->cismatry->assign('lminfo', $lminfo);
-        echo '8';
-        $this->cismatry->assign('phangcity', $phangcity);
-        echo '9';
-        $this->cismatry->assign('phangcompany', $phangcompany);
-        $this->cismatry->assign('jukuan', $jukuan);
-        $this->cismatry->assign('data', $data);
-        $this->cismatry->assign('ysday', $ysday);
-        $this->cismatry->assign('footer_flag', 5);
-        $this->cismatry->display('frontend/show_information.html');
+        $this->cismarty->assign('lminfo', $lminfo);
+        $this->cismarty->assign('phangcity', $phangcity);
+        $this->cismarty->assign('phangcompany', $phangcompany);
+        $this->cismarty->assign('jukuan', $jukuan);
+        $this->cismarty->assign('data', $data);
+        $this->cismarty->assign('ysday', $ysday);
+        $this->cismarty->assign('footer_flag', 5);
+        $this->cismarty->display('frontend/show_information.html');
     }
 }
