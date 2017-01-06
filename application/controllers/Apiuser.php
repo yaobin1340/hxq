@@ -985,6 +985,16 @@ class Apiuser extends MY_APIcontroller {
 			echo json_encode($this->err_rs);
 			die();
 		}
+		if($order_info['status'] == 1){
+			$this->err_rs['error_msg']='订单未确认!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+		if($order_info['status'] != 2){
+			$this->err_rs['error_msg']='订单状态不是待支付!';
+			echo json_encode($this->err_rs);
+			die();
+		}
 		if($pay_code == 'wechatpay'){
 			redirect(site_url("Apiwxpay/APP_wxpay/{$this->input->post('order_id')}"));
 		}
