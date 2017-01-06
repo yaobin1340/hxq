@@ -16,7 +16,6 @@ class Information extends CI_Controller
 
     public function index()
     {
-        $this->assign('header_name', '数据中心');
         $data = $this->frontend_model->show_information();
         $ysday = $this->frontend_model->yesterday_info();
         $jukuan = $this->frontend_model->jukuan();
