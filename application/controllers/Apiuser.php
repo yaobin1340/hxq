@@ -1009,6 +1009,7 @@ class Apiuser extends MY_APIcontroller {
 	}
 
 	public function get_user_order(){
+		unset($this->rs['user_info']);
 		$page = $this->input->post('page')?$this->input->post('page'):1;
 		$data = $this->apiuser_model->user_order_list($this->app_uid,$page);
 		$this->rs['order_list']=$data['items'];

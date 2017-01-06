@@ -1238,6 +1238,26 @@ class Apiuser_model extends MY_Model
     }
 
     public function user_order_list($app_uid,$page){
+        $data['limit'] = $this->limit;
+        //获取总记录数
+        $this->db->select('count(distinct(a.id)) as num')->from('user_order a');
+        $this->db->join('user_order_detail b',"b.uo_id = a.id",'inner');
+        $this->db->where('b.status >',0);
+        $this->db->where('a.uid',$app_uid);
+        $num = $this->db->get()->row();
+        $data['total'] = $num->num;
 
+        //搜索条件
+        //获取详细列
+        $this->db->select('a.*,b.good_logo,sum(b.good_num)')->from('user_order a');
+        $this->db->join('user_order_detail b',"b.uo_id = a.id",'inner');
+        $this->db->where('b.status >',0);
+        $this->db->where('a.uid',$app_uid);
+        $this->db->limit($data['limit'], $offset = ($page - 1) * $data['limit']);
+        $this->db->group_by('a.id');
+        $this->db->order_by('a.id','desc');
+        $data['items'] = $this->db->get()->result_array();
+
+        return $data;
     }
 }
