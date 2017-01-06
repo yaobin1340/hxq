@@ -44,6 +44,39 @@ class Apiwxpay extends MY_APIcontroller {
         $this->wxconfig['sslkeyPath']=$this->config->item('sslkeyPath');
     }
 
+    function _remap($method,$params = array()) {
+
+        if($method == 'wxpay'){
+            $pay_code = $this->input->post('pay_code');
+            if($pay_code == 'wechatpay'){
+                return call_user_func_array(array($this, 'APP_wxpay'), $params);
+            }
+            if($pay_code=='wechatCodePay'){
+                return call_user_func_array(array($this, 'Code_wxpay'), $params);
+            }
+            if($pay_code == 'alipay'){
+                $rs = array(
+                    'success'=>false,
+                    'error_msg'=>'alipay 还在开发!',
+                );
+                echo json_encode($rs);
+                die();
+            }
+        }else{
+            return call_user_func_array(array($this, $method), $params);
+        }
+
+
+    }
+
+    public function wxpay(){
+        $rs = array(
+            'success'=>false,
+            'error_msg'=>'支付类型不存在!',
+        );
+        echo json_encode($rs);
+        die();
+    }
     public function test1($order_id){
 
         /*if($this->Apiwxpay_model->change_order($order_id)){
@@ -94,7 +127,10 @@ class Apiwxpay extends MY_APIcontroller {
         }
     }
 
-    public function APP_wxpay($order_id){
+    public function APP_wxpay($order_id=null){
+        if($order_id){
+            $order_id=$this->input->post('order_id');
+        }
         $this->load->library('wxpay/Wechatpay',$this->wxconfig);
         $res_order = $this->Apiwxpay_model->get_order($order_id);
         if($res_order == -1){
@@ -139,7 +175,10 @@ class Apiwxpay extends MY_APIcontroller {
         }
     }
 
-    public function Code_wxpay($order_id,$pay_code='wechatCodePay'){
+    public function Code_wxpay($order_id=null,$pay_code='wechatCodePay'){
+        if($order_id){
+            $order_id=$this->input->post('order_id');
+        }
         $res_order = $this->Apiwxpay_model->get_order($order_id);
         if($res_order == -1){
             $rs = array(
