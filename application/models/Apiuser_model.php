@@ -1266,7 +1266,7 @@ class Apiuser_model extends MY_Model
 
         //搜索条件
         //获取详细列
-        $this->db->select('a.*,b.good_logo,sum(b.good_num) goods_pty')->from('user_order a');
+        $this->db->select('a.*,b.good_name,b.good_logo,sum(b.good_num) goods_pty')->from('user_order a');
         $this->db->join('user_order_detail b',"b.uo_id = a.id",'inner');
         $this->db->where('a.status >',0);
         $this->db->where('a.uid',$app_uid);
