@@ -978,7 +978,7 @@ class Apiuser_model extends MY_Model
         $old_total_integral = (int)$order_info['user_integral'];
         $new_total_price = 0;
         $update_data = array(
-            'remark'=>$this->input->post('remark',true),
+            'remark'=>$this->input->post('remark',true)?$this->input->post('remark',true):'',
             'pay_code'=>$this->input->post('pay_code')
         );
         $order_id = $this->input->post('order_id');
@@ -1266,7 +1266,7 @@ class Apiuser_model extends MY_Model
 
         //搜索条件
         //获取详细列
-        $this->db->select('a.*,b.good_name,b.good_logo,sum(b.good_num) goods_pty')->from('user_order a');
+        $this->db->select('a.*,b.good_name,b.gg_name,b.good_logo,sum(b.good_num) goods_pty')->from('user_order a');
         $this->db->join('user_order_detail b',"b.uo_id = a.id",'inner');
         $this->db->where('a.status >',0);
         $this->db->where('a.uid',$app_uid);
