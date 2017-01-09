@@ -331,4 +331,11 @@ class Apiftontend_model extends MY_Model{
         $this->db->order_by('id','asc');
         return $this->db->get()->result_array();
     }
+
+    public function get_BB(){
+        $this->db->select('*')->from('sys_BB');
+        $this->db->where('flag',1);
+        $this->db->order_by('id','desc');
+        return $this->db->get()->row_array();
+    }
 }

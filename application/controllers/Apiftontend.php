@@ -512,4 +512,39 @@ class Apiftontend extends MY_APIcontroller {
 			echo json_encode(-1);
 		}
 	}
+
+	public function check_BB(){
+		if(!$this->input->post('bb')){
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'版本编号不能为空!'
+			);
+			echo json_encode($rs);
+			die();
+		}
+		$sys_bb = $this->Apiftontend_model->get_BB();
+		if(!$sys_bb){
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'未获取到官方版本号!'
+			);
+			echo json_encode($rs);
+			die();
+		}
+		if($sys_bb['bb'] ==$this->input->post('bb')){
+			$rs = array(
+				'success'=>true,
+				'error_msg'=>''
+			);
+			echo json_encode($rs);
+			die();
+		}else{
+			$rs = array(
+				'success'=>false,
+				'error_msg'=>'版本不符合!'
+			);
+			echo json_encode($rs);
+			die();
+		}
+	}
 }
