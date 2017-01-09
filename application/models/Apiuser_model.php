@@ -841,7 +841,7 @@ class Apiuser_model extends MY_Model
             'uid'=>$app_uid,
             'cdate'=>date('Y-m-d H:i:s'),
             'pay_code'=>$this->input->post('pay_code'),
-            'remark'=>'选填'
+            'remark'=>' '
         );
         $this->db->insert('user_order',$data);
         $order_id = $this->db->insert_id();
