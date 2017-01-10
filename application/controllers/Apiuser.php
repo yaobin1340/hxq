@@ -365,12 +365,12 @@ class Apiuser extends MY_APIcontroller {
 	}
 
 	public function save_register_shop(){
-		$dataall = $this->input->post();
+		/*$dataall = $this->input->post();
 		$dataall['file'] = $_FILES;
 		// $dataall['app_uid']=$this->app_uid;
 		$open=fopen('/var/yy.txt',"a" );
 		fwrite($open,var_export($dataall,true));
-		fclose($open);
+		fclose($open);*/
 		unset($this->rs['user_info']);
 		if(!trim($this->input->post('shop_name'))){
 			$this->err_rs['error_msg']='商铺名称不能为空!';
