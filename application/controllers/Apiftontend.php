@@ -391,11 +391,13 @@ class Apiftontend extends MY_APIcontroller {
 		}
 		$shop_id = $this->input->post('shop_id');
 		$data = $this->Apiftontend_model->shop_details($shop_id);
+		$shop_imgs = $this->Apiftontend_model->get_shop_imgs_bysid($shop_id);
 		if($data){
 			$rs = array(
 				'success'=>true,
 				'error_msg'=>'',
-				'shop_detail'=>$data
+				'shop_detail'=>$data,
+				'shop_imgs'=>$shop_imgs
 			);
 		}else{
 			$rs = array(

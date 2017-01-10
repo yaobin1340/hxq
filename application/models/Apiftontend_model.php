@@ -338,4 +338,10 @@ class Apiftontend_model extends MY_Model{
         $this->db->order_by('id','desc');
         return $this->db->get()->row_array();
     }
+
+    public function get_shop_imgs_bysid($shop_id){
+        $this->db->select('*')->from('shop_img');
+        $this->db->where('shop_id',$shop_id);
+        return $this->db->get()->result_array();
+    }
 }
