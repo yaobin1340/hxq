@@ -73,6 +73,8 @@ class Apishop extends MY_APIcontroller {
 
 	public function shop_info(){
 		$sum_count_shop = $this->apishop_model->sum_count_shop($this->shop_id);
+		$shop_imgs = $this->apishop_model->get_shop_imgs($this->app_uid);
+		$this->rs['shop_imgs']=$shop_imgs;
 		$this->rs['sum_count_shop']=$sum_count_shop;
 		echo json_encode($this->rs);
 		die();
