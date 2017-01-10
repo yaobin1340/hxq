@@ -365,6 +365,7 @@ class Apiuser extends MY_APIcontroller {
 	}
 
 	public function save_register_shop(){
+		$this->load->library('upload');
 		/*$dataall = $this->input->post();
 		$dataall['file'] = $_FILES;
 		// $dataall['app_uid']=$this->app_uid;
