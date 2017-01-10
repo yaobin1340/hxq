@@ -111,29 +111,29 @@ class MY_APIcontroller extends CI_Controller
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
-        $dataall = array();
+       /* $dataall = array();
         $dataall['folder'] = $folder;
         $dataall['input_name'] = $input_name;
         $dataall['config'] = $config;
         $open=fopen('/var/yy.txt',"a" );
         fwrite($open,var_export($dataall,true));
-        fclose($open);
+        fclose($open);*/
         if ( ! $this->upload->do_upload($input_name))
         {
-            $dataall = array();
+           /* $dataall = array();
             $dataall['file_name'] = $this->upload->display_errors();
             $open=fopen('/var/yy.txt',"a" );
             fwrite($open,var_export($dataall,true));
-            fclose($open);
+            fclose($open);*/
             return '';
         }
         else
         {
-            $dataall = array();
+            /*$dataall = array();
             $dataall['file_name'] = $this->upload->data('file_name');
             $open=fopen('/var/yy.txt',"a" );
             fwrite($open,var_export($dataall,true));
-            fclose($open);
+            fclose($open);*/
             return $name.'/'.$this->upload->data('file_name');
 
         }
