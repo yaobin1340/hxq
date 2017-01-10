@@ -96,13 +96,13 @@ class MY_APIcontroller extends CI_Controller
 
     public function do_upload($folder = 'face',$input_name = 'img_input')
     {
-        /*$dataall = array();
+        $dataall = array();
         $dataall['folder'] = $folder;
         $dataall['input_name'] = $input_name;
         // $dataall['app_uid']=$this->app_uid;
         $open=fopen('/var/yy.txt',"a" );
         fwrite($open,var_export($dataall,true));
-        fclose($open);*/
+        fclose($open);
         $name = date('Y/m/d', time());
         //$img_name = $this->getRandChar(24);
         $dir = FCPATH . '/upload/'.$folder.'/' . $name . '/';
