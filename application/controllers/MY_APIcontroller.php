@@ -109,7 +109,7 @@ class MY_APIcontroller extends CI_Controller
         //$config['max_height']       = 768;
         $config['file_name']       = $this->getRandChar(24);
 
-        //$this->load->library('upload', $config);
+        $this->load->library('upload', $config);
         $this->upload->initialize($config);
        /* $dataall = array();
         $dataall['folder'] = $folder;
