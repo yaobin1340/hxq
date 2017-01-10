@@ -96,13 +96,9 @@ class MY_APIcontroller extends CI_Controller
 
     public function do_upload($folder = 'face',$input_name = 'img_input')
     {
-        $dataall = array();
-        $dataall['folder'] = $folder;
-        $dataall['input_name'] = $input_name;
+
         // $dataall['app_uid']=$this->app_uid;
-        $open=fopen('/var/yy.txt',"a" );
-        fwrite($open,var_export($dataall,true));
-        fclose($open);
+
         $name = date('Y/m/d', time());
         //$img_name = $this->getRandChar(24);
         $dir = FCPATH . '/upload/'.$folder.'/' . $name . '/';
@@ -112,8 +108,15 @@ class MY_APIcontroller extends CI_Controller
         //$config['max_width']        = 1024;
         //$config['max_height']       = 768;
         $config['file_name']       = $this->getRandChar(24);
-        $this->load->library('upload', $config);
 
+        $this->load->library('upload', $config);
+        $dataall = array();
+        $dataall['folder'] = $folder;
+        $dataall['input_name'] = $input_name;
+        $dataall['config'] = $config;
+        $open=fopen('/var/yy.txt',"a" );
+        fwrite($open,var_export($dataall,true));
+        fclose($open);
         if ( ! $this->upload->do_upload($input_name))
         {
             return '';
