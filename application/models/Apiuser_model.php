@@ -651,6 +651,19 @@ class Apiuser_model extends MY_Model
                     'img'=>$img
                 ));
             }
+        }else{
+            $arr = explode(",",$shop_img);
+            if(!is_array($arr)){
+                return '';
+            }else{
+                $this->db->where('shop_id',$shop_id)->delete('shop_img');
+                foreach($arr as $img){
+                    $this->db->insert('shop_img',array(
+                        'shop_id'=>$shop_id,
+                        'img'=>$img
+                    ));
+                }
+            }
         }
         return '';
     }
