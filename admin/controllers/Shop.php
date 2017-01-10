@@ -51,6 +51,8 @@ class Shop extends MY_Controller {
 
 	public function audit_shop($id){
 		$data = $this->shop_model->get_audit_shop($id);
+		$shop_imgs = $this->shop_model->get_shop_imgs($id);
+		$this->assign('shop_imgs', $shop_imgs);
 		$this->assign('data', $data);
 		$this->show('shop/audit_shop');
 	}
@@ -75,6 +77,8 @@ class Shop extends MY_Controller {
 
 	public function shop_detail($id){
 		$data = $this->shop_model->get_shop_detail($id);
+		$shop_imgs = $this->shop_model->get_shop_imgs($id);
+		$this->assign('shop_imgs', $shop_imgs);
 		$this->assign('data', $data);
 		$this->show('shop/shop_detail');
 	}

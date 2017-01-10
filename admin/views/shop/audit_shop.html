@@ -110,6 +110,29 @@
                 </div>
 
                 <div class="am-form-group">
+                    <label class="am-u-sm-2 am-form-label">商铺图片</label>
+                    <div class="div-bd div-bd1">
+                        <table cellpadding="0" cellsapcing="0" style="height: 150px" class="add-data-table add-data-table1">
+
+                            <tr>
+                                <td class="yy_div">
+                                    <ul style="height: 150px" id="uploadImgcontainer">
+                                        {{if !empty($shop_imgs) }}
+                                        {{foreach from=$shop_imgs item=item}}
+                                        <li style="margin-right: 2px">
+                                            <img src="{{$base_url}}upload/shop_img/{{$item->img}}" alert="" width="120" height="120" />
+                                        </li>
+                                        {{/foreach}}
+                                        {{/if}}
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+
+                <div class="am-form-group">
                     <label class="am-u-sm-2 am-form-label">推荐人</label>
                     <div class="am-u-sm-10">
                         {{$data.rel_name}}
