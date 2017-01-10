@@ -1018,6 +1018,7 @@ class Apiuser extends MY_APIcontroller {
 	}
 
 	public function save_shop_img(){
+		unset($this->rs['user_info']);
 		$img = $this->upload('shop_img','shop_img');
 		if($img){
 			$this->rs['img_path']=$img;
