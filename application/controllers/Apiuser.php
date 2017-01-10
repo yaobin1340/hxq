@@ -768,11 +768,11 @@ class Apiuser extends MY_APIcontroller {
 	}
 
 	public function save_orderByCart(){
-		$dataall = $this->input->post();
+		/*$dataall = $this->input->post();
 		$dataall['app_uid']=$this->app_uid;
        $open=fopen('/var/yy.txt',"a" );
        fwrite($open,var_export($dataall,true));
-       fclose($open);
+       fclose($open);*/
 		unset($this->rs['user_info']);
 		/*if(!trim($this->input->post('address_id'))){
 			$this->err_rs['error_msg']='地址编号不能为空！';
