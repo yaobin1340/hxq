@@ -619,8 +619,8 @@ class Apiuser_model extends MY_Model
 
         $shop = $this->db->select()->from('shop')->where("uid = $uid")->get()->row_array();
         if($shop){
-            $this->save_shop_img($shop['id']);
             if($this->db->where(array('id'=>$shop['id']))->update('shop',$data)){
+                $this->save_shop_img($shop['id']);
                 return 1;
             }else{
                 return -1;
@@ -636,8 +636,12 @@ class Apiuser_model extends MY_Model
         }
     }
 
+    /*public function test_simg($shop_id){
+        $this->save_shop_img($shop_id);
+    }*/
+
     protected function save_shop_img($shop_id){
-        $shop_img = $this->input->post('shop_img');
+        $shop_img = $this->input->post('shop_imgs');
         if(is_array($shop_img)){
             $this->db->where('shop_id',$shop_id)->delete('shop_img');
             foreach($shop_img as $img){

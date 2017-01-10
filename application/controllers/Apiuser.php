@@ -350,11 +350,14 @@ class Apiuser extends MY_APIcontroller {
 	public function register_shop(){
 		$this->load->model('apishop_model');
 		$shop_info = $this->apishop_model->get_shop_info($this->app_uid,false);
+		$shop_imgs = $this->apishop_model->get_shop_imgs($this->app_uid);
 		if($shop_info){
+			$this->rs['shop_imgs']=$shop_imgs;
 			$this->rs['shop_info']=$shop_info;
 			echo json_encode($this->rs);
 			die();
 		}else{
+			$this->rs['shop_imgs']=$shop_imgs;
 			$this->rs['shop_info']=(object)array();
 			echo json_encode($this->rs);
 			die();
@@ -1030,4 +1033,12 @@ class Apiuser extends MY_APIcontroller {
 			die();
 		}
 	}
+
+	/*public function test1(){
+		unset($this->rs['user_info']);
+		$page = $this->input->post('shop_id')?$this->input->post('shop_id'):1;
+		$data = $this->apiuser_model->test_simg($page);
+		echo json_encode($this->rs);
+		die();
+	}*/
 }

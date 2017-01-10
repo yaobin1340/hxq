@@ -24,6 +24,13 @@ class Apishop_model extends MY_Model
         return $this->db->get()->row_array();
     }
 
+    public function get_shop_imgs($app_uid){
+        $this->db->select('a.*')->from('shop_img a');
+        $this->db->join('shop b','a.shop_id = b.id','left');
+        $this->db->where('b.uid',$app_uid);
+        return $this->db->get()->result_array();
+    }
+
     function queryByKey($id, $selectFields = '*') {
         $condtionFields [$this->primaryKey] = $id;
 
