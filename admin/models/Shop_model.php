@@ -175,5 +175,11 @@ class Shop_model extends MY_Model
 		}
 	}
 
+	public function get_shop_imgs($id){
+		$this->db->select();
+		$this->db->from('shop_img');
+		$this->db->where('shop_id',$id);
+		return $this->db->get()->result();
+	}
 
 }
