@@ -616,8 +616,10 @@ class Apiuser_model extends MY_Model
             return -2;
         }
 
+
         $shop = $this->db->select()->from('shop')->where("uid = $uid")->get()->row_array();
         if($shop){
+            $this->save_shop_img($shop['id']);
             if($this->db->where(array('id'=>$shop['id']))->update('shop',$data)){
                 return 1;
             }else{
@@ -625,11 +627,27 @@ class Apiuser_model extends MY_Model
             }
         }else{
             if($this->db->insert('shop',$data)){
+                $shop_id = $this->db->insert_id();
+                $this->save_shop_img($shop_id);
                 return 1;
             }else{
                 return -1;
             }
         }
+    }
+
+    protected function save_shop_img($shop_id){
+        $shop_img = $this->input->post('shop_img');
+        if(is_array($shop_img)){
+            $this->db->where('shop_id',$shop_id)->delete('shop_img');
+            foreach($shop_img as $img){
+                $this->db->insert('shop_img',array(
+                    'shop_id'=>$shop_id,
+                    'img'=>$img
+                ));
+            }
+        }
+        return '';
     }
 
     public function add_cart($app_uid){

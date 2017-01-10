@@ -1017,4 +1017,16 @@ class Apiuser extends MY_APIcontroller {
 		die();
 	}
 
+	public function save_shop_img(){
+		$img = $this->upload('shop_img','shop_img');
+		if($img){
+			$this->rs['img_path']=$img;
+			echo json_encode($this->rs);
+			die();
+		}else{
+			$this->err_rs['error_msg']='保存失败!';
+			echo json_encode($this->err_rs);
+			die();
+		}
+	}
 }
