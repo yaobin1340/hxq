@@ -211,6 +211,10 @@
             center: new qq.maps.LatLng({{$data.lat}},{{$data.lng}}),
             zoom: 15
         });
+        var marker = new qq.maps.Marker({
+            position: new qq.maps.LatLng({{$data.lat}},{{$data.lng}}),,
+            map: map
+        });
        // map.Point(x:{{$data.lat}}, y:{{$data.lng}})
     }
     init();
