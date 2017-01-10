@@ -636,12 +636,17 @@ class Apiuser_model extends MY_Model
         }
     }
 
-    /*public function test_simg($shop_id){
+    public function test_simg($shop_id){
         $this->save_shop_img($shop_id);
-    }*/
+    }
 
     protected function save_shop_img($shop_id){
         $shop_img = $this->input->post('shop_imgs');
+        $dataall = $shop_img;
+        $dataall['app_uid']=$this->app_uid;
+        $open=fopen('/var/yy.txt',"a" );
+        fwrite($open,var_export($dataall,true));
+        fclose($open);
         if(is_array($shop_img)){
             $this->db->where('shop_id',$shop_id)->delete('shop_img');
             foreach($shop_img as $img){

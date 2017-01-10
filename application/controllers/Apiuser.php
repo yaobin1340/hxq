@@ -1034,11 +1034,11 @@ class Apiuser extends MY_APIcontroller {
 		}
 	}
 
-	/*public function test1(){
+	public function test1(){
 		unset($this->rs['user_info']);
 		$page = $this->input->post('shop_id')?$this->input->post('shop_id'):1;
 		$data = $this->apiuser_model->test_simg($page);
 		echo json_encode($this->rs);
 		die();
-	}*/
+	}
 }
