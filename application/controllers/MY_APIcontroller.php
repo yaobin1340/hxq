@@ -110,6 +110,7 @@ class MY_APIcontroller extends CI_Controller
         $config['file_name']       = $this->getRandChar(24);
 
         $this->load->library('upload', $config);
+        $this->upload->initialize();
         $dataall = array();
         $dataall['folder'] = $folder;
         $dataall['input_name'] = $input_name;
