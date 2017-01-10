@@ -109,15 +109,15 @@
                     </div>
                 </div>-->
 
-                <div class="am-form-group">
+                <!--<div class="am-form-group">
                     <label class="am-u-sm-2 am-form-label">位置</label>
                     <div class="am-u-sm-10" id="allmap" style="height:500px;">
 
                     </div>
-                </div>
+                </div>-->
 
                 <div class="am-form-group">
-                    <label class="am-u-sm-2 am-form-label">腾讯位置</label>
+                    <label class="am-u-sm-2 am-form-label">位置</label>
                     <div class="am-u-sm-10" id="container" style="height:500px;">
 
                     </div>
@@ -205,7 +205,10 @@
             center: new qq.maps.LatLng({{$data.lat}},{{$data.lng}}),
         zoom: 15
     });
-        // map.Point(x:{{$data.lat}}, y:{{$data.lng}})
+        var marker = new qq.maps.Marker({
+            position: new qq.maps.LatLng({{$data.lat}},{{$data.lng}}),
+        map: map
+    });
     }
     init();
 </script>
