@@ -32,6 +32,7 @@ class Apiuser extends MY_APIcontroller {
 		parent::__construct();
 		$this->load->model('apiuser_model');
 		$this->token = $this->get_token();
+		//$this->load->library('upload');
 		if($this->token){
 			$this->app_uid=$this->get_token_uid($this->token);
 			if($this->app_uid <= 0){
