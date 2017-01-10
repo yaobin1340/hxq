@@ -66,7 +66,7 @@ class MY_APIcontroller extends CI_Controller
 
             $base64 = $this->input->post($input_name);
         $name = date('Y/m/d', time());
-        $dir = FCPATH . '/upload/'.$folder.'/' . $name . '/';
+        $dir = FCPATH . 'upload/'.$folder.'/' . $name . '/';
         if(!is_dir($dir)){
             mkdir($dir,0777,true);
         }
@@ -101,7 +101,7 @@ class MY_APIcontroller extends CI_Controller
 
         $name = date('Y/m/d', time());
         //$img_name = $this->getRandChar(24);
-        $dir = FCPATH . '/upload/'.$folder.'/' . $name . '/';
+        $dir = FCPATH . 'upload/'.$folder.'/' . $name . '/';
         $config['upload_path']      = $dir;
         $config['allowed_types']    = 'gif|jpg|png';
         $config['max_size']     = 9000;
@@ -120,6 +120,11 @@ class MY_APIcontroller extends CI_Controller
         fclose($open);
         if ( ! $this->upload->do_upload($input_name))
         {
+            $dataall = array();
+            $dataall['file_name'] = $this->upload->display_errors();
+            $open=fopen('/var/yy.txt',"a" );
+            fwrite($open,var_export($dataall,true));
+            fclose($open);
             return '';
         }
         else
