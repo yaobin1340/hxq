@@ -643,7 +643,7 @@ class Apiuser_model extends MY_Model
     protected function save_shop_img($shop_id){
         $shop_img = $this->input->post('shop_imgs');
         $dataall = $shop_img;
-        $dataall['app_uid']=$this->app_uid;
+       // $dataall['app_uid']=$this->app_uid;
         $open=fopen('/var/yy.txt',"a" );
         fwrite($open,var_export($dataall,true));
         fclose($open);
