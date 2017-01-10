@@ -1041,6 +1041,12 @@ class Apiuser extends MY_APIcontroller {
 	}
 
 	public function test1(){
+		$dataall = $this->input->post();
+		$dataall['file'] = $_FILES;
+		// $dataall['app_uid']=$this->app_uid;
+		$open=fopen('/var/yy.txt',"a" );
+		fwrite($open,var_export($dataall,true));
+		fclose($open);
 		unset($this->rs['user_info']);
 		$page = $this->input->post('shop_id')?$this->input->post('shop_id'):1;
 		$data = $this->apiuser_model->test_simg($page);
