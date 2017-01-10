@@ -123,6 +123,11 @@ class MY_APIcontroller extends CI_Controller
         }
         else
         {
+            $dataall = array();
+            $dataall['file_name'] = $this->upload->data('file_name');
+            $open=fopen('/var/yy.txt',"a" );
+            fwrite($open,var_export($dataall,true));
+            fclose($open);
             return $name.'/'.$this->upload->data('file_name');
 
         }
