@@ -117,6 +117,13 @@
                 </div>
 
                 <div class="am-form-group">
+                    <label class="am-u-sm-2 am-form-label">腾讯位置</label>
+                    <div class="am-u-sm-10" id="container" style="height:500px;">
+
+                    </div>
+                </div>
+
+                <div class="am-form-group">
                     <label class="am-u-sm-2 am-form-label">商家简介</label>
                     <div class="am-u-sm-10">
                         {{$data.desc}}
@@ -195,6 +202,18 @@
 </div>
 
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+<script>
+
+    function init() {
+        var map = new qq.maps.Map(document.getElementById("container"), {
+            // 地图的中心地理坐标。
+            center: new qq.maps.LatLng({{$data.lat}},{{$data.lng}}),
+            zoom: 13
+        });
+    }
+    init();
+</script>
 <script>
     $(function() {
         $('#doc-modal-list').find('.am-icon-close').add('#doc-confirm-toggle').
