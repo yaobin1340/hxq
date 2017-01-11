@@ -30,14 +30,14 @@ class MY_APIcontroller extends CI_Controller
         require_once (APPPATH . 'libraries/Base64.php');
         $uid = 'USER_'.$uid.'_'.time();
         //$uid = base64_encode($uid);
-        $uid = base64::encrypt($uid, 'abcd888888');
+        $uid = base64::encrypt($uid, $this->config->item('token_key'));
         return base64_encode($uid);
     }
 
     public function get_token_uid($token){
         require_once (APPPATH . 'libraries/Base64.php');
         $token = base64_decode($token);
-        $token = base64::decrypt($token, 'abcd888888');
+        $token = base64::decrypt($token, $this->config->item('token_key'));
         $token = explode('_', $token);
         if($token[0]!= 'USER') return 0;
         return (int)$token[1];
