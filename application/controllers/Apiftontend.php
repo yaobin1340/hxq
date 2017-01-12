@@ -422,14 +422,20 @@ class Apiftontend extends MY_APIcontroller {
 
 	public function get_turns_imgs(){
 		$img_list = array();
-		if(file_exists(dirname(SELF).'/statics/images/banner.jpg')){
-			$img_list[]=array('path'=>'statics/images/banner.jpg');
+		if(file_exists(dirname(SELF).'/statics/images/carousel1.jpg')){
+			$img_list[]=array('path'=>'statics/images/carousel1.jpg');
 		}
-		if(file_exists(dirname(SELF).'/statics/images/banner1.jpg')){
-			$img_list[]=array('path'=>'statics/images/banner1.jpg');
+		if(file_exists(dirname(SELF).'/statics/images/carousel2.jpg')){
+			$img_list[]=array('path'=>'statics/images/carousel2.jpg');
 		}
-		if(file_exists(dirname(SELF).'/statics/images/banner2.jpg')){
-			$img_list[]=array('path'=>'statics/images/banner2.jpg');
+		if(file_exists(dirname(SELF).'/statics/images/carousel3.jpg')){
+			$img_list[]=array('path'=>'statics/images/carousel3.jpg');
+		}
+		if(file_exists(dirname(SELF).'/statics/images/carousel4.jpg')){
+			$img_list[]=array('path'=>'statics/images/carousel4.jpg');
+		}
+		if(file_exists(dirname(SELF).'/statics/images/carousel5.jpg')){
+			$img_list[]=array('path'=>'statics/images/carousel5.jpg');
 		}
 
 		$rs = array(
