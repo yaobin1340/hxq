@@ -20,10 +20,13 @@ class MY_Controller extends CI_Controller
 		$this->cismarty->assign('header_name','');//初始化标题
 		$this->cismarty->assign('footer_flag','');//初始化
 		$this->load->model('sys_model');
+		$this->config->load('wxpay_config');
 		//if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) {
 			if(!$this->session->userdata('openid')){
-				$appid="wxa6a2f25241f8bc87";
-				$secret="3cbf8a0ea011dd71a2fbc95124858804";
+				/*$appid="wxa6a2f25241f8bc87";
+				$secret="3cbf8a0ea011dd71a2fbc95124858804";*/
+				$appid = $this->config->item('hxq_appid');
+				$secret = $this->config->item('hxq_appsecret');
 				if(empty($_GET['code'])){
 					$url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
 					$url = urlencode($url);
@@ -315,7 +318,7 @@ class MY_Controller extends CI_Controller
 	}
 
 	public function buildWxData(){
-		$signPackage = @$this->wxjssdk->wxgetSignPackage();
+		$signPackage = @$this->wxjssdk->wxgetSignPackage($this->config->item('hxq_appid'),$this->config->item('hxq_appsecret'),$this->config->item('hxq_path'));
 		//变量
 		$this->cismarty->assign('wxappId',$signPackage["appId"]);
 		$this->cismarty->assign('wxtimestamp',$signPackage["timestamp"]);
