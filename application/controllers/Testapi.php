@@ -35,6 +35,7 @@ class Testapi extends CI_Controller
         $appid = 'wx2d80ea0f220b6bf5';
         $secret = '7631f33bca93efa90cf68a98cc4a98e0';
         $j_access_token=file_get_contents("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$appid}&secret={$secret}&code={$code}&grant_type=authorization_code");
+        die(var_dump($j_access_token));
         $a_access_token=json_decode($j_access_token,true);
         $access_token=$a_access_token["access_token"];
         $openid=$a_access_token["openid"];
