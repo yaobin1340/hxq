@@ -84,7 +84,7 @@ class Money_log_model extends MY_Model
 	public function get_type_list(){
 		$this->db->select();
 		$this->db->from('money_log_type');
-		return $this->db->get()->result_array();
+		return $this->db->order_by('id','asc')->get()->result_array();
 	}
 
 }
