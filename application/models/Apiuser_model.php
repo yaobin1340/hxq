@@ -1097,7 +1097,7 @@ class Apiuser_model extends MY_Model
                     $this->db->update('users');
                     $this->db->insert('money_log',array(
                         'remark'=>'线上商城购物 扣除葵花籽',
-                        'money'=>$use_integral,
+                        'money'=>'-'.(string)$use_integral,
                         'type'=>11,
                         'uid'=>$app_uid,
                         'cdate' => date('Y-m-d H:i:s')
@@ -1110,7 +1110,7 @@ class Apiuser_model extends MY_Model
                     $this->db->update('users');
                     $this->db->insert('money_log',array(
                         'remark'=>'线上商城购物 扣除葵花籽',
-                        'money'=>$user_info['integral'],
+                        'money'=>'-'.(string)$user_info['integral'],
                         'type'=>11,
                         'uid'=>$app_uid,
                         'cdate' => date('Y-m-d H:i:s')
@@ -1214,8 +1214,8 @@ class Apiuser_model extends MY_Model
             $this->db->set('integral',"integral - {$use_integral}",false);
             $this->db->update('users');
             $this->db->insert('money_log',array(
-                'remark'=>'向日葵激励(会员)',
-                'money'=>$use_integral,
+                'remark'=>'线上商城购物 扣除葵花籽',
+                'money'=>'-'.(string)$use_integral,
                 'type'=>11,
                 'uid'=>$app_uid,
                 'cdate' => date('Y-m-d H:i:s')
@@ -1227,8 +1227,8 @@ class Apiuser_model extends MY_Model
             $this->db->set('integral',"integral - {$user_info['integral']}",false);
             $this->db->update('users');
             $this->db->insert('money_log',array(
-                'remark'=>'向日葵激励(会员)',
-                'money'=>$user_info['integral'],
+                'remark'=>'线上商城购物 扣除葵花籽',
+                'money'=>'-'.(string)$user_info['integral'],
                 'type'=>11,
                 'uid'=>$app_uid,
                 'cdate' => date('Y-m-d H:i:s')
