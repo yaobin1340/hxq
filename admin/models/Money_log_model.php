@@ -59,7 +59,25 @@ class Money_log_model extends MY_Model
 		$this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
 		$this->db->order_by('a.cdate','desc');
 		$data['items'] = $this->db->get()->result_array();
+		//获取总资金
+		$this->db->select('sum(a.money) alltotal')->from('money_log a');
+		$this->db->join('users b','a.uid = b.id','left');
+		if($this->input->post('keyword')){
+			$this->db->like('b.rel_name',$this->input->post('keyword'));
+			$this->db->or_like('b.mobile',$this->input->post('keyword'));
+		}
+		if($this->input->post('type')){
+			$this->db->where('a.type',$this->input->post('type'));
+		}
+		if($this->input->post('s_date')){
+			$this->db->where("a.cdate >=",$this->input->post('s_date'));
+		}
 
+		if($this->input->post('e_date')){
+			$this->db->where("a.cdate <=",$this->input->post('e_date')." 23:59:59");
+		}
+		$num = $this->db->get()->row();
+		$data['alltotal'] = $num->alltotal;
 		return $data;
 	}
 

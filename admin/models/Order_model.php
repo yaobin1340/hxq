@@ -77,6 +77,30 @@ class Order_model extends MY_Model
 		$ysday= $this->db->select('sum(total) sum')->from('order')->where("DATE_FORMAT(sdate,'%Y-%m-%d')",$ysday)->get()->row_array();
 		$data['today_sum'] = $today['sum'];
 		$data['ysday_sum'] = $ysday['sum'];
+		//获取总金额
+		$this->db->select("sum(a.total) alltotal,sum(a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100) allneed,sum(a.num) allnum",false)->from('order a');
+		$this->db->join('shop b','a.shop_id=b.id','left');
+		if($status == 1){
+			$this->db->where_in('a.status',array(1));
+		}elseif($status==-1){
+			$this->db->where_in('a.status',array(-1));
+		}else{
+			$this->db->where_in('a.status',array(2,3));
+		}
+		if($this->input->post('keyword')){
+			$this->db->like('b.shop_name',$this->input->post('keyword'));
+		}
+		if($this->input->post('s_date')){
+			$this->db->where("a.{$search_date} >=",$this->input->post('s_date'));
+		}
+
+		if($this->input->post('e_date')){
+			$this->db->where("a.{$search_date} <=",$this->input->post('e_date')." 23:59:59");
+		}
+		$num = $this->db->get()->row();
+		$data['alltotal'] = $num->alltotal;
+		$data['allneed'] = $num->allneed;
+		$data['allnum'] = $num->allnum;
 		return $data;
 	}
 

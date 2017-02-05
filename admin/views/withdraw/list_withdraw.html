@@ -83,16 +83,19 @@
 
                         </div>
                         <div class="am-btn-group am-btn-group-xs">
-
+                            {{if $data.status == 1}}
                             <a type="button" class="am-btn am-btn-success" href="javascript:audit_withdraw('{{$item.id}}');">
                                 <span class="am-icon-pencil-square-o"></span> 审核通过
                             </a>
+                            {{/if}}
+
                         </div>
                     </div></td>
                 </tr>
                 {{/foreach}}
                 </tbody>
             </table>
+        <div class="am-cf">总金额:{{($data.alltotal|default:0)/100}}元</div>
             <div class="am-cf">{{$pager}}</div>
         </div>
 

@@ -95,7 +95,23 @@ class Withdraw_model extends MY_Model
 			$this->db->order_by('a.adate','desc');
 		}
 		$data['items'] = $this->db->get()->result_array();
+		//获取总金额
+		$this->db->select('sum(a.money) alltotal')->from('withdraw a');
+		$this->db->join('users b','a.uid = b.id','left');
+		if($this->input->post('keyword')){
+			$this->db->like('b.rel_name',$this->input->post('keyword'));
+			$this->db->or_like('b.mobile',$this->input->post('keyword'));
+		}
+		if($this->input->post('s_date')){
+			$this->db->where("a.{$search_date} >=",$this->input->post('s_date'));
+		}
 
+		if($this->input->post('e_date')){
+			$this->db->where("a.{$search_date} <=",$this->input->post('e_date')." 23:59:59");
+		}
+		$this->db->where('a.status',$status);
+		$num = $this->db->get()->row();
+		$data['alltotal'] = $num->alltotal;
 		return $data;
 	}
 

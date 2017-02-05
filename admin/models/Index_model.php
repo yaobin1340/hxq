@@ -49,17 +49,42 @@ GROUP BY c.parent_id order by allprice desc limit 5";
         $data = array();
         $data['users_num']=$this->db->select('count(1) num')->from('users')->get()->row()->num;
         $data['shop_num']=$this->db->select('count(1) num')->from('shop')->where('status',2)->get()->row()->num;
-        $data['ljxf']=$this->db->select('sum(total) alltotal')->from('shop')->get()->row()->alltotal;
-        $data['sunflower_user_num']=$this->db->select('count(1) num')->from('sunflower')->where('status',1)->get()->row()->num;
-        $data['sunflower_shop_num']=$this->db->select('count(1) num')->from('sunflower_shop')->where('status',1)->get()->row()->num;
-        $data['order_pay_total_3']=$this->db->select("sum((a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100)) alltotal",false)
+        $data['ljxf_6']=$this->db->select('sum(total) alltotal')->from('shop')->where('percent =','6')->get()->row()->alltotal;
+       // die(var_dump($this->db->last_query()));
+        $data['ljxf_12']=$this->db->select('sum(total) alltotal')->from('shop')->where('percent =','12')->get()->row()->alltotal;
+        $data['ljxf_24']=$this->db->select('sum(total) alltotal')->from('shop')->where('percent','24')->get()->row()->alltotal;
+        $data['sunflower_user_num_6']=$this->db->select('count(1) num')->from('sunflower')->where('status',1)->where('percent','6')->get()->row()->num;
+        $data['sunflower_user_num_12']=$this->db->select('count(1) num')->from('sunflower')->where('status',1)->where('percent','12')->get()->row()->num;
+        $data['sunflower_user_num_24']=$this->db->select('count(1) num')->from('sunflower')->where('status',1)->where('percent','24')->get()->row()->num;
+        $data['sunflower_shop_num_6']=$this->db->select('count(1) num')->from('sunflower_shop')->where('status',1)->where('percent','6')->get()->row()->num;
+        $data['sunflower_shop_num_12']=$this->db->select('count(1) num')->from('sunflower_shop')->where('status',1)->where('percent','12')->get()->row()->num;
+        $data['sunflower_shop_num_24']=$this->db->select('count(1) num')->from('sunflower_shop')->where('status',1)->where('percent','24')->get()->row()->num;
+
+        $data['order_pay_total_3_6']=$this->db->select("sum((a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100)) alltotal",false)
             ->from('order a')
             ->join('shop b','a.shop_id = b.id','left')
-            ->where('a.status',3)->get()->row()->alltotal;
-        $data['order_pay_total_2']=$this->db->select("sum((a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100)) alltotal",false)
+            ->where('a.status',3)->where('percent','6')->get()->row()->alltotal;
+        $data['order_pay_total_3_12']=$this->db->select("sum((a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100)) alltotal",false)
             ->from('order a')
             ->join('shop b','a.shop_id = b.id','left')
-            ->where('a.status',2)->get()->row()->alltotal;
+            ->where('a.status',3)->where('percent','12')->get()->row()->alltotal;
+        $data['order_pay_total_3_24']=$this->db->select("sum((a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100)) alltotal",false)
+            ->from('order a')
+            ->join('shop b','a.shop_id = b.id','left')
+            ->where('a.status',3)->where('percent','24')->get()->row()->alltotal;
+
+        $data['order_pay_total_2_6']=$this->db->select("sum((a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100)) alltotal",false)
+            ->from('order a')
+            ->join('shop b','a.shop_id = b.id','left')
+            ->where('a.status',2)->where('percent','6')->get()->row()->alltotal;
+        $data['order_pay_total_2_12']=$this->db->select("sum((a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100)) alltotal",false)
+            ->from('order a')
+            ->join('shop b','a.shop_id = b.id','left')
+            ->where('a.status',2)->where('percent','12')->get()->row()->alltotal;
+        $data['order_pay_total_2_24']=$this->db->select("sum((a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100)) alltotal",false)
+            ->from('order a')
+            ->join('shop b','a.shop_id = b.id','left')
+            ->where('a.status',2)->where('percent','24')->get()->row()->alltotal;
        // var_dump($this->db->last_query());
         $data['withdraw_total_2']=$this->db->select('sum(money) alltotal')->from('withdraw')->where('status',2)->get()->row()->alltotal;
         $data['withdraw_total_1']=$this->db->select('sum(money) alltotal')->from('withdraw')->where('status',1)->get()->row()->alltotal;
