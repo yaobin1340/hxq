@@ -80,6 +80,7 @@
                 {{/foreach}}
                 </tbody>
             </table>
+            <div class="am-cf">总金额:{{($data.alltotal|default:0)/100}}元;总需支付:{{($data.allneed|default:0)/100}}元;总订单数:{{($data.allnum|default:0)}}</div>
             <div class="am-cf">{{$pager}}</div>
         </div>
 

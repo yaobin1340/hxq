@@ -1,4 +1,5 @@
 <!-- content start -->
+<script src="/statics/js/My97DatePicker/WdatePicker.js"></script>
 <div class="admin-content">
 
     <div class="am-cf am-padding">
@@ -6,7 +7,23 @@
             结算管理
         </strong></div>
     </div>
+    <form method="post" action="{{site_url url='settlement/list_settlements'}}" class="search_form">
 
+        <div class="am-u-sm-12 am-u-md-8">
+            <div class="am-input-group am-input-group-sm" style="margin-top: 15px;">
+                时间范围:
+                <input style="height: 40px;" class="form-control" id="s_date" name="s_date" type="text" value="{{$data.s_date}}"
+                       onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'yyyy-MM-dd'})">——
+                <input style="height: 40px;" class="form-control" id="e_date" name="e_date" type="text" value="{{$data.e_date}}"
+                       onfocus="WdatePicker({isShowClear:true,readOnly:true,dateFmt:'yyyy-MM-dd'})">
+                    <span class="am-input-group-btn" style="float: right;">
+                        <input style="height: 40px;" type="submit" class="am-btn am-btn-default" value="搜索"/>
+                    </span>
+            </div>
+
+        </div>
+
+    </form>
     <div class="am-g">
         <div class="am-u-sm-12 am-u-md-3">
             <div class="am-input-group am-input-group-sm">
@@ -28,6 +45,7 @@
                     <th>商家日值(6)</th>
                     <th>商家日值(12)</th>
                     <th>商家日值(24)</th>
+                    <th>盈亏</th>
                     <th>状态</th>
                     <th>操作</th>
                 </tr>
@@ -42,6 +60,7 @@
                     <td><a>{{$item.shop_ax6_price/100}}</a></td>
                     <td><a>{{$item.shop_ax12_price/100}}</a></td>
                     <td><a>{{$item.shop_ax24_price/100}}</a></td>
+                    <td><a>{{$item.yk/100}}</a></td>
                     <td><a>{{if $item.status == 1}}<font color="red">待审核</font>{{else}}<font color="green">已完成</font>{{/if}}</a></td>
                     <td>
                         <div class="am-btn-toolbar">
@@ -68,6 +87,7 @@
                 {{/foreach}}
                 </tbody>
             </table>
+            <div class="am-cf">总盈亏:{{($data.allyk|default:0)/100}}元</div>
             <div class="am-cf">{{$pager}}</div>
         </div>
 

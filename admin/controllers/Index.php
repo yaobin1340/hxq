@@ -33,6 +33,7 @@ class Index extends MY_Controller {
 	public function main(){
 		$index_data = $this->index_model->index_data();
 		$sett_info = $this->index_model->get_sett_info();
+		$sy = $this->index_model->get_sy();
 		$ywy = $this->index_model->ywy();
 		$shop2_yey = $this->index_model->shop2_yey();
 		$shop_month_yey = $this->index_model->shop_month_yey();
@@ -44,6 +45,7 @@ class Index extends MY_Controller {
 		$this->assign('yesday', date("Y-m-d",strtotime("-1 day")));
 		$this->assign('now_month', date("Y-m"));
 		$this->assign('sett_info', $sett_info);
+		$this->assign('sy', $sy);
 		$this->show('index');
 	}
 

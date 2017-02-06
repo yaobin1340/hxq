@@ -34,43 +34,59 @@
                 <span class="am-icon-users"></span><br>
                 <span class="table1_admin_title">会员总数</span>
               <br><span class="table1_admin_title">{{$index_data.users_num|default:0}}</span>
+              <br>
+              <br>
             </td>
             <td class="td1">
                 <span class="am-icon-building"></span><br>
                 <span class="table1_admin_title">商家总数</span>
               <br><span class="table1_admin_title">{{$index_data.shop_num|default:0}}</span>
+              <br>
+              <br>
             </td>
             <td class="td1">
                 <span class="am-icon-shopping-cart"></span><br>
                 <span class="table1_admin_title">累计消费</span>
-              <br><span class="table1_admin_title">{{($index_data.ljxf|default:0)/100}}元</span>
+              <br><span class="table1_admin_title">6系列:{{($index_data.ljxf_6|default:0)/100}}元</span>
+              <br><span class="table1_admin_title">12系列:{{($index_data.ljxf_12|default:0)/100}}元</span>
+              <br><span class="table1_admin_title">24系列:{{($index_data.ljxf_24|default:0)/100}}元</span>
             </td>
             <td class="td1">
                 <span class="am-icon-sun-o"></span><br>
                 <span class="table1_admin_title">向日葵总数</span>
-              <br><span class="table1_admin_title">{{$index_data.sunflower_user_num|default:0}}/{{$index_data.sunflower_shop_num|default:0}}</span>
+              <br><span class="table1_admin_title">6系列:{{$index_data.sunflower_user_num_6|default:0}}/{{$index_data.sunflower_shop_num_6|default:0}}</span>
+              <br><span class="table1_admin_title">12系列:{{$index_data.sunflower_user_num_12|default:0}}/{{$index_data.sunflower_shop_num_12|default:0}}</span>
+              <br><span class="table1_admin_title">24系列:{{$index_data.sunflower_user_num_24|default:0}}/{{$index_data.sunflower_shop_num_24|default:0}}</span>
             </td>
         </tr>
         <tr>
             <td class="td1">
                 <span class="am-icon-money"></span><br>
                 <span class="table1_admin_title">累计收款</span>
-              <br><span class="table1_admin_title">{{($index_data.order_pay_total_3|default:0)/100}}元</span>
+              <br><span class="table1_admin_title">6系列:{{($index_data.order_pay_total_3_6|default:0)/100}}元</span>
+              <br><span class="table1_admin_title">12系列:{{($index_data.order_pay_total_3_12|default:0)/100}}元</span>
+              <br><span class="table1_admin_title">24系列:{{($index_data.order_pay_total_3_24|default:0)/100}}元</span>
             </td>
             <td class="td1">
                 <span class="am-icon-money"></span><br>
                 <span class="table1_admin_title">累计提现</span>
               <br><span class="table1_admin_title">{{($index_data.withdraw_total_2|default:0)/100}}元</span>
+              <br>
+              <br>
             </td>
             <td class="td1">
                 <span class="am-icon-clock-o"></span><br>
                 <span class="table1_admin_title">待确认收款</span>
-              <br><span class="table1_admin_title">{{($index_data.order_pay_total_2|default:0)/100}}元</span>
+              <br><span class="table1_admin_title">6系列:{{($index_data.order_pay_total_2_6|default:0)/100}}元</span>
+              <br><span class="table1_admin_title">12系列:{{($index_data.order_pay_total_2_12|default:0)/100}}元</span>
+              <br><span class="table1_admin_title">24系列:{{($index_data.order_pay_total_2_24|default:0)/100}}元</span>
             </td>
             <td class="td1">
                 <span class="am-icon-clock-o"></span><br>
                 <span class="table1_admin_title">待确认提现</span>
               <br><span class="table1_admin_title">{{($index_data.withdraw_total_1|default:0)/100}}元</span>
+              <br>
+              <br>
             </td>
         </tr>
     </table>
@@ -84,6 +100,9 @@
     </div>
   <div class="link_user_shop" style="margin-top: 10px">
     <div id="container3" style="min-width:500px;height:300px" class="link_user_shop_title">联盟营业额</div>
+  </div>
+  <div class="link_user_shop" style="margin-top: 10px">
+    <div id="container7" style="min-width:500px;height:300px" class="link_user_shop_title">联盟营业额</div>
   </div>
   <div class="link_user_shop" style="margin-top: 10px">
     <div id="container4" style="min-width:500px;height:280px" class="link_user_shop_title">下级消费者 前五</div>
@@ -495,6 +514,49 @@
     //chart3.series[1].name = ;
     $("#inverted3").click();
 
+    $('#container7').highcharts({
+      title: {
+        text: '每月净收益(显示最近6个月)',
+        x: -20 //center
+      },
+      subtitle: {
+        text: 'Source: 三客柚',
+        x: -20
+      },
+      xAxis: {
+        categories: [
+          {{foreach from=$sy key=k item=item}}
+    {{if $k!=0}},{{/if}}'{{$item.date}}'
+    {{/foreach}}]
+  },
+    yAxis: {
+      title: {
+        text: ''
+      },
+      plotLines: [{
+        value: 0,
+        width: 1,
+        color: '#808080'
+      }]
+    },
+    tooltip: {
+      valueSuffix: ''
+    },
+    legend: {
+      layout: 'vertical',
+              align: 'right',
+              verticalAlign: 'middle',
+              borderWidth: 0
+    },
+    series: [{
+      name: '每月净收益',
+      data: [
+        {{foreach from=$sy key=k item=item}}
+    {{if $k!=0}},{{/if}}{{$item.val/100}}
+    {{/foreach}}
+    ]
+  }]
+  });
   });
 
 </script>
