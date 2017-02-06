@@ -102,6 +102,9 @@
     <div id="container3" style="min-width:500px;height:300px" class="link_user_shop_title">联盟营业额</div>
   </div>
   <div class="link_user_shop" style="margin-top: 10px">
+    <div id="container7" style="min-width:500px;height:300px" class="link_user_shop_title">联盟营业额</div>
+  </div>
+  <div class="link_user_shop" style="margin-top: 10px">
     <div id="container4" style="min-width:500px;height:280px" class="link_user_shop_title">下级消费者 前五</div>
     <button id="plain">Plain</button>
     <button id="inverted">inverted</button>
@@ -511,6 +514,49 @@
     //chart3.series[1].name = ;
     $("#inverted3").click();
 
+    $('#container7').highcharts({
+      title: {
+        text: '每月净收益(显示最近6个月)',
+        x: -20 //center
+      },
+      subtitle: {
+        text: 'Source: 三客柚',
+        x: -20
+      },
+      xAxis: {
+        categories: [
+          {{foreach from=$sy key=k item=item}}
+    {{if $k!=0}},{{/if}}'{{$item.date}}'
+    {{/foreach}}]
+  },
+    yAxis: {
+      title: {
+        text: ''
+      },
+      plotLines: [{
+        value: 0,
+        width: 1,
+        color: '#808080'
+      }]
+    },
+    tooltip: {
+      valueSuffix: ''
+    },
+    legend: {
+      layout: 'vertical',
+              align: 'right',
+              verticalAlign: 'middle',
+              borderWidth: 0
+    },
+    series: [{
+      name: '每月净收益',
+      data: [
+        {{foreach from=$sy key=k item=item}}
+    {{if $k!=0}},{{/if}}{{$item.val/100}}
+    {{/foreach}}
+    ]
+  }]
+  });
   });
 
 </script>

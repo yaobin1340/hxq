@@ -32,6 +32,51 @@ class Index_model extends MY_Model
         return $rs;
     }
 
+    public function get_sy(){
+        $ym = array(
+            0=>date("Y-m",strtotime("-5 months")),
+            1=>date("Y-m",strtotime("-4 months")),
+            2=>date("Y-m",strtotime("-3 months")),
+            3=>date("Y-m",strtotime("-2 months")),
+            4=>date("Y-m",strtotime("-1 months")),
+            5=>date("Y-m")
+        );
+        $return_val = array();
+        $ym_5 = date("Y-m",strtotime("-5 months"));
+        $sql = "select sum(money) allmoney,DATE_FORMAT(cdate,'%Y-%m') ymdate
+from money_log
+where type in (2,3,4,5,6,7,8,9) AND DATE_FORMAT(cdate,'%Y-%m') >= {$ym_5}
+GROUP BY DATE_FORMAT(cdate,'%Y-%m')";
+        $rs = $this->db->query($sql)->result_array();
+
+        $sql2 = "select sum((a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100)) alltotal,DATE_FORMAT(a.sdate,'%Y-%m') ymdate
+from `order` a
+LEFT JOIN shop b on a.shop_id = b.id
+where a.status = 3 AND DATE_FORMAT(a.sdate,'%Y-%m') >= {$ym_5}
+GROUP BY DATE_FORMAT(a.sdate,'%Y-%m')";
+        $rs2 = $this->db->query($sql2)->result_array();
+        foreach($ym as $val){
+            $sr_ = 0;
+            $zc_ = 0;
+            foreach($rs as $v1){
+                if($v1['ymdate'] == $val){
+                    $zc_ = $v1['allmoney'];
+                }
+            }
+            foreach($rs2 as $v2){
+                if($v2['ymdate'] == $val){
+                    $sr_ = $v2['alltotal'];
+                }
+            }
+            $return_val[] = array(
+                'date'=>$val,
+                'val'=>$sr_-$zc_
+            );
+        }
+       // die(var_dump($return_val));
+        return $return_val;
+    }
+
     public function ywy(){
         $ysday = date("Y-m-d",strtotime("-1 day"));
         $sql = "select SUM(a.price) allprice,c.parent_id,d.rel_name from order_list a
@@ -63,28 +108,28 @@ GROUP BY c.parent_id order by allprice desc limit 5";
         $data['order_pay_total_3_6']=$this->db->select("sum((a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100)) alltotal",false)
             ->from('order a')
             ->join('shop b','a.shop_id = b.id','left')
-            ->where('a.status',3)->where('percent','6')->get()->row()->alltotal;
+            ->where('a.status',3)->where('b.percent','6')->get()->row()->alltotal;
         $data['order_pay_total_3_12']=$this->db->select("sum((a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100)) alltotal",false)
             ->from('order a')
             ->join('shop b','a.shop_id = b.id','left')
-            ->where('a.status',3)->where('percent','12')->get()->row()->alltotal;
+            ->where('a.status',3)->where('b.percent','12')->get()->row()->alltotal;
         $data['order_pay_total_3_24']=$this->db->select("sum((a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100)) alltotal",false)
             ->from('order a')
             ->join('shop b','a.shop_id = b.id','left')
-            ->where('a.status',3)->where('percent','24')->get()->row()->alltotal;
+            ->where('a.status',3)->where('b.percent','24')->get()->row()->alltotal;
 
         $data['order_pay_total_2_6']=$this->db->select("sum((a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100)) alltotal",false)
             ->from('order a')
             ->join('shop b','a.shop_id = b.id','left')
-            ->where('a.status',2)->where('percent','6')->get()->row()->alltotal;
+            ->where('a.status',2)->where('b.percent','6')->get()->row()->alltotal;
         $data['order_pay_total_2_12']=$this->db->select("sum((a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100)) alltotal",false)
             ->from('order a')
             ->join('shop b','a.shop_id = b.id','left')
-            ->where('a.status',2)->where('percent','12')->get()->row()->alltotal;
+            ->where('a.status',2)->where('b.percent','12')->get()->row()->alltotal;
         $data['order_pay_total_2_24']=$this->db->select("sum((a.total*(REPLACE(REPLACE(REPLACE(b.percent, '24', 24),'12',12),'6',6))/100)) alltotal",false)
             ->from('order a')
             ->join('shop b','a.shop_id = b.id','left')
-            ->where('a.status',2)->where('percent','24')->get()->row()->alltotal;
+            ->where('a.status',2)->where('b.percent','24')->get()->row()->alltotal;
        // var_dump($this->db->last_query());
         $data['withdraw_total_2']=$this->db->select('sum(money) alltotal')->from('withdraw')->where('status',2)->get()->row()->alltotal;
         $data['withdraw_total_1']=$this->db->select('sum(money) alltotal')->from('withdraw')->where('status',1)->get()->row()->alltotal;
