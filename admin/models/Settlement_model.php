@@ -15,16 +15,39 @@ class Settlement_model extends MY_Model
     	$data['limit'] = $this->limit;
     	//获取总记录数
     	$this->db->select('count(1) num')->from('settlement');
+		if($this->input->post('s_date')){
+			$this->db->where("date >=",$this->input->post('s_date'));
+		}
 
+		if($this->input->post('e_date')){
+			$this->db->where("date <=",$this->input->post('e_date'));
+		}
     	$num = $this->db->get()->row();
     	$data['total'] = $num->num;
-
+		$data['s_date'] = $this->input->post('s_date')?$this->input->post('s_date'):null;
+		$data['e_date'] = $this->input->post('e_date')?$this->input->post('e_date'):null;
     	//获取详细列
     	$this->db->select()->from('settlement')->order_by('date','desc');
+		if($this->input->post('s_date')){
+			$this->db->where("date >=",$this->input->post('s_date'));
+		}
 
+		if($this->input->post('e_date')){
+			$this->db->where("date <=",$this->input->post('e_date'));
+		}
     	$this->db->limit($this->limit, $offset = ($page - 1) * $this->limit);
     	$data['items'] = $this->db->get()->result_array();
-    
+		//获取总盈亏
+		$this->db->select('sum(yk) allyk')->from('settlement');
+		if($this->input->post('s_date')){
+			$this->db->where("date >=",$this->input->post('s_date'));
+		}
+
+		if($this->input->post('e_date')){
+			$this->db->where("date <=",$this->input->post('e_date'));
+		}
+		$num = $this->db->get()->row();
+		$data['allyk'] = $num->allyk;
     	return $data;
     }
 
@@ -414,7 +437,8 @@ class Settlement_model extends MY_Model
 			'ax24_price'=>$this->input->post('ax24_price')*100,
 			'shop_ax6_price'=>$this->input->post('shop_ax6_price')*100,
 			'shop_ax12_price'=>$this->input->post('shop_ax12_price')*100,
-			'shop_ax24_price'=>$this->input->post('shop_ax24_price')*100
+			'shop_ax24_price'=>$this->input->post('shop_ax24_price')*100,
+			'yk'=>$this->input->post('yk')*100,
 		);
 		$rs = $this->db->where('id',$id)->update('settlement',$data);
 		if($rs)

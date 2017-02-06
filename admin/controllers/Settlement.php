@@ -43,7 +43,7 @@ class Settlement extends MY_Controller {
 	public function save_change_settlement(){
 		$rs = $this->settlement_model->save_change_settlement();
 		if($rs == 1){
-			$this->show_message('保存成功',site_url('order/list_settlements'));
+			$this->show_message('保存成功',site_url('settlement/list_settlements'));
 		}else{
 			$this->show_message('保存失败');
 		}

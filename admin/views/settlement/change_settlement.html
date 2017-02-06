@@ -68,6 +68,7 @@
                 <div class="am-u-sm-8" id="yingkui">
                     0
                 </div>
+                <input type="hidden" name="yk" id="yk" value="0">
             </div>
 
             <div class="am-u-sm-12">
@@ -182,6 +183,7 @@
 
         total_pay = ax6_price*ax6 + ax12_price*ax12 + ax24_price*ax24 + shop_ax6_price*ax6_shop + shop_ax12_price*ax12_shop + shop_ax24_price*ax24_shop;
         $("#yingkui").html((total-total_pay).toFixed(2))
+        $("#yk").val((total-total_pay).toFixed(2))
     }
 </script>
 
